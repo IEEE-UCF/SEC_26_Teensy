@@ -6,6 +6,7 @@
 #include "Pose2D.h"
 #include "VectorRobotDrive.h"
 #include "ButtonHandler.h"
+#include "ServoHandler.h"
 
 /* --- Pinout ---
  0 - xxx
@@ -17,7 +18,8 @@
 
 // --- Constants ---
 // EX: #define PWM_LOW 980
-// #define MOTOR_COUNT 4  VectorRobotDrive.h, cannot change easily
+// #define MOTOR_COUNT 4  VectorRobotDrive.
+// #define SERVO_COUNT 3  ServoHandler.h
 #define BUTTON_COUNT 2
 
 // --- Motor Setup ---
@@ -32,6 +34,7 @@ const int kButton[BUTTON_COUNT] = {0, 1}; //TODO
 
 // --- Other Output Pins ---
 // EX: const int kRGB[3] = {8, 7, 4};               // RGB Pins
+const int kServo[SERVO_COUNT] = {10, 11, 12};
 
 /*
   ===== SETUP =====
@@ -40,10 +43,21 @@ const int kButton[BUTTON_COUNT] = {0, 1}; //TODO
 // --- Input Handlers ---
 // EX: RFHandler rf(kRF[0], kRF[1]);
 ButtonHandler buttons(kButton, BUTTON_COUNT);
+//BNO055 handler
+//Hall Effect handler
+//VL53L0X handler
 
 // --- Output Handlers ---
 // EX: DriveHandler drive(kMotors[0][0], kMotors[0][1], kMotors[1][0], kMotors[1][1], true, false);
 VectorRobotDrive robotDrive(kPWM, kCW, kENC, rev);
+ServoHandler servos(kServo, SERVO_COUNT);
+
+// --- Two-Way Handlers ---
+//Serial handler
+
+
+
+
 
 void setup()
 {
