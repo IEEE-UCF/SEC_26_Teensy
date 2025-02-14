@@ -1,4 +1,4 @@
-#include "PoseRobotDrive.h"
+#include "VectorRobotDrive.h"
 #include <Arduino.h>
 
 VectorRobotDrive::VectorRobotDrive(int kPWM[], int kCW[], int kENC[], bool rev[]) : speedPose(0, 0, 0)
@@ -21,14 +21,18 @@ void VectorRobotDrive::Set(const Pose2D &speedPose)
     // motors[i].set(255, true)
 }
 
-void VectorRobotDrive::Read(float *arr)
+void VectorRobotDrive::Read()
 {
     for (int i = 0; i < MOTOR_COUNT; i++)
     {
         float reading;
         motors[i]->Read(&reading);
-        arr[i] = reading;
+        enc[i] = reading;
     }
+}
+
+void VectorRobotDrive::ReturnEnc(float* enc) {
+  enc = this->enc;
 }
 
 void VectorRobotDrive::Write()
@@ -37,4 +41,53 @@ void VectorRobotDrive::Write()
     {
         motors[i]->Write();
     }
+}
+
+/*
+    ChatGPT generated code
+    Chaining multiple Pose2D objects in the main sketch
+    Serial << pose1 << pose2 << pose3;
+    Serial << robotDrive            prints config
+    Serial << robotDrive.speedPose  prints current pose
+    Serial << robotDrive.
+*/
+
+Print& operator<<(Print& output, const VectorRobotDrive& drive) {
+    output.println("VectorRobotDrive Configuration:");
+    output.print("kPWM: ");
+    for (int i = 0; i < MOTOR_COUNT; i++) {
+        output.print(drive.kPWM[i]);
+        if (i < MOTOR_COUNT - 1) output.print(", ");
+    }
+    output.println();
+    output.print("kCW: ");
+    for (int i = 0; i < MOTOR_COUNT; i++) {
+        output.print(drive.kCW[i]);
+        if (i < MOTOR_COUNT - 1) output.print(", ");
+    }
+    output.println();
+    output.print("kENC: ");
+    for (int i = 0; i < MOTOR_COUNT; i++) {
+        output.print(drive.kENC[i]);
+        if (i < MOTOR_COUNT - 1) output.print(", ");
+    }
+    output.println();
+    output.print("rev: ");
+    for (int i = 0; i < MOTOR_COUNT; i++) {
+        output.print(drive.rev[i]);
+        if (i < MOTOR_COUNT - 1) output.print(", ");
+    }
+    output.println();
+    return output;
+}
+
+Print& operator<<(Print& output, const Pose2D& pose) {
+    output.print("Current Pose: (");
+    output.print(pose.x);
+    output.print(", ");
+    output.print(pose.y);
+    output.print(", ");
+    output.print(pose.rot);
+    output.println(")");
+    return output;
 }

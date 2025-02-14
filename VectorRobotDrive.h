@@ -1,5 +1,5 @@
-#ifndef PoseRobotDrive_h
-#define PoseRobotDrive_h
+#ifndef VectorRobotDrive_h
+#define VectorRobotDrive_h
 
 #include "Pose2D.h"
 #include "DriveMotor.h"
@@ -17,15 +17,17 @@ public:
     VectorRobotDrive(int kPWM[], int kCW[], int kENC[], bool rev[]);
     // void Begin();
     void Set(const Pose2D &speedPose);
-    void Read(float *arr);
+    void Read();
+    void ReturnEnc(float* enc);
     void Write();
 
     friend Print &operator<<(Print &output, const VectorRobotDrive &drive);
-    friend Print &operator<<(Print &output, const Pose2D &pose);
+    //friend Print &operator<<(Print &output, const Pose2D &pose); declared in pose2D
 
 private:
     Pose2D speedPose;
     DriveMotor *motors[MOTOR_COUNT];
+    float enc[MOTOR_COUNT];
     // Only used for diagnostics (serial write).
     int kPWM[MOTOR_COUNT];
     int kCW[MOTOR_COUNT];
