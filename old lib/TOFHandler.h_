@@ -1,5 +1,5 @@
-#ifndef TOFHandler_h
-#define TOFHandler_h
+// #ifndef TOFHandler_h
+// #define TOFHandler_h
 
 #include "Arduino.h"
 #include "Wire.h"

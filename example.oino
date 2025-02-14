@@ -7,9 +7,9 @@
 // #include "SelectorHandler.h"
 // #include "TOFHandler.h"
 // #include "MPUHandler.h"
-#include "DriveHandler.h"
-#include <SoftwareSerial.h>
-#include "RFHandler.h"
+//#include "RFHandler.h"
+//#include <SoftwareSerial.h>
+//#include "DriveHandler.h"
 
 /* --- Pinout ---
  0 - xxx
@@ -49,12 +49,12 @@ void setup()
 void loop()
 {
   // --- Input Handling ---
-  rf.Receive();
+  //rf.Receive();
 
   // --- Input Parsing
-  rf.Parse(true);
-  drive.Set(rf.ly, rf.rx, rf.b1, rf.b2);
+  //rf.Parse(true);
+  //drive.Set(rf.ly, rf.rx, rf.b1, rf.b2);
 
   // -- Output ---
-  drive.Update();
+  //drive.Update();
 }

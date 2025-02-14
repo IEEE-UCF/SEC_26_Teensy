@@ -2,19 +2,7 @@
   ===== DEPENDENCIES =====
 */
 
-// #include <RH_ASK.h>
-// #ifdef RH_HAVE_HARDWARE_SPI
-// #include <SPI.h> // Not actually used but needed to compile
-// #endif
-// #include <Wire.h>
-#include <RGBHandler.h>
-#include "LineHandler.h"
-#include "SelectorHandler.h"
-// #include "TOFHandler.h"
-// #include "MPUHandler.h"
-#include "DriveHandler.h"
-#include <SoftwareSerial.h>
-#include "RFHandler.h"
+//EX: #include "SelectorHandler.h"
 
 /* --- Pinout ---
  0 - xxx
@@ -53,12 +41,12 @@ void setup() {
 
 void loop() {
   // --- Input Handling ---
-  rf.Receive();
+  //EX: rf.Receive();
 
-  // --- Input Parsing
-  rf.Parse(true);
-  drive.Set(rf.ly, rf.rx, rf.b1, rf.b2);
+  // --- Input Parsing ---
+  //EX: rf.Parse(true);
+  //EX: drive.Set(rf.ly, rf.rx, rf.b1, rf.b2);
 
   // -- Output ---
-  drive.Update();
+  //EX: drive.Update();
 }
