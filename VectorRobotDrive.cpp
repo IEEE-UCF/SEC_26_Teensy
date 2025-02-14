@@ -1,7 +1,7 @@
 #include "PoseRobotDrive.h"
 #include <Arduino.h>
 
-PoseRobotDrive::PoseRobotDrive(int kPWM[], int kCW[], int kENC[], bool rev[]) : speedPose(0,0,0)
+VectorRobotDrive::VectorRobotDrive(int kPWM[], int kCW[], int kENC[], bool rev[]) : speedPose(0, 0, 0)
 {
     for (int i = 0; i < MOTOR_COUNT; i++)
     {
@@ -13,7 +13,7 @@ PoseRobotDrive::PoseRobotDrive(int kPWM[], int kCW[], int kENC[], bool rev[]) : 
     }
 }
 
-void PoseRobotDrive::Set(const Pose2D &speedPose)
+void VectorRobotDrive::Set(const Pose2D &speedPose)
 {
     this->speedPose = speedPose;
     // Example logic to set dt. Must use kinematics to convert
@@ -21,15 +21,17 @@ void PoseRobotDrive::Set(const Pose2D &speedPose)
     // motors[i].set(255, true)
 }
 
-void PoseRobotDrive::Read(float *arr) {
-  for(int i = 0; i < MOTOR_COUNT; i++) {
-    float reading;
-    motors[i] -> Read(&reading);
-    arr[i] = reading;
-  }
+void VectorRobotDrive::Read(float *arr)
+{
+    for (int i = 0; i < MOTOR_COUNT; i++)
+    {
+        float reading;
+        motors[i]->Read(&reading);
+        arr[i] = reading;
+    }
 }
 
-void PoseRobotDrive::Write()
+void VectorRobotDrive::Write()
 {
     for (int i = 0; i < MOTOR_COUNT; i++)
     {

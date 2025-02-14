@@ -9,9 +9,9 @@
 class DriveMotor
 {
 public:
-    DriveMotor(int kPWM, int kCW, int kENC, bool rev);
+    DriveMotor(int kPWM, int kCW, int kENC, bool kRev);
     // void Begin();
-    void Set(int _speed, bool _fwd);
+    void Set(int speed);
     void Read(float *reading);
     void Write();
 
@@ -19,7 +19,7 @@ private:
     int kPWM;
     int kCW;
     int kENC;
-    bool rev;
+    bool kRev;
     int pwmout;
     bool cwout;
 };
