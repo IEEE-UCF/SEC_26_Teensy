@@ -5,6 +5,7 @@
 #include <Arduino.h>
 #include "Pose2D.h"
 #include "VectorRobotDrive.h"
+#include "ButtonHandler.h"
 
 /* --- Pinout ---
  0 - xxx
@@ -15,20 +16,19 @@
 */
 
 // --- Constants ---
-// Specific constants should be held in their respective files.
-// Only use global constants here
 // EX: #define PWM_LOW 980
+// #define MOTOR_COUNT 4  VectorRobotDrive.h, cannot change easily
+#define BUTTON_COUNT 2
 
 // --- Motor Setup ---
-// TODO: update motor pins
-// note: motor_count is from VectorRobotDrive
-int kPWM[MOTOR_COUNT] = {3, 5, 6, 9};
-int kCW[MOTOR_COUNT] = {2, 4, 7, 8};
-int kENC[MOTOR_COUNT] = {A0, A1, A2, A3};
-bool rev[MOTOR_COUNT] = {false, false, false, false};
+const int kPWM[MOTOR_COUNT] = {3, 5, 6, 9}; //TODO
+const int kCW[MOTOR_COUNT] = {2, 4, 7, 8}; //TODO
+const int kENC[MOTOR_COUNT] = {A0, A1, A2, A3}; //TODO
+const bool rev[MOTOR_COUNT] = {false, false, false, false}; //TODO
 
 // --- Other Input Pins ---
 // EX: const int kSelector[2] = {11, 12};
+const int kButton[BUTTON_COUNT] = {0, 1}; //TODO
 
 // --- Other Output Pins ---
 // EX: const int kRGB[3] = {8, 7, 4};               // RGB Pins
@@ -39,6 +39,7 @@ bool rev[MOTOR_COUNT] = {false, false, false, false};
 
 // --- Input Handlers ---
 // EX: RFHandler rf(kRF[0], kRF[1]);
+ButtonHandler buttons(kButton, BUTTON_COUNT);
 
 // --- Output Handlers ---
 // EX: DriveHandler drive(kMotors[0][0], kMotors[0][1], kMotors[1][0], kMotors[1][1], true, false);
@@ -50,12 +51,16 @@ void setup()
 
   // --- Begin Handlers ---
   // EX: drive.begin();
+  // (symbolic) robotDrive.Setup();
+  buttons.Setup();
+  
 }
 
 void loop()
 {
   // --- Input Handling ---
   // EX: rf.Receive();
+  buttons.Read();
 
   // --- Input Parsing ---
   // EX: rf.Parse(true);

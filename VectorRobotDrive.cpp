@@ -13,6 +13,7 @@ VectorRobotDrive::VectorRobotDrive(int kPWM[], int kCW[], int kENC[], bool rev[]
     }
 }
 
+//Ex: robot.Set(Pose2D(x,y,theta))
 void VectorRobotDrive::Set(const Pose2D &speedPose)
 {
     this->speedPose = speedPose;
@@ -31,10 +32,6 @@ void VectorRobotDrive::Read()
     }
 }
 
-void VectorRobotDrive::ReturnEnc(float* enc) {
-  enc = this->enc;
-}
-
 void VectorRobotDrive::Write()
 {
     for (int i = 0; i < MOTOR_COUNT; i++)
@@ -49,7 +46,6 @@ void VectorRobotDrive::Write()
     Serial << pose1 << pose2 << pose3;
     Serial << robotDrive            prints config
     Serial << robotDrive.speedPose  prints current pose
-    Serial << robotDrive.
 */
 
 Print& operator<<(Print& output, const VectorRobotDrive& drive) {

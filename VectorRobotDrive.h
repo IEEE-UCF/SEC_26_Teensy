@@ -18,16 +18,16 @@ public:
     // void Begin();
     void Set(const Pose2D &speedPose);
     void Read();
-    void ReturnEnc(float* enc);
     void Write();
 
     friend Print &operator<<(Print &output, const VectorRobotDrive &drive);
-    //friend Print &operator<<(Print &output, const Pose2D &pose); declared in pose2D
+
+    float enc[MOTOR_COUNT];
+    // friend Print &operator<<(Print &output, const Pose2D &pose); declared in pose2D
 
 private:
     Pose2D speedPose;
     DriveMotor *motors[MOTOR_COUNT];
-    float enc[MOTOR_COUNT];
     // Only used for diagnostics (serial write).
     int kPWM[MOTOR_COUNT];
     int kCW[MOTOR_COUNT];
