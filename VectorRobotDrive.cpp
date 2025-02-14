@@ -81,7 +81,7 @@ Print& operator<<(Print& output, const VectorRobotDrive& drive) {
     return output;
 }
 
-Print& operator<<(Print& output, const Pose2D& pose) {
+/*Print& operator<<(Print& output, const Pose2D& pose) {
     output.print("Current Pose: (");
     output.print(pose.x);
     output.print(", ");
@@ -90,4 +90,5 @@ Print& operator<<(Print& output, const Pose2D& pose) {
     output.print(pose.rot);
     output.println(")");
     return output;
-}
+}*/
+//defined in pose2d
