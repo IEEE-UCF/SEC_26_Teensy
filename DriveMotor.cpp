@@ -1,22 +1,26 @@
 #include "DriveMotor.h"
 #include "Arduino.h"
 
-DriveMotor::DriveMotor(int kPWM, int kCW, int kENC, bool reversed = false)
+DriveMotor::DriveMotor(int kPWM, int kCW, int kENC, bool rev) : kPWM(kPWM), kCW(kCW), kENC(kENC), rev(rev) {}
+
+void DriveMotor::Set(int _speed, bool _fwd)
 {
-  _kPWM = kPWM;
-  _kCW = kCW;
-  _kENC = kENC;
-  _rev = reversed;
+  if (rev)
+  {
+    _fwd = !_fwd;
+  }
+  pwmout = map(constrain(_speed, -SPEED_MAX, SPEED_MAX), -SPEED_MAX, SPEED_MAX, -PWM_MAX, PWM_MAX);
+  cwout = _fwd;
 }
 
-void DriveMotor::Set(int speed) {
-  pwmout = map(constrain(speed, -IN_MAX, IN_MAX), -IN_MAX, IN_MAX, -PWM_MAX, PWM_MAX);
+void DriveMotor::Read(float *reading)
+{
+  // TODO: implement encoder
+  *reading = 0;
 }
 
-void DriveMotor::Update() {
-  analogWrite(_kPWM, pwmout);
-}
-
-void DriveMotor::Read() {
-
+void DriveMotor::Write()
+{
+  analogWrite(kPWM, pwmout);
+  digitalWrite(kCW, cwout);
 }

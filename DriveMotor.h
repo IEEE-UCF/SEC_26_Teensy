@@ -3,23 +3,25 @@
 
 #include "Arduino.h"
 
-#define IN_MAX 255 // Max speed input, normalization purposes
-#define PWM_MAX 255 // PWM control max
+#define SPEED_MAX 255 // Max speed input, normalization purposes
+#define PWM_MAX 255   // PWM control max
 
 class DriveMotor
 {
 public:
-    DriveMotor(int kPWM, int kCW, int kENC, bool reversed = false);
-    void Set(int speed);
-    void Read();
-    void Update();
+    DriveMotor(int kPWM, int kCW, int kENC, bool rev);
+    // void Begin();
+    void Set(int _speed, bool _fwd);
+    void Read(float *reading);
+    void Write();
 
 private:
-    int _kPWM;
-    int _kCW;
-    int _kENC;
-    bool _rev;
+    int kPWM;
+    int kCW;
+    int kENC;
+    bool rev;
     int pwmout;
+    bool cwout;
 };
 
 #endif
