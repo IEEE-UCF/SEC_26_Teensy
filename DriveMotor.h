@@ -12,7 +12,7 @@ public:
     DriveMotor(int kPWM, int kCW, int kENC, bool kRev);
     // void Begin();
     void Set(int speed);
-    void Read(float *reading);
+    void Read(int *reading);
     void Write();
 
 private:

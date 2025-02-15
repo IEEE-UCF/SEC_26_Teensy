@@ -1,7 +1,7 @@
 #include "Pose2D.h"
 #include "Arduino.h"
 
-Pose2D::Pose2D(float x, float y, float z) : x(x), y(y), rot(rot) {}
+Pose2D::Pose2D(float x, float y, float rot) : x(x), y(y), rot(rot) {}
 
 /*
     ChatGPT generated code
@@ -10,12 +10,12 @@ Pose2D::Pose2D(float x, float y, float z) : x(x), y(y), rot(rot) {}
 */
 Print &operator<<(Print &output, const Pose2D &pose)
 {
-    output.print("Pose: (");
+    output.print(F("Pose: ("));
     output.print(pose.x);
-    output.print(", ");
+    output.print(F(", "));
     output.print(pose.y);
-    output.print(", ");
+    output.print(F(", "));
     output.print(pose.rot);
-    output.println(")");
+    output.println(F(")"));
     return output;
 }

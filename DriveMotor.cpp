@@ -21,7 +21,7 @@ void DriveMotor::Set(int speed)
   }
 }
 
-void DriveMotor::Read(float *reading)
+void DriveMotor::Read(int *reading)
 {
   // TODO: implement encoder
   *reading = 0;

@@ -9,11 +9,12 @@ VectorRobotDrive::VectorRobotDrive(int kPWM[], int kCW[], int kENC[], bool rev[]
         this->kCW[i] = kCW[i];
         this->kENC[i] = kENC[i];
         this->rev[i] = rev[i];
+        enc[i] = 0;
         motors[i] = new DriveMotor(kPWM[i], kCW[i], kENC[i], rev[i]);
     }
 }
 
-//Ex: robot.Set(Pose2D(x,y,theta))
+// Ex: robot.Set(Pose2D(x,y,theta))
 void VectorRobotDrive::Set(const Pose2D &speedPose)
 {
     this->speedPose = speedPose;
@@ -26,10 +27,20 @@ void VectorRobotDrive::Read()
 {
     for (int i = 0; i < MOTOR_COUNT; i++)
     {
-        float reading;
+        int reading;
         motors[i]->Read(&reading);
         enc[i] = reading;
     }
+}
+
+Pose2D VectorRobotDrive::GetPose()
+{
+    return speedPose;
+}
+
+int *VectorRobotDrive::GetEnc()
+{
+    return enc;
 }
 
 void VectorRobotDrive::Write()
@@ -48,31 +59,41 @@ void VectorRobotDrive::Write()
     Serial << robotDrive.speedPose  prints current pose
 */
 
-Print& operator<<(Print& output, const VectorRobotDrive& drive) {
-    output.println("VectorRobotDrive Configuration:");
-    output.print("kPWM: ");
-    for (int i = 0; i < MOTOR_COUNT; i++) {
+Print &operator<<(Print &output, const VectorRobotDrive &drive)
+{
+    output.println(F("VectorRobotDrive Configuration:"));
+    output.print(F("kPWM: "));
+    for (int i = 0; i < MOTOR_COUNT; i++)
+    {
         output.print(drive.kPWM[i]);
-        if (i < MOTOR_COUNT - 1) output.print(", ");
+        if (i < MOTOR_COUNT - 1)
+            output.print(F(", "));
     }
     output.println();
-    output.print("kCW: ");
-    for (int i = 0; i < MOTOR_COUNT; i++) {
+    output.print(F("kCW: "));
+    for (int i = 0; i < MOTOR_COUNT; i++)
+    {
         output.print(drive.kCW[i]);
-        if (i < MOTOR_COUNT - 1) output.print(", ");
+        if (i < MOTOR_COUNT - 1)
+            output.print(F(", "));
     }
     output.println();
-    output.print("kENC: ");
-    for (int i = 0; i < MOTOR_COUNT; i++) {
+    output.print(F("kENC: "));
+    for (int i = 0; i < MOTOR_COUNT; i++)
+    {
         output.print(drive.kENC[i]);
-        if (i < MOTOR_COUNT - 1) output.print(", ");
+        if (i < MOTOR_COUNT - 1)
+            output.print(F(", "));
     }
     output.println();
-    output.print("rev: ");
-    for (int i = 0; i < MOTOR_COUNT; i++) {
+    output.print(F("rev: "));
+    for (int i = 0; i < MOTOR_COUNT; i++)
+    {
         output.print(drive.rev[i]);
-        if (i < MOTOR_COUNT - 1) output.print(", ");
+        if (i < MOTOR_COUNT - 1)
+            output.print(F(", "));
     }
+    output.println();
     output.println();
     return output;
 }
@@ -87,4 +108,4 @@ Print& operator<<(Print& output, const VectorRobotDrive& drive) {
     output.println(")");
     return output;
 }*/
-//defined in pose2d
+// defined in pose2d

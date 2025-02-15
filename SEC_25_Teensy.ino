@@ -62,12 +62,13 @@ ServoHandler servos(kServo, SERVO_COUNT);
 void setup()
 {
   Serial.begin(115200); // Begin serial
-
+  Serial.println();
   // --- Begin Handlers ---
   // EX: drive.begin();
   // (symbolic) robotDrive.Setup();
   buttons.Setup();
-  
+  Serial << robotDrive;
+  Serial << servos;
 }
 
 void loop()
@@ -79,7 +80,10 @@ void loop()
   // --- Input Parsing ---
   // EX: rf.Parse(true);
   // EX: drive.Set(rf.ly, rf.rx, rf.b1, rf.b2);
+  robotDrive.Set(Pose2D(10,10,10));
+  Serial << robotDrive.GetPose();
 
   // -- Output ---
   // EX: drive.Update();
+  delay(1000);
 }
