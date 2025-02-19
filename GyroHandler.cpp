@@ -1,26 +1,34 @@
 #include "GyroHandler.h"
 
-GyroHandler::GyroHandler() : bno08x(Adafruit_BNO08x(55)) {}
+GyroHandler::GyroHandler() : bno08x(Adafruit_BNO08x(-1)) {}
 
 void GyroHandler::Setup() {
-    if (!bno08x.begin_I2C()) {
-        Serial.println(F("Failed to find BNO08x chip"));
-        while (1) { delay(10); }
+    if (!bno08x.begin_I2C(0x4B)) {
+    // if (!bno08x.begin_UART(&Serial1)) {  // Requires a device with > 300 byte
+    // UART buffer! if (!bno08x.begin_SPI(BNO08X_CS, BNO08X_INT)) {
+    Serial.println("Failed to find BNO08x chip");
+    while (1) {
+      delay(10);
     }
-    Serial.println(F("BNO08x Found!"));
-    bno08x.enableReport(SH2_RAW_GYROSCOPE);
+  }
+  Serial.println("BNO08x Found!");
+    if(!bno08x.enableReport(SH2_ROTATION_VECTOR)) {
+      Serial.println(F("Could not enable rotation vector"));
+    }
+    
 }
 
 void GyroHandler::Read() {
     if (bno08x.getSensorEvent(&gyroEvent)) {
         // Gyro data is now stored in gyroEvent
+        Serial.print("reading");
     }
+    gyroData[0] = gyroEvent.un.rotationVector.i;
+    gyroData[1] = gyroEvent.un.rotationVector.j;
+    gyroData[2] = gyroEvent.un.rotationVector.k;
 }
 
-float* GyroHandler::GetGyroData() const {
-    gyroData[0] = gyroEvent.un.rawGyroscope.x;
-    gyroData[1] = gyroEvent.un.rawGyroscope.y;
-    gyroData[2] = gyroEvent.un.rawGyroscope.z;
+float* GyroHandler::GetGyroData() {
     return gyroData;
 }
 
@@ -30,11 +38,11 @@ void GyroHandler::PrintInfo(Print &output, bool printConfig) const {
         output.println(F("I2C Address: 0x55"));
     } else {
         output.print(F("Gyroscope: "));
-        output.print(gyroEvent.un.rawGyroscope.x);
+        output.print(gyroData[0]);
         output.print(F(", "));
-        output.print(gyroEvent.un.rawGyroscope.y);
+        output.print(gyroData[1]);
         output.print(F(", "));
-        output.print(gyroEvent.un.rawGyroscope.z);
+        output.print(gyroData[2]);
         output.println();
     }
 }
