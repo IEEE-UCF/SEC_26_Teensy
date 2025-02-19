@@ -3,13 +3,13 @@
 
 #include <Servo.h>
 #include <Arduino.h>
+#include <Print.h>
 
-#define SERVO_COUNT 3
+
 #define RANGE_LOW 1000
 #define RANGE_HIGH 2000
 #define ANGLE_LOW 0
 #define ANGLE_HIGH 180
-
 class ServoHandler
 {
 public:
@@ -20,8 +20,9 @@ public:
     void WriteServoAngle(int index, int angle);
     void Write();
     int *Get();
-
+    void PrintInfo(Print &output, bool printConfig = false) const;
     friend Print &operator<<(Print &output, const ServoHandler &handler);
+
 
 private:
     Servo *servos;

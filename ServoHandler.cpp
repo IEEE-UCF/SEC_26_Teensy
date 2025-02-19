@@ -41,16 +41,28 @@ int *ServoHandler::Get()
     return anglesWrite;
 }
 
-Print &operator<<(Print &output, const ServoHandler &handler)
-{
-    output.println(F("ServoHandler Configuration:"));
-    output.print(F("kServo: "));
-    for (int i = 0; i < SERVO_COUNT; i++)
-    {
-        output.print(handler.kServo[i]);
-        if (i < SERVO_COUNT - 1)
-            output.print(F(", "));
+void ServoHandler::PrintInfo(Print &output, bool printConfig) const {
+    if (printConfig) {
+        output.print(F("ServoHandler Configuration: "));
+        output.print(F("Number of Servos: "));
+        output.println(numServos);
+        for (int i = 0; i < numServos; i++) {
+            output.print(F("Servo "));
+            output.print(i);
+            output.print(F(" - Pin: "));
+            output.println(kServo[i]);
+        }
+    } else {
+        for (int i = 0; i < numServos; i++) {
+            output.print(F("Servo "));
+            output.print(i);
+            output.print(F(" - Angle: "));
+            output.println(anglesWrite[i]);
+        }
     }
-    output.println(); 
-    output.println();
+}
+
+Print &operator<<(Print &output, const ServoHandler &handler) {
+    handler.PrintInfo(output, false);
+    return output;
 }

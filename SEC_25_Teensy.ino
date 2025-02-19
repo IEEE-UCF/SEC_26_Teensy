@@ -18,23 +18,29 @@
 
 // --- Constants ---
 // EX: #define PWM_LOW 980
-// #define MOTOR_COUNT 4  VectorRobotDrive.
-// #define SERVO_COUNT 3  ServoHandler.h
+#define DRIVEMOTOR_COUNT 3
+#define NONDRIVEMOTOR_COUNT 2
+#define SERVO_COUNT 3 
 #define BUTTON_COUNT 2
 
 // --- Motor Setup ---
-const int kPWM[MOTOR_COUNT] = {3, 5, 6, 9}; //TODO
-const int kCW[MOTOR_COUNT] = {2, 4, 7, 8}; //TODO
-const int kENC[MOTOR_COUNT] = {A0, A1, A2, A3}; //TODO
-const bool rev[MOTOR_COUNT] = {false, false, false, false}; //TODO
+const int kPWM[DRIVEMOTOR_COUNT] = {3, 5, 6}; //TODO : set
+const int kCW[DRIVEMOTOR_COUNT] = {2, 4, 7}; //TODO : set
+const int kENC[DRIVEMOTOR_COUNT] = {A0, A1, A2}; //TODO : set
+const bool rev[DRIVEMOTOR_COUNT] = {false, false, false}; //TODO : set
+
+const int nkPWM[NONDRIVEMOTOR_COUNT] = {1, 2}; //TODO : set
+const int nkCW[NONDRIVEMOTOR_COUNT] = {1, 2}; //TODO : set
+const int nrev[NONDRIVEMOTOR_COUNT] = {1, 2}; //TODO : set
+
 
 // --- Other Input Pins ---
 // EX: const int kSelector[2] = {11, 12};
-const int kButton[BUTTON_COUNT] = {0, 1}; //TODO
+const int kButton[BUTTON_COUNT] = {0, 1}; //TODO : set
 
 // --- Other Output Pins ---
 // EX: const int kRGB[3] = {8, 7, 4};               // RGB Pins
-const int kServo[SERVO_COUNT] = {10, 11, 12};
+const int kServo[SERVO_COUNT] = {10, 11, 12}; //TODO : set
 
 /*
   ===== SETUP =====
@@ -43,14 +49,14 @@ const int kServo[SERVO_COUNT] = {10, 11, 12};
 // --- Input Handlers ---
 // EX: RFHandler rf(kRF[0], kRF[1]);
 ButtonHandler buttons(kButton, BUTTON_COUNT);
-//BNO055 handler
-//Hall Effect handler
-//VL53L0X handler
 
 // --- Output Handlers ---
 // EX: DriveHandler drive(kMotors[0][0], kMotors[0][1], kMotors[1][0], kMotors[1][1], true, false);
-VectorRobotDrive robotDrive(kPWM, kCW, kENC, rev);
+VectorRobotDrive robotDrive(kPWM, kCW, kENC, rev, DRIVEMOTOR_COUNT);
 ServoHandler servos(kServo, SERVO_COUNT);
+DriveMotor intakeMotor(nkPWM[0], nkCW[0], -1, nrev[0]);
+DriveMotor sorterMotor(nkPWM[1], nkCW[1], -1, nrev[1]);
+
 
 // --- Two-Way Handlers ---
 //Serial handler
@@ -65,10 +71,13 @@ void setup()
   Serial.println();
   // --- Begin Handlers ---
   // EX: drive.begin();
-  // (symbolic) robotDrive.Setup();
   buttons.Setup();
-  Serial << robotDrive;
-  Serial << servos;
+  servos.Setup();
+
+  robotDrive.PrintInfo(Serial, true);
+  servos.PrintInfo(Serial, true);
+  intakeMotor.PrintInfo(Serial, true);
+  sorterMotor.PrintInfo(Serial, true);
 }
 
 void loop()
@@ -79,11 +88,21 @@ void loop()
 
   // --- Input Parsing ---
   // EX: rf.Parse(true);
-  // EX: drive.Set(rf.ly, rf.rx, rf.b1, rf.b2);
-  robotDrive.Set(Pose2D(10,10,10));
-  Serial << robotDrive.GetPose();
 
-  // -- Output ---
+  // --- Set Outputs ---
+  int speeds[3] = {0, 0, 0};
+  robotDrive.Set(speeds);
+  intakeMotor.Set(0);
+  sorterMotor.Set(0);
+
+  // -- Write Outputs ---
   // EX: drive.Update();
-  delay(1000);
+  robotDrive.Write();
+  intakeMotor.Write();
+  sorterMotor.Write();
+
+  //alternate method for printing info by overloading << operator
+  Serial << robotDrive << intakeMotor << sorterMotor << servos;
+
+  delay(250);
 }
