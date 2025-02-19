@@ -3,17 +3,19 @@
 
 #include <Arduino.h>
 
-class ButtonHandler
-{
+class ButtonHandler {
 public:
-    ButtonHandler(int *kPins, int numPins);
-    void Setup();
-    void Read();
-    bool *buttonStates;
+  ButtonHandler(int *kPins, int numPins);
+  void Setup();
+  void Read();
+  bool *buttonStates;
+
+  void PrintInfo(Print &output, bool printConfig) const;
+  friend Print &operator<<(Print &output, const ButtonHandler &handler);
 
 private:
-    int *kPins;
-    int numPins;
+  int *kPins;
+  int numPins;
 };
 
 #endif
