@@ -17,6 +17,7 @@ public:
   VectorRobotDrive(int kPWM[], int kCW[], int kENC[], bool rev[], int numMotors);
   void Set(const Pose2D &speedPose);
   void Set(int motorDirectSpeed[]);
+  void Begin();
   void SetIndex(int motorDirectSpeed, int index);
   void ReadEnc();
   Pose2D GetPose();

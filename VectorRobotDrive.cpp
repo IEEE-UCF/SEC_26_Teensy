@@ -13,6 +13,11 @@ VectorRobotDrive::VectorRobotDrive(int kPWM[], int kCW[], int kENC[], bool rev[]
   }
 }
 
+void VectorRobotDrive::Begin() {
+  for(int i = 0; i < numMotors; i++) {
+    motors[i]->Begin();
+  }
+}
 void VectorRobotDrive::Set(const Pose2D &speedPose) {
   this->speedPose = speedPose;
 }

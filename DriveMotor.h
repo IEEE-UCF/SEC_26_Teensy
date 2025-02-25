@@ -11,7 +11,7 @@ class DriveMotor
 {
 public:
     DriveMotor(int kPWM, int kCW, int kENC, bool kRev);
-    // void Begin();
+    void Begin();
     void Set(int speed);
     void ReadEnc();
     int GetEnc();

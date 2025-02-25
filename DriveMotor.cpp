@@ -5,11 +5,16 @@
 DriveMotor::DriveMotor(int kPWM, int kCW, int kENC, bool rev)
   : kPWM(kPWM), kCW(kCW), kENC(kENC), kRev(rev), pwmout(0), cwout(true), enc(0) {}
 
+void DriveMotor::Begin() {
+  pinMode(kCW, OUTPUT);
+  analogWriteFrequency(kPWM, 36621.09);
+}
+
 void DriveMotor::Set(int speed) {
   if (kRev) {
     speed = -speed;
   }
-  pwmout = abs(map(constrain(speed, -SPEED_MAX, SPEED_MAX), -SPEED_MAX, SPEED_MAX, -PWM_MAX, PWM_MAX));
+  pwmout = map(abs(speed), 0, SPEED_MAX, PWM_MAX, 0);
   cwout = (speed >= 0);
 }
 
