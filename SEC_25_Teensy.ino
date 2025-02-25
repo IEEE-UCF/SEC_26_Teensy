@@ -19,14 +19,14 @@
 #define LINE_COUNT 3
 
 // Motor Setup
-const int kPWM[DRIVEMOTOR_COUNT] = {9, 11, 10};
+const int kPWM[DRIVEMOTOR_COUNT] = {9, 11, 10}; // Right side, center, left
 const int kCW[DRIVEMOTOR_COUNT] = {8, 6, 4};
 const int kENC[DRIVEMOTOR_COUNT] = {7, 5, 3};
 const bool rev[DRIVEMOTOR_COUNT] = {false, false, true};
 
 const int nkPWM[NONDRIVEMOTOR_COUNT] = {29, 33};
 const int nkCW[NONDRIVEMOTOR_COUNT] = {30, 33};
-const bool nrev[NONDRIVEMOTOR_COUNT] = {false, false};
+const bool nrev[NONDRIVEMOTOR_COUNT] = {true, false};
 
 // Other Input Pins
 //const int kButton[BUTTON_COUNT] = {33, 33};
@@ -86,10 +86,10 @@ void loop() {
     //lines.Read();
 
     // Set Outputs
-    int speeds[3] = {255, 255, 255};
+    int speeds[3] = {0, 0, 0};
     robotDrive.Set(speeds);
     delay(10);
-    intakeMotor.Set(-255);
+    intakeMotor.Set(175);
     //sorterMotor.Set(0);
 
     // Write Outputs
