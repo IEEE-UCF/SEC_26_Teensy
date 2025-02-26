@@ -21,7 +21,6 @@ void GyroHandler::Setup() {
 void GyroHandler::Read() {
     if (bno08x.getSensorEvent(&gyroEvent)) {
         // Gyro data is now stored in gyroEvent
-        Serial.print("reading");
     }
     gyroData[0] = gyroEvent.un.rotationVector.i;
     gyroData[1] = gyroEvent.un.rotationVector.j;
