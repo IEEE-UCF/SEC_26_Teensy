@@ -2,12 +2,27 @@
 #include "Arduino.h"
 #include "Print.h"
 
-DriveMotor::DriveMotor(int kPWM, int kCW, int kENC, bool rev)
-  : kPWM(kPWM), kCW(kCW), kENC(kENC), kRev(rev), pwmout(0), cwout(true), enc(0) {}
+int DriveMotor::encoderNum = 1;
+
+DriveMotor::DriveMotor(int kPWM, int kCW, int kENC_A, int kENC_B, bool rev)
+  : kPWM(kPWM), kCW(kCW), kENC_A(kENC_A), kENC_B(kENC_B), kRev(rev), pwmout(0), cwout(true), enc(0) {
+    if(encoderNum <= 4){
+      encoder = new QuadEncoder(encoderNum, kENC_A, kENC_B);
+    }
+    else{
+      encoder = NULL;
+    }
+    encoderNum++;
+  }
 
 void DriveMotor::Begin() {
   pinMode(kCW, OUTPUT);
   analogWriteFrequency(kPWM, 36621.09);
+  if(encoder){
+    encoder->setInitConfig();
+    encoder->EncConfig.decoderWorkMode = 1;
+    encoder->init();
+  }
 }
 
 void DriveMotor::Set(int speed) {
@@ -20,14 +35,15 @@ void DriveMotor::Set(int speed) {
 
 void DriveMotor::ReadEnc() {
   // TODO: implement encoder
-  if (kENC == -1) {
-    enc = 0;
-    return;
+  if(encoder) {
+      enc = encoder->read();
   }
-  enc = 0;
 }
 
 int DriveMotor::GetEnc() {
+  if(kENC_A == -1 || kENC_B == -1) {
+    return 0;
+  }
   return enc;
 }
 
@@ -42,8 +58,10 @@ void DriveMotor::PrintInfo(Print &output, bool printConfig) const {
     output.print(kPWM);
     output.print(F(", kCW: "));
     output.print(kCW);
-    output.print(F(", kENC: "));
-    output.print(kENC);
+    output.print(F(", kENC_A: "));
+    output.print(kENC_A);
+    output.print(F(", kENC_B: "));
+    output.print(kENC_B);
     output.print(F(", kRev: "));
     output.println(kRev ? F("True") : F("False"));
   } else {

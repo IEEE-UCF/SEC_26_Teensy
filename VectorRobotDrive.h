@@ -14,7 +14,7 @@ class VectorRobotDrive
 */
 {
 public:
-  VectorRobotDrive(int kPWM[], int kCW[], int kENC[], bool rev[], int numMotors);
+  VectorRobotDrive(int kPWM[], int kCW[], int kENC_A[], int kENC_B[], bool rev[], int numMotors);
   void Set(const Pose2D &speedPose);
   void Set(int motorDirectSpeed[]);
   void Begin();
@@ -33,7 +33,8 @@ private:
   int* enc;
   int* kPWM;
   int* kCW;
-  int* kENC;
+  int* kENC_A;
+  int* kENC_B;
   bool* rev;
 };
 

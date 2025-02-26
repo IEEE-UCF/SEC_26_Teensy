@@ -20,14 +20,16 @@
 #define LINE_COUNT 3
 
 // Motor Setup
-const int kPWM[DRIVEMOTOR_COUNT] = { 9, 11, 10 };  // Right side, center, left
-const int kCW[DRIVEMOTOR_COUNT] = { 8, 6, 4 };
-const int kENC[DRIVEMOTOR_COUNT] = { 7, 5, 3 };
-const bool rev[DRIVEMOTOR_COUNT] = { true, false, false };
+int kPWM[DRIVEMOTOR_COUNT] = { 9, 11, 10 };  // Right side, center, left
+int kCW[DRIVEMOTOR_COUNT] = { 24, 25, 26 };
+int kENC[DRIVEMOTOR_COUNT] = { 7, 5, 3 };
+int kENCDIR[DRIVEMOTOR_COUNT] = { 8, 6, 4 };
+bool rev[DRIVEMOTOR_COUNT] = { true, false, false };
 
-const int nkPWM[NONDRIVEMOTOR_COUNT] = { 29, 33 };
-const int nkCW[NONDRIVEMOTOR_COUNT] = { 30, 33 };
-const bool nrev[NONDRIVEMOTOR_COUNT] = { true, false };
+int nkPWM[NONDRIVEMOTOR_COUNT] = { 29, 33 };
+int nkCW[NONDRIVEMOTOR_COUNT] = { 30, 33 };
+int hi = 31;
+bool nrev[NONDRIVEMOTOR_COUNT] = { true, false };
 
 // Other Input Pins
 // const int kButton[BUTTON_COUNT] = {33, 33};
@@ -48,10 +50,10 @@ RCHandler rcHandler;
 // LineHandler lines(kLine, LINE_COUNT);
 
 // Output Handlers
-VectorRobotDrive robotDrive(kPWM, kCW, kENC, rev, DRIVEMOTOR_COUNT);
+VectorRobotDrive robotDrive(kPWM, kCW, kENC, kENCDIR, rev, DRIVEMOTOR_COUNT);
 // ServoHandler servos(kServo, SERVO_COUNT);
-DriveMotor intakeMotor(nkPWM[0], nkCW[0], -1, nrev[0]);
-DriveMotor sorterMotor(nkPWM[1], nkCW[1], -1, nrev[1]);
+DriveMotor intakeMotor(nkPWM[0], nkCW[0], hi, 6, nrev[0]);
+DriveMotor sorterMotor(nkPWM[1], nkCW[1], -1, -1, nrev[1]);
 
 void setup() {
   Serial.begin(115200);
@@ -68,13 +70,13 @@ void setup() {
   gyro.Setup();
   // lines.Setup();
   // servos.Setup();
-  intakeMotor.Begin();
   robotDrive.Begin();
+  intakeMotor.Begin();
 
-  // robotDrive.PrintInfo(Serial, true);
+   robotDrive.PrintInfo(Serial, true);
   // servos.PrintInfo(Serial, true);
   intakeMotor.PrintInfo(Serial, true);
-  sorterMotor.PrintInfo(Serial, true);
+  //sorterMotor.PrintInfo(Serial, true);
   static long temp = millis();
   while (millis() - temp < 3000) {
     delay(100);
@@ -89,51 +91,41 @@ int programState = 0;
 2 - running, controlled by RC
 */
 void loop() {
+
   // Read Inputs
   // buttons.Read();
   // halls.Read();
   // tofs.Read();
   gyro.Read();
   rcHandler.Read();
+  robotDrive.ReadEnc();
+  intakeMotor.ReadEnc();
   // lines.Read();
 
-    if (rcHandler.Get(6) == 255) {
-      programState = 1;  // Down, turn RC off
-    } else if (rcHandler.Get(6) == -255) {
-      programState = 2;  // Up, turn RC on
-    }
-
-  // Set Outputs
-  // int speeds[3] = {0, 0, 0};
-  // robotDrive.Set(speeds);
-  // delay(10);
-  // intakeMotor.Set(175);
-  // sorterMotor.Set(0);
-
-  // Write Outputs
-  // robotDrive.Write();
-  // intakeMotor.Write();
-  // sorterMotor.Write();
+  if (rcHandler.Get(6) == 255) {
+    programState = 1;  // Down, turn RC off
+  } else if (rcHandler.Get(6) == -255) {
+    programState = 2;  // Up, turn RC on
+  }
 
 
   if (printTimer >= 100) {
-      Serial.print("State: ");
-  Serial.println(programState);
-  
+    Serial.print("State: ");
+    Serial.println(programState);
+
     printTimer -= 100;
     // Print Info
     robotDrive.PrintInfo(Serial, false);
-    // intakeMotor.PrintInfo(Serial, false);
+    intakeMotor.PrintInfo(Serial, false);
     // sorterMotor.PrintInfo(Serial, false);
     // servos.PrintInfo(Serial, false);
     // halls.PrintInfo(Serial, false);
     // tofs.PrintInfo(Serial, false);
     // gyro.PrintInfo(Serial, false);
     // lines.PrintInfo(Serial, false);
-
   }
   if (programState == 1) {
-    int motorSpeeds[3] = {0};
+    int motorSpeeds[3] = { 0 };
     robotDrive.Set(motorSpeeds);
     intakeMotor.Set(0);
     intakeMotor.Write();

@@ -3,6 +3,8 @@
 
 #include <Arduino.h>
 #include <Print.h>
+#include "QuadEncoder.h"
+
 
 #define SPEED_MAX 255 // Max speed input, normalization purposes
 #define PWM_MAX 255   // PWM control max
@@ -10,7 +12,7 @@
 class DriveMotor
 {
 public:
-    DriveMotor(int kPWM, int kCW, int kENC, bool kRev);
+    DriveMotor(int kPWM, int kCW, int kENC_A, int kENC_B, bool kRev);
     void Begin();
     void Set(int speed);
     void ReadEnc();
@@ -23,11 +25,14 @@ public:
 private:
     int kPWM;
     int kCW;
-    int kENC;
+    int kENC_A;
+    int kENC_B;
     bool kRev;
     int pwmout;
     bool cwout;
     int enc;
+    QuadEncoder* encoder;
+    static int encoderNum;
 };
 
 #endif
