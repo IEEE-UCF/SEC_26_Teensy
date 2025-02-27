@@ -2,15 +2,15 @@
 #include <Arduino.h>
 #include <Print.h>
 
-SimpleRobotDrive::SimpleRobotDrive(int kPWM[], int kCW[], int kENC_A[], int kENC_B[], bool rev[], int numMotors)
-    : kPWM(kPWM), kCW(kCW), kENC_A(kENC_A), kENC_B(kENC_B), rev(rev), numMotors(numMotors), localization()
+SimpleRobotDrive::SimpleRobotDrive(const MotorSetup motorSetups[], int numMotors)
+    : numMotors(numMotors), localization()
 {
   enc = new int[numMotors];
   motors = new DriveMotor *[numMotors]; // Allocate memory for motor pointers
   for (int i = 0; i < numMotors; i++)
   {
     enc[i] = 0;
-    motors[i] = new DriveMotor(kPWM[i], kCW[i], kENC_A[i], kENC_B[i], rev[i]);
+    motors[i] = new DriveMotor(motorSetups[i]);
   }
 }
 
@@ -82,18 +82,7 @@ void SimpleRobotDrive::PrintInfo(Print &output, bool printConfig) const
     output.println(numMotors);
     for (int i = 0; i < numMotors; i++)
     {
-      output.print(F("Motor "));
-      output.print(i);
-      output.print(F(" - kPWM: "));
-      output.print(kPWM[i]);
-      output.print(F(", kCW: "));
-      output.print(kCW[i]);
-      output.print(F(", kENC_A: "));
-      output.print(kENC_A[i]);
-      output.print(F(", kENC_B: "));
-      output.print(kENC_B[i]);
-      output.print(F(", kRev: "));
-      output.println(rev[i] ? F("True") : F("False"));
+      motors[i]->PrintInfo(output, true);
     }
   }
   else

@@ -13,6 +13,7 @@
 
 #include "src/drive/VectorRobotDrive.h"
 #include "src/drive/SimpleRobotDrive.h"
+#include "src/drive/DriveMotor.h"
 
 // Constants
 #define DRIVEMOTOR_COUNT 3
@@ -23,8 +24,19 @@
 // #define TOF_COUNT 2
 #define LINE_COUNT 3
 
-// Motor Setup
-int kPWM[DRIVEMOTOR_COUNT] = {9, 11, 10}; // left, center, right
+MotorSetup driveMotors[DRIVEMOTOR_COUNT] = {
+    {9, 32, 7, 8, true},   // left
+    {11, 27, 5, 6, false}, // center
+    {10, 26, 3, 4, false}  // right
+};
+
+MotorSetup nonDriveMotors[NONDRIVEMOTOR_COUNT] = {
+    {29, 30, 31, 30, true}, // intake
+    {-1, -1, -1, -1, false} // empty placeholder
+};
+
+// Motor Setup old
+/*int kPWM[DRIVEMOTOR_COUNT] = {9, 11, 10}; // left, center, right
 int kCW[DRIVEMOTOR_COUNT] = {32, 27, 26};
 int kENC[DRIVEMOTOR_COUNT] = {7, 5, 3};
 int kENCDIR[DRIVEMOTOR_COUNT] = {8, 6, 4};
@@ -34,7 +46,7 @@ int nkPWM[NONDRIVEMOTOR_COUNT] = {29, -1};
 int nkCW[NONDRIVEMOTOR_COUNT] = {30, -1};
 int nkENC[NONDRIVEMOTOR_COUNT] = {31, -1};
 int nkENCDIR[NONDRIVEMOTOR_COUNT] = {30, -1};
-bool nrev[NONDRIVEMOTOR_COUNT] = {true, false};
+bool nrev[NONDRIVEMOTOR_COUNT] = {true, false};*/
 
 // Other Input Pins
 // const int kButton[BUTTON_COUNT] = {33, 33};
@@ -55,9 +67,9 @@ RCHandler rc;
 // LineHandler lines(kLine, LINE_COUNT);
 
 // Output Handlers
-VectorRobotDrive robotDrive(kPWM, kCW, kENC, kENCDIR, rev, DRIVEMOTOR_COUNT);
+VectorRobotDrive robotDrive(driveMotors, DRIVEMOTOR_COUNT);
 // ServoHandler servos(kServo, SERVO_COUNT);
-DriveMotor intake(nkPWM[0], nkCW[0], nkENC[0], nkENCDIR[0], nrev[0]);
+DriveMotor intake(nonDriveMotors[0]);
 // DriveMotor sorterMotor(nkPWM[1], nkCW[1], -1, -1, nrev[1]);
 
 void setup()
@@ -129,11 +141,14 @@ void loop()
   }
   else if (programState == 2)
   {
-    int y = rc.Get(2);     // LPot Y
-    int x = rc.Get(3);     // LPot X
-    int theta = rc.Get(0); // RPot X
+    // Flysky inputs. Note that "?" is -255 and "?" is 255
+    float y = map((float)constrain(rc.Get(2), -255, 255), -255, 255, -1, 1);    // LPot Y
+    float x = map((float)constrain(rc.Get(3), -255, 255), -255, 255, -1, 1);    // LPot X
+    float theta = map((float)constrain(rc.Get(0), -255, 255), -255, 255, -1, 1); // RPot X
     float angleOffset = -gyro.GetGyroData()[2];
-    robotDrive.Set(NormalizedPose2D(x, y, theta).rotateVector(angleOffset));
+    NormalizedPose2D toWrite(x, y, theta);
+    Serial << toWrite;
+    robotDrive.Set(NormalizedPose2D(x, y, theta) /*.rotateVector(angleOffset)*/);
     intake.Set(rc.Get(5));
   }
 
@@ -149,7 +164,7 @@ void loop()
 
     printTimer -= 100;
     // Print Info
-    Serial << robotDrive << intake
+    Serial << robotDrive << intake;
     /*
     robotDrive.PrintInfo(Serial, false);
     robotDrive.PrintLocal(Serial);

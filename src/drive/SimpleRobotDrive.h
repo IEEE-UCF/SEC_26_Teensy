@@ -9,7 +9,7 @@
 class SimpleRobotDrive
 {
 public:
-  SimpleRobotDrive(int kPWM[], int kCW[], int kENC_A[], int kENC_B[], bool rev[], int numMotors);
+  SimpleRobotDrive(const MotorSetup motorSetups[], int numMotors);
   void Begin();
   void Set(int motorDirectSpeed[]);
   void SetIndex(int motorDirectSpeed, int index);
@@ -20,11 +20,6 @@ public:
   Pose2D GetPosition() const;
 
 protected:
-  int *kPWM;
-  int *kCW;
-  int *kENC_A;
-  int *kENC_B;
-  bool *rev;
   int numMotors;
   long *enc;
   DriveMotor **motors;

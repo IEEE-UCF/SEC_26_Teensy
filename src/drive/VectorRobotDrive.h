@@ -8,7 +8,7 @@
 class VectorRobotDrive : public SimpleRobotDrive
 {
 public:
-    VectorRobotDrive(int kPWM[], int kCW[], int kENC_A[], int kENC_B[], bool rev[], int numMotors);
+    VectorRobotDrive(const MotorSetup motorSetups[], int numMotors);
     void Set(const NormalizedPose2D &speedPose);
     NormalizedPose2D GetPose();
 

@@ -4,12 +4,12 @@
 
 int DriveMotor::encoderNum = 1;
 
-DriveMotor::DriveMotor(int kPWM, int kCW, int kENC_A, int kENC_B, bool rev)
-    : kPWM(kPWM), kCW(kCW), kENC_A(kENC_A), kENC_B(kENC_B), kRev(rev), pwmout(0), cwout(true), enc(0)
+DriveMotor::DriveMotor(const MotorSetup &motorSetup)
+    : motorSetup(motorSetup), pwmout(0), cwout(true), enc(0)
 {
   if (encoderNum <= 4)
   {
-    encoder = new QuadEncoder(encoderNum, kENC_A, kENC_B);
+    encoder = new QuadEncoder(encoderNum, motorSetup.kENCA, motorSetup.kENCB);
   }
   else
   {
@@ -20,8 +20,8 @@ DriveMotor::DriveMotor(int kPWM, int kCW, int kENC_A, int kENC_B, bool rev)
 
 void DriveMotor::Begin()
 {
-  pinMode(kCW, OUTPUT);
-  analogWriteFrequency(kPWM, 36621.09);
+  pinMode(motorSetup.kCW, OUTPUT);
+  analogWriteFrequency(motorSetup.kPWM, 36621.09);
   if (encoder)
   {
     encoder->setInitConfig();
@@ -32,7 +32,7 @@ void DriveMotor::Begin()
 
 void DriveMotor::Set(int speed)
 {
-  if (kRev)
+  if (motorSetup.rev)
   {
     speed = -speed;
   }
@@ -42,7 +42,6 @@ void DriveMotor::Set(int speed)
 
 void DriveMotor::ReadEnc()
 {
-  // TODO: implement encoder
   if (encoder)
   {
     enc = encoder->read();
@@ -51,7 +50,7 @@ void DriveMotor::ReadEnc()
 
 long DriveMotor::GetEnc()
 {
-  if (kENC_A == -1 || kENC_B == -1)
+  if (motorSetup.kENCA == -1 || motorSetup.kENCB == -1)
   {
     return 0;
   }
@@ -60,24 +59,25 @@ long DriveMotor::GetEnc()
 
 void DriveMotor::Write()
 {
-  analogWrite(kPWM, pwmout);
-  digitalWrite(kCW, cwout);
+  analogWrite(motorSetup.kPWM, pwmout);
+  digitalWrite(motorSetup.kCW, cwout);
 }
+
 void DriveMotor::PrintInfo(Print &output, bool printConfig) const
 {
   if (printConfig)
   {
     output.print(F("DriveMotor Configuration: "));
     output.print(F("kPWM: "));
-    output.print(kPWM);
+    output.print(motorSetup.kPWM);
     output.print(F(", kCW: "));
-    output.print(kCW);
+    output.print(motorSetup.kCW);
     output.print(F(", kENC_A: "));
-    output.print(kENC_A);
+    output.print(motorSetup.kENCA);
     output.print(F(", kENC_B: "));
-    output.print(kENC_B);
+    output.print(motorSetup.kENCB);
     output.print(F(", kRev: "));
-    output.println(kRev ? F("True") : F("False"));
+    output.println(motorSetup.rev ? F("True") : F("False"));
   }
   else
   {

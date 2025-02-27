@@ -8,10 +8,20 @@
 #define SPEED_MAX 255 // Max speed input, normalization purposes
 #define PWM_MAX 255   // PWM control max
 #define MOTOR_COUNT 4
+
+struct MotorSetup
+{
+    int kPWM;
+    int kCW;
+    int kENCA;
+    int kENCB;
+    bool rev;
+};
+
 class DriveMotor
 {
 public:
-    DriveMotor(int kPWM, int kCW, int kENC_A, int kENC_B, bool kRev);
+    DriveMotor(const MotorSetup &motorSetup);
     void Begin();
     void Set(int speed);
     void ReadEnc();
@@ -21,11 +31,7 @@ public:
     friend Print &operator<<(Print &output, const DriveMotor &motor);
 
 private:
-    int kPWM;
-    int kCW;
-    int kENC_A;
-    int kENC_B;
-    bool kRev;
+    MotorSetup motorSetup;
     int pwmout;
     bool cwout;
     long enc;

@@ -1,7 +1,7 @@
 #include "VectorRobotDrive.h"
 
-VectorRobotDrive::VectorRobotDrive(int kPWM[], int kCW[], int kENC_A[], int kENC_B[], bool rev[], int numMotors)
-    : SimpleRobotDrive(kPWM, kCW, kENC_A, kENC_B, rev, numMotors), speedPose(0, 0, 0)
+VectorRobotDrive::VectorRobotDrive(const MotorSetup motorSetups[], int numMotors)
+    : SimpleRobotDrive(motorSetups, numMotors), speedPose(0, 0, 0)
 {
 }
 
