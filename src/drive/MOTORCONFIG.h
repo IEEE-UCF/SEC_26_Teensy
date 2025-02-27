@@ -1,5 +1,5 @@
-#ifndef MOTORCONST_h
-#define MOTORCONST_h
+#ifndef MOTORCONFIG_h
+#define MOTORCONFIG_h
 
 #define TRACK_WIDTH 10      // inches, distance from encoder wheel to encoder wheel
 #define WHEEL_DIAMETER 3.25 // inches

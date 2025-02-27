@@ -4,7 +4,7 @@
 #include "DriveMotor.h"
 #include "Arduino.h"
 #include <Print.h>
-#include "MOTORCONST.h"
+#include "MOTORCONFIG.h"
 
 class SimpleRobotDrive
 /*

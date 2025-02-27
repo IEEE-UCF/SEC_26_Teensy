@@ -3,7 +3,7 @@
 
 #include "SimpleRobotDrive.h"
 #include "math/NormalizedPose2D.h"
-#include "MOTORCONST.h"
+#include "MOTORCONFIG.h"
 
 class VectorRobotDrive : public SimpleRobotDrive
 {
