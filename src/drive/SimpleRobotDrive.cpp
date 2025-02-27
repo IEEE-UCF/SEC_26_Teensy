@@ -3,7 +3,7 @@
 #include <Print.h>
 
 SimpleRobotDrive::SimpleRobotDrive(int kPWM[], int kCW[], int kENC_A[], int kENC_B[], bool rev[], int numMotors)
-    : kPWM(kPWM), kCW(kCW), kENC_A(kENC_A), kENC_B(kENC_B), rev(rev), numMotors(numMotors)
+    : kPWM(kPWM), kCW(kCW), kENC_A(kENC_A), kENC_B(kENC_B), rev(rev), numMotors(numMotors), localization()
 {
   enc = new int[numMotors];
   motors = new DriveMotor *[numMotors]; // Allocate memory for motor pointers
@@ -49,7 +49,13 @@ void SimpleRobotDrive::ReadEnc()
   }
 }
 
-int *SimpleRobotDrive::GetEnc()
+void SimpleRobotDrive::ReadAll()
+{
+  ReadEnc();                        // Update encoder counts
+  localization.updatePosition(enc); // Update localization using encoder counts
+}
+
+long *SimpleRobotDrive::GetEnc()
 {
   return enc;
 }
@@ -60,6 +66,11 @@ void SimpleRobotDrive::Write()
   {
     motors[i]->Write();
   }
+}
+
+Pose2D SimpleRobotDrive::GetPosition() const
+{
+  return localization.getPosition();
 }
 
 void SimpleRobotDrive::PrintInfo(Print &output, bool printConfig) const
@@ -97,8 +108,14 @@ void SimpleRobotDrive::PrintInfo(Print &output, bool printConfig) const
   }
 }
 
+void SimpleRobotDrive::PrintLocal(Print &output) const
+{
+  localization.PrintInfo(output);
+}
+
 Print &operator<<(Print &output, const SimpleRobotDrive &drive)
 {
   drive.PrintInfo(output, false);
+  drive.PrintLocal(output);
   return output;
 }

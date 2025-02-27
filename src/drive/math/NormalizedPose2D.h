@@ -1,13 +1,14 @@
 #ifndef NormalizedPose2D_H
 #define NormalizedPose2D_H
 
+#include "Pose2D.h"
 #include <Arduino.h>
 
-class NormalizedPose2D
+class NormalizedPose2D : public Pose2D
 {
 public:
-    float x, y, rot;
-    NormalizedPose2D(float x, float y, float rot);
+    NormalizedPose2D(float x, float y, float theta);
+    NormalizedPose2D &rotateVector(float angle) override;
     friend Print &operator<<(Print &output, const NormalizedPose2D &pose);
 
 private:

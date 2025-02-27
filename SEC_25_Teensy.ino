@@ -50,14 +50,14 @@ bool nrev[NONDRIVEMOTOR_COUNT] = {true, false};
 // HallHandler halls(kHall, HALL_COUNT);
 // TOFHandler tofs(kTOF, TOF_COUNT);
 GyroHandler gyro;
-RCHandler rcHandler;
+RCHandler rc;
 
 // LineHandler lines(kLine, LINE_COUNT);
 
 // Output Handlers
 VectorRobotDrive robotDrive(kPWM, kCW, kENC, kENCDIR, rev, DRIVEMOTOR_COUNT);
 // ServoHandler servos(kServo, SERVO_COUNT);
-DriveMotor intakeMotor(nkPWM[0], nkCW[0], nkENC[0], nkENCDIR[0], nrev[0]);
+DriveMotor intake(nkPWM[0], nkCW[0], nkENC[0], nkENCDIR[0], nrev[0]);
 // DriveMotor sorterMotor(nkPWM[1], nkCW[1], -1, -1, nrev[1]);
 
 void setup()
@@ -70,16 +70,22 @@ void setup()
   // buttons.Setup();
   // halls.Setup();
   // tofs.Begin();
-  rcHandler.Begin(Serial1);
+  rc.Begin(Serial1);
   gyro.Setup();
   // lines.Setup();
   // servos.Setup();
   robotDrive.Begin();
-  intakeMotor.Begin();
+  intake.Begin();
+
+  // Set everything to 0
+  robotDrive.Set(NormalizedPose2D(0, 0, 0));
+  intake.Set(0);
+  robotDrive.Write();
+  intake.Write();
 
   robotDrive.PrintInfo(Serial, true);
   // servos.PrintInfo(Serial, true);
-  intakeMotor.PrintInfo(Serial, true);
+  intake.PrintInfo(Serial, true);
   // sorterMotor.PrintInfo(Serial, true);
   static long temp = millis();
   while (millis() - temp < 3000)
@@ -88,35 +94,54 @@ void setup()
   }
 }
 
-elapsedMillis printTimer = 0;
-int programState = 0;
 /*
 0 - startup
 1 - running, controlled by Pi
 2 - running, controlled by RC
 */
+
 void loop()
 {
 
-  // Read Inputs
-  // buttons.Read();
-  // halls.Read();
-  // tofs.Read();
+  // Read/Update
   gyro.Read();
-  rcHandler.Read();
-  robotDrive.ReadEnc();
-  intakeMotor.ReadEnc();
-  // lines.Read();
+  rc.Read();
+  robotDrive.ReadAll();
+  intake.ReadEnc();
 
-  if (rcHandler.Get(6) == 255)
+  // State Logic
+  static int programState = 0;
+  if (rc.Get(6) == 255)
   {
     programState = 1; // Down, turn RC off
   }
-  else if (rcHandler.Get(6) == -255)
+  else if (rc.Get(6) == -255)
   {
     programState = 2; // Up, turn RC on
   }
 
+  // Main logic
+  if (programState == 1)
+  {
+    NormalizedPose2D hi(0, 0, 0);
+    robotDrive.Set(hi);
+    intake.Set(0);
+  }
+  else if (programState == 2)
+  {
+    int y = rc.Get(2);     // LPot Y
+    int x = rc.Get(3);     // LPot X
+    int theta = rc.Get(0); // RPot X
+    float angleOffset = -gyro.GetGyroData()[2];
+    robotDrive.Set(NormalizedPose2D(x, y, theta).rotateVector(angleOffset));
+    intake.Set(rc.Get(5));
+  }
+
+  intake.Write();
+  robotDrive.Write();
+
+  // Debug
+  static elapsedMillis printTimer = 0;
   if (printTimer >= 100)
   {
     Serial.print("State: ");
@@ -124,36 +149,16 @@ void loop()
 
     printTimer -= 100;
     // Print Info
+    Serial << robotDrive << intake
+    /*
     robotDrive.PrintInfo(Serial, false);
-    intakeMotor.PrintInfo(Serial, false);
+    robotDrive.PrintLocal(Serial);
+    intake.PrintInfo(Serial, false);*/
     // sorterMotor.PrintInfo(Serial, false);
     // servos.PrintInfo(Serial, false);
     // halls.PrintInfo(Serial, false);
     // tofs.PrintInfo(Serial, false);
     // gyro.PrintInfo(Serial, false);
     // lines.PrintInfo(Serial, false);
-  }
-  if (programState == 1)
-  {
-    NormalizedPose2D hi(0, 0, 0);
-    robotDrive.Set(hi);
-    intakeMotor.Set(0);
-    intakeMotor.Write();
-    robotDrive.Write();
-  }
-  else if (programState == 2)
-  {
-    /*int motorSpeeds[3] = { 0 };
-    motorSpeeds[2] = rcHandler.Get(1) - map(constrain(rcHandler.Get(0), 0, 255), 0, 255, 0, rcHandler.Get(1));
-    motorSpeeds[0] = rcHandler.Get(1) - map(constrain(rcHandler.Get(0), -255, 0), 0, -255, 0, rcHandler.Get(1));
-    motorSpeeds[1] = rcHandler.Get(3);*/
-    int y = rcHandler.Get(2);     // LPot Y
-    int x = rcHandler.Get(3);     // LPot X
-    int theta = rcHandler.Get(0); // RPot X
-    robotDrive.Set(NormalizedPose2D(x, y, theta));
-    intakeMotor.Set(rcHandler.Get(5));
-
-    intakeMotor.Write();
-    robotDrive.Write();
   }
 }

@@ -5,7 +5,6 @@
 #include <Print.h>
 #include "QuadEncoder.h"
 
-
 #define SPEED_MAX 255 // Max speed input, normalization purposes
 #define PWM_MAX 255   // PWM control max
 #define MOTOR_COUNT 4
@@ -16,11 +15,10 @@ public:
     void Begin();
     void Set(int speed);
     void ReadEnc();
-    int GetEnc();
+    long GetEnc();
     void Write();
     void PrintInfo(Print &output, bool printConfig = false) const;
     friend Print &operator<<(Print &output, const DriveMotor &motor);
-
 
 private:
     int kPWM;
@@ -30,8 +28,8 @@ private:
     bool kRev;
     int pwmout;
     bool cwout;
-    int enc;
-    QuadEncoder* encoder;
+    long enc;
+    QuadEncoder *encoder;
     static int encoderNum;
 };
 

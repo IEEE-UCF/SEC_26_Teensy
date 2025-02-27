@@ -14,13 +14,13 @@ void VectorRobotDrive::Set(const NormalizedPose2D &speedPose)
         switch (i)
         {
         case 0:
-            motors[i]->Set((speedPose.y - speedPose.rot * TRACK_WIDTH) / WHEEL_DIAMETER * 255);
+            motors[i]->Set((speedPose.y - speedPose.theta * TRACK_WIDTH) / WHEEL_DIAMETER * 255);
             break; // Added break statement
         case 1:
             motors[i]->Set(speedPose.x / WHEEL_DIAMETER * 255);
             break; // Added break statement
         case 2:
-            motors[i]->Set((speedPose.y + speedPose.rot * TRACK_WIDTH) / WHEEL_DIAMETER * 255);
+            motors[i]->Set((speedPose.y + speedPose.theta * TRACK_WIDTH) / WHEEL_DIAMETER * 255);
             break; // Added break statement
         }
         i++;

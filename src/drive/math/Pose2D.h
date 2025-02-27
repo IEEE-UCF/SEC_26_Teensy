@@ -6,8 +6,16 @@
 class Pose2D
 {
 public:
-    float x, y, rot;
-    Pose2D(float x, float y, float rot);
+    float x, y, theta;
+
+    Pose2D(float x, float y, float theta);
+
+    Pose2D &add(const Pose2D &pose);
+    Pose2D &reset();
+    Pose2D &translate(float dx, float dy);
+    Pose2D &rotate(float dtheta);
+    virtual Pose2D &rotateVector(float angle);
+
     friend Print &operator<<(Print &output, const Pose2D &pose); // ChatGPT generated
 };
 
