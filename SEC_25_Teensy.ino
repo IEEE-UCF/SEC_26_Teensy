@@ -1,16 +1,18 @@
 #include <Wire.h>
 #include <Adafruit_BNO08x.h>
-#include "GyroHandler.h"
-#include "LineHandler.h"
-#include "Pose2D.h"
-#include "NormalizedPose2D.h"
-#include "VectorRobotDrive.h"
-#include "SimpleRobotDrive.h"
-#include "ButtonHandler.h"
+#include "src/handler/GyroHandler.h"
+#include "src/handler/LineHandler.h"
+#include "src/handler/ButtonHandler.h"
 // #include "ServoHandler.h"
-#include "HallHandler.h"
-#include "RCHandler.h"
+#include "src/handler/HallHandler.h"
+#include "src/handler/RCHandler.h"
 // #include "TOFHandler.h"
+
+#include "src/drive/math/Pose2D.h"
+#include "src/drive/math/NormalizedPose2D.h"
+
+#include "src/drive/VectorRobotDrive.h"
+#include "src/drive/SimpleRobotDrive.h"
 
 // Constants
 #define DRIVEMOTOR_COUNT 3
@@ -133,7 +135,7 @@ void loop()
   }
   if (programState == 1)
   {
-    NormalizedPose2D hi(0,0,0);
+    NormalizedPose2D hi(0, 0, 0);
     robotDrive.Set(hi);
     intakeMotor.Set(0);
     intakeMotor.Write();

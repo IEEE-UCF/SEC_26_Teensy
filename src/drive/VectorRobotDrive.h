@@ -2,7 +2,7 @@
 #define VectorRobotDrive_h
 
 #include "SimpleRobotDrive.h"
-#include "NormalizedPose2D.h"
+#include "math/NormalizedPose2D.h"
 #include "MOTORCONST.h"
 
 class VectorRobotDrive : public SimpleRobotDrive
