@@ -1,41 +1,19 @@
 #ifndef VectorRobotDrive_h
 #define VectorRobotDrive_h
 
-#include "Pose2D.h"
-#include "DriveMotor.h"
-#include "Arduino.h"
-#include <Print.h>
+#include "SimpleRobotDrive.h"
+#include "NormalizedPose2D.h"
+#include "MOTORCONST.h"
 
-
-class VectorRobotDrive
-/*
-    ASSUME MOTORS ARE IN THE CONFIGURATION:
-    left upper, left bottom, right bottom, right upper
-*/
+class VectorRobotDrive : public SimpleRobotDrive
 {
 public:
-  VectorRobotDrive(int kPWM[], int kCW[], int kENC_A[], int kENC_B[], bool rev[], int numMotors);
-  void Set(const Pose2D &speedPose);
-  void Set(int motorDirectSpeed[]);
-  void Begin();
-  void SetIndex(int motorDirectSpeed, int index);
-  void ReadEnc();
-  Pose2D GetPose();
-  int *GetEnc();
-  void Write();
-   void PrintInfo(Print &output, bool printConfig = false) const;
-    friend Print &operator<<(Print &output, const VectorRobotDrive &drive);
+    VectorRobotDrive(int kPWM[], int kCW[], int kENC_A[], int kENC_B[], bool rev[], int numMotors);
+    void Set(const NormalizedPose2D &speedPose);
+    NormalizedPose2D GetPose();
 
 private:
-  Pose2D speedPose;
-  int numMotors;
-  DriveMotor **motors; // Changed to pointer to pointer
-  int* enc;
-  int* kPWM;
-  int* kCW;
-  int* kENC_A;
-  int* kENC_B;
-  bool* rev;
+    NormalizedPose2D speedPose;
 };
 
 #endif
