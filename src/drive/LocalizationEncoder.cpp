@@ -38,9 +38,8 @@ void LocalizationEncoder::updatePosition(const long encoderCounts[3])
     float deltaY = ((leftDistance + rightDistance) / 2) * sin(transform.theta) - backDistance * cos(transform.theta) + WHEEL_OFFSET_Y * deltaTheta * cos(transform.theta) + BACK_OFFSET_F * deltaTheta * cos(transform.theta);
 
     // Update the robot's position
-    transform.x += deltaX;
-    transform.y += deltaY;
-    transform.theta += deltaTheta;
+    Pose2D delta(deltaX, deltaY, deltaTheta);
+    transform.add(delta);
 }
 
 /**

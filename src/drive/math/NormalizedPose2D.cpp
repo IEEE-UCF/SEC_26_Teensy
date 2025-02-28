@@ -20,6 +20,7 @@ float NormalizedPose2D::constrainValue(float value)
 NormalizedPose2D &NormalizedPose2D::rotateVector(float angle)
 {
     float rad = radians(angle); // Convert angle to radians
+    fixTheta();
     float cosA = cos(rad);
     float sinA = sin(rad);
 

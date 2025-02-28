@@ -13,6 +13,7 @@ Pose2D &Pose2D::add(const Pose2D &pose)
     x += pose.x;
     y += pose.y;
     theta += pose.theta;
+    fixTheta();
     return *this; // Return a reference to the current object
 }
 
@@ -48,6 +49,7 @@ Pose2D &Pose2D::translate(float dx, float dy)
 Pose2D &Pose2D::rotate(float dtheta)
 {
     theta += dtheta;
+    fixTheta();
     return *this; // Return a reference to the current object
 }
 
@@ -69,6 +71,22 @@ Pose2D &Pose2D::rotateVector(float angle)
     y = newY;
 
     return *this; // Return a reference to the current object for chaining
+}
+
+/**
+ * Check if theta overflows, and fix
+ */
+
+void Pose2D::fixTheta()
+{
+    while (theta > PI)
+    {
+        theta -= 2 * PI;
+    }
+    while (theta < -PI)
+    {
+        theta += 2 * PI;
+    }
 }
 
 Print &operator<<(Print &output, const Pose2D &pose)

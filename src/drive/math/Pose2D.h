@@ -17,6 +17,8 @@ public:
     virtual Pose2D &rotateVector(float angle);
 
     friend Print &operator<<(Print &output, const Pose2D &pose); // ChatGPT generated
+protected:
+    void fixTheta();
 };
 
 #endif
