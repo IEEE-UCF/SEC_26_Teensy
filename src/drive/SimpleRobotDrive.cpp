@@ -2,6 +2,12 @@
 #include <Arduino.h>
 #include <Print.h>
 
+/**
+ * Initializes a robot drive.
+ *
+ * @param motorSetups array of motors for setup
+ * @param numMotors number of motors
+ */
 SimpleRobotDrive::SimpleRobotDrive(const MotorSetup motorSetups[], int numMotors)
     : numMotors(numMotors), localization()
 {
@@ -14,6 +20,9 @@ SimpleRobotDrive::SimpleRobotDrive(const MotorSetup motorSetups[], int numMotors
   }
 }
 
+/**
+ * Runs begin method for each motor
+ */
 void SimpleRobotDrive::Begin()
 {
   for (int i = 0; i < numMotors; i++)
@@ -22,6 +31,11 @@ void SimpleRobotDrive::Begin()
   }
 }
 
+/**
+ * Sets value for each motor
+ *
+ * @param motorDirectSpeed array of speeds
+ */
 void SimpleRobotDrive::Set(int motorDirectSpeed[])
 {
   for (int i = 0; i < numMotors; i++)
@@ -30,6 +44,11 @@ void SimpleRobotDrive::Set(int motorDirectSpeed[])
   }
 }
 
+/**
+ * Sets value for a motor with index
+ * @param motorDirectSpeed speed
+ * @param index index
+ */
 void SimpleRobotDrive::SetIndex(int motorDirectSpeed, int index)
 {
   if (index >= numMotors)
@@ -40,6 +59,9 @@ void SimpleRobotDrive::SetIndex(int motorDirectSpeed, int index)
   motors[index]->Set(motorDirectSpeed);
 }
 
+/**
+ * Read each encoder and update the values
+ */
 void SimpleRobotDrive::ReadEnc()
 {
   for (int i = 0; i < numMotors; i++)
@@ -49,6 +71,9 @@ void SimpleRobotDrive::ReadEnc()
   }
 }
 
+/**
+ * Read both encoder and update localization
+ */
 void SimpleRobotDrive::ReadAll()
 {
   ReadEnc();                        // Update encoder counts
@@ -60,6 +85,9 @@ long *SimpleRobotDrive::GetEnc()
   return enc;
 }
 
+/**
+ * Write stored speed values to motors
+ */
 void SimpleRobotDrive::Write()
 {
   for (int i = 0; i < numMotors; i++)
@@ -68,6 +96,11 @@ void SimpleRobotDrive::Write()
   }
 }
 
+/**
+ * Get transform of robot
+ *
+ * @return transform
+ */
 Pose2D SimpleRobotDrive::GetPosition() const
 {
   return localization.getPosition();

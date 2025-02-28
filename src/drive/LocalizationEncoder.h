@@ -10,12 +10,12 @@ public:
     LocalizationEncoder();
     void updatePosition(const long encoderCounts[3]);
     Pose2D getPosition() const;
-    void setPosition(const Pose2D &translation);
+    void setPosition(const Pose2D &transform);
     void PrintInfo(Print &output) const;
-    friend Print &operator<<(Print &output, const LocalizationEncoder &translation);
+    friend Print &operator<<(Print &output, const LocalizationEncoder &transform);
 
 private:
-    Pose2D translation;
+    Pose2D transform;
 };
 
 #endif // LOCALIZATIONENCODER_H

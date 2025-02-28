@@ -1,5 +1,9 @@
 #include "NormalizedPose2D.h"
 
+/**
+ * Defines a new NormalizedPose2D. The value of this is constrained to -1.0, 1.0.
+ * This is a Pose2D only meant to represent unscaled velocity.
+ */
 NormalizedPose2D::NormalizedPose2D(float x, float y, float theta)
     : Pose2D(constrainValue(x), constrainValue(y), constrainValue(theta)) {}
 
@@ -9,7 +13,7 @@ float NormalizedPose2D::constrainValue(float value)
 }
 
 /**
- * Rotate the pose around (0,0) as if it were a vector. Theta stays the same
+ * Rotate the pose around (0,0) as if it were a vector. Theta stays the same.
  *
  * @param angle Angle to rotate by
  */

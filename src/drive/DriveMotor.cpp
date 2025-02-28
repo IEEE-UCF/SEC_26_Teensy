@@ -4,6 +4,11 @@
 
 int DriveMotor::encoderNum = 1;
 
+/**
+ * Initializes the DriveMotor object. Note that encoders will cap out at 4
+ *
+ * @param motorSetup The motor pin configuration.
+ */
 DriveMotor::DriveMotor(const MotorSetup &motorSetup)
     : motorSetup(motorSetup), pwmout(0), cwout(true), enc(0)
 {
@@ -18,6 +23,9 @@ DriveMotor::DriveMotor(const MotorSetup &motorSetup)
   encoderNum++;
 }
 
+/**
+ * Setup function for the motor
+ */
 void DriveMotor::Begin()
 {
   pinMode(motorSetup.kCW, OUTPUT);
@@ -30,6 +38,11 @@ void DriveMotor::Begin()
   }
 }
 
+/**
+ * Set speed of motor
+ *
+ * @param speed value from 0 to SPEED_MAX, int
+ */
 void DriveMotor::Set(int speed)
 {
   if (motorSetup.rev)
@@ -40,6 +53,9 @@ void DriveMotor::Set(int speed)
   cwout = (speed >= 0);
 }
 
+/**
+ * Read encoder values
+ */
 void DriveMotor::ReadEnc()
 {
   if (encoder)
@@ -48,6 +64,11 @@ void DriveMotor::ReadEnc()
   }
 }
 
+/**
+ * Return encoder values
+ *
+ * @return encoder tick count
+ */
 long DriveMotor::GetEnc()
 {
   if (motorSetup.kENCA == -1 || motorSetup.kENCB == -1)
@@ -57,6 +78,9 @@ long DriveMotor::GetEnc()
   return enc;
 }
 
+/**
+ * Write values to the motor
+ */
 void DriveMotor::Write()
 {
   analogWrite(motorSetup.kPWM, pwmout);

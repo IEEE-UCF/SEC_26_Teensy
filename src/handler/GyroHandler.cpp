@@ -2,24 +2,35 @@
 
 GyroHandler::GyroHandler() : bno08x(Adafruit_BNO08x(-1)) {}
 
-void GyroHandler::Setup() {
-    if (!bno08x.begin_I2C(0x4B)) {
-    // if (!bno08x.begin_UART(&Serial1)) {  // Requires a device with > 300 byte
-    // UART buffer! if (!bno08x.begin_SPI(BNO08X_CS, BNO08X_INT)) {
-    Serial.println("Failed to find BNO08x chip");
-    while (1) {
-      delay(10);
+/**
+ * Setup function for the Gyro. Fails sometimes
+ */
+void GyroHandler::Setup()
+{
+    if (!bno08x.begin_I2C(0x4B))
+    {
+        // if (!bno08x.begin_UART(&Serial1)) {  // Requires a device with > 300 byte
+        // UART buffer! if (!bno08x.begin_SPI(BNO08X_CS, BNO08X_INT)) {
+        Serial.println("Failed to find BNO08x chip");
+        while (1)
+        {
+            delay(10);
+        }
     }
-  }
-  Serial.println("BNO08x Found!");
-    if(!bno08x.enableReport(SH2_ROTATION_VECTOR)) {
-      Serial.println(F("Could not enable rotation vector"));
+    Serial.println("BNO08x Found!");
+    if (!bno08x.enableReport(SH2_ROTATION_VECTOR))
+    {
+        Serial.println(F("Could not enable rotation vector"));
     }
-    
 }
 
-void GyroHandler::Read() {
-    if (bno08x.getSensorEvent(&gyroEvent)) {
+/**
+ * Reads the gyro data
+ */
+void GyroHandler::Read()
+{
+    if (bno08x.getSensorEvent(&gyroEvent))
+    {
         // Gyro data is now stored in gyroEvent
     }
     gyroData[0] = gyroEvent.un.rotationVector.i;
@@ -27,15 +38,25 @@ void GyroHandler::Read() {
     gyroData[2] = gyroEvent.un.rotationVector.k;
 }
 
-float* GyroHandler::GetGyroData() {
+/**
+ * Returns the gyro data
+ *
+ * @return float array, {x, y, z}
+ */
+float *GyroHandler::GetGyroData()
+{
     return gyroData;
 }
 
-void GyroHandler::PrintInfo(Print &output, bool printConfig) const {
-    if (printConfig) {
+void GyroHandler::PrintInfo(Print &output, bool printConfig) const
+{
+    if (printConfig)
+    {
         output.println(F("BNO08x Configuration:"));
         output.println(F("I2C Address: 0x55"));
-    } else {
+    }
+    else
+    {
         output.print(F("Gyroscope: "));
         output.print(gyroData[0]);
         output.print(F(", "));
@@ -46,7 +67,8 @@ void GyroHandler::PrintInfo(Print &output, bool printConfig) const {
     }
 }
 
-Print &operator<<(Print &output, const GyroHandler &handler) {
+Print &operator<<(Print &output, const GyroHandler &handler)
+{
     handler.PrintInfo(output, false);
     return output;
 }

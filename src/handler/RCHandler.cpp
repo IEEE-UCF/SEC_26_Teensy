@@ -1,16 +1,24 @@
 #include "RCHandler.h"
 
-RCHandler::RCHandler() : updateTimer(0) {
-    for (int i = 0; i < 10; i++) {
+RCHandler::RCHandler() : updateTimer(0)
+{
+    for (int i = 0; i < 10; i++)
+    {
         pots[i] = 0;
     }
 }
 
+/**
+ * Start the RC communication
+ */
 void RCHandler::Begin(HardwareSerial &serial)
 {
     IBus.begin(serial, IBUSBM_NOTIMER);
 }
 
+/**
+ * Read the values from the rc
+ */
 void RCHandler::Read()
 {
     if (updateTimer >= DELAY)
@@ -24,6 +32,11 @@ void RCHandler::Read()
     }
 }
 
+/**
+ * Returns channel
+ *
+ * @return returns channel value, from -255 to 255
+ */
 int32_t RCHandler::Get(int channel)
 {
     if (channel >= 0 && channel < 10)

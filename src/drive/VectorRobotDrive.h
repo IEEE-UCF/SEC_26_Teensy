@@ -10,7 +10,7 @@ class VectorRobotDrive : public SimpleRobotDrive
 public:
     VectorRobotDrive(const MotorSetup motorSetups[], int numMotors);
     void Set(const NormalizedPose2D &speedPose);
-    NormalizedPose2D GetPose();
+    NormalizedPose2D GetVelocity();
 
 private:
     NormalizedPose2D speedPose;
