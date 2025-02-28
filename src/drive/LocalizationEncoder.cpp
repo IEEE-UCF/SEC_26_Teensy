@@ -2,42 +2,65 @@
 #include "MOTORCONFIG.h"
 #include <Arduino.h>
 
-LocalizationEncoder::LocalizationEncoder() : translation(0, 0, 0)
+LocalizationEncoder::LocalizationEncoder() : transform(0, 0, 0)
 {
 }
 
+/**
+ * Update position of the encoder.
+ *
+ * @param encoderCounts Array of encoder counts, {left, back, right}
+ */
 void LocalizationEncoder::updatePosition(const long encoderCounts[3])
 {
-    long leftTicks = encoderCounts[0];
-    long rightTicks = encoderCounts[1];
-    long backTicks = encoderCounts[2];
+    static long previousLeftTicks = 0;
+    static long previousBackTicks = 0;
+    static long previousRightTicks = 0;
+
+    long leftChangeTicks = encoderCounts[0] - previousLeftTicks;
+    long backChangeTicks = encoderCounts[1] - previousBackTicks;
+    long rightChangeTicks = encoderCounts[2] - previousRightTicks;
+
+    previousLeftTicks = encoderCounts[0];
+    previousBackTicks = encoderCounts[1];
+    previousRightTicks = encoderCounts[2];
 
     // Calculate the distance each wheel has moved
-    float leftDistance = (WHEEL_CIRCUMFERENCE * leftTicks) / TICKS_PER_REVOLUTION;
-    float rightDistance = (WHEEL_CIRCUMFERENCE * rightTicks) / TICKS_PER_REVOLUTION;
-    float backDistance = (WHEEL_CIRCUMFERENCE * backTicks) / TICKS_PER_REVOLUTION;
+    float leftDistance = leftChangeTicks * IN_PER_TICK; // all in inches
+    float backDistance = backChangeTicks * IN_PER_TICK;
+    float rightDistance = rightChangeTicks * IN_PER_TICK;
 
     // Calculate the change in orientation (theta)
-    float deltaTheta = (rightDistance - leftDistance) / TRACK_WIDTH;
+    float deltaTheta = (rightDistance - leftDistance) / TRACK_WIDTH; // get angular change
 
     // Calculate the change in position
-    float deltaX = ((leftDistance + rightDistance) / 2) * cos(translation.theta) + backDistance * sin(translation.theta) - WHEEL_OFFSET_Y * deltaTheta * sin(translation.theta);
-    float deltaY = ((leftDistance + rightDistance) / 2) * sin(translation.theta) - backDistance * cos(translation.theta) + WHEEL_OFFSET_Y * deltaTheta * cos(translation.theta) + BACK_OFFSET_F * deltaTheta * cos(translation.theta);
+    float deltaX = ((leftDistance + rightDistance) / 2) * cos(transform.theta) + backDistance * sin(transform.theta) - WHEEL_OFFSET_Y * deltaTheta * sin(transform.theta);
+    float deltaY = ((leftDistance + rightDistance) / 2) * sin(transform.theta) - backDistance * cos(transform.theta) + WHEEL_OFFSET_Y * deltaTheta * cos(transform.theta) + BACK_OFFSET_F * deltaTheta * cos(transform.theta);
 
     // Update the robot's position
-    translation.x += deltaX;
-    translation.y += deltaY;
-    translation.theta += deltaTheta;
+    transform.x += deltaX;
+    transform.y += deltaY;
+    transform.theta += deltaTheta;
 }
 
+/**
+ * Return transform of the robot.
+ *
+ * @return Transform of robot.
+ */
 Pose2D LocalizationEncoder::getPosition() const
 {
-    return translation;
+    return transform;
 }
 
-void LocalizationEncoder::setPosition(const Pose2D &translation)
+/**
+ * Override and set position of robot.
+ *
+ * @param transform Pose2D of new position
+ */
+void LocalizationEncoder::setPosition(const Pose2D &transform)
 {
-    this->translation = translation;
+    this->transform = transform;
 }
 
 void LocalizationEncoder::PrintInfo(Print &output) const
@@ -45,13 +68,13 @@ void LocalizationEncoder::PrintInfo(Print &output) const
     output.println(F("Localization Encoder Information:"));
 
     output.print(F("Translation X: "));
-    output.println(translation.x);
+    output.println(transform.x);
 
     output.print(F("Translation Y: "));
-    output.println(translation.y);
+    output.println(transform.y);
 
     output.print(F("Translation Theta: "));
-    output.println(translation.theta);
+    output.println(transform.theta);
 
     output.println(F("Encoder Counts:"));
 }

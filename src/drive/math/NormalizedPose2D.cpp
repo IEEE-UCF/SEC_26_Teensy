@@ -8,6 +8,11 @@ float NormalizedPose2D::constrainValue(float value)
     return constrain(value, -1.0, 1.0);
 }
 
+/**
+ * Rotate the pose around (0,0) as if it were a vector. Theta stays the same
+ *
+ * @param angle Angle to rotate by
+ */
 NormalizedPose2D &NormalizedPose2D::rotateVector(float angle)
 {
     float rad = radians(angle); // Convert angle to radians

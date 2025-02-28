@@ -3,6 +3,11 @@
 
 Pose2D::Pose2D(float x, float y, float theta) : x(x), y(y), theta(theta) {}
 
+/**
+ * Adds one pose to another.
+ *
+ * @param pose Pose2D to add.
+ */
 Pose2D &Pose2D::add(const Pose2D &pose)
 {
     x += pose.x;
@@ -11,6 +16,9 @@ Pose2D &Pose2D::add(const Pose2D &pose)
     return *this; // Return a reference to the current object
 }
 
+/**
+ * Reset pose to (0,0,0).
+ */
 Pose2D &Pose2D::reset()
 {
     x = 0;
@@ -19,6 +27,12 @@ Pose2D &Pose2D::reset()
     return *this; // Return a reference to the current object
 }
 
+/**
+ * Translate vector
+ *
+ * @param dx Amount to change x by.
+ * @param dy Amount to change y by.
+ */
 Pose2D &Pose2D::translate(float dx, float dy)
 {
     x += dx;
@@ -26,12 +40,22 @@ Pose2D &Pose2D::translate(float dx, float dy)
     return *this; // Return a reference to the current object
 }
 
+/**
+ * Add to theta
+ *
+ * @param dtheta Amount to change theta by.
+ */
 Pose2D &Pose2D::rotate(float dtheta)
 {
     theta += dtheta;
     return *this; // Return a reference to the current object
 }
 
+/**
+ * Rotate the pose around (0,0) as if it were a vector. Theta stays the same
+ *
+ * @param angle Angle to rotate by
+ */
 Pose2D &Pose2D::rotateVector(float angle)
 {
     float rad = radians(angle); // Convert angle to radians
