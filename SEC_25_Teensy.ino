@@ -23,6 +23,9 @@
 // #define TOF_COUNT 2
 #define LINE_COUNT 3
 
+/**
+ *  kPWM, kCW, kENCA, kENCB, rev
+ */
 MotorSetup driveMotors[DRIVEMOTOR_COUNT] = {
     {9, 32, 7, 8, true},   // left
     {11, 27, 5, 6, false}, // center
@@ -33,19 +36,6 @@ MotorSetup nonDriveMotors[NONDRIVEMOTOR_COUNT] = {
     {29, 30, 31, 30, true}, // intake
     {-1, -1, -1, -1, false} // empty placeholder
 };
-
-// Motor Setup old
-/*int kPWM[DRIVEMOTOR_COUNT] = {9, 11, 10}; // left, center, right
-int kCW[DRIVEMOTOR_COUNT] = {32, 27, 26};
-int kENC[DRIVEMOTOR_COUNT] = {7, 5, 3};
-int kENCDIR[DRIVEMOTOR_COUNT] = {8, 6, 4};
-bool rev[DRIVEMOTOR_COUNT] = {true, false, false};
-
-int nkPWM[NONDRIVEMOTOR_COUNT] = {29, -1};
-int nkCW[NONDRIVEMOTOR_COUNT] = {30, -1};
-int nkENC[NONDRIVEMOTOR_COUNT] = {31, -1};
-int nkENCDIR[NONDRIVEMOTOR_COUNT] = {30, -1};
-bool nrev[NONDRIVEMOTOR_COUNT] = {true, false};*/
 
 // Other Input Pins
 // const int kButton[BUTTON_COUNT] = {33, 33};
