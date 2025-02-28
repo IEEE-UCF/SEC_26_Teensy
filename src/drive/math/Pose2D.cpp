@@ -1,7 +1,48 @@
 #include "Pose2D.h"
 #include "Arduino.h"
 
-Pose2D::Pose2D(float x, float y, float theta) : x(x), y(y), theta(theta) {}
+/**
+ * Creates a Pose2D. Has an x, y, and theta. Use however you'd like
+ */
+Pose2D::Pose2D(float x, float y, float theta, float xymag) : x(x), y(y), theta(theta), xymag(xymag), normalized(false) {}
+
+/**
+ * Normalize magnitude of x and y to 1, and theta from -1 to 1
+ *
+ */
+Pose2D &Pose2D::normalize(Print &output)
+{
+    if (!normalized)
+    {
+        xymag = sqrt(x * x + y * y);
+        x = x / xymag;
+        y = y / xymag;
+        theta = theta / (2 * PI);
+        normalized = true;
+    }
+    else
+    {
+        Serial.println("Already normalized!");
+    }
+    return *this;
+}
+
+Pose2D &Pose2D::unnormalize(Print &output)
+{
+    if (normalized)
+    {
+        x *= xymag;
+        y *= xymag;
+        xymag = 1;
+        theta = theta * (2 * PI);
+        normalized = false;
+    }
+    else
+    {
+        Serial.println("Not already normalized!");
+    }
+    return *this;
+}
 
 /**
  * Adds a pose.

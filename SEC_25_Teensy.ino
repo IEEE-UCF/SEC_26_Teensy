@@ -9,7 +9,6 @@
 // #include "TOFHandler.h"
 
 #include "src/drive/math/Pose2D.h"
-#include "src/drive/math/NormalizedPose2D.h"
 
 #include "src/drive/VectorRobotDrive.h"
 #include "src/drive/SimpleRobotDrive.h"
@@ -90,7 +89,7 @@ void setup()
   intake.Begin();
 
   // Set everything to 0
-  robotDrive.Set(NormalizedPose2D(0, 0, 0));
+  robotDrive.Set(Pose2D(0, 0, 0));
   intake.Set(0);
   robotDrive.Write();
   intake.Write();
@@ -135,20 +134,21 @@ void loop()
   // Main logic
   if (programState == 1)
   {
-    NormalizedPose2D hi(0, 0, 0);
+    Pose2D hi(0, 0, 0);
     robotDrive.Set(hi);
     intake.Set(0);
   }
   else if (programState == 2)
   {
     // Flysky inputs. Note that "?" is -255 and "?" is 255
-    float y = map((float)constrain(rc.Get(2), -255, 255), -255, 255, -1, 1);    // LPot Y
-    float x = map((float)constrain(rc.Get(3), -255, 255), -255, 255, -1, 1);    // LPot X
-    float theta = map((float)constrain(rc.Get(0), -255, 255), -255, 255, -1, 1); // RPot X
+    float y = map((float)constrain(rc.Get(2), -255, 255), -255, 255, -1, 1);               // LPot Y
+    float x = map((float)constrain(rc.Get(3), -255, 255), -255, 255, -1, 1);               // LPot X
+    float theta = map((float)constrain(rc.Get(0), -255, 255), -255, 255, -2 * PI, 2 * PI); // RPot X
     float angleOffset = -gyro.GetGyroData()[2];
-    NormalizedPose2D toWrite(x, y, theta);
+    Pose2D toWrite(x, y, theta);
+    toWrite.normalize(Serial);
     Serial << toWrite;
-    robotDrive.Set(NormalizedPose2D(x, y, theta) /*.rotateVector(angleOffset)*/);
+    robotDrive.Set(toWrite) /*.rotateVector(angleOffset)*/;
     intake.Set(rc.Get(5));
   }
 

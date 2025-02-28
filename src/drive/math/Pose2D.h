@@ -6,10 +6,12 @@
 class Pose2D
 {
 public:
-    float x, y, theta;
+    float x, y, theta, xymag;
 
-    Pose2D(float x, float y, float theta);
+    Pose2D(float x, float y, float theta, float xymag = 1);
 
+    Pose2D &normalize(Print &output);
+    Pose2D &unnormalize(Print &output);
     Pose2D &add(const Pose2D &pose);
     Pose2D &subtract(const Pose2D &pose);
     Pose2D &multElement(const Pose2D &pose);
@@ -22,6 +24,8 @@ public:
     friend Print &operator<<(Print &output, const Pose2D &pose); // ChatGPT generated
 protected:
     void fixTheta();
+    bool normalized;
+    void normalizeError();
 };
 
 #endif

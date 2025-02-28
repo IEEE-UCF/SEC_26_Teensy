@@ -2,18 +2,17 @@
 #define VectorRobotDrive_h
 
 #include "SimpleRobotDrive.h"
-#include "math/NormalizedPose2D.h"
 #include "MOTORCONFIG.h"
 
 class VectorRobotDrive : public SimpleRobotDrive
 {
 public:
     VectorRobotDrive(const MotorSetup motorSetups[], int numMotors);
-    void Set(const NormalizedPose2D &speedPose);
-    NormalizedPose2D GetVelocity();
+    void Set(const Pose2D &speedPose);
+    Pose2D GetVelocity();
 
 private:
-    NormalizedPose2D speedPose;
+    Pose2D speedPose;
 };
 
 #endif
