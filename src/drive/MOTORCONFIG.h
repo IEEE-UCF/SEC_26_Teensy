@@ -21,10 +21,13 @@ Motor Constants
 #define GEAR_RATIO 34              // gear ratio
 #define RAW_TICKS_PER_REVOLUTION 3 // encoder ticks per wheel revolution
 constexpr long TICKS_PER_REVOLUTION = RAW_TICKS_PER_REVOLUTION * GEAR_RATIO;
-constexpr long MOTOR_RPM_NOLOAD = RAW_MOTOR_RPM_NOLOAD / GEAR_RATIO;
+constexpr float MOTOR_RPM_NOLOAD = RAW_MOTOR_RPM_NOLOAD / GEAR_RATIO;
+constexpr float MOTOR_RPS_NOLOAD = MOTOR_RPM_NOLOAD / 60;
 constexpr float IN_PER_TICK = WHEEL_CIRCUMFERENCE / TICKS_PER_REVOLUTION;
 
-#define MAX_VELOCITY 10    // inches per second
-#define MAX_ACCELERATION 5 // inches per second^2
+#define MAX_VELOCITY 15            // inches per second
+#define MAX_ACCELERATION 5         // inches per second^2
+#define MAX_ANGULAR_VELOCITY 10    // inches per second
+#define MAX_ANGULAR_ACCELERATION 5 // inches per second^2
 
 #endif

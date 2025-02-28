@@ -12,6 +12,7 @@ public:
 
     Pose2D &normalize(Print &output);
     Pose2D &unnormalize(Print &output);
+    float magnitude();
     Pose2D &add(const Pose2D &pose);
     Pose2D &subtract(const Pose2D &pose);
     Pose2D &multElement(const Pose2D &pose);
@@ -19,11 +20,11 @@ public:
     Pose2D &reset();
     Pose2D &translate(float dx, float dy);
     Pose2D &rotate(float dtheta);
+    Pose2D &fixTheta();
     virtual Pose2D &rotateVector(float angle);
 
     friend Print &operator<<(Print &output, const Pose2D &pose); // ChatGPT generated
 protected:
-    void fixTheta();
     bool normalized;
     void normalizeError();
 };

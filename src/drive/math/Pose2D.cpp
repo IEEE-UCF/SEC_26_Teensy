@@ -45,6 +45,13 @@ Pose2D &Pose2D::unnormalize(Print &output)
 }
 
 /**
+ * Get magnitude of vector component
+ */
+float Pose2D::magnitude()
+{
+    return sqrt(x * x + y * y) * xymag;
+}
+/**
  * Adds a pose.
  *
  * @param pose Pose2D to add.
@@ -73,7 +80,7 @@ Pose2D &Pose2D::subtract(const Pose2D &pose)
 }
 
 /**
- * Multiplies 2 poses element by element.
+ * Multiplies 2 poses element by element. Does not fix theta
  *
  * @param pose Pose2D to multiply element by element.
  */
@@ -86,7 +93,7 @@ Pose2D &Pose2D::multElement(const Pose2D &pose)
 }
 
 /**
- * Multiplies pose by a scalar.alignas
+ * Multiplies pose by a scalar. Does not fix theta
  *
  * @param pose Pose2D to multiply by scalar.
  */
@@ -158,7 +165,7 @@ Pose2D &Pose2D::rotateVector(float angle)
  * Check if theta overflows, and fix
  */
 
-void Pose2D::fixTheta()
+Pose2D &Pose2D::fixTheta()
 {
     while (theta > PI)
     {
@@ -168,6 +175,7 @@ void Pose2D::fixTheta()
     {
         theta += 2 * PI;
     }
+    return *this;
 }
 
 Print &operator<<(Print &output, const Pose2D &pose)

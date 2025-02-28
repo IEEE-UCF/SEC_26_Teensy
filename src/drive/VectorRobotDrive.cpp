@@ -19,7 +19,8 @@ void VectorRobotDrive::Set(const Pose2D &speedPose)
     int i = 0;
     while (i < numMotors)
     {
-        switch (i)
+        /*
+                switch (i)
         {
         case 0:
             motors[i]->Set((speedPose.y - speedPose.theta * TRACK_WIDTH) / WHEEL_DIAMETER * 255);
@@ -30,6 +31,22 @@ void VectorRobotDrive::Set(const Pose2D &speedPose)
         case 2:
             motors[i]->Set((speedPose.y + speedPose.theta * TRACK_WIDTH) / WHEEL_DIAMETER * 255);
             break; // Added break statement
+        }
+        */
+        /*
+        Formula: velocity/wheel circumference = RPS, / MOTOR_RPS_NOLOAD to get power, 255 to scale it
+        */
+        switch (i)
+        {
+        case 0:
+            motors[i]->Set((speedPose.y - speedPose.theta * TRACK_WIDTH) / WHEEL_CIRCUMFERENCE / MOTOR_RPS_NOLOAD * 255);
+            break;
+        case 1:
+            motors[i]->Set(speedPose.x / WHEEL_CIRCUMFERENCE / MOTOR_RPS_NOLOAD * 255);
+            break;
+        case 2:
+            motors[i]->Set((speedPose.y + speedPose.theta * TRACK_WIDTH) / WHEEL_CIRCUMFERENCE / MOTOR_RPS_NOLOAD * 255);
+            break;
         }
         i++;
     }
