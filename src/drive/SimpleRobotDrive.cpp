@@ -11,7 +11,7 @@
 SimpleRobotDrive::SimpleRobotDrive(const MotorSetup motorSetups[], int numMotors)
     : numMotors(numMotors), localization()
 {
-  enc = new int[numMotors];
+  enc = new long[numMotors];
   motors = new DriveMotor *[numMotors]; // Allocate memory for motor pointers
   for (int i = 0; i < numMotors; i++)
   {

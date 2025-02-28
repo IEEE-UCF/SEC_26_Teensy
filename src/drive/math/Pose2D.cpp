@@ -4,7 +4,7 @@
 Pose2D::Pose2D(float x, float y, float theta) : x(x), y(y), theta(theta) {}
 
 /**
- * Adds one pose to another.
+ * Adds a pose.
  *
  * @param pose Pose2D to add.
  */
@@ -15,6 +15,46 @@ Pose2D &Pose2D::add(const Pose2D &pose)
     theta += pose.theta;
     fixTheta();
     return *this; // Return a reference to the current object
+}
+
+/**
+ * Subtracts a pose.
+ *
+ * @param pose Pose2D to subtract.
+ */
+Pose2D &Pose2D::subtract(const Pose2D &pose)
+{
+    x -= pose.x;
+    y -= pose.y;
+    theta -= pose.theta;
+    fixTheta();
+    return *this; // Return a reference to the current object
+}
+
+/**
+ * Multiplies 2 poses element by element.
+ *
+ * @param pose Pose2D to multiply element by element.
+ */
+Pose2D &Pose2D::multElement(const Pose2D &pose)
+{
+    x *= pose.x;
+    y *= pose.y;
+    theta *= pose.theta;
+    return *this;
+}
+
+/**
+ * Multiplies pose by a scalar.alignas
+ *
+ * @param pose Pose2D to multiply by scalar.
+ */
+Pose2D &Pose2D::multConstant(float scalar)
+{
+    x *= scalar;
+    y *= scalar;
+    theta *= scalar;
+    return *this;
 }
 
 /**

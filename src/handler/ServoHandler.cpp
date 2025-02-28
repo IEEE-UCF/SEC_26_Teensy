@@ -1,7 +1,7 @@
 #include "ServoHandler.h"
 #include <Arduino.h>
 
-ServoHandler::ServoHandler(int *kServo, int numServos) : numServos(numServos), kServo(kServo) {}
+ServoHandler::ServoHandler(int *kServo, int numServos) : kServo(kServo), numServos(numServos) {}
 
 void ServoHandler::Setup()
 {
@@ -41,19 +41,25 @@ int *ServoHandler::Get()
     return anglesWrite;
 }
 
-void ServoHandler::PrintInfo(Print &output, bool printConfig) const {
-    if (printConfig) {
+void ServoHandler::PrintInfo(Print &output, bool printConfig) const
+{
+    if (printConfig)
+    {
         output.print(F("ServoHandler Configuration: "));
         output.print(F("Number of Servos: "));
         output.println(numServos);
-        for (int i = 0; i < numServos; i++) {
+        for (int i = 0; i < numServos; i++)
+        {
             output.print(F("Servo "));
             output.print(i);
             output.print(F(" - Pin: "));
             output.println(kServo[i]);
         }
-    } else {
-        for (int i = 0; i < numServos; i++) {
+    }
+    else
+    {
+        for (int i = 0; i < numServos; i++)
+        {
             output.print(F("Servo "));
             output.print(i);
             output.print(F(" - Angle: "));
@@ -62,7 +68,8 @@ void ServoHandler::PrintInfo(Print &output, bool printConfig) const {
     }
 }
 
-Print &operator<<(Print &output, const ServoHandler &handler) {
+Print &operator<<(Print &output, const ServoHandler &handler)
+{
     handler.PrintInfo(output, false);
     return output;
 }

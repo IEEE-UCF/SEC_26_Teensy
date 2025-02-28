@@ -5,7 +5,6 @@
 #include <Arduino.h>
 #include <Print.h>
 
-
 #define RANGE_LOW 1000
 #define RANGE_HIGH 2000
 #define ANGLE_LOW 0
@@ -17,12 +16,11 @@ public:
 
     void Setup();
     void Set(int *anglesWrite);
-    void WriteServoAngle(int index, int angle);
     void Write();
+    void WriteServoAngle(int index, int angle);
     int *Get();
     void PrintInfo(Print &output, bool printConfig = false) const;
     friend Print &operator<<(Print &output, const ServoHandler &handler);
-
 
 private:
     Servo *servos;

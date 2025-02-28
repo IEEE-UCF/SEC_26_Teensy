@@ -11,6 +11,9 @@ public:
     Pose2D(float x, float y, float theta);
 
     Pose2D &add(const Pose2D &pose);
+    Pose2D &subtract(const Pose2D &pose);
+    Pose2D &multElement(const Pose2D &pose);
+    Pose2D &multConstant(float scalar);
     Pose2D &reset();
     Pose2D &translate(float dx, float dy);
     Pose2D &rotate(float dtheta);
