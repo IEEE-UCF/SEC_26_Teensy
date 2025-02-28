@@ -1,6 +1,13 @@
 #include "PID.h"
 
-double PID::step(double measurement, double setpoint)
+/**
+ * Step the PID.
+ *
+ * @param measurement current position
+ * @param setpoint set position
+ * @return output correction
+ */
+double PID::Step(double measurement, double setpoint)
 {
     static elapsedMillis timer = 0;
     if (timer > timeStepMin * 1000)

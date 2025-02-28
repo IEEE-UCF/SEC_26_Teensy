@@ -23,7 +23,7 @@ public:
         : kp(kp), ki(ki), kd(kd), kaw(kaw), timeConst(timeConst), max(max), min(min), maxRate(maxRate) {}
     PID(const PIDConfig &config)
         : kp(config.kp), ki(config.ki), kd(config.kd), kaw(config.kaw), timeConst(config.timeConst), max(config.max), min(config.min), maxRate(config.maxRate) {}
-    double step(double measurement, double setpoint);
+    double Step(double measurement, double setpoint);
 
 private:
     double kp;                 // Proportional gain

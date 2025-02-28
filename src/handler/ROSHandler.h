@@ -1,6 +1,7 @@
 #ifndef ROSHANDLER_H
 #define ROSHANDLER_H
 
+#define USE_USBCON
 #include <ros.h>
 #include <ros/time.h>
 #include <tf/transform_broadcaster.h>

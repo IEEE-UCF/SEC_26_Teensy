@@ -2,12 +2,20 @@
 
 ROSHandler::ROSHandler() {}
 
+/**
+ * Begin ros serial
+ */
 void ROSHandler::Setup()
 {
     nh.initNode();
     broadcaster.init(nh);
 }
 
+/**
+ * Update ros serial.
+ *
+ * @param pose Transform of robot
+ */
 void ROSHandler::Update(const Pose2D &pose)
 {
     static elapsedMillis timer = 0;

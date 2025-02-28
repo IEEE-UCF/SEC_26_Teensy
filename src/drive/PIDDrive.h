@@ -11,7 +11,7 @@ class PIDDrive
 public:
     PIDDrive(const PIDConfig &xConfig, const PIDConfig &yConfig, const PIDConfig &thetaConfig, Print &serialOutput);
 
-    Pose2D step(const Pose2D &currentPose, const Pose2D &targetPose);
+    Pose2D Step(const Pose2D &currentPose, const Pose2D &targetPose);
 
 private:
     PID xPID;
