@@ -56,9 +56,9 @@ RCHandler rc;
 // LineHandler lines(kLine, LINE_COUNT);
 
 // Output Handlers
-VectorRobotDrive robotDrive(driveMotors, DRIVEMOTOR_COUNT);
+VectorRobotDrive robotDrive(driveMotors, DRIVEMOTOR_COUNT, Serial);
 // ServoHandler servos(kServo, SERVO_COUNT);
-DriveMotor intake(nonDriveMotors[0]);
+DriveMotor intake(nonDriveMotors[0], Serial);
 // DriveMotor sorterMotor(nkPWM[1], nkCW[1], -1, -1, nrev[1]);
 
 void setup()
@@ -136,7 +136,7 @@ void loop()
     float theta = map((float)constrain(rc.Get(0), -255, 255), -255, 255, -2 * PI, 2 * PI); // RPot X
     float angleOffset = -gyro.GetGyroData()[2];
     Pose2D toWrite(x, y, theta);
-    toWrite.normalize(Serial);
+    toWrite.normalize();
     Serial << toWrite;
     robotDrive.Set(toWrite) /*.rotateVector(angleOffset)*/;
     intake.Set(rc.Get(5));
