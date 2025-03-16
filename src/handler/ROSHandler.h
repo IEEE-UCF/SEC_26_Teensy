@@ -1,26 +1,34 @@
 #ifndef ROSHANDLER_H
 #define ROSHANDLER_H
 
+// enables USB communication for ROS serial
 #define USE_USBCON
-#include <ros.h>
-#include <ros/time.h>
-#include <tf/transform_broadcaster.h>
-#include <elapsedMillis.h>
-#include "../drive/math/Pose2D.h"
+
+// ROS and TF dependencies
+#include <ros.h>                      // ROS communication handler
+#include <ros/time.h>                  // ROS time utilities
+#include <tf/transform_broadcaster.h>   // For broadcasting transform frames
+#include <elapsedMillis.h>              // Utility for timing without blocking
+#include "../drive/math/Pose2D.h"       // Custom Pose2D struct for robot position
+
+// class to handle ROS communication and transformations
 class ROSHandler
 {
 public:
-    ROSHandler();
-    void Setup();
-    void Update(const Pose2D &pose);
+    ROSHandler();          // constructor
+    void Setup();          // initalizes ROS node
+    void Update(const Pose2D &pose); // publishes transform updates based on robot pose
 
 private:
-    ros::NodeHandle nh;
-    geometry_msgs::TransformStamped t;
-    tf::TransformBroadcaster broadcaster;
-    unsigned long minDelay = 10; // ms
-    char base_link[11] = "/base_link";
-    char odom[6] = "/odom";
+    ros::NodeHandle nh;             // ROS node handle for communication
+    geometry_msgs::TransformStamped t;  // messages type for transformation
+    tf::TransformBroadcaster broadcaster; // broadcasts transform to ROS
+
+    unsigned long minDelay = 10; // minimum update delay (ms) to prevent spam
+
+    // frame names used in ROS transform tree
+    const char* base_link = "/base_link"; // robot base frame
+    const char* odom = "/odom";           // odometry frame
 };
 
 #endif
