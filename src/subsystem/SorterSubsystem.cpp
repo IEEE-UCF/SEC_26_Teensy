@@ -37,8 +37,9 @@ void SortingSubsystem::Update()
     {
     case 0:
     {
-        transferMotor.Set(100);     // run the transfer
-        int range = tofs.Get(iTOF); // get range reading from tof. Update not required as we call it in main
+        transferMotor.Set(100);                       // run the transfer
+        servos.WriteServoAngle(iServo, CENTER_ANGLE); // write center angle
+        int range = tofs.Get(iTOF);                   // get range reading from tof. Update not required as we call it in main
         if (range < OBJECT_RANGE)
         {
             _state = 1; // if object is detcted, switch state
@@ -46,9 +47,12 @@ void SortingSubsystem::Update()
         }
         break;
     }
+
     case 1:
     {
         transferMotor.Set(0); // pause transfer
+        servos.WriteServoAngle(iServo, CENTER_ANGLE);
+        int *_readings = halls.getReadings();
         if (timer > 250)
         {
             _state = 2;
@@ -60,7 +64,6 @@ void SortingSubsystem::Update()
     case 2:
     {
         transferMotor.Set(0); // pause transfer
-        int *_readings = halls.getReadings();
         break;
     }
     }

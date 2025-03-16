@@ -10,6 +10,10 @@
 #define OBJECT_RANGE 50
 #define BOUNDS_MAG 2
 #define SORTER_HALL_COUNT 3
+
+#define CENTER_ANGLE 50
+#define LEFT_ANGLE 50
+#define RIGHT_ANGLE 50
 class SortingSubsystem
 {
 public:
