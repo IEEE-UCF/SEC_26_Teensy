@@ -30,6 +30,10 @@ Object identified
 State 3:
 Operate servo
 */
+
+/**
+ * Updates, run every frame
+ */
 void SortingSubsystem::Update()
 {
     static elapsedMillis timer = 0;
@@ -95,4 +99,38 @@ void SortingSubsystem::Update()
         }
     }
     }
+}
+
+void SortingSubsystem::PrintInfo(Print &output, bool printConfig) const
+{
+    output.println("Sorting Subsystem Info:");
+    output.print("TOF Channel: ");
+    output.println(iTOF);
+    output.print("Servo Channel: ");
+    output.println(iServo);
+    output.print("Hall Count: ");
+    output.println(hallCount);
+    output.print("Current State: ");
+    output.println(_state);
+
+    if (printConfig)
+    {
+        output.println("Configuration:");
+        output.print("Object Range: ");
+        output.println(OBJECT_RANGE);
+        output.print("Bounds Magnitude: ");
+        output.println(BOUNDS_MAG);
+        output.print("Center Angle: ");
+        output.println(CENTER_ANGLE);
+        output.print("Left Angle: ");
+        output.println(LEFT_ANGLE);
+        output.print("Right Angle: ");
+        output.println(RIGHT_ANGLE);
+    }
+}
+
+Print &operator<<(Print &output, const SortingSubsystem &subsystem)
+{
+    subsystem.PrintInfo(output);
+    return output;
 }
