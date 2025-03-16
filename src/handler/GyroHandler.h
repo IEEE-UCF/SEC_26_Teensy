@@ -4,13 +4,14 @@
 #include <Wire.h>
 #include <Adafruit_BNO08x.h>
 
-class GyroHandler {
+class GyroHandler
+{
 public:
     GyroHandler();
     void Setup();
-    void Read();
+    void Update();
     void PrintInfo(Print &output, bool printConfig = false) const;
-    float* GetGyroData();
+    float *GetGyroData();
 
 private:
     Adafruit_BNO08x bno08x;

@@ -81,6 +81,10 @@ private:
 
     uint8_t drawingMemory[TOTAL_LEDS * 3] __attribute__((aligned(32)));
     alignas(32) uint8_t displayMemory[TOTAL_LEDS * 12];
+<<<<<<< HEAD
+=======
+    // MAMEM uint8_t displayMemory[TOTAL_LEDS * 12] __attribute__((aligned(32)));
+>>>>>>> 35eeac2d6efb00d57977bc0828d28932c66d3bd4
 };
 
 #endif

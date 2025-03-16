@@ -3,11 +3,12 @@
 
 #include <Arduino.h>
 
-class ButtonHandler {
+class ButtonHandler
+{
 public:
   ButtonHandler(int *kPins, int numPins);
   void Setup();
-  void Read();
+  void Update();
   bool *buttonStates;
 
   void PrintInfo(Print &output, bool printConfig) const;

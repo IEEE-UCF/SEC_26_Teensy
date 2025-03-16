@@ -21,7 +21,7 @@ void HallHandler::Setup()
     }
 }
 
-void HallHandler::Read()
+void HallHandler::Update()
 {
     for (int i = 0; i < numPins; i++)
     {

@@ -5,9 +5,16 @@
 LocalizationEncoder::LocalizationEncoder(Print &output)
     : output(output), transform(0, 0, 0) {}
 
-void LocalizationEncoder::updatePosition(const long encoderCounts[3]) {
+/**
+ * Update position of the encoder.
+ *
+ * @param encoderCounts Array of encoder counts, {left, back, right}
+ */
+void LocalizationEncoder::updatePosition(const long encoderCounts[3])
+{
     const float trackWidth = MotorConstants::TRACK_WIDTH;
-    if (fabsf(trackWidth) < 1e-6f) {
+    if (fabsf(trackWidth) < 1e-6f)
+    {
         output.println(F("Error: TRACK_WIDTH invalid!"));
         return;
     }
@@ -25,27 +32,44 @@ void LocalizationEncoder::updatePosition(const long encoderCounts[3]) {
     const float rightDistance = rightChangeTicks * MotorConstants::IN_PER_TICK;
 
     const float deltaTheta = (rightDistance - leftDistance) / trackWidth;
-    
+
     const float cosTheta = cosf(transform.getTheta());
     const float sinTheta = sinf(transform.getTheta());
-    
-    const float deltaX = ((leftDistance + rightDistance) * 0.5f * cosTheta) + 
-                        (backDistance * sinTheta) - 
-                        (MotorConstants::WHEEL_OFFSET_Y * deltaTheta * sinTheta);
-                        
-    const float deltaY = ((leftDistance + rightDistance) * 0.5f * sinTheta) - 
-                        (backDistance * cosTheta) + 
-                        (MotorConstants::WHEEL_OFFSET_Y * deltaTheta * cosTheta) + 
-                        (MotorConstants::BACK_OFFSET_F * deltaTheta * cosTheta);
+
+    const float deltaX = ((leftDistance + rightDistance) * 0.5f * cosTheta) +
+                         (backDistance * sinTheta) -
+                         (MotorConstants::WHEEL_OFFSET_Y * deltaTheta * sinTheta);
+
+    const float deltaY = ((leftDistance + rightDistance) * 0.5f * sinTheta) -
+                         (backDistance * cosTheta) +
+                         (MotorConstants::WHEEL_OFFSET_Y * deltaTheta * cosTheta) +
+                         (MotorConstants::BACK_OFFSET_F * deltaTheta * cosTheta);
 
     transform.add(Pose2D(deltaX, deltaY, deltaTheta));
 }
 
-Pose2D LocalizationEncoder::getPosition() const {
+/**
+ * Return transform of the robot.
+ *
+ * @return Transform of robot.
+ */
+Pose2D LocalizationEncoder::getPosition() const
+{
     return transform;
 }
 
-void LocalizationEncoder::PrintInfo(Print &output) const {
+/**
+ * Override and set position of the robot.
+ *
+ * @param transform Pose2D of the new position
+ */
+void LocalizationEncoder::setPosition(const Pose2D &transform)
+{
+    this->transform = transform;
+}
+
+void LocalizationEncoder::PrintInfo(Print &output) const
+{
     output.println(F("Localization Encoder Information:"));
     output.print(F("Translation X: "));
     output.println(transform.getX());
@@ -56,7 +80,8 @@ void LocalizationEncoder::PrintInfo(Print &output) const {
     output.println(F("Encoder Counts:"));
 }
 
-Print &operator<<(Print &output, const LocalizationEncoder &encoder) {
+Print &operator<<(Print &output, const LocalizationEncoder &encoder)
+{
     encoder.PrintInfo(output);
     return output;
 }

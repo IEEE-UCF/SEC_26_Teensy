@@ -19,7 +19,7 @@ void RCHandler::Begin(HardwareSerial &serial)
 /**
  * Read the values from the rc
  */
-void RCHandler::Read()
+void RCHandler::Update()
 {
     if (updateTimer >= DELAY)
     {

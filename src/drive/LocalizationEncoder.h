@@ -4,7 +4,8 @@
 #include "math/Pose2D.h"
 #include <Arduino.h>
 
-class LocalizationEncoder {
+class LocalizationEncoder
+{
 public:
     LocalizationEncoder(Print &output);
     void updatePosition(const long encoderCounts[3]);
@@ -14,7 +15,7 @@ public:
     friend Print &operator<<(Print &output, const LocalizationEncoder &transform);
 
 private:
-    Print& output;
+    Print &output;
     Pose2D transform;
     long previousLeftTicks = 0;
     long previousBackTicks = 0;
