@@ -20,8 +20,7 @@ void ButtonHandler::Update()
 {
   for (int i = 0; i < numPins; i++)
   {
-    S
-        buttonStates[i] = digitalRead(kPins[i]) == LOW;
+    buttonStates[i] = digitalRead(kPins[i]) == LOW;
   }
 }
 

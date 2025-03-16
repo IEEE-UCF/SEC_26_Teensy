@@ -8,6 +8,8 @@ class HallHandler
 {
 public:
     HallHandler(int *kPins, int numPins);
+
+    int *getReadings() const { return analogValues; }
     ~HallHandler();
     void Setup();
     void Update();

@@ -105,8 +105,8 @@ void loop()
 {
 
   // Read/Update
-  gyro.Read();
-  rc.Read();
+  gyro.Update();
+  rc.Update();
   robotDrive.ReadAll();
   intake.ReadEnc();
 

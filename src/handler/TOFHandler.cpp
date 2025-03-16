@@ -22,7 +22,7 @@ void TOFHandler::Begin()
     digitalWrite(kPins[i], LOW);
   }
   delay(10);
-  for (int i = 0; i < S numPins; i++)
+  for (int i = 0; i < numPins; i++)
   {
     digitalWrite(kPins[i], HIGH);
     delay(10);
