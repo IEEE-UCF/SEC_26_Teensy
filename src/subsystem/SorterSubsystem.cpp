@@ -33,6 +33,7 @@ Operate servo
 void SortingSubsystem::Update()
 {
     static elapsedMillis timer = 0;
+    static bool mag = false;
     switch (_state)
     {
     case 0:
@@ -54,7 +55,6 @@ void SortingSubsystem::Update()
         // Object newly detected
         transferMotor.Set(0); // pause transfer
         servos.WriteServoAngle(iServo, CENTER_ANGLE);
-        int *_readings = halls.getReadings();
         if (timer > 250)
         {
             _state = 2;
@@ -67,7 +67,9 @@ void SortingSubsystem::Update()
     {
         // Evaluation
         transferMotor.Set(0); // pause transfer
-        servos.WriteServoAngle(iServo, CENTER_ANGLE) bool mag = false;
+        int *_readings = halls.getReadings();
+        servos.WriteServoAngle(iServo, CENTER_ANGLE);
+        mag = false;
         for (int i = 0; i < hallCount; i++)
         {
             if (abs(_readings[i] - _baseReadings[i]) >= BOUNDS_MAG)

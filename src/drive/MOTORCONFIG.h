@@ -7,7 +7,7 @@ namespace MotorConstants
 {
     static float TRACK_WIDTH = 10.0f;
 
-    void SetTrackWidth(float newWidth, Print &output)
+    static void SetTrackWidth(float newWidth, Print &output)
     {
         constexpr float MIN_TRACK_WIDTH = 5.0f;
         if (fabsf(newWidth) > 1e-6f && newWidth >= MIN_TRACK_WIDTH)
