@@ -10,7 +10,7 @@ class RCHandler
 public:
     RCHandler();
     void Begin(HardwareSerial &serial);
-    void Read();
+    void Update();
     int32_t Get(int channel);
 
 private:

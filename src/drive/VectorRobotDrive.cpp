@@ -1,63 +1,51 @@
 #include "VectorRobotDrive.h"
 
-/**
- * Initializes a robot drive, where the drive is based on a NORMALIZED Pose2D Input
- */
-VectorRobotDrive::VectorRobotDrive(const MotorSetup motorSetups[], int numMotors)
-    : SimpleRobotDrive(motorSetups, numMotors), speedPose(0, 0, 0)
-{
-}
+VectorRobotDrive::VectorRobotDrive(const MotorSetup motorSetups[], int numMotors, Print &output)
+    : SimpleRobotDrive(motorSetups, numMotors, output),
+      speedPose(0, 0, 0) {}
 
 /**
- * Set motor values based on velocities. Input should be normalized
- *
- * @param speedPose motor velocities
+ * Set motor speeds based on speedPose. X and Y are in In/S, theta is in Rad/S
+ * @param speedPose speeds to set
  */
 void VectorRobotDrive::Set(const Pose2D &speedPose)
 {
     this->speedPose = speedPose;
-    int i = 0;
-    while (i < numMotors)
+
+    using namespace MotorConstants;
+    // Validate TRACK_WIDTH before calculations
+    if (TRACK_WIDTH < 1e-6f)
     {
-        /*
-                switch (i)
+        output.println(F("Error: Invalid TRACK_WIDTH!"));
+        return;
+    }
+
+    // Compile-time constant coefficients [X, Y, Theta]
+    static constexpr float motorCoeffs[3][3] = {
+        {0.0f, 1.0f, -1.0f}, // Left motor
+        {1.0f, 0.0f, 0.0f},  // Back motor
+        {0.0f, 1.0f, 1.0f}   // Right motor
+    };
+
+    for (size_t i = 0; i < static_cast<size_t>(numMotors); ++i)
+    {
+        if (i >= motors.size())
         {
-        case 0:
-            motors[i]->Set((speedPose.y - speedPose.theta * TRACK_WIDTH) / WHEEL_DIAMETER * 255);
-            break; // Added break statement
-        case 1:
-            motors[i]->Set(speedPose.x / WHEEL_DIAMETER * 255);
-            break; // Added break statement
-        case 2:
-            motors[i]->Set((speedPose.y + speedPose.theta * TRACK_WIDTH) / WHEEL_DIAMETER * 255);
-            break; // Added break statement
+            output.println(F("Error: Motor index out of bounds"));
+            continue;
         }
-        */
-        /*
-        Formula: velocity/wheel circumference = RPS, / MOTOR_RPS_NOLOAD to get power, 255 to scale it
-        */
-        switch (i)
-        {
-        case 0:
-            motors[i]->Set((speedPose.y - speedPose.theta * TRACK_WIDTH) / WHEEL_CIRCUMFERENCE / MOTOR_RPS_NOLOAD * 255);
-            break;
-        case 1:
-            motors[i]->Set(speedPose.x / WHEEL_CIRCUMFERENCE / MOTOR_RPS_NOLOAD * 255);
-            break;
-        case 2:
-            motors[i]->Set((speedPose.y + speedPose.theta * TRACK_WIDTH) / WHEEL_CIRCUMFERENCE / MOTOR_RPS_NOLOAD * 255);
-            break;
-        }
-        i++;
+
+        const float xTerm = motorCoeffs[i][0] * speedPose.getX();
+        const float yTerm = motorCoeffs[i][1] * speedPose.getY();
+        const float thetaTerm = motorCoeffs[i][2] * speedPose.getTheta() * TRACK_WIDTH;
+
+        const float motorSpeed = (xTerm + yTerm + thetaTerm) / WHEEL_CIRCUMFERENCE / MOTOR_RPS_NOLOAD * 255.0f;
+
+        motors[i]->Set(static_cast<int>(constrain(motorSpeed, -255, 255)));
     }
 }
 
-/**
- * Return speedPose
- *
- * @return Stored write values for motor velocities
- */
-Pose2D VectorRobotDrive::GetVelocity()
+Pose2D VectorRobotDrive::GetVelocity() const
 {
     return speedPose;
 }

@@ -1,143 +1,127 @@
 #include "SimpleRobotDrive.h"
 #include <Arduino.h>
-#include <Print.h>
 
-/**
- * Initializes a robot drive.
- *
- * @param motorSetups array of motors for setup
- * @param numMotors number of motors
- */
-SimpleRobotDrive::SimpleRobotDrive(const MotorSetup motorSetups[], int numMotors)
-    : numMotors(numMotors), localization()
-{
-  enc = new long[numMotors];
-  motors = new DriveMotor *[numMotors]; // Allocate memory for motor pointers
-  for (int i = 0; i < numMotors; i++)
-  {
-    enc[i] = 0;
-    motors[i] = new DriveMotor(motorSetups[i]);
-  }
+SimpleRobotDrive::SimpleRobotDrive(const MotorSetup motorSetups[], int numMotors, Print &output)
+    : numMotors(numMotors > 0 ? numMotors : 1), // Ensure at least 1 motor
+      output(output),
+      enc(std::make_unique<long[]>(numMotors)),
+      localization(output)
+{ // Pass output to LocalizationEncoder
+    if (numMotors <= 0)
+    {
+        output.println(F("Error: numMotors must be > 0!"));
+        numMotors = 1; // Fallback to prevent crashes
+    }
+
+    motors.reserve(numMotors);
+    for (int i = 0; i < numMotors; i++)
+    {
+        motors.emplace_back(std::make_unique<DriveMotor>(motorSetups[i], output));
+        enc[i] = 0;
+    }
 }
 
 /**
- * Runs begin method for each motor
+ * Begin each motor
  */
 void SimpleRobotDrive::Begin()
 {
-  for (int i = 0; i < numMotors; i++)
-  {
-    motors[i]->Begin();
-  }
+    for (auto &motor : motors)
+    {
+        motor->Begin();
+    }
 }
 
 /**
- * Sets value for each motor
- *
- * @param motorDirectSpeed array of speeds
+ * Set motor speeds
+ * @param motorDirectSpeed array of motors
  */
-void SimpleRobotDrive::Set(int motorDirectSpeed[])
+void SimpleRobotDrive::Set(const int motorDirectSpeed[])
 {
-  for (int i = 0; i < numMotors; i++)
-  {
-    motors[i]->Set(constrain(motorDirectSpeed[i], -100, 100));
-  }
+    for (int i = 0; i < numMotors; i++)
+    {
+        motors[i]->Set(constrain(motorDirectSpeed[i], -100, 100));
+    }
 }
 
 /**
- * Sets value for a motor with index
- * @param motorDirectSpeed speed
- * @param index index
+ * Set motor speed by index
+ * @param motorDirectSpeed motor speed
+ * @param index motor to change
  */
 void SimpleRobotDrive::SetIndex(int motorDirectSpeed, int index)
 {
-  if (index >= numMotors)
-  {
-    Serial.println(F("Motor out of index"));
-    return;
-  }
-  motors[index]->Set(motorDirectSpeed);
+    if (index >= numMotors || index < 0)
+    {
+        output.println(F("Motor index out of bounds"));
+        return;
+    }
+    motors[index]->Set(motorDirectSpeed);
 }
 
 /**
- * Read each encoder and update the values
+ * Read all encoders
  */
 void SimpleRobotDrive::ReadEnc()
 {
-  for (int i = 0; i < numMotors; i++)
-  {
-    motors[i]->ReadEnc();
-    enc[i] = motors[i]->GetEnc();
-  }
+    for (int i = 0; i < numMotors; i++)
+    {
+        motors[i]->ReadEnc();
+        enc[i] = motors[i]->GetEnc();
+    }
 }
 
 /**
- * Read both encoder and update localization
+ * Read all encoders and update positions
  */
 void SimpleRobotDrive::ReadAll()
 {
-  ReadEnc();                        // Update encoder counts
-  localization.updatePosition(enc); // Update localization using encoder counts
-}
-
-long *SimpleRobotDrive::GetEnc()
-{
-  return enc;
+    ReadEnc();
+    localization.updatePosition(enc.get());
 }
 
 /**
- * Write stored speed values to motors
+ * Returns raw encoder values, we never gonna use this lmao
+ */
+const long *SimpleRobotDrive::GetEnc() const
+{
+    return enc.get();
+}
+
+/**
+ * Write to all motors
  */
 void SimpleRobotDrive::Write()
 {
-  for (int i = 0; i < numMotors; i++)
-  {
-    motors[i]->Write();
-  }
-}
-
-/**
- * Get transform of robot
- *
- * @return transform
- */
-Pose2D SimpleRobotDrive::GetPosition() const
-{
-  return localization.getPosition();
+    for (auto &motor : motors)
+    {
+        motor->Write();
+    }
 }
 
 void SimpleRobotDrive::PrintInfo(Print &output, bool printConfig) const
 {
-  if (printConfig)
-  {
     output.print(F("SimpleRobotDrive Configuration: "));
     output.print(F("Number of Motors: "));
     output.println(numMotors);
+
     for (int i = 0; i < numMotors; i++)
     {
-      motors[i]->PrintInfo(output, true);
+        output.print(F("Motor "));
+        output.print(i);
+        output.print(F(": "));
+        motors[i]->PrintInfo(output, printConfig); // Unified logic
     }
-  }
-  else
-  {
-    for (int i = 0; i < numMotors; i++)
-    {
-      output.print(F("Motor "));
-      output.print(i);
-      output.print(F(": "));
-      motors[i]->PrintInfo(output, false);
-    }
-  }
 }
 
 void SimpleRobotDrive::PrintLocal(Print &output) const
 {
-  localization.PrintInfo(output);
+    localization.PrintInfo(output);
 }
 
 Print &operator<<(Print &output, const SimpleRobotDrive &drive)
 {
-  drive.PrintInfo(output, false);
-  drive.PrintLocal(output);
-  return output;
+    drive.PrintInfo(output, false);
+    drive.PrintLocal(output);
+    return output;
 }

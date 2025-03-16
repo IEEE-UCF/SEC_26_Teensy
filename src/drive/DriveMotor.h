@@ -3,11 +3,11 @@
 
 #include <Arduino.h>
 #include <Print.h>
+#include <memory>
 #include "QuadEncoder.h"
 
-#define SPEED_MAX 255 // Max speed input, normalization purposes
-#define PWM_MAX 255   // PWM control max
-#define MOTOR_COUNT 4
+#define SPEED_MAX 255
+#define PWM_MAX 255
 
 struct MotorSetup
 {
@@ -21,21 +21,25 @@ struct MotorSetup
 class DriveMotor
 {
 public:
-    DriveMotor(const MotorSetup &motorSetup);
+    explicit DriveMotor(const MotorSetup &motorSetup, Print &output);
+    virtual ~DriveMotor() = default;
+
     void Begin();
     void Set(int speed);
     void ReadEnc();
-    long GetEnc();
+    long GetEnc() const;
     void Write();
     void PrintInfo(Print &output, bool printConfig = false) const;
+
     friend Print &operator<<(Print &output, const DriveMotor &motor);
 
 private:
     MotorSetup motorSetup;
+    Print &output;
     int pwmout;
     bool cwout;
     long enc;
-    QuadEncoder *encoder;
+    std::unique_ptr<QuadEncoder> encoder;
     static int encoderNum;
 };
 
