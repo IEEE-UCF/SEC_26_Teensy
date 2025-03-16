@@ -4,6 +4,10 @@ VectorRobotDrive::VectorRobotDrive(const MotorSetup motorSetups[], int numMotors
     : SimpleRobotDrive(motorSetups, numMotors, output),
       speedPose(0, 0, 0) {}
 
+/**
+ * Set motor speeds based on speedPose. X and Y are in In/S, theta is in Rad/S
+ * @param speedPose speeds to set
+ */
 void VectorRobotDrive::Set(const Pose2D &speedPose)
 {
     this->speedPose = speedPose;
