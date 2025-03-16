@@ -33,9 +33,9 @@ bool RGBHandler::begin() {
 // brightness scaling with rounding correction
 void RGBHandler::applyBrightness(uint8_t r, uint8_t g, uint8_t b,
                                 uint8_t &r_out, uint8_t &g_out, uint8_t &b_out) {
-    r_out = constrain(((uint32_t)r * globalBrightness + 127) / 255, 0, 255);
-    g_out = constrain(((uint32_t)g * globalBrightness + 127) / 255, 0, 255);
-    b_out = constrain(((uint32_t)b * globalBrightness + 127) / 255, 0, 255);
+    r_out = constrain(((uint32_t)r * globalBrightness + 127) / 255, 0U, 255U);
+    g_out = constrain(((uint32_t)g * globalBrightness + 127) / 255, 0U, 255U);
+    b_out = constrain(((uint32_t)b * globalBrightness + 127) / 255, 0U, 255U);
 }
 
 bool RGBHandler::setSectionSolidColor(uint8_t section, uint8_t r, uint8_t g, uint8_t b) {
@@ -50,7 +50,8 @@ bool RGBHandler::setSectionSolidColor(uint8_t section, uint8_t r, uint8_t g, uin
     for (uint16_t i = start; i < end; i++) {
         leds.setPixel(i, r_adj, g_adj, b_adj);
     }
-    return leds.show();
+    leds.show(); // Fixed: Removed return statement
+    return true; // Added: Return true to indicate success
 }
 
 // setting up pulse effect with smooth transition control
@@ -77,7 +78,7 @@ void RGBHandler::updateStreak(uint8_t section) {
     uint16_t start = sectionStarts[section];
     int current_pos = sec.streak_position;
 
-    // cleares previous streak if it has moved
+    // clears previous streak if it has moved
     if (prev_positions[section] != -1 && 
         prev_positions[section] != current_pos &&
         prev_positions[section] < size) {
