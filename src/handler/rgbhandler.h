@@ -51,7 +51,6 @@ public:
 
 private:
     // storing effect states for each section
-    struct SectionEffect {
     struct SectionEffect
     {
         EffectType currentEffect = NONE;
