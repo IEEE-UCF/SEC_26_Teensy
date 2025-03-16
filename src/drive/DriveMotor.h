@@ -9,7 +9,8 @@
 #define SPEED_MAX 255
 #define PWM_MAX 255
 
-struct MotorSetup {
+struct MotorSetup
+{
     int kPWM;
     int kCW;
     int kENCA;
@@ -17,7 +18,8 @@ struct MotorSetup {
     bool rev;
 };
 
-class DriveMotor {
+class DriveMotor
+{
 public:
     explicit DriveMotor(const MotorSetup &motorSetup, Print &output);
     virtual ~DriveMotor() = default;
@@ -33,7 +35,7 @@ public:
 
 private:
     MotorSetup motorSetup;
-    Print& output;
+    Print &output;
     int pwmout;
     bool cwout;
     long enc;
