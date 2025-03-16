@@ -80,7 +80,8 @@ private:
     static int prev_positions[NUM_SECTIONS];
 
     uint8_t drawingMemory[TOTAL_LEDS * 3] __attribute__((aligned(32)));
-    DMAMEM uint8_t displayMemory[TOTAL_LEDS * 12] __attribute__((aligned(32)));
+    alignas(32) uint8_t displayMemory[TOTAL_LEDS * 12];
+    // MAMEM uint8_t displayMemory[TOTAL_LEDS * 12] __attribute__((aligned(32)));
 };
 
 #endif
