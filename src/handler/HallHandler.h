@@ -10,7 +10,7 @@ public:
     HallHandler(int *kPins, int numPins);
     ~HallHandler();
     void Setup();
-    void Read();
+    void Update();
     void PrintInfo(Print &output, bool printConfig) const;
     friend Print &operator<<(Print &output, const HallHandler &handler);
 

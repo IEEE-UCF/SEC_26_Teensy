@@ -27,7 +27,7 @@ void GyroHandler::Setup()
 /**
  * Reads the gyro data
  */
-void GyroHandler::Read()
+void GyroHandler::Update()
 {
     if (bno08x.getSensorEvent(&gyroEvent))
     {

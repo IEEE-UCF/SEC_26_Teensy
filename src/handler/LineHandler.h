@@ -9,7 +9,7 @@ public:
     LineHandler(int *kPins, int numPins);
     ~LineHandler();
     void Setup();
-    void Read();
+    void Update();
     void PrintInfo(Print &output, bool printConfig = false) const;
 
 private:
