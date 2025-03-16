@@ -6,12 +6,14 @@
 
 // defines 7 sections with respective led counts
 constexpr uint8_t NUM_SECTIONS = 7;
-constexpr uint16_t SECTION_SIZES[NUM_SECTIONS] = {5, 5, 5, 5, 5, 5, 5}; // example sizes, change later idfk
+constexpr uint16_t SECTION_SIZES[NUM_SECTIONS] = {13, 10, 10, 10, 13, 4, 4}; // example sizes, change later idfk
 
 // compile-time calculation of total led count
-constexpr uint16_t TOTAL_LEDS = []() {
+constexpr uint16_t TOTAL_LEDS = []()
+{
     uint16_t total = 0;
-    for (auto size : SECTION_SIZES) total += size;
+    for (auto size : SECTION_SIZES)
+        total += size;
     return total;
 }();
 
@@ -24,26 +26,34 @@ constexpr uint8_t DEFAULT_BRIGHTNESS = 128;
 constexpr uint8_t MAX_BRIGHTNESS = 255;
 
 // effect types
-enum EffectType { NONE, PULSE, STREAK };
+enum EffectType
+{
+    NONE,
+    PULSE,
+    STREAK
+};
 
-class RGBHandler {
+class RGBHandler
+{
 public:
     RGBHandler();
     bool begin();
     void update();
-    
+
     // section-based led control
     bool setSectionSolidColor(uint8_t section, uint8_t r, uint8_t g, uint8_t b);
     bool setSectionPulseEffect(uint8_t section, uint8_t r, uint8_t g, uint8_t b, unsigned long speed);
     bool setSectionStreakEffect(uint8_t section, uint8_t r, uint8_t g, uint8_t b, unsigned long speed);
     bool stopSectionEffect(uint8_t section);
     bool setGlobalBrightness(uint8_t brightness);
-    bool processCommand(const String& command);
+    bool processCommand(const String &command);
     void stopAllEffects();
 
 private:
     // storing effect states for each section
     struct SectionEffect {
+    struct SectionEffect
+    {
         EffectType currentEffect = NONE;
         unsigned long lastUpdate = 0;
         unsigned long effectSpeed = DEFAULT_SPEED;
@@ -61,7 +71,7 @@ private:
     uint16_t sectionStarts[NUM_SECTIONS]; // array to store starting indices of each section
     uint8_t globalBrightness = DEFAULT_BRIGHTNESS;
     WS2812Serial leds;
-    
+
     // utility functions for effects
     void applyBrightness(uint8_t r, uint8_t g, uint8_t b, uint8_t &r_out, uint8_t &g_out, uint8_t &b_out);
     void updatePulse(uint8_t section);
