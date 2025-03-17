@@ -41,21 +41,11 @@ Wait a bit to stabilize
 void SortingSubsystem::Update()
 {
     static elapsedMillis timer = 0;
-<<<<<<< Updated upstream
-    static bool mag = false;
-=======
     static bool objectMagnet = false;
->>>>>>> Stashed changes
     switch (_state)
     {
     case 0: // no object detected yet.
     {
-<<<<<<< Updated upstream
-        // No object detected
-        transferMotor.Set(100);                       // run the transfer
-        servos.WriteServoAngle(iServo, CENTER_ANGLE); // write center angle
-        int range = tofs.GetIndex(iTOF);              // get range reading from tof. Update not required as we call it in main
-=======
         if (timer < 1000)
         {
             transferMotor.Set(100); // funnel into sorter
@@ -70,7 +60,6 @@ void SortingSubsystem::Update()
         }
         servos.WriteServoAngle(iServo, SortingSubsystem::ServoPositions::CENTER); // write center angle
         int range = tofs.GetIndex(iTOF);                                          // get range reading from tof
->>>>>>> Stashed changes
         if (range < OBJECT_RANGE)
         {
             _state = 1; // if object is detcted, switch state
@@ -83,12 +72,7 @@ void SortingSubsystem::Update()
     {
         // Object newly detected
         transferMotor.Set(0); // pause transfer
-<<<<<<< Updated upstream
-        servos.WriteServoAngle(iServo, CENTER_ANGLE);
-        if (timer > 250)
-=======
         if (timer > 500)
->>>>>>> Stashed changes
         {
             _state = 2;
             timer = 0;
@@ -98,19 +82,6 @@ void SortingSubsystem::Update()
 
     case 2: // object detection loop
     {
-<<<<<<< Updated upstream
-        // Evaluation
-        transferMotor.Set(0); // pause transfer
-        int *_readings = halls.getReadings();
-        servos.WriteServoAngle(iServo, CENTER_ANGLE);
-        mag = false;
-        for (int i = 0; i < hallCount; i++)
-        {
-            if (abs(_readings[i] - _baseReadings[i]) >= BOUNDS_MAG)
-            {
-                mag = true;
-                break;
-=======
         objectMagnet = false;                 // object does not have a magnet
         int *_readings = halls.getReadings(); // get halls readings
         for (int i = 0; i < hallCount; i++)
@@ -118,7 +89,6 @@ void SortingSubsystem::Update()
             if (abs(_readings[i] - _baseReadings[i]) > BOUNDS_MAG)
             {
                 objectMagnet = true; // object does have a magnet
->>>>>>> Stashed changes
             }
         }
         _state = 3;
@@ -126,19 +96,6 @@ void SortingSubsystem::Update()
         break;
     }
 
-<<<<<<< Updated upstream
-    case 3:
-    {
-        // Operate servo
-        transferMotor.Set(0); // pause transfer
-        servos.WriteServoAngle(iServo, mag ? LEFT_ANGLE : RIGHT_ANGLE);
-        if (timer > 1000)
-        {
-            _state = 0;
-            timer = 0;
-        }
-    }
-=======
     case 3: // write the correct servo angle. If object leaves, then move on
     {
         if (objectMagnet)
@@ -166,45 +123,11 @@ void SortingSubsystem::Update()
             timer = 0;
         }
     }
->>>>>>> Stashed changes
     }
 }
 
 void SortingSubsystem::PrintInfo(Print &output, bool printConfig) const
 {
-<<<<<<< Updated upstream
-    output.println("Sorting Subsystem Info:");
-    output.print("TOF Channel: ");
-    output.println(iTOF);
-    output.print("Servo Channel: ");
-    output.println(iServo);
-    output.print("Hall Count: ");
-    output.println(hallCount);
-    output.print("Current State: ");
-    output.println(_state);
-
-    if (printConfig)
-    {
-        output.println("Configuration:");
-        output.print("Object Range: ");
-        output.println(OBJECT_RANGE);
-        output.print("Bounds Magnitude: ");
-        output.println(BOUNDS_MAG);
-        output.print("Center Angle: ");
-        output.println(CENTER_ANGLE);
-        output.print("Left Angle: ");
-        output.println(LEFT_ANGLE);
-        output.print("Right Angle: ");
-        output.println(RIGHT_ANGLE);
-    }
-}
-
-Print &operator<<(Print &output, const SortingSubsystem &subsystem)
-{
-    subsystem.PrintInfo(output);
-    return output;
-}
-=======
     if (printConfig)
     {
         // Print base readings from Hall sensors
@@ -242,4 +165,3 @@ Print &operator<<(Print &output, const SortingSubsystem &subsystem)
     subsystem.PrintInfo(output, false); // Use false by default for printConfig
     return output;
 }
->>>>>>> Stashed changes

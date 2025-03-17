@@ -17,9 +17,6 @@ public:
   SortingSubsystem(int iTOF, int *iHalls, int hallCount, int iServo, TOFHandler &tofs, HallHandler &halls, ServoHandler &servos, DriveMotor &transferMotor);
   void Begin();
   void Update();
-  void PrintInfo(Print &output, bool printConfig = false) const;
-
-  friend Print &operator<<(Print &output, const SortingSubsystem &subsystem);
 
   enum ServoPositions : uint8_t
   {
