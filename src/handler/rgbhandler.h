@@ -6,7 +6,7 @@
 
 // defines 7 sections with respective led counts
 constexpr uint8_t NUM_SECTIONS = 7;
-constexpr uint16_t SECTION_SIZES[NUM_SECTIONS] = {13, 10, 10, 10, 13, 4, 4}; // example sizes, change later idfk
+constexpr uint16_t SECTION_SIZES[NUM_SECTIONS] = {15, 10, 10, 10, 15, 4, 4}; // example sizes, change later idfk
 
 // compile-time calculation of total led count
 constexpr uint16_t TOTAL_LEDS = []()
