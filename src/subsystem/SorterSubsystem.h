@@ -11,9 +11,6 @@
 #define BOUNDS_MAG 2
 #define SORTER_HALL_COUNT 3
 
-#define CENTER_ANGLE 50
-#define LEFT_ANGLE 50
-#define RIGHT_ANGLE 50
 class SortingSubsystem
 {
 public:
@@ -22,6 +19,16 @@ public:
   void Update();
   void PrintInfo(Print &output, bool printConfig = false) const;
 
+  friend Print &operator<<(Print &output, const SortingSubsystem &subsystem);
+
+  enum ServoPositions : uint8_t
+  {
+    LEFT = 30,   // Example value for left position
+    CENTER = 90, // Example value for center position
+    RIGHT = 150, // Example value for right position
+  };
+
+  void PrintInfo(Print &output, bool printConfig) const;
   friend Print &operator<<(Print &output, const SortingSubsystem &subsystem);
 
 private:

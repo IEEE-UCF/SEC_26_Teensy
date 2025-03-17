@@ -59,7 +59,7 @@ MotorSetup nonDriveMotors[NONDRIVEMOTOR_COUNT] = {
  * TOF/Light I2C: SDA1/SCL1
  */
 int kServo[SERVO_COUNT] = {23, 22, 0, 1};
-int cTOF[TOF_COUNT] = {1, 2, 3, 4};
+int cTOF[TOF_COUNT] = {1, 2, 3, 4, 5};
 int kHall[HALL_COUNT] = {41, 15, 21};
 int kButton[BUTTON_COUNT] = {40, 39, 38, 37};
 int kLED = 14;
@@ -74,6 +74,7 @@ LightHandler light(cLight);
 HallHandler halls(kHall, HALL_COUNT);
 ButtonHandler buttons(kButton, BUTTON_COUNT);
 RGBHandler rgb(kLED);
+ServoHandler servos(kServo, SERVO_COUNT);
 
 /*
 --- Subsystems ---
@@ -106,14 +107,16 @@ void setup()
   halls.Begin();
   buttons.Begin();
   rgb.Begin();
+  servos.Begin();
   tofs.PrintInfo(Serial, true);
   gyro.PrintInfo(Serial, true);
   light.PrintInfo(Serial, true);
   halls.PrintInfo(Serial, true);
   buttons.PrintInfo(Serial, true);
   rgb.PrintInfo(Serial, true);
+  servos.PrintInfo(Serial, true);
 
-  rgb.setGlobalBrightness(50);
+  rgb.setGlobalBrightness(255);
   for (int i = 0; i < 7; i++)
   {
     rgb.setSectionSolidColor(i, 255, 255, 255);
@@ -123,6 +126,7 @@ void setup()
   // Initialize Program Control
   state = 0;
   delay(3000);
+  servos.WriteServoAngle(0, 90);
 }
 
 void loop()
@@ -157,7 +161,7 @@ void loop()
   if (printTimer > 100)
   {
     printTimer = 0;
-    Serial << tofs << gyro << light << halls << buttons << rgb;
+    Serial << tofs << gyro << light << halls << buttons << rgb << servos;
     Serial.println();
   }
 
