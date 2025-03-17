@@ -26,7 +26,6 @@ void LightHandler::Update()
 
 void LightHandler::PrintInfo(Print &output, bool printConfig) const
 {
-    output.println("Light Sensor Info:");
     output.print("Light Level: ");
     output.print(lightLevel);
     output.println(" lx");
