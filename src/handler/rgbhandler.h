@@ -45,7 +45,7 @@ public:
     bool setSectionStreakEffect(uint8_t section, uint8_t r, uint8_t g, uint8_t b, unsigned long speed);
     bool stopSectionEffect(uint8_t section);
     bool setGlobalBrightness(uint8_t brightness);
-    bool processCommand(const String &command);
+    // bool processCommand(const String &command);
     void stopAllEffects();
 
     void PrintInfo(Print &output, bool printConfig) const;

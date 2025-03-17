@@ -114,6 +114,11 @@ void RGBHandler::updateStreak(uint8_t section)
     sec.streak_position = (current_pos + 1) % size;
 }
 
+void RGBHandler::updatePulse(uint8_t section)
+{
+    SectionEffect &sec = sections[section];
+}
+
 // manages effect updates while avoiding redundant refreshes
 void RGBHandler::Update()
 {
@@ -144,6 +149,14 @@ void RGBHandler::Update()
         leds.show();
         lastShow = now;
     }
+}
+
+// stop a section effect
+bool RGBHandler::stopSectionEffect(uint8_t section)
+{
+    SectionEffect &sec = sections[section];
+    sec.currentEffect = NONE;
+    return true;
 }
 
 // stops all effects at once

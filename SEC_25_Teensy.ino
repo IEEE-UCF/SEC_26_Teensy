@@ -88,7 +88,8 @@ void setup()
 {
   delay(500);
   Serial.begin(115200);
-  while(!Serial) {
+  while (!Serial)
+  {
     delay(1);
   }
   Serial.println("Hello");
@@ -104,13 +105,20 @@ void setup()
   light.Begin();
   halls.Begin();
   buttons.Begin();
-  //rgb.Begin();
+  rgb.Begin();
   tofs.PrintInfo(Serial, true);
   gyro.PrintInfo(Serial, true);
   light.PrintInfo(Serial, true);
   halls.PrintInfo(Serial, true);
   buttons.PrintInfo(Serial, true);
+  rgb.PrintInfo(Serial, true);
 
+  rgb.setGlobalBrightness(50);
+  for (int i = 0; i < 7; i++)
+  {
+    rgb.setSectionSolidColor(i, 255, 255, 255);
+    rgb.Update();
+  }
   // Initialize Subsystems
   // Initialize Program Control
   state = 0;
@@ -119,7 +127,7 @@ void setup()
 
 void loop()
 {
-  // Read/Update
+  // Read
   static elapsedMillis read = 0;
   if (read > 100)
   {
@@ -130,9 +138,18 @@ void loop()
     buttons.Update();
   }
   static elapsedMillis fastRead = 0;
-  if(fastRead > 20) {
+  if (fastRead > 20)
+  {
     fastRead = 0;
     gyro.Update();
+  }
+
+  // Update
+  static elapsedMillis update = 0;
+  if (update > 5)
+  {
+    update = 0;
+    rgb.Update();
   }
 
   // Print
@@ -140,7 +157,7 @@ void loop()
   if (printTimer > 100)
   {
     printTimer = 0;
-    Serial << tofs << gyro << light << halls << buttons;
+    Serial << tofs << gyro << light << halls << buttons << rgb;
     Serial.println();
   }
 
@@ -148,7 +165,8 @@ void loop()
   static elapsedMillis fpsTimer = 0;
   static long cycles = 0;
   cycles++;
-  if(fpsTimer >= 1000) {
+  if (fpsTimer >= 1000)
+  {
     Serial.print("Cycles: ");
     Serial.println(cycles);
     fpsTimer = 0;
