@@ -14,7 +14,7 @@ class ServoHandler
 public:
     ServoHandler(int *kServo, int numServos);
 
-    void Setup();
+    void Begin();
     void Set(int *anglesWrite);
     void Write();
     void WriteServoAngle(int index, int angle);

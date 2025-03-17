@@ -196,7 +196,7 @@ void RGBHandler::PrintInfo(Print &output, bool printConfig) const
     }
     else
     {
-        output.print(F("Section States: "));
+        output.println(F("Section States: "));
         for (int i = 0; i < NUM_SECTIONS; i++)
         {
             output.print(F("Section "));

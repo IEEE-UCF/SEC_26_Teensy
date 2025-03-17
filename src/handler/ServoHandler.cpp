@@ -3,7 +3,7 @@
 
 ServoHandler::ServoHandler(int *kServo, int numServos) : kServo(kServo), numServos(numServos) {}
 
-void ServoHandler::Setup()
+void ServoHandler::Begin()
 {
     servos = new Servo[numServos];
     anglesWrite = new int[numServos];
