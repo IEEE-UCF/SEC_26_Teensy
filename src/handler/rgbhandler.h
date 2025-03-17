@@ -18,7 +18,6 @@ constexpr uint16_t TOTAL_LEDS = []()
 }();
 
 // pin and brightness settings
-constexpr uint8_t LED_PIN = 6;
 constexpr unsigned long DEFAULT_SPEED = 50; // default effect speed
 constexpr unsigned long MIN_SPEED = 20;
 constexpr unsigned long MAX_SPEED = 2000;
@@ -36,9 +35,9 @@ enum EffectType
 class RGBHandler
 {
 public:
-    RGBHandler();
-    bool begin();
-    void update();
+    RGBHandler(uint8_t kLED);
+    bool Begin();
+    void Update();
 
     // section-based led control
     bool setSectionSolidColor(uint8_t section, uint8_t r, uint8_t g, uint8_t b);
@@ -49,7 +48,11 @@ public:
     bool processCommand(const String &command);
     void stopAllEffects();
 
+    void PrintInfo(Print &output, bool printConfig) const;
+    friend Print &operator<<(Print &output, const RGBHandler &handler);
+
 private:
+    uint8_t kLED;
     // storing effect states for each section
     struct SectionEffect
     {
