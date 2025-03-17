@@ -1,8 +1,7 @@
 #include "SorterSubsystem.h"
 
-SortingSubsystem::SortingSubsystem(int iTOF, int *iHalls, int hallCount, int iServo, TOFHandler &tofs, HallHandler &halls, ServoHandler &servos, DriveMotor &transferMotor)
+SorterSubsystem::SorterSubsystem(int iTOF, int hallCount, int iServo, TOFHandler &tofs, HallHandler &halls, ServoHandler &servos, DriveMotor &transferMotor)
     : iTOF(iTOF),
-      iHalls(iHalls),
       hallCount(hallCount),
       iServo(iServo),
       tofs(tofs),
@@ -12,11 +11,12 @@ SortingSubsystem::SortingSubsystem(int iTOF, int *iHalls, int hallCount, int iSe
       _state(0),
       _baseReadings(nullptr) {}
 
-void SortingSubsystem::Begin()
+void SorterSubsystem::Begin()
 {
     halls.Update();
     _baseReadings = halls.getReadings();
     _state = 0;
+    MoveCenter();
 }
 /*
 State 0:
@@ -38,7 +38,7 @@ Wait a bit to stabilize
 /**
  * Updates, run every frame
  */
-void SortingSubsystem::Update()
+void SorterSubsystem::Update()
 {
     static elapsedMillis timer = 0;
     static bool objectMagnet = false;
@@ -58,8 +58,8 @@ void SortingSubsystem::Update()
         {
             timer = 0;
         }
-        servos.WriteServoAngle(iServo, SortingSubsystem::ServoPositions::CENTER); // write center angle
-        int range = tofs.GetIndex(iTOF);                                          // get range reading from tof
+        MoveCenter();                    // write center angle
+        int range = tofs.GetIndex(iTOF); // get range reading from tof
         if (range < OBJECT_RANGE)
         {
             _state = 1; // if object is detcted, switch state
@@ -100,11 +100,11 @@ void SortingSubsystem::Update()
     {
         if (objectMagnet)
         {
-            servos.WriteServoAngle(iServo, SortingSubsystem::ServoPositions::LEFT);
+            MoveLeft();
         }
         else
         {
-            servos.WriteServoAngle(iServo, SortingSubsystem::ServoPositions::RIGHT);
+            MoveRight();
         }
         int range = tofs.GetIndex(iTOF);
         if (range > OBJECT_RANGE)
@@ -126,7 +126,22 @@ void SortingSubsystem::Update()
     }
 }
 
-void SortingSubsystem::PrintInfo(Print &output, bool printConfig) const
+void SorterSubsystem::MoveCenter()
+{
+    servos.WriteServoAngle(iServo, SorterSubsystem::ServoPositions::CENTER);
+}
+
+void SorterSubsystem::MoveLeft()
+{
+    servos.WriteServoAngle(iServo, SorterSubsystem::ServoPositions::LEFT);
+}
+
+void SorterSubsystem::MoveRight()
+{
+    servos.WriteServoAngle(iServo, SorterSubsystem::ServoPositions::RIGHT);
+}
+
+void SorterSubsystem::PrintInfo(Print &output, bool printConfig) const
 {
     if (printConfig)
     {
@@ -152,7 +167,7 @@ void SortingSubsystem::PrintInfo(Print &output, bool printConfig) const
     else
     {
         // Print current state of the subsystem
-        output.print(F("SortingSubsystem State: "));
+        output.print(F("SorterSubsystem State: "));
         output.println(_state);
     }
 }
@@ -160,7 +175,7 @@ void SortingSubsystem::PrintInfo(Print &output, bool printConfig) const
 #include "SorterSubsystem.h"
 
 // Overloaded operator to print the subsystem state (printConfig = false)
-Print &operator<<(Print &output, const SortingSubsystem &subsystem)
+Print &operator<<(Print &output, const SorterSubsystem &subsystem)
 {
     subsystem.PrintInfo(output, false); // Use false by default for printConfig
     return output;

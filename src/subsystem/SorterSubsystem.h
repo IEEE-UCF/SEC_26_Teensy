@@ -11,26 +11,28 @@
 #define BOUNDS_MAG 2
 #define SORTER_HALL_COUNT 3
 
-class SortingSubsystem
+class SorterSubsystem
 {
 public:
-  SortingSubsystem(int iTOF, int *iHalls, int hallCount, int iServo, TOFHandler &tofs, HallHandler &halls, ServoHandler &servos, DriveMotor &transferMotor);
+  SorterSubsystem(int iTOF, int hallCount, int iServo, TOFHandler &tofs, HallHandler &halls, ServoHandler &servos, DriveMotor &transferMotor);
   void Begin();
   void Update();
+  void MoveCenter();
+  void MoveLeft();
+  void MoveRight();
 
   enum ServoPositions : uint8_t
   {
-    LEFT = 30,   // Example value for left position
+    LEFT = 50,   // Example value for left position
     CENTER = 90, // Example value for center position
-    RIGHT = 150, // Example value for right position
+    RIGHT = 130, // Example value for right position
   };
 
   void PrintInfo(Print &output, bool printConfig) const;
-  friend Print &operator<<(Print &output, const SortingSubsystem &subsystem);
+  friend Print &operator<<(Print &output, const SorterSubsystem &subsystem);
 
 private:
   int iTOF;
-  int *iHalls;
   int hallCount;
   int iServo;
   TOFHandler &tofs;
