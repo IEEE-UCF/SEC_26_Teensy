@@ -34,6 +34,7 @@ void DriveMotor::Begin()
         encoder->EncConfig.decoderWorkMode = 1;
         encoder->init();
     }
+    Set(0);
 }
 
 /**
