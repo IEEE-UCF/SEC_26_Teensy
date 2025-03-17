@@ -10,7 +10,7 @@ void ServoHandler::Begin()
     for (int i = 0; i < numServos; ++i)
     {
         servos[i].attach(kServo[i]);
-        anglesWrite[i] = 0;
+        anglesWrite[i] = -1;
     }
 }
 
