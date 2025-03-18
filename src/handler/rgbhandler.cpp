@@ -57,8 +57,8 @@ bool RGBHandler::setSectionSolidColor(uint8_t section, uint8_t r, uint8_t g, uin
     {
         leds.setPixel(i, r_adj, g_adj, b_adj);
     }
-    leds.show(); // Fixed: Removed return statement
-    return true; // Added: Return true to indicate success
+    leds.show();
+    return true;
 }
 
 // setting up pulse effect with smooth transition control
@@ -73,11 +73,64 @@ bool RGBHandler::setSectionPulseEffect(uint8_t section, uint8_t r, uint8_t g, ui
     sec.pulse_r = r;
     sec.pulse_g = g;
     sec.pulse_b = b;
+    
+    // initialize phase to start at minimum brightness
+    sec.pulse_phase = 0;
 
     // ensuring the pulse step isn't too fast or too slow
     uint16_t base_step = (1024 * 10UL) / speed;
     sec.pulse_step = max(constrain(base_step, 2, 20), 2);
     return true;
+}
+
+// updating pulse effect
+void RGBHandler::updatePulse(uint8_t section) {
+    SectionEffect &sec = sections[section];
+    // Update phase and wrap around at 1024
+    sec.pulse_phase += sec.pulse_step;
+    sec.pulse_phase %= 1024;
+
+    // calculates brightness using triangle wave
+    uint8_t brightness;
+    if (sec.pulse_phase < 512) {
+        brightness = (sec.pulse_phase * 255) / 511;
+    } else {
+        brightness = ((1023 - sec.pulse_phase) * 255) / 511;
+    }
+
+    // applies pulse brightness to the base color
+    uint8_t r = (sec.pulse_r * brightness) / 255;
+    uint8_t g = (sec.pulse_g * brightness) / 255;
+    uint8_t b = (sec.pulse_b * brightness) / 255;
+
+    // adjust for global brightness
+    uint8_t r_adj, g_adj, b_adj;
+    applyBrightness(r, g, b, r_adj, g_adj, b_adj);
+
+    // updates all LED's in the section
+    uint16_t start = sectionStarts[section];
+    uint16_t end = start + SECTION_SIZES[section];
+    for (uint16_t i = start; i < end; ++i) {
+        leds.setPixel(i, r_adj, g_adj, b_adj);
+    }
+}
+
+// stops all effects for a specific section
+void RGBHandler::stopSectionEffect(uint8_t section) {
+    if (section >= NUM_SECTIONS) return;
+    
+    SectionEffect &sec = sections[section];
+    sec.currentEffect = NONE;
+    
+    // Turn off all LEDs in the section
+    uint16_t start = sectionStarts[section];
+    uint16_t end = start + SECTION_SIZES[section];
+    for (uint16_t i = start; i < end; ++i) {
+        leds.setPixel(i, 0, 0, 0);
+    }
+    
+    // resets previous positions for streak effect
+    prev_positions[section] = -1;
 }
 
 // updating streak effect efficiently
