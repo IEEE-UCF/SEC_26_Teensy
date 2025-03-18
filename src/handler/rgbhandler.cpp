@@ -68,6 +68,10 @@ bool RGBHandler::setSectionPulseEffect(uint8_t section, uint8_t r, uint8_t g, ui
         return false;
 
     SectionEffect &sec = sections[section];
+    if (!(sec.currentEffect == NONE))
+    {
+        return false;
+    }
     sec.currentEffect = PULSE;
     sec.effectSpeed = speed;
     sec.pulse_r = r;
@@ -90,6 +94,10 @@ bool RGBHandler::setSectionStreakEffect(uint8_t section, uint8_t r, uint8_t g, u
         return false;
 
     SectionEffect &sec = sections[section];
+    if (!(sec.currentEffect == NONE))
+    {
+        return false;
+    }
     sec.currentEffect = STREAK;
     sec.effectSpeed = speed;
     sec.streak_r = r;
