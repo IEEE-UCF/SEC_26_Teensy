@@ -12,6 +12,8 @@ public:
     void Begin(HardwareSerial &serial);
     void Update();
     int32_t Get(int channel);
+    void PrintInfo(Print &output, bool printConfig) const;
+    friend Print &operator<<(Print &output, const RCHandler &handler);
 
 private:
     IBusBM IBus;

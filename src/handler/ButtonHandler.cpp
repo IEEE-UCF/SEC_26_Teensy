@@ -24,6 +24,11 @@ void ButtonHandler::Update()
   }
 }
 
+bool *ButtonHandler::GetStates() const
+{
+  return buttonStates;
+}
+
 void ButtonHandler::PrintInfo(Print &output, bool printConfig) const
 {
   if (printConfig)

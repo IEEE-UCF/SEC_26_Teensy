@@ -7,26 +7,36 @@
 #include "../handler/ServoHandler.h"
 #include "../drive/DriveMotor.h"
 
-#define OBJECT_RANGE 50
+#define OBJECT_RANGE 40
 #define BOUNDS_MAG 2
 #define SORTER_HALL_COUNT 3
 
-#define CENTER_ANGLE 50
-#define LEFT_ANGLE 50
-#define RIGHT_ANGLE 50
-class SortingSubsystem
+class SorterSubsystem
 {
 public:
-  SortingSubsystem(int iTOF, int *iHalls, int hallCount, int iServo, TOFHandler &tofs, HallHandler &halls, ServoHandler &servos, DriveMotor &transferMotor);
+  SorterSubsystem(int iTOF, int hallCount, int iServo, TOFHandler &tofs, HallHandler &halls, ServoHandler &servos, DriveMotor &transferMotor);
   void Begin();
   void Update();
-  void PrintInfo(Print &output, bool printConfig = false) const;
+  void MoveCenter();
+  void MoveLeft();
+  void MoveRight();
+  void MoveSoftLeft();
+  void MoveSoftRight();
 
-  friend Print &operator<<(Print &output, const SortingSubsystem &subsystem);
+  enum ServoPositions : uint8_t
+  {
+    LEFT = 50, // Example value for left position
+    SOFTLEFT = 70,
+    CENTER = 90, // Example value for center position
+    SOFTRIGHT = 110,
+    RIGHT = 130, // Example value for right position
+  };
+
+  void PrintInfo(Print &output, bool printConfig) const;
+  friend Print &operator<<(Print &output, const SorterSubsystem &subsystem);
 
 private:
   int iTOF;
-  int *iHalls;
   int hallCount;
   int iServo;
   TOFHandler &tofs;
@@ -36,6 +46,7 @@ private:
 
   int _state;
   int *_baseReadings;
+  bool objectMagnet;
 };
 
 #endif

@@ -9,12 +9,13 @@ public:
   ButtonHandler(int *kPins, int numPins);
   void Begin();
   void Update();
-  bool *buttonStates;
+  bool *GetStates() const;
 
   void PrintInfo(Print &output, bool printConfig) const;
   friend Print &operator<<(Print &output, const ButtonHandler &handler);
 
 private:
+  bool *buttonStates;
   int *kPins;
   int numPins;
 };

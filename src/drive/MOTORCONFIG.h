@@ -35,10 +35,10 @@ namespace MotorConstants
 
     constexpr float MAX_VELOCITY = 15.0f;
     constexpr float MAX_ACCELERATION = 5.0f;
-    constexpr float MAX_ANGULAR_VELOCITY = 10.0f;
+    constexpr float MAX_ANGULAR_VELOCITY = 7.0f;
     constexpr float MAX_ANGULAR_ACCELERATION = 5.0f;
 
-    constexpr float RAW_MOTOR_RPM_NOLOAD = 2700.0f;
+    constexpr float RAW_MOTOR_RPM_NOLOAD = 11880.0f;
     constexpr float MOTOR_RPM_NOLOAD = RAW_MOTOR_RPM_NOLOAD / GEAR_RATIO;
     constexpr float MOTOR_RPS_NOLOAD = MOTOR_RPM_NOLOAD / 60.0f;
 }

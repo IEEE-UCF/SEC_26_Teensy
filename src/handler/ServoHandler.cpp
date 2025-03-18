@@ -3,14 +3,14 @@
 
 ServoHandler::ServoHandler(int *kServo, int numServos) : kServo(kServo), numServos(numServos) {}
 
-void ServoHandler::Setup()
+void ServoHandler::Begin()
 {
     servos = new Servo[numServos];
     anglesWrite = new int[numServos];
     for (int i = 0; i < numServos; ++i)
     {
         servos[i].attach(kServo[i]);
-        anglesWrite[i] = 0;
+        anglesWrite[i] = -1;
     }
 }
 

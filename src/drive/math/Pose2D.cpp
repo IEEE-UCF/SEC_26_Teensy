@@ -10,7 +10,7 @@ Pose2D::Pose2D(float x, float y, float theta, float xymag, bool debug)
 {
     if (this->xymag < 1e-6f)
         this->xymag = 1.0f;
-    fixTheta();
+    // fixTheta();
 }
 
 /**
@@ -194,13 +194,15 @@ Pose2D &Pose2D::rotate(float dtheta)
 
 Print &operator<<(Print &output, const Pose2D &pose)
 {
-    float thetaDeg = degrees(pose.theta);
+    // float thetaDeg = degrees(pose.theta);
     output.print(F("Pose: ("));
     output.print(pose.x);
     output.print(F(", "));
     output.print(pose.y);
     output.print(F(", "));
-    output.print(thetaDeg);
-    output.println(F("°)"));
+    /*output.print(thetaDeg);
+    output.println(F("°)"));*/
+    output.print(pose.theta);
+    output.println(F(")"));
     return output;
 }

@@ -6,7 +6,7 @@
 
 // defines 7 sections with respective LED counts
 constexpr uint8_t NUM_SECTIONS = 7;
-constexpr uint16_t SECTION_SIZES[NUM_SECTIONS] = {13, 10, 10, 10, 13, 4, 4}; // example sizes, change later idfk
+constexpr uint16_t SECTION_SIZES[NUM_SECTIONS] = {15, 10, 10, 10, 15, 4, 4}; // example sizes, change later idfk
 
 // compile-time calculation of total LED count
 constexpr uint16_t TOTAL_LEDS = []()
@@ -48,6 +48,7 @@ public:
     bool setGlobalBrightness(uint8_t brightness); // adjusts global brightness
     bool processCommand(const String &command); // processes external command inputs
     void stopAllEffects(); // stops all active effects
+
 
     void PrintInfo(Print &output, bool printConfig) const;
     friend Print &operator<<(Print &output, const RGBHandler &handler);

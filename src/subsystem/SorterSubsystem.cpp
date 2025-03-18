@@ -1,8 +1,7 @@
 #include "SorterSubsystem.h"
 
-SortingSubsystem::SortingSubsystem(int iTOF, int *iHalls, int hallCount, int iServo, TOFHandler &tofs, HallHandler &halls, ServoHandler &servos, DriveMotor &transferMotor)
+SorterSubsystem::SorterSubsystem(int iTOF, int hallCount, int iServo, TOFHandler &tofs, HallHandler &halls, ServoHandler &servos, DriveMotor &transferMotor)
     : iTOF(iTOF),
-      iHalls(iHalls),
       hallCount(hallCount),
       iServo(iServo),
       tofs(tofs),
@@ -10,42 +9,69 @@ SortingSubsystem::SortingSubsystem(int iTOF, int *iHalls, int hallCount, int iSe
       servos(servos),
       transferMotor(transferMotor),
       _state(0),
-      _baseReadings(nullptr) {}
-void SortingSubsystem::Begin()
+      _baseReadings(nullptr),
+      objectMagnet(false) {}
+
+void SorterSubsystem::Begin()
 {
     halls.Update();
-    _baseReadings = halls.getReadings();
+    int *currentReadings = halls.getReadings();
+    if (_baseReadings == nullptr)
+    {
+        _baseReadings = new int[hallCount];
+    }
+
+    for (int i = 0; i < hallCount; i++)
+    {
+        _baseReadings[i] = currentReadings[i];
+    }
     _state = 0;
+    MoveCenter();
 }
 /*
 State 0:
 No object detcted. Run transferMotor
 
 State 1:
-Object newly detected.
+Object detected, wait for stabilization.
 
 State 2:
-Object identified
+Object detected, detect object type
 
 State 3:
-Operate servo
+Operate servo until object is out of the way
+
+State 4:
+Wait a bit to stabilize
+
+State 5:
+Go to 0, stabilize
 */
 
 /**
  * Updates, run every frame
  */
-void SortingSubsystem::Update()
+void SorterSubsystem::Update()
 {
     static elapsedMillis timer = 0;
-    static bool mag = false;
     switch (_state)
     {
-    case 0:
+    case 0: // no object detected yet.
     {
-        // No object detected
-        transferMotor.Set(100);                       // run the transfer
-        servos.WriteServoAngle(iServo, CENTER_ANGLE); // write center angle
-        int range = tofs.GetIndex(iTOF);              // get range reading from tof. Update not required as we call it in main
+        if (timer < 2000)
+        {
+            transferMotor.Set(150); // funnel into sorter
+        }
+        else if (timer < 2500)
+        {
+            transferMotor.Set(-100); // clear jams
+        }
+        else
+        {
+            timer = 0;
+        }
+        MoveCenter();                    // write center angle
+        int range = tofs.GetIndex(iTOF); // get range reading from tof
         if (range < OBJECT_RANGE)
         {
             _state = 1; // if object is detcted, switch state
@@ -54,12 +80,11 @@ void SortingSubsystem::Update()
         break;
     }
 
-    case 1:
+    case 1: // object detected. wait a bit
     {
         // Object newly detected
         transferMotor.Set(0); // pause transfer
-        servos.WriteServoAngle(iServo, CENTER_ANGLE);
-        if (timer > 250)
+        if (timer > 500)
         {
             _state = 2;
             timer = 0;
@@ -67,70 +92,153 @@ void SortingSubsystem::Update()
         break;
     }
 
-    case 2:
+    case 2: // object detection
     {
-        // Evaluation
-        transferMotor.Set(0); // pause transfer
-        int *_readings = halls.getReadings();
-        servos.WriteServoAngle(iServo, CENTER_ANGLE);
-        mag = false;
-        for (int i = 0; i < hallCount; i++)
+        if (timer > 100)
         {
-            if (abs(_readings[i] - _baseReadings[i]) >= BOUNDS_MAG)
+            objectMagnet = false;                 // object does not have a magnet
+            int *_readings = halls.getReadings(); // get halls readings
+            for (int i = 0; i < hallCount; i++)
             {
-                mag = true;
-                break;
+                if (abs(_readings[i] - _baseReadings[i]) > BOUNDS_MAG)
+                {
+                    objectMagnet = true; // object does have a magnet
+                }
+                /*Serial.println(abs(_readings[i] - _baseReadings[i]));
+                delay(500); debug */
             }
+            objectMagnet ? MoveLeft() : MoveRight();
+            _state = 3;
+            timer = 0;
+            break;
         }
-        _state = 3;
-        timer = 0;
+    }
+
+    case 3: // write the correct servo angle. If object leaves, then move on
+    {
+        int range = tofs.GetIndex(iTOF);
+        if (timer > 300)
+        {
+            objectMagnet ? MoveSoftLeft() : MoveSoftRight();
+        }
+        if (range > OBJECT_RANGE)
+        {
+            _state = 4;
+            timer = 0;
+            objectMagnet = false;
+        }
+    }
+    break;
+
+    case 4: // wait a bit for object to fall out
+    {
+        if (timer > 1000)
+        {
+            _state = 5;
+            timer = 0;
+        }
         break;
     }
 
-    case 3:
+    case 5: // stabilize before running vl53l0x again
     {
-        // Operate servo
-        transferMotor.Set(0); // pause transfer
-        servos.WriteServoAngle(iServo, mag ? LEFT_ANGLE : RIGHT_ANGLE);
-        if (timer > 1000)
+        MoveCenter();
+        if (timer > 500)
         {
             _state = 0;
             timer = 0;
         }
+        break;
     }
     }
 }
 
-void SortingSubsystem::PrintInfo(Print &output, bool printConfig) const
+void SorterSubsystem::MoveCenter()
 {
-    output.println("Sorting Subsystem Info:");
-    output.print("TOF Channel: ");
-    output.println(iTOF);
-    output.print("Servo Channel: ");
-    output.println(iServo);
-    output.print("Hall Count: ");
-    output.println(hallCount);
-    output.print("Current State: ");
-    output.println(_state);
+    servos.WriteServoAngle(iServo, SorterSubsystem::ServoPositions::CENTER);
+}
+
+void SorterSubsystem::MoveLeft()
+{
+    servos.WriteServoAngle(iServo, SorterSubsystem::ServoPositions::LEFT);
+}
+
+void SorterSubsystem::MoveRight()
+{
+    servos.WriteServoAngle(iServo, SorterSubsystem::ServoPositions::RIGHT);
+}
+
+void SorterSubsystem::MoveSoftLeft()
+{
+    servos.WriteServoAngle(iServo, SorterSubsystem::ServoPositions::SOFTLEFT);
+}
+
+void SorterSubsystem::MoveSoftRight()
+{
+    servos.WriteServoAngle(iServo, SorterSubsystem::ServoPositions::SOFTRIGHT);
+}
+
+void SorterSubsystem::PrintInfo(Print &output, bool printConfig) const
+{
+    // Print base readings (included in both sections)
+    output.print(F("Base Hall Readings: "));
+    if (_baseReadings != nullptr)
+    {
+        for (int i = 0; i < hallCount; i++)
+        {
+            output.print(_baseReadings[i]);
+            if (i < hallCount - 1)
+            {
+                output.print(F(", "));
+            }
+        }
+    }
+    else
+    {
+        output.print(F("Not initialized"));
+    }
+    output.println();
 
     if (printConfig)
     {
-        output.println("Configuration:");
-        output.print("Object Range: ");
-        output.println(OBJECT_RANGE);
-        output.print("Bounds Magnitude: ");
-        output.println(BOUNDS_MAG);
-        output.print("Center Angle: ");
-        output.println(CENTER_ANGLE);
-        output.print("Left Angle: ");
-        output.println(LEFT_ANGLE);
-        output.print("Right Angle: ");
-        output.println(RIGHT_ANGLE);
+        // Config-specific details (add more here if needed)
+        // output.println(F("Configuration details here..."));
+    }
+    else
+    {
+        // Non-config details
+        output.print(F("SorterSubsystem State: "));
+        output.print(_state);
+        output.print(F(" Detect: "));
+        output.println(objectMagnet ? "True" : "False");
+
+        // Print current readings from Hall sensors
+        output.print(F("Current Hall Readings: "));
+        int *currentReadings = halls.getReadings();
+        if (currentReadings != nullptr)
+        {
+            for (int i = 0; i < hallCount; i++)
+            {
+                output.print(currentReadings[i]);
+                if (i < hallCount - 1)
+                {
+                    output.print(F(", "));
+                }
+            }
+        }
+        else
+        {
+            output.print(F("Not initialized"));
+        }
+        output.println();
     }
 }
 
-Print &operator<<(Print &output, const SortingSubsystem &subsystem)
+#include "SorterSubsystem.h"
+
+// Overloaded operator to print the subsystem state (printConfig = false)
+Print &operator<<(Print &output, const SorterSubsystem &subsystem)
 {
-    subsystem.PrintInfo(output);
+    subsystem.PrintInfo(output, false); // Use false by default for printConfig
     return output;
 }
