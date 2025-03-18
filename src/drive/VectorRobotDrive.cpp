@@ -37,7 +37,7 @@ void VectorRobotDrive::Set(const Pose2D &speedPose)
 
         const float xTerm = motorCoeffs[i][0] * speedPose.getX();
         const float yTerm = motorCoeffs[i][1] * speedPose.getY();
-        const float thetaTerm = motorCoeffs[i][2] * speedPose.getTheta() * TRACK_WIDTH;
+        const float thetaTerm = motorCoeffs[i][2] * speedPose.getTheta() * TRACK_WIDTH / 2;
 
         const float motorSpeed = (xTerm + yTerm + thetaTerm) / WHEEL_CIRCUMFERENCE / MOTOR_RPS_NOLOAD * 255.0f;
 

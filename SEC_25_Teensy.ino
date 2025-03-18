@@ -46,8 +46,8 @@ MotorSetup driveMotors[DRIVEMOTOR_COUNT] = {
 };
 
 MotorSetup nonDriveMotors[NONDRIVEMOTOR_COUNT] = {
-    {28, 29, 31, 30, false}, // intake
-    {33, 32, -1, -1, false}  // transfer
+    {28, 29, 31, 30, true}, // intake
+    {33, 32, -1, -1, true}  // transfer
 };
 
 /**
@@ -77,12 +77,13 @@ HallHandler halls(kHall, HALL_COUNT);
 ButtonHandler buttons(kButton, BUTTON_COUNT);
 RGBHandler rgb(kLED);
 ServoHandler servos(kServo, SERVO_COUNT);
+RCHandler rc;
 
 /*
 --- Motors ---
 */
-// VectorRobotDrive drive(driveMotors, DRIVEMOTOR_COUNT, Serial);
-// DriveMotor intakeMotor(nonDriveMotors[0], Serial);
+VectorRobotDrive drive(driveMotors, DRIVEMOTOR_COUNT, Serial);
+DriveMotor intakeMotor(nonDriveMotors[0], Serial);
 DriveMotor transferMotor(nonDriveMotors[1], Serial);
 
 /*
@@ -101,6 +102,10 @@ BeaconSubsystem beacon(3, servos);
   3 - Pi / RC Control
 */
 
+#define RESTART_ADDR 0xE000ED0C
+#define READ_RESTART() (*(volatile uint32_t *)RESTART_ADDR)
+#define WRITE_RESTART(val) ((*(volatile uint32_t *)RESTART_ADDR) = (val))
+
 enum State : uint8_t
 {
   SETUP,
@@ -115,6 +120,12 @@ State state;
 bool SKIP_LIGHT_SENSOR;
 bool CLOSED_POS;
 bool CONTROLLED_BY_PI;
+bool RESET_AVAILABLE;
+
+/*
+--- Statistics ---
+*/
+long fps = 0;
 
 void setup()
 {
@@ -141,15 +152,17 @@ void setup()
   Wire1.begin();
 
   tofs.Begin();
-  gyro.Begin();
+  if (!gyro.Begin())
+    WRITE_RESTART(0x5FA0004);
   light.Begin();
   halls.Begin();
   buttons.Begin();
   rgb.Begin();
   servos.Begin();
-  // drive.Begin();
-  // intakeMotor.Begin();
-  // transferMotor.Begin();
+  rc.Begin(Serial8);
+  drive.Begin();
+  intakeMotor.Begin();
+  transferMotor.Begin();
   sorter.Begin();
   mandibles.Begin();
   beacon.Begin();
@@ -164,6 +177,12 @@ void setup()
   rgb.PrintInfo(Serial, true);
   servos.PrintInfo(Serial, true);
   sorter.PrintInfo(Serial, true);
+  rc.PrintInfo(Serial, true);
+  drive.PrintInfo(Serial, true);
+  Serial.println("Intake: ");
+  intakeMotor.PrintInfo(Serial, true);
+  Serial.println("Transfer: ");
+  transferMotor.PrintInfo(Serial, true);
   // mandibles.PrintInfo(Serial, true); placeholder
   // beacon.PrintInfo(Serial, true); placeholder
 
@@ -183,31 +202,8 @@ void loop()
   case WAITINGFORSTART:
   {
     // Read
-    static elapsedMillis read = 0;
-    if (read > 100)
-    {
-      read = 0;
-      tofs.Update();
-      light.Update();
-      halls.Update();
-      buttons.Update();
-    }
-
-    static elapsedMillis fastRead = 0;
-    if (fastRead > 20)
-    {
-      fastRead = 0;
-      gyro.Update();
-    }
-
+    GlobalRead();
     // Update
-    static elapsedMillis fastUpdate = 0;
-    if (fastUpdate > 5)
-    {
-      fastUpdate = 0;
-      rgb.Update();
-    }
-
     static elapsedMillis update = 0;
     if (update > 50)
     {
@@ -236,6 +232,8 @@ void loop()
       {
         rgb.setSectionSolidColor(2, 0, 255, 0);
         delay(1000);
+        buttons.Update();
+        RESET_AVAILABLE = !dips[0];
         state = RUNNING;
       }
 
@@ -268,40 +266,29 @@ void loop()
       }
     }
 
-    static elapsedMillis printTimer = 0;
-    if (printTimer > 100)
-    {
-      printTimer = 0;
-      printfunc(Serial);
-    }
+    // Print
+    GlobalPrint();
+
+    // Stats
+    GlobalStats();
 
     break;
   }
   case RUNNING:
   {
     // Read
-    static elapsedMillis read = 0;
-    if (read > 100)
-    {
-      read = 0;
-      tofs.Update();
-      light.Update();
-      halls.Update();
-      buttons.Update();
-    }
-
-    static elapsedMillis fastRead = 0;
-    if (fastRead > 20)
-    {
-      fastRead = 0;
-      gyro.Update();
-    }
+    GlobalRead();
 
     // Update
     static elapsedMillis update = 0;
     if (update > 50)
     {
       update = 0;
+      intakeMotor.Set(150);
+      if (buttons.GetStates()[0] && RESET_AVAILABLE)
+      {
+        WRITE_RESTART(0x5FA0004);
+      }
     }
 
     static elapsedMillis fastUpdate = 0;
@@ -309,36 +296,122 @@ void loop()
     {
       fastUpdate = 0;
       rgb.Update();
+      sorter.Update();
     }
 
-    // Print
-    static elapsedMillis printTimer = 0;
-    if (printTimer > 100)
+    drive.ReadAll();
+
+    // Processing
+    Pose2D toWrite;
+    static elapsedMillis driveUpdate = 0;
+    if (driveUpdate > 5)
     {
-      printTimer = 0;
-      printfunc(Serial);
+      driveUpdate = 0;
+      toWrite = CalculateRCVector();
+      drive.Set(toWrite);
+      intakeMotor.Set(rc.Get(5));
+    }
+
+    // Write
+    drive.Write();
+    transferMotor.Write();
+    intakeMotor.Write();
+
+    // Print
+    if (GlobalPrint())
+    {
     }
 
     // Statistics
-    static elapsedMillis fpsTimer = 0;
-    static long cycles = 0;
-    cycles++;
-    if (fpsTimer >= 1000)
-    {
-      Serial.print("Cycles: ");
-      Serial.println(cycles);
-      fpsTimer = 0;
-      cycles = 0;
-    }
+    GlobalStats();
+
     break;
   }
   }
 }
 
-void printfunc(Print &output)
+void GlobalRead()
 {
-  Serial.print("State: ");
-  Serial.println(state);
-  Serial << tofs << gyro << light << halls << buttons << rgb << servos;
-  Serial.println();
+  static elapsedMillis read = 0;
+  if (read > 100)
+  {
+    read = 0;
+    tofs.Update();
+    light.Update();
+    halls.Update();
+    buttons.Update();
+  }
+
+  static elapsedMillis fastRead = 0;
+  if (fastRead > 20)
+  {
+    fastRead = 0;
+    gyro.Update();
+  }
+
+  static elapsedMillis lightningRead = 0;
+  if (lightningRead > 5)
+  {
+    lightningRead = 0;
+    rc.Update();
+  }
+}
+
+void GlobalUpdate()
+{
+}
+
+bool GlobalPrint()
+{
+  static elapsedMillis printTimer = 0;
+  if (printTimer > 100)
+  {
+    printTimer = 0;
+    Serial.print("State: ");
+    Serial.println(state);
+    Serial.print("FPS: ");
+    Serial.println(fps);
+    Serial << tofs << gyro << light << halls << buttons << rgb << servos << rc << CalculateRCVector() << drive;
+    Serial.print("Transfer: ");
+    Serial << transferMotor;
+    Serial.print("Intake: ");
+    Serial << intakeMotor;
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+
+bool GlobalStats()
+{
+  static elapsedMillis fpsTimer = 0;
+  static long cycles = 0;
+  cycles++;
+  static long lastCycles = 0;
+  if (fpsTimer >= 1000)
+  {
+    fpsTimer = 0;
+    lastCycles = cycles;
+    fps = lastCycles;
+    cycles = 0;
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+
+Pose2D CalculateRCVector()
+{
+  float y = map((float)constrain(rc.Get(2), -255, 255), -255, 255, -1, 1); // LPot Y
+  y *= MotorConstants::MAX_VELOCITY;
+  float x = map((float)constrain(rc.Get(3), -255, 255), -255, 255, -1, 1); // LPot X
+  x *= MotorConstants::MAX_VELOCITY;
+  float theta = map((float)constrain(rc.Get(0), -255, 255), -255, 255, -1, 1); // RPot X
+  theta *= MotorConstants::MAX_ANGULAR_VELOCITY;
+  float angleOffset = -gyro.GetGyroData()[2];
+  return Pose2D(x, y, theta);
 }
