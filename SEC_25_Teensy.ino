@@ -202,7 +202,7 @@ void loop()
   case WAITINGFORSTART:
   {
     // Read
-    GlobalRead(); 
+    GlobalRead();
     // Update
     GlobalUpdate();
 
@@ -219,7 +219,6 @@ void loop()
       if (SKIP_LIGHT_SENSOR)
       {
         detectLight = true; // auto start the robot
-        rgb.Update();
       }
       else
       {
@@ -228,7 +227,6 @@ void loop()
           detectLight = true;
         }
         rgb.setSectionSolidColor(2, 225, 180, 0); // gold
-        rgb.Update();
       }
       if (detectLight)
       {
@@ -247,7 +245,6 @@ void loop()
         beacon.MoveDown();
         rgb.setSectionSolidColor(1, 204, 108, 255);
         rgb.setSectionSolidColor(3, 204, 108, 255);
-        rgb.Update();
       }
       else
       { // move servos to open position
@@ -257,7 +254,6 @@ void loop()
         beacon.MoveUp();
         rgb.setSectionSolidColor(1, 255, 180, 0);
         rgb.setSectionSolidColor(3, 255, 180, 0);
-        rgb.Update();
       }
 
       if (CONTROLLED_BY_PI)
@@ -265,8 +261,14 @@ void loop()
       }
       else
       {
-        rgb.setSectionPulseEffect(0, 255, 180, 0, 300);
-        rgb.setSectionPulseEffect(4, 255, 180, 0, 300);
+        if (rc.Get(9) == 255)
+        {
+          rgb.setSectionPulseEffect(0, 255, 180, 0, 20);
+          rgb.setSectionPulseEffect(4, 255, 180, 0, 20);
+        }
+        else
+        {
+        }
       }
     }
 
@@ -290,7 +292,6 @@ void loop()
     if (update > 50)
     {
       update = 0;
-      intakeMotor.Set(150);
       if (buttons.GetStates()[0] && RESET_AVAILABLE)
       {
         WRITE_RESTART(0x5FA0004);
@@ -314,7 +315,16 @@ void loop()
       driveUpdate = 0;
       toWrite = CalculateRCVector();
       drive.Set(toWrite);
-      intakeMotor.Set(rc.Get(5));
+      int intakeSpeed = rc.Get(5);
+      if (abs(intakeSpeed) < 30)
+      {
+        intakeSpeed = 0;
+      }
+      intakeMotor.Set(intakeSpeed);
+
+      (rc.Get(6) == -255) ? mandibles.CloseLeft() : mandibles.OpenLeft();
+      (rc.Get(7) == -255) ? mandibles.CloseRight() : mandibles.OpenRight();
+      beacon.WriteAngle(map(rc.Get(4), -255, 255, 0, 180));
     }
 
     // Write
@@ -417,12 +427,14 @@ bool GlobalStats()
 
 Pose2D CalculateRCVector()
 {
-  float y = map((float)constrain(rc.Get(2), -255, 255), -255, 255, -1, 1); // LPot Y
+  float y = map((float)constrain(rc.Get(1), -255, 255), -255, 255, -1, 1); // RPot Y
   y *= MotorConstants::MAX_VELOCITY;
-  float x = map((float)constrain(rc.Get(3), -255, 255), -255, 255, -1, 1); // LPot X
+  float x = map((float)constrain(rc.Get(0), -255, 255), -255, 255, -1, 1); // RPot X
   x *= MotorConstants::MAX_VELOCITY;
-  float theta = map((float)constrain(rc.Get(0), -255, 255), -255, 255, -1, 1); // RPot X
+  float theta = map((float)constrain(rc.Get(3), -255, 255), -255, 255, -1, 1); // LPot X
   theta *= MotorConstants::MAX_ANGULAR_VELOCITY;
-  float angleOffset = -gyro.GetGyroData()[2];
-  return Pose2D(x, y, theta);
+  float angleOffset = -gyro.GetGyroData()[0];
+  Pose2D angleOffsetPose(0, 0, angleOffset);
+  angleOffsetPose.fixTheta();
+  return Pose2D(x, y, theta).rotateVector(angleOffsetPose.getTheta());
 }
