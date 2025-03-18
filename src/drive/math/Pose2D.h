@@ -13,7 +13,7 @@ public:
     float getY() const { return y; }
     float getTheta() const { return theta; }
     float getXyMag() const { return xymag; }
-    float setXyMag(float val) { xymag = val; }
+    void setXyMag(float val) { xymag = val; }
 
     void setX(float val)
     {
