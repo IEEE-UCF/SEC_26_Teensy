@@ -202,8 +202,10 @@ void loop()
   case WAITINGFORSTART:
   {
     // Read
-    GlobalRead();
+    GlobalRead(); 
     // Update
+    GlobalUpdate();
+
     static elapsedMillis update = 0;
     if (update > 50)
     {
@@ -263,6 +265,8 @@ void loop()
       }
       else
       {
+        rgb.setSectionPulseEffect(0, 255, 180, 0, 300);
+        rgb.setSectionPulseEffect(4, 255, 180, 0, 300);
       }
     }
 
@@ -280,6 +284,8 @@ void loop()
     GlobalRead();
 
     // Update
+    GlobalUpdate();
+
     static elapsedMillis update = 0;
     if (update > 50)
     {
@@ -295,7 +301,6 @@ void loop()
     if (fastUpdate > 5)
     {
       fastUpdate = 0;
-      rgb.Update();
       sorter.Update();
     }
 
@@ -359,6 +364,12 @@ void GlobalRead()
 
 void GlobalUpdate()
 {
+  static elapsedMillis rgbUpdate = 0;
+  if (rgbUpdate > 20)
+  {
+    rgbUpdate = 0;
+    rgb.Update();
+  }
 }
 
 bool GlobalPrint()
