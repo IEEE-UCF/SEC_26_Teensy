@@ -10,6 +10,7 @@ public:
     BeaconSubsystem(int indexBeacon, ServoHandler &servos);
     void Begin();
     void MoveUp();
+    void WriteAngle(int angle);
     void MoveDown(int offset = 0);
 
     enum Positions : uint8_t
