@@ -35,6 +35,7 @@ void DriveMotor::Begin()
         encoder->init();
     }
     Set(0);
+    Write();
 }
 
 /**
