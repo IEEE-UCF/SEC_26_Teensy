@@ -8,7 +8,7 @@ class GyroHandler
 {
 public:
     GyroHandler();
-    void Begin();
+    bool Begin();
     void Update();
     void PrintInfo(Print &output, bool printConfig = false) const;
     float *GetGyroData();

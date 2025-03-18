@@ -5,23 +5,22 @@ GyroHandler::GyroHandler() : bno08x(Adafruit_BNO08x(-1)) {}
 /**
  * Setup function for the Gyro. Fails sometimes
  */
-void GyroHandler::Begin()
+bool GyroHandler::Begin()
 {
     if (!bno08x.begin_I2C(0x4B))
     {
         // if (!bno08x.begin_UART(&Serial1)) {  // Requires a device with > 300 byte
         // UART buffer! if (!bno08x.begin_SPI(BNO08X_CS, BNO08X_INT)) {
         Serial.println("Failed to find BNO08x chip");
-        while (1)
-        {
-            delay(10);
-        }
+        return false;
     }
     Serial.println("BNO08x Found!");
     if (!bno08x.enableReport(SH2_ROTATION_VECTOR))
     {
         Serial.println(F("Could not enable rotation vector"));
+        return false;
     }
+    return true;
 }
 
 /**

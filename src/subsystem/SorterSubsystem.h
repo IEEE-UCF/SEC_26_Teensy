@@ -7,7 +7,7 @@
 #include "../handler/ServoHandler.h"
 #include "../drive/DriveMotor.h"
 
-#define OBJECT_RANGE 50
+#define OBJECT_RANGE 40
 #define BOUNDS_MAG 2
 #define SORTER_HALL_COUNT 3
 
@@ -20,11 +20,15 @@ public:
   void MoveCenter();
   void MoveLeft();
   void MoveRight();
+  void MoveSoftLeft();
+  void MoveSoftRight();
 
   enum ServoPositions : uint8_t
   {
-    LEFT = 50,   // Example value for left position
+    LEFT = 50, // Example value for left position
+    SOFTLEFT = 70,
     CENTER = 90, // Example value for center position
+    SOFTRIGHT = 110,
     RIGHT = 130, // Example value for right position
   };
 
@@ -42,6 +46,7 @@ private:
 
   int _state;
   int *_baseReadings;
+  bool objectMagnet;
 };
 
 #endif
