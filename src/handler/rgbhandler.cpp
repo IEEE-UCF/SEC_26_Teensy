@@ -73,7 +73,7 @@ bool RGBHandler::setSectionPulseEffect(uint8_t section, uint8_t r, uint8_t g, ui
     sec.pulse_r = r;
     sec.pulse_g = g;
     sec.pulse_b = b;
-    
+
     // initialize phase to start at minimum brightness
     sec.pulse_phase = 0;
 
@@ -83,18 +83,45 @@ bool RGBHandler::setSectionPulseEffect(uint8_t section, uint8_t r, uint8_t g, ui
     return true;
 }
 
-// updating pulse effect
-void RGBHandler::updatePulse(uint8_t section) {
+// setting up streak effect
+bool RGBHandler::setSectionStreakEffect(uint8_t section, uint8_t r, uint8_t g, uint8_t b, unsigned long speed)
+{
+    if (section >= NUM_SECTIONS || speed < MIN_SPEED || speed > MAX_SPEED)
+        return false;
+
     SectionEffect &sec = sections[section];
-    // Update phase and wrap around at 1024
+    sec.currentEffect = STREAK;
+    sec.effectSpeed = speed;
+    sec.streak_r = r;
+    sec.streak_g = g;
+    sec.streak_b = b;
+
+    // initialize streak position and trail
+    sec.streak_position = 0;
+    sec.streak_trailLength = 2; // default trail length
+
+    // reset previous position tracking
+    prev_positions[section] = -1;
+
+    return true;
+}
+
+// updating pulse effect
+void RGBHandler::updatePulse(uint8_t section)
+{
+    SectionEffect &sec = sections[section];
+    // update phase and wrap around at 1024
     sec.pulse_phase += sec.pulse_step;
     sec.pulse_phase %= 1024;
 
     // calculates brightness using triangle wave
     uint8_t brightness;
-    if (sec.pulse_phase < 512) {
+    if (sec.pulse_phase < 512)
+    {
         brightness = (sec.pulse_phase * 255) / 511;
-    } else {
+    }
+    else
+    {
         brightness = ((1023 - sec.pulse_phase) * 255) / 511;
     }
 
@@ -110,25 +137,29 @@ void RGBHandler::updatePulse(uint8_t section) {
     // updates all LED's in the section
     uint16_t start = sectionStarts[section];
     uint16_t end = start + SECTION_SIZES[section];
-    for (uint16_t i = start; i < end; ++i) {
+    for (uint16_t i = start; i < end; ++i)
+    {
         leds.setPixel(i, r_adj, g_adj, b_adj);
     }
 }
 
 // stops all effects for a specific section
-void RGBHandler::stopSectionEffect(uint8_t section) {
-    if (section >= NUM_SECTIONS) return;
-    
+void RGBHandler::stopSectionEffect(uint8_t section)
+{
+    if (section >= NUM_SECTIONS)
+        return;
+
     SectionEffect &sec = sections[section];
     sec.currentEffect = NONE;
-    
+
     // Turn off all LEDs in the section
     uint16_t start = sectionStarts[section];
     uint16_t end = start + SECTION_SIZES[section];
-    for (uint16_t i = start; i < end; ++i) {
+    for (uint16_t i = start; i < end; ++i)
+    {
         leds.setPixel(i, 0, 0, 0);
     }
-    
+
     // resets previous positions for streak effect
     prev_positions[section] = -1;
 }
@@ -167,11 +198,6 @@ void RGBHandler::updateStreak(uint8_t section)
     sec.streak_position = (current_pos + 1) % size;
 }
 
-void RGBHandler::updatePulse(uint8_t section)
-{
-    SectionEffect &sec = sections[section];
-}
-
 // manages effect updates while avoiding redundant refreshes
 void RGBHandler::Update()
 {
@@ -202,14 +228,6 @@ void RGBHandler::Update()
         leds.show();
         lastShow = now;
     }
-}
-
-// stop a section effect
-bool RGBHandler::stopSectionEffect(uint8_t section)
-{
-    SectionEffect &sec = sections[section];
-    sec.currentEffect = NONE;
-    return true;
 }
 
 // stops all effects at once
@@ -249,7 +267,7 @@ void RGBHandler::PrintInfo(Print &output, bool printConfig) const
     }
     else
     {
-        output.println(F("Section States: "));
+        output.print(F("Section States: "));
         for (int i = 0; i < NUM_SECTIONS; i++)
         {
             output.print(F("Section "));
