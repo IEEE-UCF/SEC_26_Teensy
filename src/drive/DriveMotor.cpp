@@ -9,10 +9,11 @@ DriveMotor::DriveMotor(const MotorSetup &motorSetup, Print &output)
     {
         encoder = std::make_unique<QuadEncoder>(encoderNum, motorSetup.kENCA, motorSetup.kENCB);
         encoderNum++; // Only increment if encoder is created
+        output.println(F("Encoder initialized"));
     }
     else if (encoderNum > 4)
     {
-        output.println(F("WARNING: Max encoder limit (4) reached!!!"));
+        output.println(F("WARNING: Encoder skipped"));
     }
 }
 
