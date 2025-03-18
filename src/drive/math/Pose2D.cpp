@@ -10,7 +10,6 @@ Pose2D::Pose2D(float x, float y, float theta, float xymag, bool debug)
 {
     if (this->xymag < 1e-6f)
         this->xymag = 1.0f;
-    // fixTheta();
 }
 
 /**
@@ -117,7 +116,6 @@ Pose2D &Pose2D::add(const Pose2D &pose)
     x += pose.x;
     y += pose.y;
     theta += pose.theta;
-    fixTheta();
     return *this;
 }
 
@@ -130,7 +128,6 @@ Pose2D &Pose2D::subtract(const Pose2D &pose)
     x -= pose.x;
     y -= pose.y;
     theta -= pose.theta;
-    fixTheta();
     return *this;
 }
 
@@ -188,7 +185,6 @@ Pose2D &Pose2D::translate(float dx, float dy)
 Pose2D &Pose2D::rotate(float dtheta)
 {
     theta += dtheta;
-    fixTheta();
     return *this;
 }
 
