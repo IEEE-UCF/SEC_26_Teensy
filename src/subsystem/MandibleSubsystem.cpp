@@ -7,8 +7,8 @@ MandibleSubsystem::MandibleSubsystem(int indexLeft, int indexRight, ServoHandler
 
 void MandibleSubsystem::Begin()
 {
-    OpenLeft();
-    OpenRight();
+    CloseLeft();
+    CloseRight();
 }
 
 void MandibleSubsystem::OpenLeft()
