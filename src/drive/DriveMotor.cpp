@@ -3,24 +3,23 @@
 int DriveMotor::encoderNum = 1;
 
 DriveMotor::DriveMotor(const MotorSetup &motorSetup, Print &output)
-    : motorSetup(motorSetup), output(output), pwmout(0), cwout(true), enc(0)
-{
-    if (encoderNum <= 4 && motorSetup.kENCA != -1 && motorSetup.kENCB != -1)
-    {
-        encoder = std::make_unique<QuadEncoder>(encoderNum, motorSetup.kENCA, motorSetup.kENCB);
-        encoderNum++; // Only increment if encoder is created
-    }
-    else if (encoderNum > 4)
-    {
-        output.println(F("WARNING: Max encoder limit (4) reached!!!"));
-    }
-}
+    : motorSetup(motorSetup), output(output), pwmout(0), cwout(true), enc(0) {}
 
 /**
  * Begin drivemotor
  */
 void DriveMotor::Begin()
 {
+    if (encoderNum <= 4 && motorSetup.kENCA != -1 && motorSetup.kENCB != -1)
+    {
+        encoder = std::make_unique<QuadEncoder>(encoderNum, motorSetup.kENCA, motorSetup.kENCB);
+        encoderNum++; // Only increment if encoder is created
+        output.println(F("Encoder initialized"));
+    }
+    else if (encoderNum > 4)
+    {
+        output.println(F("WARNING: Encoder skipped"));
+    }
     if (motorSetup.kCW >= 0)
         pinMode(motorSetup.kCW, OUTPUT);
     if (motorSetup.kPWM >= 0)
@@ -96,7 +95,7 @@ void DriveMotor::PrintInfo(Print &output, bool printConfig) const
     else
     {
         output.print(F("DriveMotor PWM Output: "));
-        output.print(pwmout);
+        output.print(255 - pwmout);
         output.print(F(", CW Output: "));
         output.print(cwout ? F("True") : F("False"));
         output.print(F(", Encoder: "));

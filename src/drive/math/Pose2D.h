@@ -4,7 +4,8 @@
 #include <Arduino.h>
 #include <cmath>
 
-class Pose2D {
+class Pose2D
+{
 public:
     Pose2D(float x = 0, float y = 0, float theta = 0, float xymag = 1, bool debug = false);
 
@@ -12,16 +13,33 @@ public:
     float getY() const { return y; }
     float getTheta() const { return theta; }
     float getXyMag() const { return xymag; }
+    void setXyMag(float val) { xymag = val; }
 
-    void setX(float val) { x = val; normalized = false; }
-    void setY(float val) { y = val; normalized = false; }
-    void setThetaRadians(float val) { theta = val; fixTheta(); }
-    void setThetaDegrees(float deg) { theta = radians(deg); fixTheta(); }
+    void setX(float val)
+    {
+        x = val;
+        normalized = false;
+    }
+    void setY(float val)
+    {
+        y = val;
+        normalized = false;
+    }
+    void setThetaRadians(float val)
+    {
+        theta = val;
+    }
+    void setThetaDegrees(float deg)
+    {
+        theta = radians(deg);
+    }
 
     Pose2D &normalize();
     Pose2D &fixTheta();
     Pose2D &fullNormalize();
     Pose2D &unnormalize(bool scaleTheta = false);
+    Pose2D &constrainXyMag(float magnitude);
+    Pose2D &constrainTheta(float magnitude);
 
     Pose2D &rotateVector(float angle);
     Pose2D &rotateVectorCached(float cosAngle, float sinAngle);

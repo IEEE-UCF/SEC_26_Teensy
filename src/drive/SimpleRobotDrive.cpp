@@ -5,7 +5,7 @@ SimpleRobotDrive::SimpleRobotDrive(const MotorSetup motorSetups[], int numMotors
     : numMotors(numMotors > 0 ? numMotors : 1), // Ensure at least 1 motor
       output(output),
       enc(std::make_unique<long[]>(numMotors)),
-      localization(output)
+      localization()
 { // Pass output to LocalizationEncoder
     if (numMotors <= 0)
     {
@@ -74,10 +74,10 @@ void SimpleRobotDrive::ReadEnc()
 /**
  * Read all encoders and update positions
  */
-void SimpleRobotDrive::ReadAll()
+void SimpleRobotDrive::ReadAll(float yaw)
 {
     ReadEnc();
-    localization.updatePosition(enc.get());
+    localization.updatePosition(enc.get(), yaw);
 }
 
 /**

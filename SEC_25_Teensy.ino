@@ -1,5 +1,3 @@
-
-
 // Include Libraries
 #include <Wire.h>
 #include <Adafruit_BNO08x.h>
@@ -22,6 +20,10 @@
 #include "src/drive/VectorRobotDrive.h"
 #include "src/drive/SimpleRobotDrive.h"
 #include "src/drive/DriveMotor.h"
+
+extern "C" void startup_early_hook(void);
+extern "C" void startup_middle_hook(void);
+extern "C" void unused_interrupt_vector(void); // startup.c
 
 /*
 --- Board Setup ---
@@ -153,7 +155,9 @@ void setup()
 
   tofs.Begin();
   if (!gyro.Begin())
-    WRITE_RESTART(0x5FA0004);
+  {
+    reset();
+  }
   light.Begin();
   halls.Begin();
   buttons.Begin();
@@ -204,20 +208,21 @@ void loop()
     // Read
     GlobalRead();
     // Update
+    GlobalUpdate();
+
     static elapsedMillis update = 0;
     if (update > 50)
     {
       update = 0;
       bool *dips = buttons.GetStates();
       SKIP_LIGHT_SENSOR = dips[0];
-      CLOSED_POS = dips[2];
+      CLOSED_POS = !dips[2];
       CONTROLLED_BY_PI = dips[3];
 
       static bool detectLight = false;
       if (SKIP_LIGHT_SENSOR)
       {
         detectLight = true; // auto start the robot
-        rgb.Update();
       }
       else
       {
@@ -226,7 +231,6 @@ void loop()
           detectLight = true;
         }
         rgb.setSectionSolidColor(2, 225, 180, 0); // gold
-        rgb.Update();
       }
       if (detectLight)
       {
@@ -239,23 +243,21 @@ void loop()
 
       if (CLOSED_POS)
       { // move servos to closed position
-        sorter.MoveLeft();
+        sorter.MoveCenter();
         mandibles.CloseLeft();
         mandibles.CloseRight();
-        beacon.MoveDown();
+        beacon.MoveUp();
         rgb.setSectionSolidColor(1, 204, 108, 255);
         rgb.setSectionSolidColor(3, 204, 108, 255);
-        rgb.Update();
       }
       else
       { // move servos to open position
         sorter.MoveCenter();
         mandibles.OpenLeft();
         mandibles.OpenRight();
-        beacon.MoveUp();
+        beacon.MoveDown();
         rgb.setSectionSolidColor(1, 255, 180, 0);
         rgb.setSectionSolidColor(3, 255, 180, 0);
-        rgb.Update();
       }
 
       if (CONTROLLED_BY_PI)
@@ -263,6 +265,14 @@ void loop()
       }
       else
       {
+        if (rc.Get(9) == 255)
+        {
+          rgb.setSectionPulseEffect(0, 255, 180, 0, 20);
+          rgb.setSectionPulseEffect(4, 255, 180, 0, 20);
+        }
+        else
+        {
+        }
       }
     }
 
@@ -280,14 +290,15 @@ void loop()
     GlobalRead();
 
     // Update
+    GlobalUpdate();
+
     static elapsedMillis update = 0;
     if (update > 50)
     {
       update = 0;
-      intakeMotor.Set(150);
       if (buttons.GetStates()[0] && RESET_AVAILABLE)
       {
-        WRITE_RESTART(0x5FA0004);
+        reset();
       }
     }
 
@@ -295,11 +306,10 @@ void loop()
     if (fastUpdate > 5)
     {
       fastUpdate = 0;
-      rgb.Update();
       sorter.Update();
     }
 
-    drive.ReadAll();
+    drive.ReadAll(gyro.GetGyroData()[0]);
 
     // Processing
     Pose2D toWrite;
@@ -309,7 +319,16 @@ void loop()
       driveUpdate = 0;
       toWrite = CalculateRCVector();
       drive.Set(toWrite);
-      intakeMotor.Set(rc.Get(5));
+      int intakeSpeed = rc.Get(5);
+      if (abs(intakeSpeed) < 30)
+      {
+        intakeSpeed = 0;
+      }
+      intakeMotor.Set(intakeSpeed);
+
+      (rc.Get(6) == -255) ? mandibles.CloseLeft() : mandibles.OpenLeft();
+      (rc.Get(7) == -255) ? mandibles.CloseRight() : mandibles.OpenRight();
+      beacon.WriteAngle(map(rc.Get(4), -255, 255, 0, 180));
     }
 
     // Write
@@ -343,7 +362,7 @@ void GlobalRead()
   }
 
   static elapsedMillis fastRead = 0;
-  if (fastRead > 20)
+  if (fastRead > 10)
   {
     fastRead = 0;
     gyro.Update();
@@ -359,6 +378,12 @@ void GlobalRead()
 
 void GlobalUpdate()
 {
+  static elapsedMillis rgbUpdate = 0;
+  if (rgbUpdate > 20)
+  {
+    rgbUpdate = 0;
+    rgb.Update();
+  }
 }
 
 bool GlobalPrint()
@@ -372,6 +397,8 @@ bool GlobalPrint()
     Serial.print("FPS: ");
     Serial.println(fps);
     Serial << tofs << gyro << light << halls << buttons << rgb << servos << rc << CalculateRCVector() << drive;
+    Serial.print("SpeedPose: ");
+    Serial << drive.GetVelocity();
     Serial.print("Transfer: ");
     Serial << transferMotor;
     Serial.print("Intake: ");
@@ -406,12 +433,24 @@ bool GlobalStats()
 
 Pose2D CalculateRCVector()
 {
-  float y = map((float)constrain(rc.Get(2), -255, 255), -255, 255, -1, 1); // LPot Y
-  y *= MotorConstants::MAX_VELOCITY;
-  float x = map((float)constrain(rc.Get(3), -255, 255), -255, 255, -1, 1); // LPot X
-  x *= MotorConstants::MAX_VELOCITY;
-  float theta = map((float)constrain(rc.Get(0), -255, 255), -255, 255, -1, 1); // RPot X
-  theta *= MotorConstants::MAX_ANGULAR_VELOCITY;
-  float angleOffset = -gyro.GetGyroData()[2];
-  return Pose2D(x, y, theta);
+  float y = map((float)constrain(rc.Get(1), -255, 255), -255, 255, -1, 1);     // RPot Y
+  float x = map((float)constrain(rc.Get(0), -255, 255), -255, 255, -1, 1);     // RPot X
+  float theta = map((float)constrain(rc.Get(3), -255, 255), -255, 255, -1, 1); // LPot X
+  float yaw = gyro.GetGyroData()[0];
+  return drive.CalculateRCVector(x, y, theta, yaw);
+}
+
+void reset()
+{
+  startup_middle_hook();
+  WRITE_RESTART(0x05FA0004);
+  // unused_interrupt_vector();
+}
+
+FLASHMEM void startup_middle_hook(void)
+{
+  for (uint8_t i = 0; i < CORE_NUM_DIGITAL; i++)
+  {
+    pinMode(i, INPUT_DISABLE);
+  }
 }

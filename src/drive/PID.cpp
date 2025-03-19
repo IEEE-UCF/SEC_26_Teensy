@@ -10,7 +10,7 @@
 double PID::Step(double measurement, double setpoint)
 {
     static elapsedMillis timer = 0;
-    if (timer > timeStepMin * 1000)
+    if (timer > timeStepMinSeconds * 1000)
     {
         double timeStep = timer / 1000;
         // Calculate error
@@ -31,11 +31,15 @@ double PID::Step(double measurement, double setpoint)
         // Saturate command
         if (command > max)
         {
-            command = max;
+            satCommand = max;
         }
         else if (command < min)
         {
-            command = min;
+            satCommand = min;
+        }
+        else
+        {
+            satCommand = command;
         }
 
         // Apply rate limiter

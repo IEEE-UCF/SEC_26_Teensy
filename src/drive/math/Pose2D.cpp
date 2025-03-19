@@ -10,7 +10,6 @@ Pose2D::Pose2D(float x, float y, float theta, float xymag, bool debug)
 {
     if (this->xymag < 1e-6f)
         this->xymag = 1.0f;
-    // fixTheta();
 }
 
 /**
@@ -84,10 +83,28 @@ Pose2D &Pose2D::unnormalize(bool scaleTheta)
 }
 
 /**
+ * Constrains xymag.
+ * @param magnitude magnitude of xymag
+ */
+Pose2D &Pose2D::constrainXyMag(float magnitude)
+{
+    normalize();
+    xymag = constrain(xymag, 0, magnitude);
+    unnormalize();
+    return *this;
+}
+
+Pose2D &Pose2D::constrainTheta(float magnitude)
+{
+    constrain(theta, -magnitude, magnitude);
+    return *this;
+}
+/**
  * Rotate vector
  * @param angle angle to rate by in radians
  */
-Pose2D &Pose2D::rotateVector(float angle)
+Pose2D &
+Pose2D::rotateVector(float angle)
 {
     const float cosA = cosf(angle);
     const float sinA = sinf(angle);
@@ -117,7 +134,6 @@ Pose2D &Pose2D::add(const Pose2D &pose)
     x += pose.x;
     y += pose.y;
     theta += pose.theta;
-    fixTheta();
     return *this;
 }
 
@@ -130,7 +146,6 @@ Pose2D &Pose2D::subtract(const Pose2D &pose)
     x -= pose.x;
     y -= pose.y;
     theta -= pose.theta;
-    fixTheta();
     return *this;
 }
 
@@ -188,7 +203,6 @@ Pose2D &Pose2D::translate(float dx, float dy)
 Pose2D &Pose2D::rotate(float dtheta)
 {
     theta += dtheta;
-    fixTheta();
     return *this;
 }
 

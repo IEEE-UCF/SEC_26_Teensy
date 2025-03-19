@@ -6,15 +6,19 @@
 
 struct PIDConfig
 {
-    double kp;
-    double ki;
-    double kd;
-    double kaw;
-    double timeConst;
-    double max;
-    double min;
-    double maxRate;
+    double kp;        // proportional correction (eren: 1.25)
+    double ki;        // integral correction (eren: 0.05)
+    double kd;        // derivative correction (eren: 0.1)
+    double kaw;       // filter for integral (eren : 0.01)
+    double timeConst; // filter for derivative  (eren: 1)
+    double max;       // constrain output
+    double min;       // constrain output
+    double maxRate;   // constriain output derivative
 };
+
+/**
+ *
+ */
 
 class PID
 {
@@ -26,20 +30,20 @@ public:
     double Step(double measurement, double setpoint);
 
 private:
-    double kp;                 // Proportional gain
-    double ki;                 // Integral gain
-    double kd;                 // Derivative gain
-    double kaw;                // Anti-windup gain
-    double timeConst;          // Time constant for derivative filtering
-    double timeStepMin = 0.01; // Time step for derivative filtering
-    double max;                // Maximum output
-    double min;                // Minimum output
-    double maxRate;            // Maximum rate of change of output
-    double integral = 0;       // Integral term
-    double prevError = 0;      // Previous error
-    double derivPrev = 0;      // Previous derivative term
-    double prevSatCommand = 0; // Previous saturated command
-    double prevCommand = 0;    // Previous command
-    double satCommand = 0;     // Current saturated command
+    double kp;                         // Proportional gain
+    double ki;                         // Integral gain
+    double kd;                         // Derivative gain
+    double kaw;                        // Anti-windup gain
+    double timeConst;                  // Time constant for derivative filtering
+    double timeStepMinSeconds = 0.005; // Time step for derivative filtering
+    double max;                        // Maximum output
+    double min;                        // Minimum output
+    double maxRate;                    // Maximum rate of change of output
+    double integral = 0;               // Integral term
+    double prevError = 0;              // Previous error
+    double derivPrev = 0;              // Previous derivative term
+    double prevSatCommand = 0;         // Previous saturated command
+    double prevCommand = 0;            // Previous command
+    double satCommand = 0;             // Current saturated command
 };
 #endif

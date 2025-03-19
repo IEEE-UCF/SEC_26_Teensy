@@ -18,3 +18,9 @@ void BeaconSubsystem::MoveDown(int offset)
 {
     servos.WriteServoAngle(indexBeacon, BeaconSubsystem::Positions::DOWN + offset);
 }
+
+void BeaconSubsystem::WriteAngle(int angle)
+{
+    angle = constrain(angle, 0, 90);
+    servos.WriteServoAngle(indexBeacon, angle);
+}

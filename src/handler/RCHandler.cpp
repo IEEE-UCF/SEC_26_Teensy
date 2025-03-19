@@ -29,6 +29,13 @@ void RCHandler::Update()
         {
             pots[i] = map(constrain(IBus.readChannel(i), 1000, 2000) - 1000, 0, 1000, -255, 255);
         }
+        if (pots[9] == -255)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                pots[i] = 0;
+            }
+        }
     }
 }
 
