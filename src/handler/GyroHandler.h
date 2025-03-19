@@ -4,6 +4,7 @@
 #include <Wire.h>
 #include <Adafruit_BNO08x.h>
 
+#define STARTING_OFFSET 90 // radians
 class GyroHandler
 {
 public:

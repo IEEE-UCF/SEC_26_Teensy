@@ -108,7 +108,6 @@ BeaconSubsystem beacon(3, servos);
 #define READ_RESTART() (*(volatile uint32_t *)RESTART_ADDR)
 #define WRITE_RESTART(val) ((*(volatile uint32_t *)RESTART_ADDR) = (val))
 
-
 enum State : uint8_t
 {
   SETUP,
@@ -363,7 +362,7 @@ void GlobalRead()
   }
 
   static elapsedMillis fastRead = 0;
-  if (fastRead > 20)
+  if (fastRead > 10)
   {
     fastRead = 0;
     gyro.Update();
@@ -436,19 +435,22 @@ Pose2D CalculateRCVector()
 {
   float y = map((float)constrain(rc.Get(1), -255, 255), -255, 255, -1, 1);     // RPot Y
   float x = map((float)constrain(rc.Get(0), -255, 255), -255, 255, -1, 1);     // RPot X
-  float theta = map((float)constrain(rc.Get(3), -255, 255), -255, 255, -1, 1); // LPot X, reversed
+  float theta = map((float)constrain(rc.Get(3), -255, 255), -255, 255, -1, 1); // LPot X
   float yaw = gyro.GetGyroData()[0];
   return drive.CalculateRCVector(x, y, theta, yaw);
 }
 
-void reset() {
+void reset()
+{
   startup_middle_hook();
   WRITE_RESTART(0x05FA0004);
   // unused_interrupt_vector();
 }
 
-FLASHMEM void startup_middle_hook(void) {
-  for(uint8_t i = 0; i < CORE_NUM_DIGITAL; i++) {
+FLASHMEM void startup_middle_hook(void)
+{
+  for (uint8_t i = 0; i < CORE_NUM_DIGITAL; i++)
+  {
     pinMode(i, INPUT_DISABLE);
   }
 }

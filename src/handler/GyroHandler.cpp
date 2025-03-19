@@ -46,6 +46,17 @@ void GyroHandler::Update()
     float pitch = asin(-2.0 * (qi * qk - qj * qr) / (sqi + sqj + sqk + sqr));
     float roll = atan2(2.0 * (qj * qk + qi * qr), (-sqi - sqj + sqk + sqr));
 
+    /*
+     */
+    yaw += STARTING_OFFSET * PI / 180;
+    while (yaw > PI)
+    {
+        yaw = yaw - 2 * PI;
+    }
+    while (yaw < -PI)
+    {
+        yaw = yaw + 2 * PI;
+    }
     gyroData[0] = yaw;
     gyroData[1] = pitch;
     gyroData[2] = roll;

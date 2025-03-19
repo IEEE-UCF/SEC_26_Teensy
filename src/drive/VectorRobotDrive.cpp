@@ -17,9 +17,9 @@ void VectorRobotDrive::Set(const Pose2D &speedPose)
     timer = 0;
     // Compile-time constant coefficients [X, Y, Theta]
     static constexpr float motorCoeffs[3][3] = {
-        {0.0f, 1.0f, -1.0f}, // Left motor
-        {1.15f, 0.0f, 0.0f}, // Back motor
-        {0.0f, 1.0f, 1.0f}   // Right motor
+        {1.0f, 0.0f, 1.0f},   // Left motor
+        {0.0f, -1.15f, 0.0f}, // Back motor
+        {1.0f, 0.0f, -1.0f}   // Right motor
     };
 
     /*// Validate TRACK_WIDTH before calculations
