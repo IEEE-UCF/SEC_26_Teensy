@@ -3,7 +3,12 @@
 int DriveMotor::encoderNum = 1;
 
 DriveMotor::DriveMotor(const MotorSetup &motorSetup, Print &output)
-    : motorSetup(motorSetup), output(output), pwmout(0), cwout(true), enc(0)
+    : motorSetup(motorSetup), output(output), pwmout(0), cwout(true), enc(0) {}
+
+/**
+ * Begin drivemotor
+ */
+void DriveMotor::Begin()
 {
     if (encoderNum <= 4 && motorSetup.kENCA != -1 && motorSetup.kENCB != -1)
     {
@@ -15,13 +20,6 @@ DriveMotor::DriveMotor(const MotorSetup &motorSetup, Print &output)
     {
         output.println(F("WARNING: Encoder skipped"));
     }
-}
-
-/**
- * Begin drivemotor
- */
-void DriveMotor::Begin()
-{
     if (motorSetup.kCW >= 0)
         pinMode(motorSetup.kCW, OUTPUT);
     if (motorSetup.kPWM >= 0)

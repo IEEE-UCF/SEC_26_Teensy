@@ -38,6 +38,8 @@ public:
     Pose2D &fixTheta();
     Pose2D &fullNormalize();
     Pose2D &unnormalize(bool scaleTheta = false);
+    Pose2D &constrainXyMag(float magnitude);
+    Pose2D &constrainTheta(float magnitude);
 
     Pose2D &rotateVector(float angle);
     Pose2D &rotateVectorCached(float cosAngle, float sinAngle);

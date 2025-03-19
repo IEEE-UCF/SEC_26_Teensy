@@ -83,10 +83,28 @@ Pose2D &Pose2D::unnormalize(bool scaleTheta)
 }
 
 /**
+ * Constrains xymag.
+ * @param magnitude magnitude of xymag
+ */
+Pose2D &Pose2D::constrainXyMag(float magnitude)
+{
+    normalize();
+    xymag = constrain(xymag, 0, magnitude);
+    unnormalize();
+    return *this;
+}
+
+Pose2D &Pose2D::constrainTheta(float magnitude)
+{
+    constrain(theta, -magnitude, magnitude);
+    return *this;
+}
+/**
  * Rotate vector
  * @param angle angle to rate by in radians
  */
-Pose2D &Pose2D::rotateVector(float angle)
+Pose2D &
+Pose2D::rotateVector(float angle)
 {
     const float cosA = cosf(angle);
     const float sinA = sinf(angle);
