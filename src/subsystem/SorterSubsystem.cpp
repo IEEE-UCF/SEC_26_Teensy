@@ -54,13 +54,14 @@ Go to 0, stabilize
  */
 void SorterSubsystem::Update()
 {
+    using namespace GlobalColors;
     static elapsedMillis timer = 0;
     switch (_state)
     {
     case 0: // no object detected yet.
     {
-        rgb.setSectionPulseEffect(5, 170, 0, 255, 20);
-        rgb.setSectionPulseEffect(6, 170, 0, 255, 20);
+        rgb.setSectionPulseEffect(5, PURPLE, 20);
+        rgb.setSectionPulseEffect(6, PURPLE, 20);
         if (timer < 2000)
         {
             transferMotor.Set(150); // funnel into sorter
@@ -89,7 +90,7 @@ void SorterSubsystem::Update()
         rgb.stopSectionEffect(5);
         rgb.stopSectionEffect(6);
         transferMotor.Set(0); // pause transfer
-        if (timer > 300)
+        if (timer > 500)
         {
             _state = 2;
             timer = 0;
@@ -115,12 +116,12 @@ void SorterSubsystem::Update()
             if (objectMagnet)
             {
                 MoveLeft();
-                rgb.setSectionSolidColor(6, 170, 0, 255);
+                rgb.setSectionSolidColor(6, PURPLE);
             }
             else
             {
                 MoveRight();
-                rgb.setSectionSolidColor(5, 170, 0, 255);
+                rgb.setSectionSolidColor(5, PURPLE);
             }
             objectMagnet ? MoveLeft() : MoveRight();
             _state = 3;

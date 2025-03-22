@@ -14,9 +14,9 @@
 #include "src/subsystem/SorterSubsystem.h"
 #include "src/subsystem/MandibleSubsystem.h"
 #include "src/subsystem/BeaconSubsystem.h"
+using namespace GlobalColors;
 
 #include "src/drive/math/Pose2D.h"
-
 #include "src/drive/VectorRobotDrive.h"
 #include "src/drive/SimpleRobotDrive.h"
 #include "src/drive/VectorRobotDrivePID.h"
@@ -153,6 +153,7 @@ enum State : uint8_t
 {
   SETUP,
   WAITINGFORSTART,
+  ARMED,
   RUNNING,
   STOPPED,
   ERROR
@@ -171,6 +172,8 @@ bool *dips;
 
 bool SuccessTOF = false;
 bool SuccessLight = false;
+
+bool detectLight = false;
 /*
 --- Statistics ---
 */
@@ -249,6 +252,7 @@ void setup()
 
   // --- PROGRAM CONTROL ---
   delay(500);
+  updateDips();
   light.Update();
   buttons.Update();
   state = WAITINGFORSTART;
@@ -260,14 +264,18 @@ void loop()
 {
   switch (state)
   {
-
+  case SETUP:
+  {
+    delay(10);
+    break;
+  }
   case WAITINGFORSTART:
   {
-    static bool detectLight = false;
-    // Read
     GlobalRead();
-    // Update
     GlobalUpdate();
+    GlobalPrint();
+    GlobalStats();
+
     RC_READY = (rc.Get(9) == 255);
 
     static elapsedMillis update = 0;
@@ -275,11 +283,11 @@ void loop()
     {
       update = 0;
       updateDips();
-      rgb.setSectionSolidColor(2, 255, 180, 0); // gold
+      rgb.setSectionSolidColor(2, GOLD); // gold
       if (SuccessLight && SuccessTOF)
       {
-        rgb.setSectionSolidColor(5, 255, 180, 0); // gold
-        rgb.setSectionSolidColor(6, 255, 180, 0);
+        rgb.setSectionSolidColor(5, GOLD); // gold
+        rgb.setSectionSolidColor(6, GOLD);
       }
       else
       {
@@ -293,8 +301,8 @@ void loop()
         mandibles.CloseLeft();
         mandibles.CloseRight();
         beacon.MoveUp();
-        rgb.setSectionStreakEffect(1, 255, 180, 0, 150); // gold
-        rgb.setSectionStreakEffect(3, 255, 180, 0, 150);
+        rgb.setSectionStreakEffect(1, GOLD, 150); // gold
+        rgb.setSectionStreakEffect(3, GOLD, 150);
       }
       else
       { // move servos to open position
@@ -302,8 +310,8 @@ void loop()
         mandibles.OpenLeft();
         mandibles.OpenRight();
         beacon.MoveDown();
-        rgb.setSectionStreakEffect(1, 170, 0, 255, 150); // purple
-        rgb.setSectionStreakEffect(3, 170, 0, 255, 150);
+        rgb.setSectionStreakEffect(1, PURPLE, 150); // purple
+        rgb.setSectionStreakEffect(3, PURPLE, 150);
       }
 
       if (CONTROLLED_BY_PI)
@@ -315,15 +323,12 @@ void loop()
         {
           rgb.setSectionSolidColor(0, 0, 255, 255);
           rgb.setSectionSolidColor(4, 0, 255, 255);
-          if (SKIP_LIGHT_SENSOR)
+          if (buttons.GetStates()[0])
           {
-            detectLight = true; // auto start the robot
-          }
-          else
-          {
-            if (light.GetLightLevel() > 500)
+            state = ARMED;
+            while (buttons.GetStates()[0])
             {
-              detectLight = true;
+              buttons.Update();
             }
           }
         }
@@ -334,37 +339,52 @@ void loop()
         }
       }
     }
-
+    break;
+  }
+  case ARMED:
+  {
+    GlobalRead();
+    GlobalUpdate();
+    GlobalPrint();
+    GlobalStats();
+    for (uint8_t i = 0; i < 7; i++)
+    {
+      rgb.setSectionSolidColor(i, GOLD);
+    }
+    if (SKIP_LIGHT_SENSOR)
+    {
+      detectLight = true; // auto start the robot
+    }
+    else
+    {
+      if (light.GetLightLevel() > 500)
+      {
+        detectLight = true;
+      }
+    }
     if (detectLight)
     {
       rgb.stopAllEffects();
       static elapsedMillis timer = 0;
       while (timer < 1000)
       {
-        rgb.setSectionStreakEffect(0, 0, 255, 0, 66);
-        rgb.setSectionStreakEffect(1, 0, 255, 0, 100);
-        rgb.setSectionStreakEffect(2, 0, 255, 0, 100);
-        rgb.setSectionStreakEffect(3, 0, 255, 0, 100);
-        rgb.setSectionStreakEffect(4, 0, 255, 0, 66);
-        rgb.setSectionStreakEffect(5, 0, 255, 0, 250);
-        rgb.setSectionStreakEffect(6, 0, 255, 0, 250);
+        rgb.setSectionStreakEffect(0, GREEN, 66);
+        rgb.setSectionStreakEffect(1, GREEN, 100);
+        rgb.setSectionStreakEffect(2, GREEN, 100);
+        rgb.setSectionStreakEffect(3, GREEN, 100);
+        rgb.setSectionStreakEffect(4, GREEN, 66);
+        rgb.setSectionStreakEffect(5, GREEN, 250);
+        rgb.setSectionStreakEffect(6, GREEN, 250);
+        rgb.stopSectionEffect(5);
+        rgb.stopSectionEffect(6);
+        rgb.setSectionPulseEffect(5, PURPLE, 20);
+        rgb.setSectionPulseEffect(6, PURPLE, 20);
         rgb.Update();
       }
-      rgb.stopSectionEffect(5);
-      rgb.stopSectionEffect(6);
-      rgb.setSectionPulseEffect(5, 170, 0, 255, 20);
-      rgb.setSectionPulseEffect(6, 170, 0, 255, 20);
       buttons.Update();
       RESET_AVAILABLE = !dips[0];
       state = RUNNING;
     }
-
-    // Print
-    GlobalPrint();
-
-    // Stats
-    GlobalStats();
-
     break;
   }
   case RUNNING:
@@ -383,11 +403,11 @@ void loop()
       {
         reset();
       }
-      rgb.setSectionSolidColor(0, 255, 180, 0);
-      rgb.setSectionSolidColor(1, 255, 180, 0);
-      rgb.setSectionSolidColor(2, 255, 180, 0);
-      rgb.setSectionSolidColor(3, 255, 180, 0);
-      rgb.setSectionSolidColor(4, 255, 180, 0);
+      rgb.setSectionSolidColor(0, GOLD);
+      rgb.setSectionSolidColor(1, GOLD);
+      rgb.setSectionSolidColor(2, GOLD);
+      rgb.setSectionSolidColor(3, GOLD);
+      rgb.setSectionSolidColor(4, GOLD);
     }
 
     static elapsedMillis fastUpdate = 0;

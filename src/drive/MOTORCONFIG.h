@@ -5,9 +5,9 @@
 
 namespace MotorConstants
 {
-    static float TRACK_WIDTH = 10.0f;
+    constexpr float TRACK_WIDTH = 10.0f;
 
-    static void SetTrackWidth(float newWidth, Print &output)
+    /*static void SetTrackWidth(float newWidth, Print &output)
     {
         constexpr float MIN_TRACK_WIDTH = 5.0f;
         if (fabsf(newWidth) > 1e-6f && newWidth >= MIN_TRACK_WIDTH)
@@ -18,7 +18,7 @@ namespace MotorConstants
         {
             output.println(F("Error: TRACK_WIDTH must be >= 5.0!"));
         }
-    }
+    }*/
 
     // constexpr float PI = 3.14159265358979323846f; no need. teensy defines this automatically
     constexpr float WHEEL_DIAMETER = 3.25f;
