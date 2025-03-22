@@ -89,7 +89,7 @@ void SorterSubsystem::Update()
         rgb.stopSectionEffect(5);
         rgb.stopSectionEffect(6);
         transferMotor.Set(0); // pause transfer
-        if (timer > 500)
+        if (timer > 300)
         {
             _state = 2;
             timer = 0;
@@ -99,7 +99,7 @@ void SorterSubsystem::Update()
 
     case 2: // object detection, write the correcct servo angle.
     {
-        if (timer > 100)
+        if (timer > 50)
         {
             objectMagnet = false;                 // object does not have a magnet
             int *_readings = halls.getReadings(); // get halls readings
@@ -132,11 +132,11 @@ void SorterSubsystem::Update()
     case 3: // write the correct servo angle. If object leaves, then move on
     {
         int range = tofs.GetIndex(iTOF);
-        if (timer > 500)
+        if (timer > 200)
         {
             objectMagnet ? MoveSoftLeft() : MoveSoftRight();
         }
-        if (range > OBJECT_RANGE || timer > 2000)
+        if (range > OBJECT_RANGE || timer > 500)
         {
             _state = 4;
             timer = 0;
@@ -147,7 +147,7 @@ void SorterSubsystem::Update()
 
     case 4: // wait a bit for object to fall out
     {
-        if (timer > 500)
+        if (timer > 250)
         {
             _state = 5;
             timer = 0;
@@ -157,10 +157,10 @@ void SorterSubsystem::Update()
 
     case 5: // stabilize before running vl53l0x again
     {
-        rgb.setSectionPulseEffect(5, 204, 108, 255, 20);
-        rgb.setSectionPulseEffect(6, 204, 108, 255, 20);
+        rgb.setSectionPulseEffect(5, 170, 0, 255, 20);
+        rgb.setSectionPulseEffect(6, 170, 0, 255, 20);
         MoveCenter();
-        if (timer > 500)
+        if (timer > 250)
         {
             _state = 0;
             timer = 0;

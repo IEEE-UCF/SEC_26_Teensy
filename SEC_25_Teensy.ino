@@ -447,27 +447,33 @@ void loop()
 
 void GlobalRead()
 {
-  static elapsedMillis read = 0;
-  if (read > 100)
+  static elapsedMillis read10hz = 0;
+  if (read10hz > 100)
   {
-    read = 0;
-    tofs.Update();
+    read10hz = 0;
     light.Update();
     halls.Update();
     buttons.Update();
   }
 
-  static elapsedMillis fastRead = 0;
-  if (fastRead > 10)
+  static elapsedMillis read20hz = 0;
+  if (read20hz > 50)
   {
-    fastRead = 0;
+    read20hz = 0;
+    tofs.Update();
+  }
+
+  static elapsedMillis read100hz = 0;
+  if (read100hz > 10)
+  {
+    read100hz = 0;
     gyro.Update();
   }
 
-  static elapsedMillis lightningRead = 0;
-  if (lightningRead > 5)
+  static elapsedMillis read200hz = 0;
+  if (read200hz > 5)
   {
-    lightningRead = 0;
+    read200hz = 0;
     rc.Update();
   }
 }
