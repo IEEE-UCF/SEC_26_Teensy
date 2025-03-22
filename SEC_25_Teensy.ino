@@ -276,25 +276,27 @@ void loop()
     GlobalPrint();
     GlobalStats();
 
-    RC_READY = (rc.Get(9) == 255);
-
     static elapsedMillis update = 0;
     if (update > 50)
     {
       update = 0;
-      updateDips();
-      rgb.setSectionSolidColor(2, GOLD); // gold
+      RC_READY = (rc.Get(9) == 255);
+      updateDips(); // updates dips/buttons
+      rgb.setSectionSolidColor(2, GOLD);
+
+      // Indicator for Light and TOF I2C
       if (SuccessLight && SuccessTOF)
       {
-        rgb.setSectionSolidColor(5, GOLD); // gold
+        rgb.setSectionSolidColor(5, GOLD);
         rgb.setSectionSolidColor(6, GOLD);
       }
       else
       {
-        rgb.setSectionPulseEffect(5, 255, 0, 0, 20); // red
-        rgb.setSectionPulseEffect(6, 255, 0, 0, 20);
+        rgb.setSectionPulseEffect(5, GOLD, 20);
+        rgb.setSectionPulseEffect(6, GOLD, 20);
       }
 
+      // Setup for servos
       if (CLOSED_POS)
       { // move servos to closed position
         sorter.MoveCenter();
@@ -314,6 +316,7 @@ void loop()
         rgb.setSectionStreakEffect(3, PURPLE, 150);
       }
 
+      // Ready functions for PI/RC
       if (CONTROLLED_BY_PI)
       {
       }
@@ -326,9 +329,10 @@ void loop()
           if (buttons.GetStates()[0])
           {
             state = ARMED;
+            // This logic ensures that skip_light_sensor stays the correct value.
             while (buttons.GetStates()[0])
             {
-              buttons.Update();
+              updateDips(); // updateDips will also update buttons.
             }
           }
         }
@@ -349,18 +353,11 @@ void loop()
     GlobalStats();
     for (uint8_t i = 0; i < 7; i++)
     {
-      rgb.setSectionSolidColor(i, GOLD);
+      rgb.setSectionPulseEffect(i, GOLD, 20);
     }
-    if (SKIP_LIGHT_SENSOR)
+    if (SKIP_LIGHT_SENSOR || light.GetLightLevel() > 500 || buttons.GetStates()[0])
     {
-      detectLight = true; // auto start the robot
-    }
-    else
-    {
-      if (light.GetLightLevel() > 500)
-      {
-        detectLight = true;
-      }
+      detectLight = true;
     }
     if (detectLight)
     {
@@ -389,16 +386,15 @@ void loop()
   }
   case RUNNING:
   {
-    // Read
     GlobalRead();
-
-    // Update
     GlobalUpdate();
+    GlobalPrint();
+    GlobalStats();
 
-    static elapsedMillis update = 0;
-    if (update > 150)
+    static elapsedMillis update10hz = 0;
+    if (update10hz > 100)
     {
-      update = 0;
+      update10hz = 0;
       if (buttons.GetStates()[0] && RESET_AVAILABLE)
       {
         reset();
@@ -410,15 +406,14 @@ void loop()
       rgb.setSectionSolidColor(4, GOLD);
     }
 
-    static elapsedMillis fastUpdate = 0;
-    if (fastUpdate > 5)
+    static elapsedMillis update200hz = 0;
+    if (update200hz > 5)
     {
-      fastUpdate = 0;
+      update200hz = 0;
       sorter.Update();
     }
 
     drive.ReadAll(gyro.GetGyroData()[0]);
-
     // Processing
     static elapsedMillis driveUpdate = 0;
     if (driveUpdate > 5)
@@ -451,15 +446,6 @@ void loop()
     drive.Write();
     transferMotor.Write();
     intakeMotor.Write();
-
-    // Print
-    if (GlobalPrint())
-    {
-    }
-
-    // Statistics
-    GlobalStats();
-
     break;
   }
   }
@@ -584,6 +570,7 @@ FLASHMEM void startup_middle_hook(void)
 
 void updateDips()
 {
+  buttons.Update();
   dips = buttons.GetStates();
   SKIP_LIGHT_SENSOR = dips[0];
   CLOSED_POS = !dips[2];
