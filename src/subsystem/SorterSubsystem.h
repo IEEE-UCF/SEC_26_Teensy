@@ -26,11 +26,11 @@ public:
 
   enum ServoPositions : uint8_t
   {
-    LEFT = 50, // Example value for left position
+    LEFT = 40, // Example value for left position
     SOFTLEFT = 70,
     CENTER = 90, // Example value for center position
     SOFTRIGHT = 110,
-    RIGHT = 130, // Example value for right position
+    RIGHT = 140, // Example value for right position
   };
 
   void PrintInfo(Print &output, bool printConfig) const;

@@ -132,11 +132,11 @@ void SorterSubsystem::Update()
     case 3: // write the correct servo angle. If object leaves, then move on
     {
         int range = tofs.GetIndex(iTOF);
-        if (timer > 300)
+        if (timer > 500)
         {
             objectMagnet ? MoveSoftLeft() : MoveSoftRight();
         }
-        if (range > OBJECT_RANGE)
+        if (range > OBJECT_RANGE || timer > 2000)
         {
             _state = 4;
             timer = 0;
@@ -147,7 +147,7 @@ void SorterSubsystem::Update()
 
     case 4: // wait a bit for object to fall out
     {
-        if (timer > 1000)
+        if (timer > 500)
         {
             _state = 5;
             timer = 0;
