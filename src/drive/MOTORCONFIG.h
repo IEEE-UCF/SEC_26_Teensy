@@ -41,5 +41,8 @@ namespace MotorConstants
     constexpr float RAW_MOTOR_RPM_NOLOAD = 11880.0f;
     constexpr float MOTOR_RPM_NOLOAD = RAW_MOTOR_RPM_NOLOAD / GEAR_RATIO;
     constexpr float MOTOR_RPS_NOLOAD = MOTOR_RPM_NOLOAD / 60.0f;
+
+    constexpr float DRIVER_START_OFFSET_DEGREES = 90.0f;
+    constexpr float DRIVER_START_OFFSET = DRIVER_START_OFFSET_DEGREES * PI / 180;
 }
 #endif

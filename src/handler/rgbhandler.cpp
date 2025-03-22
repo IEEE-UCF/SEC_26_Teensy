@@ -84,6 +84,7 @@ bool RGBHandler::setSectionPulseEffect(uint8_t section, uint8_t r, uint8_t g, ui
     // ensuring the pulse step isn't too fast or too slow
     uint16_t base_step = (1024 * 10UL) / speed;
     sec.pulse_step = max(constrain(base_step, 2, 20), 2);
+    // sec.pulse_step = base_step;
     return true;
 }
 

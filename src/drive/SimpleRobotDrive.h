@@ -17,13 +17,14 @@ public:
     void SetIndex(int motorDirectSpeed, int index);
     void ReadAll(float yaw);
     void Write();
-    void PrintInfo(Print &output, bool printConfig = false) const;
-    void PrintLocal(Print &output) const;
+    virtual void PrintInfo(Print &output, bool printConfig = false) const;
+    virtual void PrintLocal(Print &output) const;
     Pose2D GetPosition() const;
 
 protected:
     const int numMotors;
     Print &output;
+    elapsedMicros accelCall;
     std::unique_ptr<long[]> enc;
     std::vector<std::unique_ptr<DriveMotor>> motors;
     LocalizationEncoder localization;

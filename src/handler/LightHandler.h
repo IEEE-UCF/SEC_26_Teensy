@@ -9,7 +9,7 @@ class LightHandler
 {
 public:
     LightHandler(int cLight);
-    void Begin();
+    bool Begin();
     void Update();
     void PrintInfo(Print &output, bool printConfig = false) const;
     float GetLightLevel() const;

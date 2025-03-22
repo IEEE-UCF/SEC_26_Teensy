@@ -9,12 +9,22 @@
  */
 double PID::Step(double measurement, double setpoint)
 {
-    static elapsedMillis timer = 0;
-    if (timer > timeStepMinSeconds * 1000)
+    if (timer > timeStepMinSeconds * 1000.0f)
     {
-        double timeStep = timer / 1000;
+        double timeStep = timer / 1000000.0f;
         // Calculate error
         double error = setpoint - measurement;
+        if (thetaFix)
+        {
+            if (error < -PI)
+            {
+                error += 2 * PI;
+            }
+            else if (error > PI)
+            {
+                error -= 2 * PI;
+            }
+        }
 
         // Update integral term with anti-windup
         integral += ki * error * timeStep + kaw * (prevSatCommand - prevCommand) * timeStep;

@@ -14,6 +14,7 @@ struct PIDConfig
     double max;       // constrain output
     double min;       // constrain output
     double maxRate;   // constriain output derivative
+    bool thetaFix;    // use if position is in radians
 };
 
 /**
@@ -23,10 +24,10 @@ struct PIDConfig
 class PID
 {
 public:
-    PID(double kp, double ki, double kd, double kaw, double timeConst, double max, double min, double maxRate)
-        : kp(kp), ki(ki), kd(kd), kaw(kaw), timeConst(timeConst), max(max), min(min), maxRate(maxRate) {}
+    PID(double kp, double ki, double kd, double kaw, double timeConst, double max, double min, double maxRate, bool thetaFix)
+        : kp(kp), ki(ki), kd(kd), kaw(kaw), timeConst(timeConst), max(max), min(min), maxRate(maxRate), thetaFix(thetaFix), timer(0) {}
     PID(const PIDConfig &config)
-        : kp(config.kp), ki(config.ki), kd(config.kd), kaw(config.kaw), timeConst(config.timeConst), max(config.max), min(config.min), maxRate(config.maxRate) {}
+        : kp(config.kp), ki(config.ki), kd(config.kd), kaw(config.kaw), timeConst(config.timeConst), max(config.max), min(config.min), maxRate(config.maxRate), thetaFix(config.thetaFix), timer(0) {}
     double Step(double measurement, double setpoint);
 
 private:
@@ -39,11 +40,13 @@ private:
     double max;                        // Maximum output
     double min;                        // Minimum output
     double maxRate;                    // Maximum rate of change of output
+    bool thetaFix;                     // use if position is in radians
     double integral = 0;               // Integral term
     double prevError = 0;              // Previous error
     double derivPrev = 0;              // Previous derivative term
     double prevSatCommand = 0;         // Previous saturated command
     double prevCommand = 0;            // Previous command
     double satCommand = 0;             // Current saturated command
+    elapsedMicros timer;
 };
 #endif

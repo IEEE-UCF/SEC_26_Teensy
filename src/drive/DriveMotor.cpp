@@ -54,7 +54,13 @@ void DriveMotor::Set(int speed)
 void DriveMotor::ReadEnc()
 {
     if (encoder)
+    {
         enc = encoder->read();
+        if (!motorSetup.rev)
+        {
+            enc = -enc;
+        }
+    }
 }
 
 /**

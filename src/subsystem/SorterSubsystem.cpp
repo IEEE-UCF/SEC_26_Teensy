@@ -1,6 +1,6 @@
 #include "SorterSubsystem.h"
 
-SorterSubsystem::SorterSubsystem(int iTOF, int hallCount, int iServo, TOFHandler &tofs, HallHandler &halls, ServoHandler &servos, DriveMotor &transferMotor)
+SorterSubsystem::SorterSubsystem(int iTOF, int hallCount, int iServo, TOFHandler &tofs, HallHandler &halls, ServoHandler &servos, DriveMotor &transferMotor, RGBHandler &rgb)
     : iTOF(iTOF),
       hallCount(hallCount),
       iServo(iServo),
@@ -8,6 +8,7 @@ SorterSubsystem::SorterSubsystem(int iTOF, int hallCount, int iServo, TOFHandler
       halls(halls),
       servos(servos),
       transferMotor(transferMotor),
+      rgb(rgb),
       _state(0),
       _baseReadings(nullptr),
       objectMagnet(false) {}
@@ -25,7 +26,7 @@ void SorterSubsystem::Begin()
     {
         _baseReadings[i] = currentReadings[i];
     }
-    _state = 0;
+    _state = 5;
     MoveCenter();
 }
 /*
@@ -58,6 +59,8 @@ void SorterSubsystem::Update()
     {
     case 0: // no object detected yet.
     {
+        rgb.setSectionPulseEffect(5, 170, 0, 255, 20);
+        rgb.setSectionPulseEffect(6, 170, 0, 255, 20);
         if (timer < 2000)
         {
             transferMotor.Set(150); // funnel into sorter
@@ -83,6 +86,8 @@ void SorterSubsystem::Update()
     case 1: // object detected. wait a bit
     {
         // Object newly detected
+        rgb.stopSectionEffect(5);
+        rgb.stopSectionEffect(6);
         transferMotor.Set(0); // pause transfer
         if (timer > 500)
         {
@@ -92,7 +97,7 @@ void SorterSubsystem::Update()
         break;
     }
 
-    case 2: // object detection
+    case 2: // object detection, write the correcct servo angle.
     {
         if (timer > 100)
         {
@@ -106,6 +111,16 @@ void SorterSubsystem::Update()
                 }
                 /*Serial.println(abs(_readings[i] - _baseReadings[i]));
                 delay(500); debug */
+            }
+            if (objectMagnet)
+            {
+                MoveLeft();
+                rgb.setSectionSolidColor(6, 170, 0, 255);
+            }
+            else
+            {
+                MoveRight();
+                rgb.setSectionSolidColor(5, 170, 0, 255);
             }
             objectMagnet ? MoveLeft() : MoveRight();
             _state = 3;
@@ -142,6 +157,8 @@ void SorterSubsystem::Update()
 
     case 5: // stabilize before running vl53l0x again
     {
+        rgb.setSectionPulseEffect(5, 204, 108, 255, 20);
+        rgb.setSectionPulseEffect(6, 204, 108, 255, 20);
         MoveCenter();
         if (timer > 500)
         {

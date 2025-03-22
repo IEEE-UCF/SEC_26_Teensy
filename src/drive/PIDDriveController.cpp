@@ -7,11 +7,13 @@ PIDDriveController::PIDDriveController(const PIDConfig &xConfig, const PIDConfig
 
 Pose2D PIDDriveController::Step(const Pose2D &currentPose, const Pose2D &targetPose)
 {
-    float xSpeed = xPID.Step(currentPose.getX(), targetPose.getY());
+    float xSpeed = xPID.Step(currentPose.getX(), targetPose.getX());
     float ySpeed = yPID.Step(currentPose.getY(), targetPose.getY());
     float thetaSpeed = thetaPID.Step(currentPose.getTheta(), targetPose.getTheta());
     Pose2D speedPose = Pose2D(xSpeed, ySpeed, thetaSpeed).constrainXyMag(MAX_VELOCITY).constrainTheta(MAX_ANGULAR_VELOCITY);
-    return speedPose;
+    Pose2D angleOffsetPose = Pose2D(0, 0, -currentPose.getTheta()).fixTheta();
+    Pose2D rotatedSpeedPose = speedPose.rotateVector(angleOffsetPose.getTheta());
+    return rotatedSpeedPose; // Return the rotated vector
 }
 
 /*PIDDrive::PIDDrive(const PIDConfig &xConfig, const PIDConfig &yConfig, const PIDConfig &thetaConfig, Print &serialOutput)

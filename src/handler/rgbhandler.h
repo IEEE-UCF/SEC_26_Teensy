@@ -20,7 +20,7 @@ constexpr uint16_t TOTAL_LEDS = []()
 // pin and brightness settings
 constexpr uint8_t LED_PIN = 6;              // pin controlling WS2812 LEDs
 constexpr unsigned long DEFAULT_SPEED = 50; // default effect speed
-constexpr unsigned long MIN_SPEED = 20;     // minimum speed limit
+constexpr unsigned long MIN_SPEED = 1;      // minimum speed limit
 constexpr unsigned long MAX_SPEED = 2000;   // maximum speed limit
 constexpr uint8_t DEFAULT_BRIGHTNESS = 128; // default brightness level
 constexpr uint8_t MAX_BRIGHTNESS = 255;     // maximum brightness level
@@ -57,7 +57,7 @@ private:
     // storing effect states for each section
     struct SectionEffect
     {
-        EffectType currentEffect = NONE;           // current effect type (NONE, PULSE, STREAK)
+        EffectType currentEffect = NONE;           // current effect type (NONE, PULSE, STREAK, SOLID)
         unsigned long lastUpdate = 0;              // timestamp of last update
         unsigned long effectSpeed = DEFAULT_SPEED; // speed of the effect
 

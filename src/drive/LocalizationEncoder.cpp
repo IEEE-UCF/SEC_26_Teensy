@@ -36,17 +36,17 @@ void LocalizationEncoder::updatePosition(const long encoderCounts[3], float yaw)
     const float cosTheta = cosf(yaw);
     const float sinTheta = sinf(yaw);
 
-    const float deltaX = ((leftDistance + rightDistance) * 0.5f * cosTheta) +
+    const float deltaX = ((leftDistance + rightDistance) * 0.5f * cosTheta) -
                          (backDistance * sinTheta); // -
                                                     //(WHEEL_OFFSET_Y * deltaTheta * sinTheta); we can assume 100% slippage, this term is irrelevant
 
-    const float deltaY = ((leftDistance + rightDistance) * 0.5f * sinTheta) -
+    const float deltaY = ((leftDistance + rightDistance) * 0.5f * sinTheta) +
                          (backDistance * cosTheta); // +
                                                     //(WHEEL_OFFSET_Y * deltaTheta * cosTheta); we can assume 100% slippage, this term is irrelevant
                                                     //(MotorConstants::BACK_OFFSET_F * deltaTheta * cosTheta);
 
     const float deltaTheta = yawChange;
-    transform.add(Pose2D(deltaX, deltaY, deltaTheta));
+    transform.add(Pose2D(deltaX, deltaY, deltaTheta)).fixTheta();
 }
 
 /**
@@ -72,13 +72,14 @@ void LocalizationEncoder::setPosition(const Pose2D &transform)
 void LocalizationEncoder::PrintInfo(Print &output) const
 {
     output.println(F("Localization Encoder Information:"));
-    output.print(F("Translation X: "));
+    output.print(F("Location "));
+    output << transform;
+    /*output.print(F("Translation X: "));
     output.println(transform.getX());
     output.print(F("Translation Y: "));
     output.println(transform.getY());
     output.print(F("Translation Theta: "));
-    output.println(transform.getTheta());
-    output.println(F("Encoder Counts:"));
+    output.println(transform.getTheta());*/
 }
 
 Print &operator<<(Print &output, const LocalizationEncoder &encoder)

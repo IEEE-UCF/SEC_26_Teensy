@@ -24,7 +24,7 @@ Pose2D &Pose2D::normalize()
         if (xymag < EPSILON)
         {
             xymag = 1.0f;
-            x = 1.0f;
+            x = 0.0f;
             y = 0.0f;
         }
         else
