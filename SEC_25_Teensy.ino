@@ -97,20 +97,20 @@ RCHandler rc;
 --- Motors ---
 */
 PIDConfig pidConfigs[DRIVEMOTOR_COUNT]{
-    {.kp = 1.0f,
-     .ki = 0.000f,
-     .kd = 0.000f,
-     .kaw = 0.000f,
-     .timeConst = 0.0f,
-     .max = MAX_VELOCITY,
-     .min = -MAX_VELOCITY,
-     .maxRate = MAX_ACCELERATION,
+    {.kp = 5.00f,
+     .ki = 1.50f,
+     .kd = 0.05f,
+     .kaw = 3.00f,
+     .timeConst = 1.0f,
+     .max = MAX_VELOCITY * 1.5,
+     .min = -MAX_VELOCITY * 1.5,
+     .maxRate = MAX_ACCELERATION * 1.5,
      .thetaFix = false},
-    {.kp = 1.0f,
-     .ki = 0.000f,
-     .kd = 0.000f,
-     .kaw = 0.000f,
-     .timeConst = 0.0f,
+    {.kp = 1.25f,
+     .ki = 0.1f,
+     .kd = 0.30f,
+     .kaw = 0.01f,
+     .timeConst = 1.0f,
      .max = MAX_VELOCITY,
      .min = -MAX_VELOCITY,
      .maxRate = MAX_ACCELERATION,
@@ -125,7 +125,7 @@ PIDConfig pidConfigs[DRIVEMOTOR_COUNT]{
      .maxRate = MAX_ANGULAR_ACCELERATION,
      .thetaFix = true},
 };
-VectorRobotDrivePID drive(driveMotors, DRIVEMOTOR_COUNT, Serial, pidConfigs[0], pidConfigs[1], pidConfigs[2]);
+VectorRobotDrivePID drive(driveMotors, DRIVEMOTOR_COUNT, Serial, pidConfigs[0], pidConfigs[0], pidConfigs[2]);
 DriveMotor intakeMotor(nonDriveMotors[0], Serial);
 DriveMotor transferMotor(nonDriveMotors[1], Serial);
 
@@ -385,11 +385,8 @@ void loop()
       }
       rgb.setSectionSolidColor(0, 255, 180, 0);
       rgb.setSectionSolidColor(1, 255, 180, 0);
-
       rgb.setSectionSolidColor(2, 255, 180, 0);
-
       rgb.setSectionSolidColor(3, 255, 180, 0);
-
       rgb.setSectionSolidColor(4, 255, 180, 0);
     }
 
@@ -408,14 +405,15 @@ void loop()
     {
       driveUpdate = 0;
 
-      // Pose2D speedPose = drive.ConstrainNewSpeedPose(CalculateRCVector(false));
+      Pose2D speedPose = CalculateRCVector(true); // drive.ConstrainNewSpeedPose(CalculateRCVector(true));
       // Serial << speedPose;
-      //   drive.SetTargetByVelocity(speedPose);
-      //    drive.Set(drive.Step());
+      drive.SetTargetByVelocity(speedPose);
+      drive.Set(drive.Step());
 
+      /*
       Pose2D speedPose = drive.ConstrainNewSpeedPose(CalculateRCVector(false));
-      Serial << speedPose;
       drive.Set(speedPose);
+      */
 
       int intakeSpeed = rc.Get(5);
       if (abs(intakeSpeed) < 30)
@@ -499,6 +497,8 @@ bool GlobalPrint()
     Serial << CalculateRCVector(true) << drive;
     Serial.print("SpeedPose: ");
     Serial << drive.GetVelocity();
+    Serial.print("IdealSpeedPose: ");
+    Serial << drive.GetIdealVelocity();
     Serial.print("Transfer: ");
     Serial << transferMotor;
     Serial.print("Intake: ");

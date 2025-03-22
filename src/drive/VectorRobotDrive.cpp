@@ -2,7 +2,8 @@
 
 VectorRobotDrive::VectorRobotDrive(const MotorSetup motorSetups[], int numMotors, Print &output)
     : SimpleRobotDrive(motorSetups, numMotors, output),
-      currentSpeedPose(0, 0, 0) {}
+      currentSpeedPose(0, 0, 0),
+      idealSpeedPose(0, 0, 0) {}
 
 /**
  * Set motor speeds based on speedPose. X and Y are in In/S, theta is in Rad/S.
@@ -11,9 +12,7 @@ VectorRobotDrive::VectorRobotDrive(const MotorSetup motorSetups[], int numMotors
  */
 void VectorRobotDrive::Set(const Pose2D &speedPose)
 {
-    currentSpeedPose.setX(speedPose.getX());
-    currentSpeedPose.setY(speedPose.getY());
-    currentSpeedPose.setThetaRadians(speedPose.getTheta());
+    currentSpeedPose = speedPose;
     static elapsedMicros timer = 0;
     if (timer <= 1000)
         return;
@@ -62,30 +61,28 @@ Pose2D VectorRobotDrive::ConstrainNewSpeedPose(Pose2D newSpeedPose)
     float deltaTime = dt / 1000000.0f; // Convert to seconds
 
     // Constrain the x, y, and theta components of currentSpeedPose
-    float deltaX = constrain(newSpeedPose.getX() - currentSpeedPose.getX(),
+    float deltaX = constrain(newSpeedPose.getX() - idealSpeedPose.getX(),
                              -MAX_ACCELERATION * deltaTime,
                              MAX_ACCELERATION * deltaTime);
 
-    float deltaY = constrain(newSpeedPose.getY() - currentSpeedPose.getY(),
+    float deltaY = constrain(newSpeedPose.getY() - idealSpeedPose.getY(),
                              -MAX_ACCELERATION * deltaTime,
                              MAX_ACCELERATION * deltaTime);
 
-    float deltaTheta = constrain(newSpeedPose.getTheta() - currentSpeedPose.getTheta(),
+    float deltaTheta = constrain(newSpeedPose.getTheta() - idealSpeedPose.getTheta(),
                                  -MAX_ANGULAR_ACCELERATION * TRACK_WIDTH * 0.5 * deltaTime,
                                  MAX_ANGULAR_ACCELERATION * TRACK_WIDTH * 0.5 * deltaTime);
 
-    Pose2D deacceleratingScalar(isDeaccelerating(newSpeedPose.getX(), currentSpeedPose.getX()) ? 2 : 1,
-                                isDeaccelerating(newSpeedPose.getY(), currentSpeedPose.getY()) ? 2 : 1,
-                                isDeaccelerating(newSpeedPose.getTheta(), currentSpeedPose.getTheta()) ? 2 : 1);
-
+    Pose2D deacceleratingScalar(isDeaccelerating(newSpeedPose.getX(), idealSpeedPose.getX()) ? 2 : 1,
+                                isDeaccelerating(newSpeedPose.getY(), idealSpeedPose.getY()) ? 2 : 1,
+                                isDeaccelerating(newSpeedPose.getTheta(), idealSpeedPose.getTheta()) ? 2 : 1);
     Pose2D deltaPose(deltaX, deltaY, deltaTheta);
     deltaPose.multElement(deacceleratingScalar);
     // Update currentSpeedPose with constrained values
     // currentSpeedPose.add(deltaPose);
-    Pose2D tempPose(currentSpeedPose.getX(), currentSpeedPose.getY(), currentSpeedPose.getTheta());
-    tempPose.add(deltaPose).constrainXyMag(MAX_VELOCITY).constrainTheta(MAX_ANGULAR_VELOCITY);
+    idealSpeedPose.add(deltaPose).constrainXyMag(MAX_VELOCITY).constrainTheta(MAX_ANGULAR_VELOCITY);
     dt = 0;
-    return tempPose;
+    return idealSpeedPose;
 }
 
 bool VectorRobotDrive::isDeaccelerating(float newValue, float oldValue)
