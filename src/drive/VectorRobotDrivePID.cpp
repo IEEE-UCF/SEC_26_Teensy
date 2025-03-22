@@ -1,9 +1,9 @@
 #include "VectorRobotDrivePID.h"
 
 VectorRobotDrivePID::VectorRobotDrivePID(const MotorSetup motorSetups[], int numMotors, Print &output, const PIDConfig &xConfig, const PIDConfig &yConfig, const PIDConfig &thetaConfig)
-    : targetPose(0, 0, DRIVER_START_OFFSET),
-      VectorRobotDrive(motorSetups, numMotors, output),
-      pidController(xConfig, yConfig, thetaConfig) {}
+    : VectorRobotDrive(motorSetups, numMotors, output),
+      pidController(xConfig, yConfig, thetaConfig),
+      targetPose(0, 0, DRIVER_START_OFFSET) {}
 
 void VectorRobotDrivePID::SetTargetByVelocity(const Pose2D &speedPose)
 {
