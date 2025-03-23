@@ -37,6 +37,7 @@ void RCHandler::Update()
             pots[2] = 0;
             pots[3] = 0;
             pots[5] = 0;
+            pots[9] = -255;
         }
         else
         {

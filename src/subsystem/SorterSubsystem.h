@@ -23,6 +23,7 @@ public:
   void MoveRight();
   void MoveSoftLeft();
   void MoveSoftRight();
+  void SetState(int _state) { this->_state = _state; }
 
   enum ServoPositions : uint8_t
   {

@@ -14,6 +14,7 @@ public:
     void SetTargetByVelocity(const Pose2D &speedPose);
     void PrintInfo(Print &output, bool printConfig) const;
     void PrintLocal(Print &output) const;
+    void PrintController(Print &output, bool printConfig) const;
 
 private:
     PIDDriveController pidController;

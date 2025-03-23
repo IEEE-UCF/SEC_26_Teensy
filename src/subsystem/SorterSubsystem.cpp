@@ -100,9 +100,10 @@ void SorterSubsystem::Update()
 
     case 2: // object detection, write the correcct servo angle.
     {
-        if (timer > 50)
+        if (timer > 150)
         {
-            objectMagnet = false;                 // object does not have a magnet
+            objectMagnet = false; // object does not have a magnet
+            halls.Update();
             int *_readings = halls.getReadings(); // get halls readings
             for (int i = 0; i < hallCount; i++)
             {

@@ -13,6 +13,8 @@ public:
     PIDDriveController(const PIDConfig &xConfig, const PIDConfig &yConfig, const PIDConfig &thetaConfig);
 
     Pose2D Step(const Pose2D &currentPose, const Pose2D &targetPose);
+    void PrintInfo(Print &output, bool printConfig) const;
+    friend Print &operator<<(Print &output, const PIDDriveController &controller);
 
 private:
     PID xPID;

@@ -27,7 +27,7 @@ double PID::Step(double measurement, double setpoint)
         }
 
         // Update integral term with anti-windup
-        integral += ki * error * timeStep + kaw * (prevSatCommand - prevCommand) * timeStep;
+        integral += (ki * error + kaw * (prevSatCommand - prevCommand)) * timeStep;
 
         // Calculate filtered derivative
         double deriv_filter = (error - prevError + timeConst * derivPrev) / (timeStep + timeConst);
@@ -39,18 +39,7 @@ double PID::Step(double measurement, double setpoint)
         prevCommand = command;
 
         // Saturate command
-        if (command > max)
-        {
-            satCommand = max;
-        }
-        else if (command < min)
-        {
-            satCommand = min;
-        }
-        else
-        {
-            satCommand = command;
-        }
+        satCommand = constrain(command, min, max);
 
         // Apply rate limiter
         if (satCommand > prevSatCommand + maxRate * timeStep)
@@ -67,4 +56,54 @@ double PID::Step(double measurement, double setpoint)
         timer = 0;
     }
     return satCommand;
+}
+
+void PID::PrintInfo(Print &output, bool printConfig) const
+{
+    if (printConfig)
+    {
+        output.println(F("PID Configuration:"));
+        output.print(F("Kp: "));
+        output.println(kp);
+        output.print(F("Ki: "));
+        output.println(ki);
+        output.print(F("Kd: "));
+        output.println(kd);
+        output.print(F("Kaw (Anti-Windup): "));
+        output.println(kaw);
+        output.print(F("Time Constant: "));
+        output.println(timeConst);
+        output.print(F("Max Output: "));
+        output.println(max);
+        output.print(F("Min Output: "));
+        output.println(min);
+        output.print(F("Max Rate: "));
+        output.println(maxRate);
+        output.print(F("Theta Fix Enabled: "));
+        output.println(thetaFix ? "True" : "False");
+    }
+    else
+    {
+        output.println(F("PID State:"));
+        output.print(F("Integral Term: "));
+        output.println(integral);
+        output.print(F("Previous Error: "));
+        output.println(prevError);
+        output.print(F("Previous Derivative: "));
+        output.println(derivPrev);
+        output.print(F("Previous Saturated Command: "));
+        output.println(prevSatCommand);
+        output.print(F("Previous Command: "));
+        output.println(prevCommand);
+        output.print(F("Saturated Command: "));
+        output.println(satCommand);
+        output.print(F("Timer (Elapsed Microseconds): "));
+        output.println(timer);
+    }
+}
+
+Print &operator<<(Print &output, const PID &pid)
+{
+    pid.PrintInfo(output, false); // Call PrintInfo with printConfig = false
+    return output;
 }

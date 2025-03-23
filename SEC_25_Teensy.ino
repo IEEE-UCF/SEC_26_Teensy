@@ -97,14 +97,14 @@ RCHandler rc;
 --- Motors ---
 */
 PIDConfig pidConfigs[DRIVEMOTOR_COUNT]{
-    {.kp = 5.00f,
-     .ki = 1.50f,
-     .kd = 0.05f,
-     .kaw = 3.00f,
-     .timeConst = 1.0f,
-     .max = MAX_VELOCITY * 1.5,
-     .min = -MAX_VELOCITY * 1.5,
-     .maxRate = MAX_ACCELERATION * 1.5,
+    {.kp = 1.00f,
+     .ki = 0.00f,
+     .kd = 0.00f,
+     .kaw = 0.00f,
+     .timeConst = 0.0f,
+     .max = MAX_VELOCITY * 1.2,
+     .min = -MAX_VELOCITY * 1.2,
+     .maxRate = MAX_ACCELERATION * 1.2,
      .thetaFix = false},
     {.kp = 1.25f,
      .ki = 0.1f,
@@ -115,7 +115,7 @@ PIDConfig pidConfigs[DRIVEMOTOR_COUNT]{
      .min = -MAX_VELOCITY,
      .maxRate = MAX_ACCELERATION,
      .thetaFix = false},
-    {.kp = 1.0f,
+    {.kp = 0.0f,
      .ki = 0.000f,
      .kd = 0.000f,
      .kaw = 0.000f,
@@ -257,7 +257,7 @@ void setup()
   buttons.Update();
   state = WAITINGFORSTART;
   CrashReport.breadcrumb(2, 00000003);
-  rgb.setGlobalBrightness(200);
+  rgb.setGlobalBrightness(255);
 }
 
 void loop()
@@ -388,7 +388,10 @@ void loop()
   {
     GlobalRead();
     GlobalUpdate();
-    GlobalPrint();
+    if (GlobalPrint())
+    {
+      drive.PrintController(Serial, false);
+    }
     GlobalStats();
 
     static elapsedMillis update10hz = 0;
@@ -421,14 +424,12 @@ void loop()
       driveUpdate = 0;
 
       Pose2D speedPose = CalculateRCVector(true); // drive.ConstrainNewSpeedPose(CalculateRCVector(true));
-      // Serial << speedPose;
+      //Serial << speedPose;
       drive.SetTargetByVelocity(speedPose);
       drive.Set(drive.Step());
 
-      /*
-      Pose2D speedPose = drive.ConstrainNewSpeedPose(CalculateRCVector(false));
-      drive.Set(speedPose);
-      */
+      /*Pose2D speedPose = drive.ConstrainNewSpeedPose(CalculateRCVector(false));
+      drive.Set(speedPose);*/
 
       int intakeSpeed = rc.Get(5);
       if (abs(intakeSpeed) < 30)
@@ -439,6 +440,10 @@ void loop()
 
       (rc.Get(6) == -255) ? mandibles.CloseLeft() : mandibles.OpenLeft();
       (rc.Get(7) == -255) ? mandibles.CloseRight() : mandibles.OpenRight();
+      if (rc.Get(8) == -255)
+      {
+        sorter.SetState(1);
+      }
       beacon.WriteAngle(map(rc.Get(4), -255, 255, 0, 180));
     }
 

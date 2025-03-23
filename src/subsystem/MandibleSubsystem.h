@@ -14,6 +14,7 @@ public:
     void CloseLeft();
     void OpenRight();
     void CloseRight();
+    void SetState();
 
     enum Positions : uint8_t
     {

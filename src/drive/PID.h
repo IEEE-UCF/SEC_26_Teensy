@@ -30,6 +30,9 @@ public:
         : kp(config.kp), ki(config.ki), kd(config.kd), kaw(config.kaw), timeConst(config.timeConst), max(config.max), min(config.min), maxRate(config.maxRate), thetaFix(config.thetaFix), timer(0) {}
     double Step(double measurement, double setpoint);
 
+    void PrintInfo(Print &output, bool printConfig) const;
+    friend Print &operator<<(Print &output, const PID &pid);
+
 private:
     double kp;                         // Proportional gain
     double ki;                         // Integral gain
@@ -48,5 +51,6 @@ private:
     double prevCommand = 0;            // Previous command
     double satCommand = 0;             // Current saturated command
     elapsedMicros timer;
+    bool saturated = false;
 };
 #endif

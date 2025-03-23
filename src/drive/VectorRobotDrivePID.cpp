@@ -26,7 +26,7 @@ void VectorRobotDrivePID::PrintInfo(Print &output, bool printConfig) const
     output.print(F("Motor "));
     output.print(i);
     output.print(F(": "));
-    motors[i]->PrintInfo(output, printConfig); // Unified logic
+    motors[i]->PrintInfo(output, printConfig);
   }
 }
 
@@ -35,4 +35,10 @@ void VectorRobotDrivePID::PrintLocal(Print &output) const
   localization.PrintInfo(output);
   output.print(F("Target Location "));
   output << targetPose;
+}
+
+void VectorRobotDrivePID::PrintController(Print &output, bool printConfig) const
+{
+  output.println(F("PID Controller Details:"));
+  pidController.PrintInfo(output, printConfig);
 }
