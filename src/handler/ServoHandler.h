@@ -19,6 +19,7 @@ public:
     void Write();
     void WriteServoAngle(int index, int angle);
     int *Get();
+    void Detach();
     void PrintInfo(Print &output, bool printConfig = false) const;
     friend Print &operator<<(Print &output, const ServoHandler &handler);
 

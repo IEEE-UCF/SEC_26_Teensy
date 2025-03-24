@@ -41,6 +41,13 @@ int *ServoHandler::Get()
     return anglesWrite;
 }
 
+void ServoHandler::Detach()
+{
+    for (int i = 0; i < numServos; i++)
+    {
+        servos[i].detach();
+    }
+}
 void ServoHandler::PrintInfo(Print &output, bool printConfig) const
 {
     if (printConfig)

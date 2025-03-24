@@ -39,6 +39,7 @@ private:
     int pwmout;
     bool cwout;
     long enc;
+    elapsedMicros timeSinceReverse;
     std::unique_ptr<QuadEncoder> encoder;
     static int encoderNum;
 };

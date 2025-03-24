@@ -14,8 +14,9 @@ TOFHandler::~TOFHandler()
   delete[] distances;
 }
 
-void TOFHandler::Begin()
+bool TOFHandler::Begin()
 {
+  bool success = true;
   for (int i = 0; i < numChannels; i++)
   {
     i2cmux::tcaselect(cToFs[i]);
@@ -25,12 +26,14 @@ void TOFHandler::Begin()
     {
       Serial.print(F("Failed to detect and initialize sensor at channel "));
       Serial.println(cToFs[i]);
+      success = false;
     }
     sensors[i].setSignalRateLimit(0.10);
     sensors[i].setVcselPulsePeriod(VL53L0X::VcselPeriodPreRange, 18);
     sensors[i].setVcselPulsePeriod(VL53L0X::VcselPeriodFinalRange, 14);
     sensors[i].startContinuous();
   }
+  return success;
 }
 
 void TOFHandler::Update()

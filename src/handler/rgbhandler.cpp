@@ -61,6 +61,11 @@ bool RGBHandler::setSectionSolidColor(uint8_t section, uint8_t r, uint8_t g, uin
     return true;
 }
 
+bool RGBHandler::setSectionSolidColor(uint8_t section, const RGBColor &color)
+{
+    return setSectionSolidColor(section, color.r, color.g, color.b);
+}
+
 // setting up pulse effect with smooth transition control
 bool RGBHandler::setSectionPulseEffect(uint8_t section, uint8_t r, uint8_t g, uint8_t b, unsigned long speed)
 {
@@ -84,7 +89,13 @@ bool RGBHandler::setSectionPulseEffect(uint8_t section, uint8_t r, uint8_t g, ui
     // ensuring the pulse step isn't too fast or too slow
     uint16_t base_step = (1024 * 10UL) / speed;
     sec.pulse_step = max(constrain(base_step, 2, 20), 2);
+    // sec.pulse_step = base_step;
     return true;
+}
+
+bool RGBHandler::setSectionPulseEffect(uint8_t section, const RGBColor &color, unsigned long speed)
+{
+    return setSectionPulseEffect(section, color.r, color.g, color.b, speed);
 }
 
 // setting up streak effect
@@ -112,6 +123,11 @@ bool RGBHandler::setSectionStreakEffect(uint8_t section, uint8_t r, uint8_t g, u
     prev_positions[section] = -1;
 
     return true;
+}
+
+bool RGBHandler::setSectionStreakEffect(uint8_t section, const RGBColor &color, unsigned long speed)
+{
+    return setSectionStreakEffect(section, color.r, color.g, color.b, speed);
 }
 
 // updating pulse effect

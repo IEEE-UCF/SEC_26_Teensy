@@ -25,15 +25,25 @@ void RCHandler::Update()
     {
         updateTimer -= DELAY;
         IBus.loop();
+        int32_t newPots[10];
         for (int i = 0; i < 10; i++)
         {
-            pots[i] = map(constrain(IBus.readChannel(i), 1000, 2000) - 1000, 0, 1000, -255, 255);
+            newPots[i] = map(constrain(IBus.readChannel(i), 1000, 2000) - 1000, 0, 1000, -255, 255);
         }
-        if (pots[9] == -255)
+        if (newPots[9] == -255)
+        {
+            pots[0] = 0;
+            pots[1] = 0;
+            pots[2] = 0;
+            pots[3] = 0;
+            pots[5] = 0;
+            pots[9] = -255;
+        }
+        else
         {
             for (int i = 0; i < 10; i++)
             {
-                pots[i] = 0;
+                pots[i] = newPots[i];
             }
         }
     }

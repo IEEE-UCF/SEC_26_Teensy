@@ -5,6 +5,23 @@
 #include <WS2812Serial.h>
 
 // defines 7 sections with respective LED counts
+struct RGBColor
+{
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+};
+
+namespace GlobalColors
+{
+    constexpr RGBColor GOLD = {255, 180, 0};
+    constexpr RGBColor PURPLE = {170, 0, 255};
+    constexpr RGBColor GREEN = {0, 255, 0};
+    constexpr RGBColor CYAN = {0, 255, 255};
+    constexpr RGBColor RED = {255, 0, 0};
+    // constexpr RGBColor CYAN = {0, 255, 255};
+};
+
 constexpr uint8_t NUM_SECTIONS = 7;
 constexpr uint16_t SECTION_SIZES[NUM_SECTIONS] = {15, 10, 10, 10, 15, 4, 4}; // example sizes, change later idfk
 
@@ -20,7 +37,7 @@ constexpr uint16_t TOTAL_LEDS = []()
 // pin and brightness settings
 constexpr uint8_t LED_PIN = 6;              // pin controlling WS2812 LEDs
 constexpr unsigned long DEFAULT_SPEED = 50; // default effect speed
-constexpr unsigned long MIN_SPEED = 20;     // minimum speed limit
+constexpr unsigned long MIN_SPEED = 1;      // minimum speed limit
 constexpr unsigned long MAX_SPEED = 2000;   // maximum speed limit
 constexpr uint8_t DEFAULT_BRIGHTNESS = 128; // default brightness level
 constexpr uint8_t MAX_BRIGHTNESS = 255;     // maximum brightness level
@@ -44,6 +61,9 @@ public:
     bool setSectionSolidColor(uint8_t section, uint8_t r, uint8_t g, uint8_t b);                        // sets a section to a solid color
     bool setSectionPulseEffect(uint8_t section, uint8_t r, uint8_t g, uint8_t b, unsigned long speed);  // enables pulse effect
     bool setSectionStreakEffect(uint8_t section, uint8_t r, uint8_t g, uint8_t b, unsigned long speed); // enables streak effect
+    bool setSectionSolidColor(uint8_t section, const RGBColor &color);                                  // sets a section to a solid color
+    bool setSectionPulseEffect(uint8_t section, const RGBColor &color, unsigned long speed);            // enables pulse effect
+    bool setSectionStreakEffect(uint8_t section, const RGBColor &color, unsigned long speed);           // enables streak effect
     void stopSectionEffect(uint8_t section);                                                            // stops effect in a section
     bool setGlobalBrightness(uint8_t brightness);                                                       // adjusts global brightness
     bool processCommand(const String &command);                                                         // processes external command inputs
@@ -57,7 +77,7 @@ private:
     // storing effect states for each section
     struct SectionEffect
     {
-        EffectType currentEffect = NONE;           // current effect type (NONE, PULSE, STREAK)
+        EffectType currentEffect = NONE;           // current effect type (NONE, PULSE, STREAK, SOLID)
         unsigned long lastUpdate = 0;              // timestamp of last update
         unsigned long effectSpeed = DEFAULT_SPEED; // speed of the effect
 
@@ -90,13 +110,13 @@ private:
     alignas(32) uint8_t displayMemory[TOTAL_LEDS * 12];                 // buffer for LED display
 
     // compile-time LED count calculation
-    static constexpr uint16_t TOTAL_LEDS = []()
+    /*static constexpr uint16_t TOTAL_LEDS = []()
     {
         uint16_t total = 0;
         for (auto size : SECTION_SIZES)
             total += size;
         return total;
-    }();
+    }();*/
 };
 
 #endif

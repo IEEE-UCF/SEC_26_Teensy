@@ -6,15 +6,16 @@
 #include "../handler/HallHandler.h"
 #include "../handler/ServoHandler.h"
 #include "../drive/DriveMotor.h"
+#include "../handler/rgbhandler.h"
 
-#define OBJECT_RANGE 40
+#define OBJECT_RANGE 55
 #define BOUNDS_MAG 2
 #define SORTER_HALL_COUNT 3
 
 class SorterSubsystem
 {
 public:
-  SorterSubsystem(int iTOF, int hallCount, int iServo, TOFHandler &tofs, HallHandler &halls, ServoHandler &servos, DriveMotor &transferMotor);
+  SorterSubsystem(int iTOF, int hallCount, int iServo, TOFHandler &tofs, HallHandler &halls, ServoHandler &servos, DriveMotor &transferMotor, RGBHandler &rgb);
   void Begin();
   void Update();
   void MoveCenter();
@@ -22,14 +23,15 @@ public:
   void MoveRight();
   void MoveSoftLeft();
   void MoveSoftRight();
+  void SetState(int _state) { this->_state = _state; }
 
   enum ServoPositions : uint8_t
   {
-    LEFT = 50, // Example value for left position
+    LEFT = 40, // Example value for left position
     SOFTLEFT = 70,
     CENTER = 90, // Example value for center position
     SOFTRIGHT = 110,
-    RIGHT = 130, // Example value for right position
+    RIGHT = 140, // Example value for right position
   };
 
   void PrintInfo(Print &output, bool printConfig) const;
@@ -43,6 +45,7 @@ private:
   HallHandler &halls;
   ServoHandler &servos;
   DriveMotor &transferMotor;
+  RGBHandler &rgb;
 
   int _state;
   int *_baseReadings;

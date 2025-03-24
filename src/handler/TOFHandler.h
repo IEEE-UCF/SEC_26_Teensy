@@ -12,7 +12,7 @@ class TOFHandler
 public:
     TOFHandler(int *cToFs, int numChannels);
     ~TOFHandler();
-    void Begin();
+    bool Begin();
     void Update();
     const int *Get() const;
     int GetIndex(int index) const;

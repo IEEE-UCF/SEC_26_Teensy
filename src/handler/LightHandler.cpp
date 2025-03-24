@@ -4,17 +4,19 @@ LightHandler::LightHandler(int cLight) : cLight(cLight), lightMeter(), lightLeve
 {
 }
 
-void LightHandler::Begin()
+bool LightHandler::Begin()
 {
     i2cmux::tcaselect(cLight);
 
     if (lightMeter.begin(BH1750::CONTINUOUS_HIGH_RES_MODE, 0x23, &Wire1))
     {
         Serial.println("Light sensor initialized");
+        return true;
     }
     else
     {
         Serial.println("Error initializing light sensor");
+        return false;
     }
 }
 

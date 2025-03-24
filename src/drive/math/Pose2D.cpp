@@ -24,7 +24,7 @@ Pose2D &Pose2D::normalize()
         if (xymag < EPSILON)
         {
             xymag = 1.0f;
-            x = 1.0f;
+            x = 0.0f;
             y = 0.0f;
         }
         else
@@ -103,8 +103,7 @@ Pose2D &Pose2D::constrainTheta(float magnitude)
  * Rotate vector
  * @param angle angle to rate by in radians
  */
-Pose2D &
-Pose2D::rotateVector(float angle)
+Pose2D &Pose2D::rotateVector(float angle)
 {
     const float cosA = cosf(angle);
     const float sinA = sinf(angle);
