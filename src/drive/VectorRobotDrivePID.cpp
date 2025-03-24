@@ -9,8 +9,7 @@ void VectorRobotDrivePID::SetTargetByVelocity(const Pose2D &speedPose)
 {
   static elapsedMicros callTime = 0;
   float totTime = callTime * 0.000001f; // Convert microseconds to seconds
-  Pose2D deltaPose = Pose2D(speedPose.getX(), speedPose.getY(), speedPose.getTheta())
-                         .multConstant(totTime);
+  Pose2D deltaPose = Pose2D(speedPose.getX(), speedPose.getY(), speedPose.getTheta()).multConstant(totTime).multConstant(0.7f);
   targetPose.add(deltaPose).fixTheta();
   callTime = 0; // Reset the timer after updating
 }

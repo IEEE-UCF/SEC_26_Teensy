@@ -13,10 +13,6 @@ VectorRobotDrive::VectorRobotDrive(const MotorSetup motorSetups[], int numMotors
 void VectorRobotDrive::Set(const Pose2D &speedPose)
 {
     currentSpeedPose = speedPose;
-    static elapsedMicros timer = 0;
-    if (timer <= 1000)
-        return;
-    timer = 0;
     // Compile-time constant coefficients [X, Y, Theta]
     static constexpr float motorCoeffs[3][3] = {
         {1.0f, 0.0f, -1.0f}, // Left motor

@@ -97,14 +97,14 @@ RCHandler rc;
 --- Motors ---
 */
 PIDConfig pidConfigs[DRIVEMOTOR_COUNT]{
-    {.kp = 1.00f,
+    {.kp = 5.00f,
      .ki = 0.00f,
-     .kd = 0.00f,
+     .kd = 0.05f,
      .kaw = 0.00f,
-     .timeConst = 0.0f,
-     .max = MAX_VELOCITY * 1.2,
-     .min = -MAX_VELOCITY * 1.2,
-     .maxRate = MAX_ACCELERATION * 1.2,
+     .timeConst = 0.5f,
+     .max = MAX_VELOCITY,
+     .min = -MAX_VELOCITY,
+     .maxRate = MAX_ACCELERATION,
      .thetaFix = false},
     {.kp = 1.25f,
      .ki = 0.1f,
@@ -115,11 +115,11 @@ PIDConfig pidConfigs[DRIVEMOTOR_COUNT]{
      .min = -MAX_VELOCITY,
      .maxRate = MAX_ACCELERATION,
      .thetaFix = false},
-    {.kp = 0.0f,
-     .ki = 0.000f,
-     .kd = 0.000f,
-     .kaw = 0.000f,
-     .timeConst = 0.0f,
+    {.kp = 9.0f,
+     .ki = 0.0f,
+     .kd = 0.1f,
+     .kaw = 0.00f,
+     .timeConst = 0.5f,
      .max = MAX_ANGULAR_VELOCITY,
      .min = -MAX_ANGULAR_VELOCITY,
      .maxRate = MAX_ANGULAR_ACCELERATION,
@@ -257,7 +257,7 @@ void setup()
   buttons.Update();
   state = WAITINGFORSTART;
   CrashReport.breadcrumb(2, 00000003);
-  rgb.setGlobalBrightness(255);
+  rgb.setGlobalBrightness(175);
 }
 
 void loop()
@@ -292,8 +292,8 @@ void loop()
       }
       else
       {
-        rgb.setSectionPulseEffect(5, GOLD, 20);
-        rgb.setSectionPulseEffect(6, GOLD, 20);
+        rgb.setSectionPulseEffect(5, RED, 20);
+        rgb.setSectionPulseEffect(6, RED, 20);
       }
 
       // Setup for servos
@@ -372,12 +372,12 @@ void loop()
         rgb.setSectionStreakEffect(4, GREEN, 66);
         rgb.setSectionStreakEffect(5, GREEN, 250);
         rgb.setSectionStreakEffect(6, GREEN, 250);
-        rgb.stopSectionEffect(5);
-        rgb.stopSectionEffect(6);
         rgb.setSectionPulseEffect(5, PURPLE, 20);
         rgb.setSectionPulseEffect(6, PURPLE, 20);
         rgb.Update();
       }
+      gyro.Update();
+      gyro.Set_Gametime_Offset(gyro.GetGyroData()[0]);
       buttons.Update();
       RESET_AVAILABLE = !dips[0];
       state = RUNNING;
@@ -388,10 +388,7 @@ void loop()
   {
     GlobalRead();
     GlobalUpdate();
-    if (GlobalPrint())
-    {
-      drive.PrintController(Serial, false);
-    }
+
     GlobalStats();
 
     static elapsedMillis update10hz = 0;
@@ -424,12 +421,14 @@ void loop()
       driveUpdate = 0;
 
       Pose2D speedPose = CalculateRCVector(true); // drive.ConstrainNewSpeedPose(CalculateRCVector(true));
-      //Serial << speedPose;
+      // Serial << speedPose;
       drive.SetTargetByVelocity(speedPose);
-      drive.Set(drive.Step());
+      Pose2D hihi = drive.Step();
+      // Serial << hihi;
+      drive.Set(hihi);
 
-      /*Pose2D speedPose = drive.ConstrainNewSpeedPose(CalculateRCVector(false));
-      drive.Set(speedPose);*/
+      // Pose2D speedPose = drive.ConstrainNewSpeedPose(CalculateRCVector(false));
+      // drive.Set(speedPose);
 
       int intakeSpeed = rc.Get(5);
       if (abs(intakeSpeed) < 30)
@@ -451,6 +450,10 @@ void loop()
     drive.Write();
     transferMotor.Write();
     intakeMotor.Write();
+    if (GlobalPrint())
+    {
+      drive.PrintController(Serial, false);
+    }
     break;
   }
   }
@@ -502,7 +505,7 @@ void GlobalUpdate()
 bool GlobalPrint()
 {
   static elapsedMillis printTimer = 0;
-  if (printTimer > 100)
+  if (printTimer > 75)
   {
     printTimer = 0;
     Serial.print("State: ");

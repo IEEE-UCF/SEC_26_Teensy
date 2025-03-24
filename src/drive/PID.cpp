@@ -42,13 +42,12 @@ double PID::Step(double measurement, double setpoint)
         satCommand = constrain(command, min, max);
 
         // Apply rate limiter
-        if (satCommand > prevSatCommand + maxRate * timeStep)
+        float maxStep = maxRate * timeStep;
+        satCommand = constrain(satCommand, prevSatCommand - maxStep, prevSatCommand + maxStep);
+        if (abs(satCommand) - abs(prevSatCommand) < 0)
         {
-            satCommand = prevSatCommand + maxRate * timeStep;
-        }
-        else if (satCommand < prevSatCommand - maxRate * timeStep)
-        {
-            satCommand = prevSatCommand - maxRate * timeStep;
+            float deltaCommand = satCommand - prevSatCommand;
+            satCommand += deltaCommand * 2;
         }
 
         // Store previous saturated command

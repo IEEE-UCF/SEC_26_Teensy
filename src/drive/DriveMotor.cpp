@@ -3,7 +3,7 @@
 int DriveMotor::encoderNum = 1;
 
 DriveMotor::DriveMotor(const MotorSetup &motorSetup, Print &output)
-    : motorSetup(motorSetup), output(output), pwmout(0), cwout(true), enc(0) {}
+    : motorSetup(motorSetup), output(output), pwmout(0), cwout(true), enc(0), timeSinceReverse(0) {}
 
 /**
  * Begin drivemotor
@@ -24,7 +24,7 @@ void DriveMotor::Begin()
         pinMode(motorSetup.kCW, OUTPUT);
     if (motorSetup.kPWM >= 0)
     {
-        analogWriteFrequency(motorSetup.kPWM, 36621.09);
+        analogWriteFrequency(motorSetup.kPWM, 18310.55);
         pinMode(motorSetup.kPWM, OUTPUT);
     }
     if (encoder)
@@ -45,6 +45,7 @@ void DriveMotor::Set(int speed)
 {
     speed = motorSetup.rev ? -speed : speed;
     pwmout = map(abs(speed), 0, SPEED_MAX, PWM_MAX, 0);
+    constrain(pwmout, 0, 255);
     cwout = (speed >= 0);
 }
 
@@ -76,10 +77,38 @@ long DriveMotor::GetEnc() const
  */
 void DriveMotor::Write()
 {
-    if (motorSetup.kPWM >= 0)
-        analogWrite(motorSetup.kPWM, pwmout);
-    if (motorSetup.kCW >= 0)
+    if (timeSinceReverse > 103000)
+    {
+        timeSinceReverse = 0;
         digitalWrite(motorSetup.kCW, cwout);
+        analogWrite(motorSetup.kPWM, pwmout);
+    }
+    else if (timeSinceReverse > 100000)
+    {
+        digitalWrite(motorSetup.kCW, !cwout);
+        analogWrite(motorSetup.kPWM, 250);
+    }
+    else
+    {
+        digitalWrite(motorSetup.kCW, cwout);
+        analogWrite(motorSetup.kPWM, pwmout);
+    }
+    /*if (timeSinceReverse > 10030)
+    {
+        timeSinceReverse = 0;
+    }
+    else if (timeSinceReverse > 10000)
+    {
+        // analogWrite(motorSetup.kPWM, 255);
+    }
+    else
+    {
+        analogWrite(motorSetup.kPWM, pwmout);
+    }
+    if (motorSetup.kPWM >= 0)
+    {
+        digitalWrite(motorSetup.kCW, cwout);
+    }*/
 }
 
 void DriveMotor::PrintInfo(Print &output, bool printConfig) const

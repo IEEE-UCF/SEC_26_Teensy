@@ -103,8 +103,7 @@ Pose2D &Pose2D::constrainTheta(float magnitude)
  * Rotate vector
  * @param angle angle to rate by in radians
  */
-Pose2D &
-Pose2D::rotateVector(float angle)
+Pose2D &Pose2D::rotateVector(float angle)
 {
     const float cosA = cosf(angle);
     const float sinA = sinf(angle);

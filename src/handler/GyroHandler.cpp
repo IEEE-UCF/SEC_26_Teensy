@@ -1,6 +1,6 @@
 #include "GyroHandler.h"
 
-GyroHandler::GyroHandler() : bno08x(Adafruit_BNO08x(-1)) {}
+GyroHandler::GyroHandler() : bno08x(Adafruit_BNO08x(-1)), Gametime_Offset(0) {}
 
 /**
  * Setup function for the Gyro. Fails sometimes
@@ -48,7 +48,7 @@ void GyroHandler::Update()
 
     /*
      */
-    yaw += STARTING_OFFSET * PI / 180;
+    yaw += (BEGIN_OFFSET * PI / 180) - Gametime_Offset;
     while (yaw > PI)
     {
         yaw = yaw - 2 * PI;

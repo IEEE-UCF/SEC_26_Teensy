@@ -5,7 +5,7 @@ PIDDriveController::PIDDriveController(const PIDConfig &xConfig, const PIDConfig
       yPID(yConfig),
       thetaPID(thetaConfig) {}
 
-Pose2D PIDDriveController::Step(const Pose2D &currentPose, const Pose2D &targetPose)
+Pose2D PIDDriveController::Step(const Pose2D &currentPose, const Pose2D &targetPose) const
 {
     float xSpeed = xPID.Step(currentPose.getX(), targetPose.getX());
     float ySpeed = yPID.Step(currentPose.getY(), targetPose.getY());
