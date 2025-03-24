@@ -1,6 +1,5 @@
 // Include Libraries
 #include <Wire.h>
-#include <Adafruit_BNO08x.h>
 #include "src/handler/ButtonHandler.h"
 #include "src/handler/GyroHandler.h"
 #include "src/handler/LightHandler.h"
