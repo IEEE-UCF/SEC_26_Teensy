@@ -167,6 +167,7 @@ bool CONTROLLED_BY_PI;
 bool RESET_AVAILABLE;
 bool PI_READY;
 bool RC_READY;
+bool SERVO_ON;
 
 bool *dips;
 
@@ -258,6 +259,7 @@ void setup()
   state = WAITINGFORSTART;
   CrashReport.breadcrumb(2, 00000003);
   rgb.setGlobalBrightness(175);
+  SERVO_ON = true;
 }
 
 void loop()
@@ -281,6 +283,7 @@ void loop()
     {
       update = 0;
       RC_READY = (rc.Get(9) == 255);
+      // SERVO_ON = (rc.Get(8) == 255 && RC_READY);
       updateDips(); // updates dips/buttons
       rgb.setSectionSolidColor(2, GOLD);
 
@@ -297,6 +300,7 @@ void loop()
       }
 
       // Setup for servos
+      SERVO_ON ? servos.Attach() : servos.Detach();
       if (CLOSED_POS)
       { // move servos to closed position
         sorter.MoveCenter();

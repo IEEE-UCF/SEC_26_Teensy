@@ -9,8 +9,15 @@ void ServoHandler::Begin()
     anglesWrite = new int[numServos];
     for (int i = 0; i < numServos; ++i)
     {
-        servos[i].attach(kServo[i]);
         anglesWrite[i] = -1;
+    }
+}
+
+void ServoHandler::Attach()
+{
+    for (int i = 0; i < numServos; ++i)
+    {
+        servos[i].attach(kServo[i]);
     }
 }
 
