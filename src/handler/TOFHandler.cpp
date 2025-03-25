@@ -29,6 +29,7 @@ bool TOFHandler::Begin()
       success = false;
     }
     sensors[i].setSignalRateLimit(0.10);
+    sensors[i].setMeasurementTimingBudget(20000);
     sensors[i].setVcselPulsePeriod(VL53L0X::VcselPeriodPreRange, 18);
     sensors[i].setVcselPulsePeriod(VL53L0X::VcselPeriodFinalRange, 14);
     sensors[i].startContinuous();
