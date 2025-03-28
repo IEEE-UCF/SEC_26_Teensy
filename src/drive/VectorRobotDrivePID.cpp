@@ -14,6 +14,11 @@ void VectorRobotDrivePID::SetTargetByVelocity(const Pose2D &speedPose)
   callTime = 0; // Reset the timer after updating
 }
 
+void VectorRobotDrivePID::SetTarget(const Pose2D &targetPose)
+{
+  this->targetPose = targetPose;
+}
+
 void VectorRobotDrivePID::PrintInfo(Print &output, bool printConfig) const
 {
   output.print(F("SimpleRobotDrive Configuration: "));

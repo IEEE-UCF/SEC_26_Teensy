@@ -12,6 +12,7 @@ public:
     void SetTarget(const Pose2D &targetPose) { this->targetPose = targetPose; }
     Pose2D Step() { return pidController.Step(localization.getPosition(), this->targetPose); }
     void SetTargetByVelocity(const Pose2D &speedPose);
+    void SetTarget(const Pose2D &targetPose);
     void PrintInfo(Print &output, bool printConfig) const;
     void PrintLocal(Print &output) const;
     void PrintController(Print &output, bool printConfig) const;
