@@ -98,8 +98,20 @@ bool RGBHandler::setSectionPulseEffect(uint8_t section, const RGBColor &color, u
     return setSectionPulseEffect(section, color.r, color.g, color.b, speed);
 }
 
-// setting up streak effect
+// setting up streak effect (forward direction)
 bool RGBHandler::setSectionStreakEffect(uint8_t section, uint8_t r, uint8_t g, uint8_t b, unsigned long speed)
+{
+    // Call the reverse overload with reverse set to false
+    return setSectionStreakEffect(section, r, g, b, speed, false);
+}
+
+bool RGBHandler::setSectionStreakEffect(uint8_t section, const RGBColor &color, unsigned long speed)
+{
+    return setSectionStreakEffect(section, color.r, color.g, color.b, speed, false);
+}
+
+// overloaded versions that accept a reverse flag
+bool RGBHandler::setSectionStreakEffect(uint8_t section, uint8_t r, uint8_t g, uint8_t b, unsigned long speed, bool reverse)
 {
     if (section >= NUM_SECTIONS || speed < MIN_SPEED || speed > MAX_SPEED)
         return false;
@@ -114,6 +126,7 @@ bool RGBHandler::setSectionStreakEffect(uint8_t section, uint8_t r, uint8_t g, u
     sec.streak_r = r;
     sec.streak_g = g;
     sec.streak_b = b;
+    sec.reverseStreak = reverse;  // set the reverse flag
 
     // initialize streak position and trail
     sec.streak_position = 0;
@@ -125,9 +138,9 @@ bool RGBHandler::setSectionStreakEffect(uint8_t section, uint8_t r, uint8_t g, u
     return true;
 }
 
-bool RGBHandler::setSectionStreakEffect(uint8_t section, const RGBColor &color, unsigned long speed)
+bool RGBHandler::setSectionStreakEffect(uint8_t section, const RGBColor &color, unsigned long speed, bool reverse)
 {
-    return setSectionStreakEffect(section, color.r, color.g, color.b, speed);
+    return setSectionStreakEffect(section, color.r, color.g, color.b, speed, reverse);
 }
 
 // updating pulse effect
@@ -176,7 +189,7 @@ void RGBHandler::stopSectionEffect(uint8_t section)
     SectionEffect &sec = sections[section];
     sec.currentEffect = NONE;
 
-    // Turn off all LEDs in the section
+    // turn off all LEDs in the section
     uint16_t start = sectionStarts[section];
     uint16_t end = start + SECTION_SIZES[section];
     for (uint16_t i = start; i < end; ++i)
@@ -188,7 +201,7 @@ void RGBHandler::stopSectionEffect(uint8_t section)
     prev_positions[section] = -1;
 }
 
-// updating streak effect efficiently
+// updating streak effect efficiently with reverse support
 void RGBHandler::updateStreak(uint8_t section)
 {
     SectionEffect &sec = sections[section];
@@ -196,7 +209,7 @@ void RGBHandler::updateStreak(uint8_t section)
     uint16_t start = sectionStarts[section];
     int current_pos = sec.streak_position;
 
-    // clears previous streak if it has moved
+    // clear previous streak if it has moved
     if (prev_positions[section] != -1 &&
         prev_positions[section] != current_pos &&
         prev_positions[section] < size)
@@ -204,22 +217,37 @@ void RGBHandler::updateStreak(uint8_t section)
         leds.setPixel(start + prev_positions[section], 0, 0, 0);
     }
 
-    // drawing new streak
-    for (uint8_t i = 0; i < sec.streak_trailLength; i++)
+    if (!sec.reverseStreak)
     {
-        int pos = (current_pos - i + size) % size;
-        if (pos >= size)
-            continue;
-        uint16_t led = start + pos;
-        leds.setPixel(led,
-                      (sec.streak_r * 200) >> 8,
-                      (sec.streak_g * 200) >> 8,
-                      (sec.streak_b * 200) >> 8);
+        // forward streak: drawing new streak using current logic
+        for (uint8_t i = 0; i < sec.streak_trailLength; i++)
+        {
+            int pos = (current_pos - i + size) % size;
+            uint16_t led = start + pos;
+            leds.setPixel(led,
+                          (sec.streak_r * 200) >> 8,
+                          (sec.streak_g * 200) >> 8,
+                          (sec.streak_b * 200) >> 8);
+        }
+        prev_positions[section] = (current_pos - sec.streak_trailLength + size) % size;
+        sec.streak_position = (current_pos + 1) % size;
     }
-
-    // tracks position updates
-    prev_positions[section] = (current_pos - sec.streak_trailLength + size) % size;
-    sec.streak_position = (current_pos + 1) % size;
+    else
+    {
+        // reverse streak: drawing new streak in the opposite direction
+        for (uint8_t i = 0; i < sec.streak_trailLength; i++)
+        {
+            int pos = (current_pos + i) % size;
+            uint16_t led = start + pos;
+            leds.setPixel(led,
+                          (sec.streak_r * 200) >> 8,
+                          (sec.streak_g * 200) >> 8,
+                          (sec.streak_b * 200) >> 8);
+        }
+        prev_positions[section] = (current_pos + sec.streak_trailLength) % size;
+        // decrement the current position with wrap-around
+        sec.streak_position = (current_pos + size - 1) % size;
+    }
 }
 
 // manages effect updates while avoiding redundant refreshes
