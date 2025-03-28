@@ -8,7 +8,7 @@
 #include "src/handler/LineHandler.h"
 #include "src/handler/RCHandler.h"
 #include "src/handler/RGBHandler.h"
-//#include "src/handler/ROSHandler.h"
+// #include "src/handler/ROSHandler.h"
 #include "src/handler/ServoHandler.h"
 #include "src/handler/TOFHandler.h"
 #include "src/subsystem/SorterSubsystem.h"
@@ -174,9 +174,9 @@ enum HardCodeProgram : uint8_t
   BOX
 };
 
-State state;
+State STATE;
 ControlType ROBOT_CONTROL_TYPE;
-HardCodeProgram programSelection = NO_BOX;
+HardCodeProgram PROGRAM_SELECTION = NO_BOX;
 
 bool USING_EXTERNAL_CONTROL;
 bool CONTROLLED_BY_PI;
@@ -200,11 +200,11 @@ long fps = 0;
 void setup()
 {
   // --- BEGIN SETUP PHASE ---
-  state = SETUP;
+  STATE = SETUP;
   buttons.Begin(); // Necessary to begin buttons here to get CONTROLLED_BY_PI
   updateDips();
   Serial.begin(9600);
-  if (CONTROLLED_BY_PI)
+  /*if (CONTROLLED_BY_PI)
   {
     while (!Serial)
     {
@@ -214,7 +214,7 @@ void setup()
         reset();
       }
     }
-  }
+  }*/
   Serial.println("Hello");
 
   // Begin I2C
@@ -265,13 +265,13 @@ void setup()
   updateDips(); // Update dips so we don't get any unexpected readings
   light.Update();
   buttons.Update();
-  state = WAITINGFORSTART;
+  STATE = WAITINGFORSTART;
   rgb.setGlobalBrightness(175);
 }
 
 void loop()
 {
-  switch (state)
+  switch (STATE)
   {
   case SETUP:
   {
@@ -304,7 +304,7 @@ void loop()
       }
 
       // --- Ready function ---
-      static bool READY_TO_ARM;
+      bool READY_TO_ARM;
       RGBColor sideColor;
       ROBOT_CONTROL_TYPE = USING_EXTERNAL_CONTROL ? HARD : (CONTROLLED_BY_PI ? RASP_PI : REMOTE_CON);
       // Determine correct control type
@@ -336,11 +336,12 @@ void loop()
         rgb.setSectionSolidColor(4, sideColor);
         if (buttons.GetStates()[0])
         {
-          state = ARMED;
+          STATE = ARMED;
           while (buttons.GetStates()[0])
           {
             updateDips(); // Wait until button.GetStates() is released
           }
+          buttons.Update();
         }
       }
       else // Not ready to arm!
@@ -349,6 +350,7 @@ void loop()
         rgb.setSectionPulseEffect(4, sideColor, 20);
       }
     }
+    break;
   }
   case ARMED:
   {
@@ -403,7 +405,7 @@ void loop()
       RESET_AVAILABLE = !dips[0];
       rgb.setSectionPulseEffect(5, PURPLE, 20);
       rgb.setSectionPulseEffect(6, PURPLE, 20);
-      state = RUNNING;
+      STATE = RUNNING;
     }
     break;
   }
@@ -558,11 +560,15 @@ void GlobalUpdate()
 bool GlobalPrint()
 {
   static elapsedMillis printTimer = 0;
-  if (printTimer > 75)
+  if (printTimer > 200)
   {
     printTimer = 0;
     Serial.print("State: ");
-    Serial.println(state);
+    Serial.println(STATE);
+    Serial.print("Progam: ");
+    Serial.println(ROBOT_CONTROL_TYPE);
+    Serial.print("Path Selection: ");
+    Serial.println(PROGRAM_SELECTION);
     Serial.print("FPS: ");
     Serial.println(fps);
     Serial << tofs << gyro << light << halls << buttons << rgb << servos << rc;
@@ -633,6 +639,6 @@ void updateDips()
 {
   buttons.Update();
   dips = buttons.GetStates();
-  USING_EXTERNAL_CONTROL = !dips[2];
+  USING_EXTERNAL_CONTROL = dips[2];
   CONTROLLED_BY_PI = !dips[3];
 }
