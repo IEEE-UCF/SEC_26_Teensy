@@ -29,6 +29,7 @@ private:
     int *anglesWrite;
     int *kServo;
     int numServos;
+    bool *attached;
 };
 
 #endif

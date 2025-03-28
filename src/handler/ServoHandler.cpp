@@ -15,9 +15,34 @@ void ServoHandler::Begin()
 
 void ServoHandler::Attach()
 {
+    if (attached == nullptr)
+    {
+        attached = new bool[numServos];
+        for (int i = 0; i < numServos; ++i)
+        {
+            attached[i] = false;
+        }
+    }
+
     for (int i = 0; i < numServos; ++i)
     {
-        servos[i].attach(kServo[i]);
+        if (!attached[i]) // Only attach servos if they are not attached
+        {
+            servos[i].attach(kServo[i]);
+            attached[i] = true;
+        }
+    }
+}
+
+void ServoHandler::Detach()
+{
+    for (int i = 0; i < numServos; ++i)
+    {
+        if (attached[i]) // Only detach servos if they are attached
+        {
+            servos[i].detach();
+            attached[i] = false;
+        }
     }
 }
 
@@ -48,13 +73,6 @@ int *ServoHandler::Get()
     return anglesWrite;
 }
 
-void ServoHandler::Detach()
-{
-    for (int i = 0; i < numServos; i++)
-    {
-        servos[i].detach();
-    }
-}
 void ServoHandler::PrintInfo(Print &output, bool printConfig) const
 {
     if (printConfig)
