@@ -14,6 +14,7 @@
 #include "src/subsystem/SorterSubsystem.h"
 #include "src/subsystem/MandibleSubsystem.h"
 #include "src/subsystem/BeaconSubsystem.h"
+#include "src/subsystem/PathHandler.h"
 using namespace GlobalColors;
 
 #include "src/drive/math/Pose2D.h"
@@ -135,13 +136,14 @@ DriveMotor transferMotor(nonDriveMotors[1], Serial);
 SorterSubsystem sorter(4, 3, 2, tofs, halls, servos, transferMotor, rgb);
 MandibleSubsystem mandibles(0, 1, servos);
 BeaconSubsystem beacon(3, servos);
+PathHandler paths(drive);
 
 /*
 --- Program Control ---
   DIP Switches/Buttons:
-  0 - Start / Wait for light sensor
-  1 - X / X
-  2 - Closed Pos / Open Pos
+  0 - Manual start button
+  1 - x / x
+  2 - External Control / HARD Coded Path
   3 - Pi / RC Control
 */
 
@@ -159,11 +161,27 @@ enum State : uint8_t
   ERROR
 };
 
-State state;
+enum ControlType : uint8_t
+{
+  HARD,
+  RASP_PI,
+  REMOTE_CON
+};
 
-bool SKIP_LIGHT_SENSOR;
-bool CLOSED_POS;
+enum HardCodeProgram : uint8_t
+{
+  NO_BOX,
+  BOX
+};
+
+State state;
+ControlType ROBOT_CONTROL_TYPE;
+HardCodeProgram programSelection = NO_BOX;
+
+bool USING_EXTERNAL_CONTROL;
 bool CONTROLLED_BY_PI;
+bool CLOSED_POS;
+
 bool RESET_AVAILABLE;
 bool PI_READY;
 bool RC_READY;
@@ -183,7 +201,7 @@ void setup()
 {
   // --- BEGIN SETUP PHASE ---
   state = SETUP;
-  buttons.Begin();
+  buttons.Begin(); // Necessary to begin buttons here to get CONTROLLED_BY_PI
   updateDips();
   Serial.begin(9600);
   if (CONTROLLED_BY_PI)
@@ -199,20 +217,13 @@ void setup()
   }
   Serial.println("Hello");
 
-  /* Enable level converters
-    pinMode(20, OUTPUT);
-    digitalWrite(20, HIGH);
-  */
-
-  CrashReport.breadcrumb(2, 00000001);
-
-  // Begin i2c
+  // Begin I2C
   Wire.setClock(400000);
   Wire1.setClock(1000000);
   Wire.begin();
   Wire1.begin();
 
-  // Begin handlers
+  // Begin all Handlers
   SuccessTOF = tofs.Begin();
   if (!gyro.Begin())
   {
@@ -232,7 +243,6 @@ void setup()
   beacon.Begin();
 
   // Print setups
-  CrashReport.breadcrumb(2, 00000002);
   tofs.PrintInfo(Serial, true);
   gyro.PrintInfo(Serial, true);
   light.PrintInfo(Serial, true);
@@ -252,11 +262,10 @@ void setup()
 
   // --- PROGRAM CONTROL ---
   delay(500);
-  updateDips();
+  updateDips(); // Update dips so we don't get any unexpected readings
   light.Update();
   buttons.Update();
   state = WAITINGFORSTART;
-  CrashReport.breadcrumb(2, 00000003);
   rgb.setGlobalBrightness(175);
 }
 
@@ -279,12 +288,10 @@ void loop()
     static elapsedMillis update = 0;
     if (update > 50)
     {
-      update = 0;
-      RC_READY = (rc.Get(9) == 255);
+      update = 0;   // update every 50 ms
       updateDips(); // updates dips/buttons
-      rgb.setSectionSolidColor(2, GOLD);
 
-      // Indicator for Light and TOF I2C
+      // --- Indicator for Light and TOF I2C ---
       if (SuccessLight && SuccessTOF)
       {
         rgb.setSectionSolidColor(5, GOLD);
@@ -296,54 +303,52 @@ void loop()
         rgb.setSectionPulseEffect(6, RED, 20);
       }
 
-      // Setup for servos
-      if (CLOSED_POS)
-      { // move servos to closed position
-        sorter.MoveCenter();
-        mandibles.CloseLeft();
-        mandibles.CloseRight();
-        beacon.MoveUp();
-        rgb.setSectionStreakEffect(1, GOLD, 150); // gold
-        rgb.setSectionStreakEffect(3, GOLD, 150);
+      // --- Ready function ---
+      static bool READY_TO_ARM;
+      RGBColor sideColor;
+      ROBOT_CONTROL_TYPE = USING_EXTERNAL_CONTROL ? HARD : (CONTROLLED_BY_PI ? RASP_PI : REMOTE_CON);
+      // Determine correct control type
+      switch (ROBOT_CONTROL_TYPE)
+      {
+      case HARD:
+      {
+        sideColor = PURPLE;
+        READY_TO_ARM = true;
+        break;
       }
-      else
-      { // move servos to open position
-        sorter.MoveCenter();
-        mandibles.OpenLeft();
-        mandibles.OpenRight();
-        beacon.MoveDown();
-        rgb.setSectionStreakEffect(1, PURPLE, 150); // purple
-        rgb.setSectionStreakEffect(3, PURPLE, 150);
+      case RASP_PI:
+      {
+        sideColor = GOLD;
+        READY_TO_ARM = false;
+        break;
+      }
+      case REMOTE_CON:
+      {
+        sideColor = CYAN;
+        RC_READY = (rc.Get(9) == 255);
+        READY_TO_ARM = RC_READY;
+      }
       }
 
-      // Ready functions for PI/RC
-      if (CONTROLLED_BY_PI)
+      if (READY_TO_ARM) // Ready to arm!
       {
-      }
-      else
-      {
-        if (RC_READY)
+        rgb.setSectionSolidColor(0, sideColor);
+        rgb.setSectionSolidColor(4, sideColor);
+        if (buttons.GetStates()[0])
         {
-          rgb.setSectionSolidColor(0, 0, 255, 255);
-          rgb.setSectionSolidColor(4, 0, 255, 255);
-          if (buttons.GetStates()[0])
+          state = ARMED;
+          while (buttons.GetStates()[0])
           {
-            state = ARMED;
-            // This logic ensures that skip_light_sensor stays the correct value.
-            while (buttons.GetStates()[0])
-            {
-              updateDips(); // updateDips will also update buttons.
-            }
+            updateDips(); // Wait until button.GetStates() is released
           }
         }
-        else
-        {
-          rgb.setSectionPulseEffect(0, 0, 255, 255, 20);
-          rgb.setSectionPulseEffect(4, 0, 255, 255, 20);
-        }
+      }
+      else // Not ready to arm!
+      {
+        rgb.setSectionPulseEffect(0, sideColor, 20);
+        rgb.setSectionPulseEffect(4, sideColor, 20);
       }
     }
-    break;
   }
   case ARMED:
   {
@@ -351,15 +356,33 @@ void loop()
     GlobalUpdate();
     GlobalPrint();
     GlobalStats();
-    for (uint8_t i = 0; i < 7; i++)
+    for (uint8_t i = 0; i < 5; i++)
     {
       rgb.setSectionPulseEffect(i, GOLD, 20);
     }
-    if (SKIP_LIGHT_SENSOR || light.GetLightLevel() > 500 || buttons.GetStates()[0])
-    {
-      detectLight = true;
+
+    // --- Servo Setup ---
+    CLOSED_POS = (rc.Get(8) == 255);
+    if (CLOSED_POS)
+    { // move servos to closed position
+      sorter.MoveCenter();
+      mandibles.CloseLeft();
+      mandibles.CloseRight();
+      beacon.MoveUp();
+      rgb.setSectionStreakEffect(5, GOLD, 50); // gold
+      rgb.setSectionStreakEffect(6, GOLD, 50);
     }
-    if (detectLight)
+    else
+    { // move servos to open position
+      sorter.MoveCenter();
+      mandibles.OpenLeft();
+      mandibles.OpenRight();
+      beacon.MoveDown();
+      rgb.setSectionStreakEffect(5, PURPLE, 150); // purple
+      rgb.setSectionStreakEffect(6, PURPLE, 150);
+    }
+
+    if (light.GetLightLevel() > 500 || buttons.GetStates()[0])
     {
       rgb.stopAllEffects();
       static elapsedMillis timer = 0;
@@ -372,88 +395,118 @@ void loop()
         rgb.setSectionStreakEffect(4, GREEN, 66);
         rgb.setSectionStreakEffect(5, GREEN, 250);
         rgb.setSectionStreakEffect(6, GREEN, 250);
-        rgb.setSectionPulseEffect(5, PURPLE, 20);
-        rgb.setSectionPulseEffect(6, PURPLE, 20);
         rgb.Update();
       }
       gyro.Update();
       gyro.Set_Gametime_Offset(gyro.GetGyroData()[0]);
-      buttons.Update();
+      updateDips();
       RESET_AVAILABLE = !dips[0];
+      rgb.setSectionPulseEffect(5, PURPLE, 20);
+      rgb.setSectionPulseEffect(6, PURPLE, 20);
       state = RUNNING;
     }
     break;
   }
   case RUNNING:
   {
-    GlobalRead();
-    GlobalUpdate();
-
-    GlobalStats();
-
     static elapsedMillis update10hz = 0;
-    if (update10hz > 100)
+    static elapsedMillis update200hz = 0; // 200hz
+    static bool update10Available = false;
+    static bool update200Available = false;
+    if (update10hz >= 100)
     {
       update10hz = 0;
-      if (buttons.GetStates()[0] && RESET_AVAILABLE)
-      {
-        reset();
-      }
-      rgb.setSectionSolidColor(0, GOLD);
-      rgb.setSectionSolidColor(1, GOLD);
-      rgb.setSectionSolidColor(2, GOLD);
-      rgb.setSectionSolidColor(3, GOLD);
-      rgb.setSectionSolidColor(4, GOLD);
+      update10Available = true;
     }
-
-    static elapsedMillis update200hz = 0;
-    if (update200hz > 5)
+    if (update200hz >= 5)
     {
       update200hz = 0;
-      sorter.Update();
+      update200Available = true;
     }
-
-    drive.ReadAll(gyro.GetGyroData()[0]);
-    // Processing
-    static elapsedMillis driveUpdate = 0;
-    if (driveUpdate > 5)
+    switch (ROBOT_CONTROL_TYPE)
     {
-      driveUpdate = 0;
-
-      Pose2D speedPose = CalculateRCVector(true); // drive.ConstrainNewSpeedPose(CalculateRCVector(true));
-      // Serial << speedPose;
-      drive.SetTargetByVelocity(speedPose);
-      Pose2D hihi = drive.Step();
-      // Serial << hihi;
-      drive.Set(hihi);
-
-      // Pose2D speedPose = drive.ConstrainNewSpeedPose(CalculateRCVector(false));
-      // drive.Set(speedPose);
-
-      int intakeSpeed = rc.Get(5);
-      if (abs(intakeSpeed) < 30)
-      {
-        intakeSpeed = 0;
-      }
-      intakeMotor.Set(intakeSpeed);
-
-      (rc.Get(6) == -255) ? mandibles.CloseLeft() : mandibles.OpenLeft();
-      (rc.Get(7) == -255) ? mandibles.CloseRight() : mandibles.OpenRight();
-      if (rc.Get(8) == -255)
-      {
-        sorter.SetState(1);
-      }
-      beacon.WriteAngle(map(rc.Get(4), -255, 255, 0, 180));
-    }
-
-    // Write
-    drive.Write();
-    transferMotor.Write();
-    intakeMotor.Write();
-    if (GlobalPrint())
+    case HARD:
     {
-      drive.PrintController(Serial, false);
+      break;
     }
+    case RASP_PI:
+    {
+      break;
+    }
+    case REMOTE_CON:
+    {
+      GlobalRead();
+      GlobalUpdate();
+      GlobalStats();
+      if (GlobalPrint())
+      {
+        drive.PrintController(Serial, false);
+      }
+      drive.ReadAll(gyro.GetGyroData()[0]); // Update encoders every frame
+
+      if (update10Available)
+      {
+        update10Available = false;
+        if (buttons.GetStates()[0] && RESET_AVAILABLE) // Reset function
+        {
+          reset();
+        }
+        for (int i = 0; i < 5; i++) // Write RGB
+        {
+          rgb.setSectionSolidColor(i, GOLD);
+        }
+      }
+
+      if (update200Available)
+      {
+        update200Available = false;
+        update200hz = 0;
+
+        // --- Drive Update ---
+        Pose2D speedPose = CalculateRCVector(true); // drive.ConstrainNewSpeedPose(CalculateRCVector(true));
+        drive.SetTargetByVelocity(speedPose);
+        Pose2D hihi = drive.Step();
+        drive.Set(hihi);
+
+        // --- Other systems update ---
+        sorter.Update(); // Update sorter
+        int intakeSpeed = rc.Get(5);
+        if (abs(intakeSpeed) < 30)
+        {
+          intakeSpeed = 0;
+        }
+        intakeMotor.Set(intakeSpeed);
+
+        (rc.Get(6) == -255) ? mandibles.CloseLeft() : mandibles.OpenLeft();
+        (rc.Get(7) == -255) ? mandibles.CloseRight() : mandibles.OpenRight();
+        if (rc.Get(8) == -255)
+        {
+          sorter.SetState(1);
+        }
+        beacon.WriteAngle(map(rc.Get(4), -255, 255, 0, 180));
+      }
+
+      // Write
+      drive.Write();
+      transferMotor.Write();
+      intakeMotor.Write();
+      break;
+    }
+    }
+    break;
+  }
+  case STOPPED:
+  {
+    delay(10);
+    break;
+  }
+  case ERROR:
+  {
+    for (int i = 0; i < 7; i++)
+    {
+      rgb.setSectionSolidColor(i, RED);
+    }
+    delay(10);
     break;
   }
   }
@@ -580,7 +633,6 @@ void updateDips()
 {
   buttons.Update();
   dips = buttons.GetStates();
-  SKIP_LIGHT_SENSOR = dips[0];
-  CLOSED_POS = !dips[2];
-  CONTROLLED_BY_PI = dips[3];
+  USING_EXTERNAL_CONTROL = !dips[2];
+  CONTROLLED_BY_PI = !dips[3];
 }

@@ -18,7 +18,6 @@ public:
     void clearPath();                     // Clear all waypoints
     bool executePath();                   // Execute the path step by step
     void skipToNextPath();                // Skip to the next waypoint
-    const Pose2D &getTarget() const;      // Get the current target waypoint
 
 private:
     VectorRobotDrivePID &drive; // Reference to the robot drive

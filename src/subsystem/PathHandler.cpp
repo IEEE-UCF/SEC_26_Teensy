@@ -41,11 +41,6 @@ void PathHandler::skipToNextPath()
     }
 }
 
-void PathHandler::getTarget()
-{
-    return target;
-}
-
 bool PathHandler::hasReachedWaypoint(const Pose2D &target)
 {
     Pose2D currentPose = drive.GetPosition();

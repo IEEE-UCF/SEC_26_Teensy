@@ -19,7 +19,7 @@ namespace GlobalColors
     constexpr RGBColor GREEN = {0, 255, 0};
     constexpr RGBColor CYAN = {0, 255, 255};
     constexpr RGBColor RED = {255, 0, 0};
-    // constexpr RGBColor CYAN = {0, 255, 255};
+    constexpr RGBColor BLUE = {0, 0, 255};
 };
 
 constexpr uint8_t NUM_SECTIONS = 7;
