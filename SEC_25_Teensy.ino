@@ -393,7 +393,7 @@ void loop()
     case RASP_PI:
       CLOSED_POS = true;
       break;
-    case RC:
+    case REMOTE_CON:
       CLOSED_POS = (rc.Get(8) == 255);
       break;
     }
@@ -462,16 +462,16 @@ void loop()
     case HARD:
     case RASP_PI:
     {
+      GlobalRead();
+      GlobalUpdate();
+      GlobalStats();
+      if (GlobalPrint())
+      {
+        // drive.PrintController(Serial, false);
+      }
+      drive.ReadAll(gyro.GetGyroData()[0]);
       switch (PROGRAM_SELECTION)
       {
-        GlobalRead();
-        GlobalUpdate();
-        GlobalStats();
-        if (GlobalPrint())
-        {
-          // drive.PrintController(Serial, false);
-        }
-        drive.ReadAll(gyro.GetGyroData()[0]);
       case NO_BOX: // Green
       {
         if (update10Available)
