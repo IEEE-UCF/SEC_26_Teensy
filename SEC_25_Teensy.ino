@@ -11,10 +11,10 @@
 // #include "src/handler/ROSHandler.h"
 #include "src/handler/ServoHandler.h"
 #include "src/handler/TOFHandler.h"
+#include "src/handler/PathHandler.h"
 #include "src/subsystem/SorterSubsystem.h"
 #include "src/subsystem/MandibleSubsystem.h"
 #include "src/subsystem/BeaconSubsystem.h"
-#include "src/subsystem/PathHandler.h"
 using namespace GlobalColors;
 
 #include "src/drive/math/Pose2D.h"
@@ -176,7 +176,7 @@ enum HardCodeProgram : uint8_t
 
 State STATE;
 ControlType ROBOT_CONTROL_TYPE;
-HardCodeProgram PROGRAM_SELECTION = NO_BOX;
+HardCodeProgram PROGRAM_SELECTION;
 
 bool USING_EXTERNAL_CONTROL;
 bool CONTROLLED_BY_PI;
@@ -303,10 +303,14 @@ void loop()
         rgb.setSectionPulseEffect(6, RED, 20);
       }
 
+      rgb.setSectionStreakEffect(1, GOLD, 200);
+      rgb.setSectionStreakEffect(3, GOLD, 200);
+
       // --- Ready function ---
       bool READY_TO_ARM;
       RGBColor sideColor;
       ROBOT_CONTROL_TYPE = USING_EXTERNAL_CONTROL ? HARD : (CONTROLLED_BY_PI ? RASP_PI : REMOTE_CON);
+      PROGRAM_SELECTION = dips[1] ? BOX : NO_BOX;
       // Determine correct control type
       switch (ROBOT_CONTROL_TYPE)
       {
@@ -314,12 +318,26 @@ void loop()
       {
         sideColor = PURPLE;
         READY_TO_ARM = true;
+        switch (PROGRAM_SELECTION)
+        {
+        case NO_BOX:
+        {
+          rgb.setSectionSolidColor(2, PURPLE);
+          break;
+        }
+        case BOX:
+        {
+          rgb.setSectionSolidColor(2, CYAN);
+          break;
+        }
+        }
         break;
       }
       case RASP_PI:
       {
         sideColor = GOLD;
         READY_TO_ARM = false;
+        rgb.setSectionSolidColor(2, GOLD);
         break;
       }
       case REMOTE_CON:
@@ -327,6 +345,8 @@ void loop()
         sideColor = CYAN;
         RC_READY = (rc.Get(9) == 255);
         READY_TO_ARM = RC_READY;
+        rgb.setSectionSolidColor(2, GOLD);
+        break;
       }
       }
 
