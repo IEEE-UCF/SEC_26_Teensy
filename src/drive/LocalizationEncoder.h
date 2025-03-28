@@ -5,6 +5,8 @@
 #include <Arduino.h>
 #include "MOTORCONFIG.h"
 
+#define STARTX 30.5
+#define STARTY 6
 using namespace MotorConstants;
 
 class LocalizationEncoder

@@ -3,7 +3,10 @@
 #include <Arduino.h>
 
 LocalizationEncoder::LocalizationEncoder()
-    : transform(0, 0, 0) {}
+    : transform(0, 0, 0)
+{
+    setPosition(Pose2D(STARTX, STARTY, 0));
+}
 
 /**
  * Update position of the encoder.

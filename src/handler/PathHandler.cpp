@@ -1,7 +1,8 @@
 #include "PathHandler.h"
+#include <Arduino.h>
 
 PathHandler::PathHandler(VectorRobotDrivePID &robotDrive)
-    : drive(robotDrive), currentPathIndex(0) {}
+    : drive(robotDrive), currentPathIndex(0), lastWaypointTime(0) {}
 
 void PathHandler::addWaypoint(const Pose2D &pose)
 {
@@ -20,6 +21,7 @@ void PathHandler::clearPath()
 {
     path.clear();
     currentPathIndex = 0;
+    lastWaypointTime = 0;
 }
 
 bool PathHandler::executePath()
@@ -35,7 +37,22 @@ bool PathHandler::executePath()
     // Check if the robot has reached the current waypoint
     if (hasReachedWaypoint(target))
     {
-        currentPathIndex++;
+        // If this is the first time reaching the waypoint, start the pause timer
+        if (lastWaypointTime == 0)
+        {
+            lastWaypointTime = millis();
+        }
+        // Ensure the minimum pause time before moving to the next waypoint
+        else if (millis() - lastWaypointTime >= MINTIMEPAUSE * 1000)
+        {
+            currentPathIndex++;
+            lastWaypointTime = 0; // Reset for the next waypoint
+        }
+    }
+    else
+    {
+        // Reset the timer if the waypoint hasn't been reached yet
+        lastWaypointTime = 0;
     }
 
     return false; // Path execution still in progress
@@ -45,7 +62,8 @@ void PathHandler::skipToNextPath()
 {
     if (currentPathIndex < path.size())
     {
-        currentPathIndex++; // Move to the next waypoint
+        currentPathIndex++;
+        lastWaypointTime = millis();
     }
 }
 
@@ -53,7 +71,8 @@ bool PathHandler::hasReachedWaypoint(const Pose2D &target)
 {
     Pose2D currentPose = drive.GetPosition();
     Pose2D targetPose = target;
-    Pose2D delta = targetPose.subtract(currentPose);
+    Pose2D delta = targetPose.subtract(currentPose).fixTheta();
     float deltaxy = delta.normalize().getXyMag();
-    return (deltaxy <= INTOLERANCEREACHED);
+    float deltatheta = delta.fixTheta().getTheta();
+    return ((deltaxy <= INTOLERANCEREACHED) && (deltatheta <= INRADIANSREACHED));
 }

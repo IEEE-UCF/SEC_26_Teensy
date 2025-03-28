@@ -118,9 +118,9 @@ PIDConfig pidConfigs[DRIVEMOTOR_COUNT]{
      .min = -MAX_VELOCITY,
      .maxRate = MAX_ACCELERATION,
      .thetaFix = false},
-    {.kp = 9.0f,
+    {.kp = 4.0f,
      .ki = 0.0f,
-     .kd = 0.1f,
+     .kd = 0.3f,
      .kaw = 0.00f,
      .timeConst = 0.5f,
      .max = MAX_ANGULAR_VELOCITY,
@@ -363,6 +363,7 @@ void loop()
           {
             updateDips(); // Wait until button.GetStates() is released
           }
+          servos.Attach();
           buttons.Update();
         }
       }
@@ -386,7 +387,16 @@ void loop()
     }
 
     // --- Servo Setup ---
-    CLOSED_POS = (rc.Get(8) == 255);
+    switch (ROBOT_CONTROL_TYPE)
+    {
+    case HARD:
+    case RASP_PI:
+      CLOSED_POS = true;
+      break;
+    case RC:
+      CLOSED_POS = (rc.Get(8) == 255);
+      break;
+    }
     if (CLOSED_POS)
     { // move servos to closed position
       sorter.MoveCenter();
@@ -450,10 +460,9 @@ void loop()
     switch (ROBOT_CONTROL_TYPE)
     {
     case HARD:
+    case RASP_PI:
     {
       switch (PROGRAM_SELECTION)
-      {
-      case NO_BOX: // Green
       {
         GlobalRead();
         GlobalUpdate();
@@ -463,6 +472,8 @@ void loop()
           // drive.PrintController(Serial, false);
         }
         drive.ReadAll(gyro.GetGyroData()[0]);
+      case NO_BOX: // Green
+      {
         if (update10Available)
         {
           update10Available = false;
@@ -480,27 +491,80 @@ void loop()
         if (update200Available)
         {
           update200Available = false;
+          // Path logic
           static int path_index = -1;
-          static bool path_set = false;
+          static bool command_set = false;
+          static elapsedMillis command_timer = 0;
           switch (path_index)
           {
-          case -1:
-            path_set = false;
+          case -1: // start
+            command_set = false;
+            path_index++;
             break;
-          case 0:
-            if (!path_set)
+          case 0: // slam into the left corner
+            if (!command_set)
             {
-              paths.addWaypoints(Paths::test_1);
-              path_set = true;
+              paths.addWaypoints(Paths::slam_left_corner);
+              command_set = true;
+              command_timer = 0;
             }
             if (paths.executePath())
             {
-              path_set = false;
+              command_set = false;
+              path_index++;
+            }
+            break;
+          case 1: // go to beacon position
+            if (!command_set)
+            {
+              paths.addWaypoints(Paths::beacon_position);
+              command_set = true;
+              command_timer = 0;
+            }
+            if (paths.executePath())
+            {
+              command_set = false;
+              path_index++;
+            }
+            break;
+          case 2: // lower servo arm
+            if (!command_set)
+            {
+              beacon.MoveDown();
+              command_set = true;
+              command_timer = 0;
+            }
+            if (command_timer > 2000)
+            {
+              command_set = false;
+              path_index++;
+            }
+            break;
+          case 3: // slide out beacon
+            if (!command_set)
+            {
+              paths.addWaypoints(Paths::beacon_pullout);
+              command_set = true;
+              command_timer = 0;
+            }
+            if (paths.executePath())
+            {
+              command_set = false;
               path_index++;
             }
             break;
           }
+          /*static bool path_clear = false;
+          path_clear = paths.executePath();
+          if (path_clear)
+          {
+            paths.addWaypoints(Paths::andrew_waypoint);
+          }*/
         }
+
+        // Drive update
+        drive.Set(drive.Step());
+        drive.Write();
       }
       case BOX: // Cyan
       {
@@ -509,10 +573,10 @@ void loop()
       }
       break;
     }
-    case RASP_PI:
-    {
-      break;
-    }
+
+      {
+        break;
+      }
     case REMOTE_CON:
     {
       GlobalRead();

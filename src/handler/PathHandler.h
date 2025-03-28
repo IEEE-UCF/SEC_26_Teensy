@@ -7,7 +7,9 @@
 #include "../drive/VectorRobotDrivePID.h"
 
 // Define the tolerance for reaching a waypoint
-#define INTOLERANCEREACHED 0.1f // Adjustable as needed
+#define INTOLERANCEREACHED 3.0f // Adjustable as needed
+#define INRADIANSREACHED 0.1f
+#define MINTIMEPAUSE 1.0f
 
 class PathHandler
 {
@@ -24,7 +26,7 @@ private:
     VectorRobotDrivePID &drive; // Reference to the robot drive
     std::vector<Pose2D> path;   // List of waypoints
     size_t currentPathIndex;    // Index of the current waypoint
-
+    long lastWaypointTime;
     bool hasReachedWaypoint(const Pose2D &target); // Check if the robot reached the target
 };
 
