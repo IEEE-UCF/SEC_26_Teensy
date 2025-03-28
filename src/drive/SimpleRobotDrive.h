@@ -19,7 +19,7 @@ public:
     void Write();
     virtual void PrintInfo(Print &output, bool printConfig = false) const;
     virtual void PrintLocal(Print &output) const;
-    Pose2D GetPosition() const;
+    Pose2D GetPosition() const { return localization.getPosition(); }
 
 protected:
     const int numMotors;

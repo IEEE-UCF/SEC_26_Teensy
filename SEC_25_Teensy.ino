@@ -23,6 +23,8 @@ using namespace GlobalColors;
 #include "src/drive/VectorRobotDrivePID.h"
 #include "src/drive/DriveMotor.h"
 
+#include "src/drive/paths.h"
+
 extern "C" void startup_early_hook(void);
 extern "C" void startup_middle_hook(void);
 extern "C" void unused_interrupt_vector(void); // startup.c
@@ -322,7 +324,7 @@ void loop()
         {
         case NO_BOX:
         {
-          rgb.setSectionSolidColor(2, PURPLE);
+          rgb.setSectionSolidColor(2, GREEN);
           break;
         }
         case BOX:
@@ -449,6 +451,62 @@ void loop()
     {
     case HARD:
     {
+      switch (PROGRAM_SELECTION)
+      {
+      case NO_BOX: // Green
+      {
+        GlobalRead();
+        GlobalUpdate();
+        GlobalStats();
+        if (GlobalPrint())
+        {
+          // drive.PrintController(Serial, false);
+        }
+        drive.ReadAll(gyro.GetGyroData()[0]);
+        if (update10Available)
+        {
+          update10Available = false;
+          if (buttons.GetStates()[0] && RESET_AVAILABLE) // Reset function
+          {
+            reset();
+          }
+          for (int i = 0; i < 5; i++) // Write RGB
+          {
+            rgb.setSectionSolidColor(i, GOLD);
+          }
+          break;
+        }
+
+        if (update200Available)
+        {
+          update200Available = false;
+          static int path_index = -1;
+          static bool path_set = false;
+          switch (path_index)
+          {
+          case -1:
+            path_set = false;
+            break;
+          case 0:
+            if (!path_set)
+            {
+              paths.addWaypoints(Paths::test_1);
+              path_set = true;
+            }
+            if (paths.executePath())
+            {
+              path_set = false;
+              path_index++;
+            }
+            break;
+          }
+        }
+      }
+      case BOX: // Cyan
+      {
+        break;
+      }
+      }
       break;
     }
     case RASP_PI:

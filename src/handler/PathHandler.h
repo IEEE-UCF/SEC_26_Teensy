@@ -18,6 +18,7 @@ public:
     void clearPath();                     // Clear all waypoints
     bool executePath();                   // Execute the path step by step
     void skipToNextPath();                // Skip to the next waypoint
+    void addWaypoints(const std::vector<Pose2D> &waypoints);
 
 private:
     VectorRobotDrivePID &drive; // Reference to the robot drive

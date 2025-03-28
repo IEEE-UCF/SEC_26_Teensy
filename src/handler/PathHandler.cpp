@@ -8,6 +8,14 @@ void PathHandler::addWaypoint(const Pose2D &pose)
     path.push_back(pose);
 }
 
+void PathHandler::addWaypoints(const std::vector<Pose2D> &waypoints)
+{
+    for (const Pose2D &waypoint : waypoints)
+    {
+        path.push_back(waypoint);
+    }
+}
+
 void PathHandler::clearPath()
 {
     path.clear();
