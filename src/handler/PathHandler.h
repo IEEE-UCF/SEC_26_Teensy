@@ -9,7 +9,7 @@
 // Define the tolerance for reaching a waypoint
 #define INTOLERANCEREACHED 3.0f // Adjustable as needed
 #define INRADIANSREACHED 0.1f
-#define MINTIMEPAUSE 1.0f
+#define MINTIMEPAUSE 0.5f
 
 class PathHandler
 {

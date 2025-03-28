@@ -510,6 +510,7 @@ void loop()
             }
             if (paths.executePath())
             {
+              drive.SetPosition(Pose2D(6, 6, PI * 0.5));
               command_set = false;
               path_index++;
             }
@@ -540,7 +541,20 @@ void loop()
               path_index++;
             }
             break;
-          case 3: // slide out beacon
+          case 3: // jostle beacon
+            if (!command_set)
+            {
+              paths.addWaypoints(Paths::jostle_beacon);
+              command_set = true;
+              command_timer = 0;
+            }
+            if (paths.executePath())
+            {
+              command_set = false;
+              path_index++;
+            }
+            break;
+          case 4: // slide out beacon
             if (!command_set)
             {
               paths.addWaypoints(Paths::beacon_pullout);

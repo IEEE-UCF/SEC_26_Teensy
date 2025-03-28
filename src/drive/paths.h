@@ -41,11 +41,16 @@ namespace Paths
     };
 
     std::vector<Pose2D> beacon_position = {
-        Pose2D(8, 27.5, 0.5 * PI),
+        Pose2D(11.5, 28.5, 0.5 * PI),
+    };
+
+    std::vector<Pose2D> jostle_beacon = {
+        Pose2D(11.5, 30.5, 0.5 * PI),
+        Pose2D(11.5, 26.5, 0.5 * PI),
     };
 
     std::vector<Pose2D> beacon_pullout = {
-        Pose2D(20, 27.5, 0.5 * PI),
+        Pose2D(20, 28.5, 0.5 * PI),
     };
 }
 #endif
