@@ -6,7 +6,7 @@
 #include "../handler/HallHandler.h"
 #include "../handler/ServoHandler.h"
 #include "../drive/DriveMotor.h"
-#include "../handler/rgbhandler.h"
+#include "../handler/RGBHandler.h"
 
 #define OBJECT_RANGE 55
 #define BOUNDS_MAG 2
