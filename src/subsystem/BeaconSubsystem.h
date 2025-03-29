@@ -16,7 +16,9 @@ public:
     enum Positions : uint8_t
     {
         UP = 0,
-        DOWN = 70
+        DOWN1 = 20,
+        DOWN2 = 40,
+        DOWN = 53
     };
 
 private:

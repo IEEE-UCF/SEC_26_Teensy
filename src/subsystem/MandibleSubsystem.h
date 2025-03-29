@@ -19,7 +19,7 @@ public:
     enum Positions : uint8_t
     {
         LEFT_OPEN = 180,
-        LEFT_CLOSE = 120,
+        LEFT_CLOSE = 110,
         RIGHT_OPEN = 0,
         RIGHT_CLOSE = 60
     };

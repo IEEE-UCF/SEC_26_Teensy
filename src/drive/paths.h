@@ -3,17 +3,17 @@
 #include "math/Pose2D.h"
 #include "LocalizationEncoder.h"
 
-#define BEACONX 11.5
-#define BEACONY 28.5
+#define BEACONX 12.5
+#define BEACONY 26.5
 #define NORTH (0.5 * PI)
 #define EAST 0.0
 #define SOUTH (-0.5 * PI)
 #define WEST PI
-#define GEODX 46.0
-#define MAXY 45.0
+#define GEODX 48.0
+#define MAXY 47.0
 #define NEBX 23.0
 #define CENTERY (MAXY / 2.0)
-#define MAXX 93.0
+#define MAXX 95.0
 #define LEFTCAVEWALLX 55.0
 #define MAINSWEEPLEFTX 0.0
 
@@ -21,8 +21,12 @@ namespace HardBox
 {
     std::vector<Pose2D> startToSlamSW90 = {
         Pose2D(31.5, 6, NORTH), // Beginning orientation
-        Pose2D(3, 9, NORTH),    // Slam left wall
-        Pose2D(3, 3, NORTH),    // Slam left bottom corner
+        Pose2D(31.5, BEACONY, NORTH),
+        Pose2D(31.5, BEACONY, WEST),
+        Pose2D(8, BEACONY, WEST),
+        Pose2D(8, BEACONY, NORTH),
+        Pose2D(10, 2, NORTH),
+        Pose2D(3, 2, NORTH),
     };
 
     // Set to (6, 6, NORTH)
@@ -34,8 +38,12 @@ namespace HardBox
     // Move beacon arm down
 
     std::vector<Pose2D> jostleBeaconPullout = {
-        Pose2D(BEACONX, BEACONY + 2, NORTH),
-        Pose2D(BEACONX, BEACONY - 2, NORTH),
+        Pose2D(BEACONX, BEACONY + 4, NORTH),
+        Pose2D(BEACONX, BEACONY - 4, NORTH),
+        Pose2D(BEACONX + 0.7, BEACONY + 4, NORTH),
+        Pose2D(BEACONX + 0.7, BEACONY - 4, NORTH),
+        Pose2D(BEACONX - 0.7, BEACONY + 4, NORTH),
+        Pose2D(BEACONX - 0.7, BEACONY - 4, NORTH),
         Pose2D(BEACONX, BEACONY, NORTH),
         Pose2D(BEACONX + 10, BEACONY, NORTH), // slide beacon out
         Pose2D(BEACONX + 10, BEACONY, WEST),  // prep for getting first bucket
@@ -107,7 +115,7 @@ namespace HardBox
         Pose2D(MAXX - 6 * 4, CENTERY, SOUTH),
         Pose2D(MAXX - 6 * 4, 6, SOUTH),
         Pose2D(MAXX - 6 * 4, CENTERY, SOUTH),
-        Pose2D(62 + 3, 3, SOUTH), // Ending slam, bottom left corner
+        Pose2D(62 + 5, 3, SOUTH), // Ending slam, bottom left corner
     };
 
     // set (65, CENTERY, SOUTH)

@@ -100,7 +100,7 @@ RCHandler rc;
 --- Motors ---
 */
 PIDConfig pidConfigs[DRIVEMOTOR_COUNT]{
-    {.kp = 5.00f,
+    {.kp = 8.00f,
      .ki = 0.00f,
      .kd = 0.05f,
      .kaw = 0.00f,
@@ -118,7 +118,7 @@ PIDConfig pidConfigs[DRIVEMOTOR_COUNT]{
      .min = -MAX_VELOCITY,
      .maxRate = MAX_ACCELERATION,
      .thetaFix = false},
-    {.kp = 4.0f,
+    {.kp = 7.0f,
      .ki = 0.0f,
      .kd = 0.3f,
      .kaw = 0.00f,
@@ -596,12 +596,11 @@ void loop()
           }
           break;
         }
-
+        static int path_index = -1;
         if (update200Available)
         {
           update200Available = false;
           // Path logic
-          static int path_index = -1;
           static bool command_set = false;
           static elapsedMillis command_timer = 0;
           switch (path_index)
@@ -634,6 +633,10 @@ void loop()
             if (paths.executePath())
             {
               beacon.MoveDown();
+              static elapsedMillis timer = 0;
+              while (timer < 0)
+              {
+              }
               command_set = false;
               path_index++;
             }
@@ -647,6 +650,7 @@ void loop()
             }
             if (paths.executePath())
             {
+              beacon.MoveUp();
               mandibles.OpenLeft();
               command_set = false;
               path_index++;
@@ -662,7 +666,11 @@ void loop()
             if (paths.executePath())
             {
               mandibles.CloseLeft();
-              delay(500);
+              static elapsedMillis timer = 0;
+              while (timer < 500)
+              {
+                servos.Update();
+              }
               drive.SetPosition(Pose2D(43, 6, WEST));
               command_set = false;
               path_index++;
@@ -678,6 +686,7 @@ void loop()
             if (paths.executePath())
             {
               drive.SetPosition(Pose2D(6, MAXY - 6, WEST));
+              mandibles.OpenRight();
               command_set = false;
               path_index++;
             }
@@ -692,7 +701,11 @@ void loop()
             if (paths.executePath())
             {
               mandibles.CloseRight();
-              delay(500);
+              static elapsedMillis timer = 0;
+              while (timer < 500)
+              {
+                servos.Update();
+              }
               command_set = false;
               path_index++;
             }
@@ -781,8 +794,15 @@ void loop()
             paths.addWaypoints(Paths::andrew_waypoint);
           }*/
         }
-
+        if (path_index < 5)
+        {
+          sorter.SetState(1);
+        }
         // Drive update
+        intakeMotor.Set(150);
+        sorter.Update();
+        intakeMotor.Write();
+        transferMotor.Write();
         drive.Set(drive.Step());
         drive.Write();
         break;
@@ -913,6 +933,7 @@ void GlobalUpdate()
   {
     rgbUpdate = 0;
     rgb.Update();
+    servos.Update();
   }
 }
 

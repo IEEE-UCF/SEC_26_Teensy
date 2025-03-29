@@ -33,8 +33,8 @@ namespace MotorConstants
     constexpr long TICKS_PER_REVOLUTION = RAW_TICKS_PER_REVOLUTION * GEAR_RATIO;
     constexpr float IN_PER_TICK = WHEEL_CIRCUMFERENCE / TICKS_PER_REVOLUTION;
 
-    constexpr float MAX_VELOCITY = 35.0f;
-    constexpr float MAX_ACCELERATION = 50.0f;
+    constexpr float MAX_VELOCITY = 30.0f;
+    constexpr float MAX_ACCELERATION = 30.0f;
     constexpr float MAX_ANGULAR_VELOCITY = 4.0f;
     constexpr float MAX_ANGULAR_ACCELERATION = 10.0f;
 
