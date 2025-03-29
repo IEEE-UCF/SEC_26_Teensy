@@ -8,7 +8,7 @@
 #include "../drive/DriveMotor.h"
 #include "../handler/RGBHandler.h"
 
-#define OBJECT_RANGE 55
+#define OBJECT_RANGE 75
 #define BOUNDS_MAG 2
 #define SORTER_HALL_COUNT 3
 

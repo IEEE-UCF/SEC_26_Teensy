@@ -416,7 +416,7 @@ void loop()
       rgb.setSectionStreakEffect(6, PURPLE, 150);
     }
 
-    if (light.GetLightLevel() > 500 || buttons.GetStates()[0])
+    if (light.GetLightLevel() > 75 || buttons.GetStates()[0])
     {
       rgb.stopAllEffects();
       static elapsedMillis timer = 0;
@@ -644,7 +644,14 @@ void loop()
           case 2: // jostle beacon, pullout
             if (!command_set)
             {
-              paths.addWaypoints(HardBox::jostleBeaconPullout);
+              paths.addWaypoints(HardBox::jostleBeacon);
+              paths.addWaypoint(Pose2D(BEACONX + 10, BEACONY, NORTH)); // slide beacon out)
+              paths.addWaypoint(Pose2D(BEACONX + 5, MAXY - 3, NORTH));
+              paths.addWaypoint(Pose2D(BEACONX + 5, MAXY - 13, NORTH));
+              paths.addWaypoint(Pose2D(BEACONX - 1, MAXY - 13, NORTH));
+              paths.addWaypoint(Pose2D(BEACONX - 1, MAXY - 3, NORTH));
+              paths.addWaypoint(Pose2D(BEACONX + 5, BEACONY - 4, NORTH));
+
               command_set = true;
               command_timer = 0;
             }
@@ -659,111 +666,110 @@ void loop()
           case 3: // go to get csc
             if (!command_set)
             {
-              paths.addWaypoints(HardBox::positionGeoCSC);
+              paths.addWaypoint(Pose2D(70, BEACONY - 4, NORTH));
+              paths.addWaypoint(Pose2D(50, BEACONY - 4, NORTH));
+              paths.addWaypoint(Pose2D(37, MAXY - 6, NORTH));
+              paths.addWaypoint(Pose2D(10, MAXY - 6, NORTH));
+              paths.addWaypoint(Pose2D(30, MAXY - 22, NORTH));
+              paths.addWaypoint(Pose2D(30, MAXY - 22, EAST));
+              paths.addWaypoint(Pose2D(30, MAXY - 2, EAST));
+              paths.addWaypoint(Pose2D(2, MAXY - 2, EAST));
               command_set = true;
               command_timer = 0;
             }
             if (paths.executePath())
             {
-              mandibles.CloseLeft();
+              drive.SetPosition(Pose2D(12, MAXY - 6, EAST));
+              transferMotor.Set(255);
               static elapsedMillis timer = 0;
-              while (timer < 500)
+              while (timer < 1000)
               {
-                servos.Update();
+                transferMotor.Write();
               }
-              drive.SetPosition(Pose2D(43, 6, WEST));
+              delay(1000);
+              transferMotor.Set(0);
+              transferMotor.Write();
               command_set = false;
-              path_index++;
-            }
-            break;
-          case 4: // top slam for neb csc
-            if (!command_set)
-            {
-              paths.addWaypoints(HardBox::positionNebCSC_1);
-              command_set = true;
-              command_timer = 0;
-            }
-            if (paths.executePath())
-            {
-              drive.SetPosition(Pose2D(6, MAXY - 6, WEST));
-              mandibles.OpenRight();
-              command_set = false;
-              path_index++;
-            }
-            break;
-          case 5: // align for neb csc
-            if (!command_set)
-            {
-              paths.addWaypoints(HardBox::positionNebCSC_2);
-              command_set = true;
-              command_timer = 0;
-            }
-            if (paths.executePath())
-            {
-              mandibles.CloseRight();
-              static elapsedMillis timer = 0;
-              while (timer < 500)
-              {
-                servos.Update();
-              }
-              command_set = false;
-              path_index++;
-            }
-            break;
-          case 6: // enter cave
-            if (!command_set)
-            {
-              paths.addWaypoints(HardBox::enterCave);
-              command_set = true;
-              command_timer = 0;
-            }
-            if (paths.executePath())
-            {
-              drive.SetPosition(Pose2D(MAXX - 6, CENTERY, EAST));
-              command_set = false;
-              path_index++;
+              path_index = 7;
             }
             break;
           case 7: // sweep north
             if (!command_set)
             {
-              paths.addWaypoints(HardBox::setupCaveSweepNorth);
-              paths.addWaypoints(HardBox::caveSweepNorth);
+              paths.addWaypoint(Pose2D(12, MAXY - 6, EAST));
+              paths.addWaypoint(Pose2D(50, MAXY - 8, EAST));
+              paths.addWaypoint(Pose2D(12, MAXY - 8, EAST));
+              paths.addWaypoint(Pose2D(18, MAXY - 3, EAST));
+              paths.addWaypoint(Pose2D(10, MAXY - 3, EAST));
               command_set = true;
               command_timer = 0;
             }
             if (paths.executePath())
             {
+              drive.SetPosition(Pose2D(12, MAXY - 6, EAST));
+              transferMotor.Set(255);
+              static elapsedMillis timer = 0;
+              while (timer < 1000)
+              {
+                transferMotor.Write();
+              }
+              delay(1000);
+              transferMotor.Set(0);
+              transferMotor.Write();
               command_set = false;
               path_index++;
             }
             break;
-          case 8: // sweep south
+          case 8:
             if (!command_set)
             {
-              paths.addWaypoints(HardBox::setupCaveSweepSouth);
-              paths.addWaypoints(HardBox::caveSweepSouth);
+              paths.addWaypoint(Pose2D(12, MAXY - 12, EAST));
+              paths.addWaypoint(Pose2D(50, MAXY - 12, EAST));
+              paths.addWaypoint(Pose2D(12, MAXY - 12, EAST));
+              paths.addWaypoint(Pose2D(18, MAXY - 3, EAST));
+              paths.addWaypoint(Pose2D(10, MAXY - 3, EAST));
               command_set = true;
               command_timer = 0;
             }
             if (paths.executePath())
             {
-              drive.SetPosition(Pose2D(65, CENTERY, SOUTH));
+              drive.SetPosition(Pose2D(12, MAXY - 6, EAST));
+              transferMotor.Set(255);
+              static elapsedMillis timer = 0;
+              while (timer < 1000)
+              {
+                transferMotor.Write();
+              }
+              delay(1000);
+              transferMotor.Set(0);
+              transferMotor.Write();
               command_set = false;
               path_index++;
             }
             break;
-          case 9: // exit cave, slam bottom left
+          case 9:
             if (!command_set)
             {
-              paths.addWaypoints(HardBox::caveExit);
-              paths.addWaypoints(HardBox::slamBottomLeft);
+              paths.addWaypoint(Pose2D(12, MAXY - 18, EAST));
+              paths.addWaypoint(Pose2D(50, MAXY - 18, EAST));
+              paths.addWaypoint(Pose2D(12, MAXY - 18, EAST));
+              paths.addWaypoint(Pose2D(18, MAXY - 3, EAST));
+              paths.addWaypoint(Pose2D(10, MAXY - 3, EAST));
               command_set = true;
               command_timer = 0;
             }
             if (paths.executePath())
             {
-              drive.SetPosition(Pose2D(6, 6, WEST));
+              drive.SetPosition(Pose2D(12, MAXY - 6, EAST));
+              transferMotor.Set(255);
+              static elapsedMillis timer = 0;
+              while (timer < 1000)
+              {
+                transferMotor.Write();
+              }
+              delay(1000);
+              transferMotor.Set(0);
+              transferMotor.Write();
               command_set = false;
               path_index++;
             }
@@ -771,19 +777,124 @@ void loop()
           case 10:
             if (!command_set)
             {
-              paths.addWaypoints(HardBox::mainSweep);
+              paths.addWaypoint(Pose2D(12, MAXY - 24, EAST));
+              paths.addWaypoint(Pose2D(40, MAXY - 24, EAST));
+              paths.addWaypoint(Pose2D(12, MAXY - 24, EAST));
+              paths.addWaypoint(Pose2D(18, MAXY - 3, EAST));
+              paths.addWaypoint(Pose2D(10, MAXY - 3, EAST));
               command_set = true;
               command_timer = 0;
             }
             if (paths.executePath())
             {
+              drive.SetPosition(Pose2D(12, MAXY - 6, EAST));
+              transferMotor.Set(255);
+              static elapsedMillis timer = 0;
+              while (timer < 1000)
+              {
+                transferMotor.Write();
+              }
+              delay(1000);
+              transferMotor.Set(0);
+              transferMotor.Write();
+              command_set = false;
               path_index++;
             }
             break;
           case 11:
+            if (!command_set)
+            {
+              paths.addWaypoint(Pose2D(12, MAXY - 30, EAST));
+              paths.addWaypoint(Pose2D(50, MAXY - 30, EAST));
+              paths.addWaypoint(Pose2D(12, MAXY - 30, EAST));
+              paths.addWaypoint(Pose2D(18, MAXY - 3, EAST));
+              paths.addWaypoint(Pose2D(10, MAXY - 3, EAST));
+              command_set = true;
+              command_timer = 0;
+            }
+            if (paths.executePath())
+            {
+              drive.SetPosition(Pose2D(12, MAXY - 6, EAST));
+              transferMotor.Set(255);
+              static elapsedMillis timer = 0;
+              while (timer < 1000)
+              {
+                transferMotor.Write();
+              }
+              delay(1000);
+              transferMotor.Set(0);
+              transferMotor.Write();
+              command_set = false;
+              path_index = 19;
+            }
+            break;
+          case 19: // sweep north
+            if (!command_set)
+            {
+              paths.addWaypoints(HardBox::setupCaveSweepNorth);
+              paths.addWaypoints(HardBox::caveSweepNorth);
+              paths.addWaypoints(HardBox::caveSweepReturn);
+              command_set = true;
+              command_timer = 0;
+            }
+            if (paths.executePath())
+            {
+              drive.SetPosition(Pose2D(12, MAXY - 6, EAST));
+              transferMotor.Set(255);
+              static elapsedMillis timer = 0;
+              while (timer < 1000)
+              {
+                transferMotor.Write();
+              }
+              delay(1000);
+              transferMotor.Set(0);
+              transferMotor.Write();
+              command_set = false;
+              path_index++;
+            }
+            break;
+          case 20: // sweep south
+            if (!command_set)
+            {
+              paths.addWaypoints(HardBox::setupCaveSweepSouth);
+              paths.addWaypoints(HardBox::caveSweepSouth);
+              paths.addWaypoints(HardBox::caveSweepReturn);
+              command_set = true;
+              command_timer = 0;
+            }
+            if (paths.executePath())
+            {
+              drive.SetPosition(Pose2D(12, MAXY - 6, EAST));
+              transferMotor.Set(255);
+              static elapsedMillis timer = 0;
+              while (timer < 3000)
+              {
+                transferMotor.Write();
+              }
+              delay(1000);
+              transferMotor.Set(0);
+              transferMotor.Write();
+              command_set = false;
+              path_index++;
+            }
+            break;
+          case 21:
+            if (!command_set)
+            {
+              paths.addWaypoint(Pose2D(31.5, 6, NORTH));
+              command_set = true;
+              command_timer = 0;
+            }
+            if (paths.executePath())
+            {
+              command_set = false;
+              path_index++;
+            }
+            break;
+          case 22:
             for (int i = 0; i < 7; i++)
             {
-              rgb.setSectionPulseEffect(i, GREEN, 100);
+              rgb.setSectionSolidColor(i, GOLD);
             }
             break;
           }
@@ -794,23 +905,39 @@ void loop()
             paths.addWaypoints(Paths::andrew_waypoint);
           }*/
         }
-        if (path_index < 5)
-        {
-          sorter.SetState(1);
-        }
         // Drive update
-        intakeMotor.Set(150);
+        if (path_index != 22)
+        {
+          drive.Set(drive.Step());
+        }
+        else
+        {
+          reset();
+        }
+        static elapsedMillis timer = 0;
+        if (timer > 5500)
+        {
+          timer = 0;
+        }
+        else if (timer > 5000)
+        {
+          intakeMotor.Set(-50);
+        }
+        else
+        {
+          intakeMotor.Set(150);
+        }
         sorter.Update();
+        transferMotor.Write();
         intakeMotor.Write();
         transferMotor.Write();
-        drive.Set(drive.Step());
         drive.Write();
         break;
       }
       }
       break;
     }
-    
+
     case REMOTE_CON:
     {
       GlobalRead();

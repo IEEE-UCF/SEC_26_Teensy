@@ -3,13 +3,13 @@
 #include "math/Pose2D.h"
 #include "LocalizationEncoder.h"
 
-#define BEACONX 12.5
-#define BEACONY 26.5
+#define BEACONX 9
+#define BEACONY 28.5
 #define NORTH (0.5 * PI)
 #define EAST 0.0
 #define SOUTH (-0.5 * PI)
 #define WEST PI
-#define GEODX 48.0
+#define GEODX 50.0
 #define MAXY 47.0
 #define NEBX 23.0
 #define CENTERY (MAXY / 2.0)
@@ -26,27 +26,26 @@ namespace HardBox
         Pose2D(8, BEACONY, WEST),
         Pose2D(8, BEACONY, NORTH),
         Pose2D(10, 2, NORTH),
-        Pose2D(3, 2, NORTH),
+        Pose2D(2, 2, NORTH),
     };
 
     // Set to (6, 6, NORTH)
 
     std::vector<Pose2D> supposedBeacon = {
-        Pose2D(BEACONX, BEACONY, NORTH),
+        Pose2D(BEACONX, BEACONY - 2, NORTH),
     };
 
     // Move beacon arm down
 
-    std::vector<Pose2D> jostleBeaconPullout = {
-        Pose2D(BEACONX, BEACONY + 4, NORTH),
-        Pose2D(BEACONX, BEACONY - 4, NORTH),
-        Pose2D(BEACONX + 0.7, BEACONY + 4, NORTH),
-        Pose2D(BEACONX + 0.7, BEACONY - 4, NORTH),
-        Pose2D(BEACONX - 0.7, BEACONY + 4, NORTH),
-        Pose2D(BEACONX - 0.7, BEACONY - 4, NORTH),
+    std::vector<Pose2D> jostleBeacon = {
+        Pose2D(BEACONX, BEACONY - 1, NORTH),
         Pose2D(BEACONX, BEACONY, NORTH),
-        Pose2D(BEACONX + 10, BEACONY, NORTH), // slide beacon out
-        Pose2D(BEACONX + 10, BEACONY, WEST),  // prep for getting first bucket
+        Pose2D(BEACONX, BEACONY + 2, NORTH),
+        Pose2D(BEACONX - 1.5, BEACONY - 1, NORTH),
+        Pose2D(BEACONX - 1.5, BEACONY, NORTH),
+        Pose2D(BEACONX - 1.5, BEACONY + 2, NORTH),
+        Pose2D(BEACONX, BEACONY, NORTH),
+
     };
 
     // Open geod servo
@@ -60,6 +59,13 @@ namespace HardBox
     // Close geod servo
     std::vector<Pose2D> positionNebCSC_1 = {
         Pose2D(3, MAXY - 3, WEST), // slam into top left corner
+    };
+
+    // Alt:
+    std::vector<Pose2D> depositCSC = {
+        Pose2D(31.5, 20, WEST),
+        Pose2D(31.5, 20, NORTH),
+        Pose2D(10, 20, NORTH),
     };
 
     // Set to (6, MAXY-6, WEST)
@@ -92,9 +98,8 @@ namespace HardBox
         Pose2D(MAXX - 6 * 3, CENTERY, NORTH),
         Pose2D(MAXX - 6 * 3, MAXY - 6, NORTH),
         Pose2D(MAXX - 6 * 3, CENTERY, NORTH),
-        Pose2D(MAXX - 6 * 4, CENTERY, NORTH),
-        Pose2D(MAXX - 6 * 4, MAXY - 6, NORTH),
-        Pose2D(MAXX - 6 * 4, CENTERY, NORTH),
+        Pose2D(45, CENTERY, NORTH),
+        Pose2D(45, CENTERY, EAST),
     };
 
     std::vector<Pose2D> setupCaveSweepSouth = {
@@ -112,11 +117,16 @@ namespace HardBox
         Pose2D(MAXX - 6 * 3, CENTERY, SOUTH),
         Pose2D(MAXX - 6 * 3, 6, SOUTH),
         Pose2D(MAXX - 6 * 3, CENTERY, SOUTH),
-        Pose2D(MAXX - 6 * 4, CENTERY, SOUTH),
-        Pose2D(MAXX - 6 * 4, 6, SOUTH),
-        Pose2D(MAXX - 6 * 4, CENTERY, SOUTH),
-        Pose2D(62 + 5, 3, SOUTH), // Ending slam, bottom left corner
+        Pose2D(45, CENTERY, SOUTH),
+        Pose2D(45, CENTERY, EAST),
     };
+
+    std::vector<Pose2D> caveSweepReturn = {
+        Pose2D(20, CENTERY, EAST),
+        Pose2D(20, MAXY - 3, EAST),
+        Pose2D(10, MAXY - 3, EAST),
+    };
+    // set normal starting position
 
     // set (65, CENTERY, SOUTH)
     std::vector<Pose2D> caveExit = {
