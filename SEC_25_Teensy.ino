@@ -790,10 +790,7 @@ void loop()
       }
       break;
     }
-
-      {
-        break;
-      }
+    
     case REMOTE_CON:
     {
       GlobalRead();
