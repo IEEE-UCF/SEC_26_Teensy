@@ -3,6 +3,162 @@
 #include "math/Pose2D.h"
 #include "LocalizationEncoder.h"
 
+#define BEACONX 11.5
+#define BEACONY 28.5
+#define NORTH (0.5 * PI)
+#define EAST 0.0
+#define SOUTH (-0.5 * PI)
+#define WEST PI
+#define GEODX 46.0
+#define MAXY 45.0
+#define NEBX 23.0
+#define CENTERY (MAXY / 2.0)
+#define MAXX 93.0
+#define LEFTCAVEWALLX 55.0
+#define MAINSWEEPLEFTX 0.0
+
+namespace HardBox
+{
+    std::vector<Pose2D> startToSlamSW90 = {
+        Pose2D(31.5, 6, NORTH), // Beginning orientation
+        Pose2D(3, 9, NORTH),    // Slam left wall
+        Pose2D(3, 3, NORTH),    // Slam left bottom corner
+    };
+
+    // Set to (6, 6, NORTH)
+
+    std::vector<Pose2D> supposedBeacon = {
+        Pose2D(BEACONX, BEACONY, NORTH),
+    };
+
+    // Move beacon arm down
+
+    std::vector<Pose2D> jostleBeaconPullout = {
+        Pose2D(BEACONX, BEACONY + 2, NORTH),
+        Pose2D(BEACONX, BEACONY - 2, NORTH),
+        Pose2D(BEACONX, BEACONY, NORTH),
+        Pose2D(BEACONX + 10, BEACONY, NORTH), // slide beacon out
+        Pose2D(BEACONX + 10, BEACONY, WEST),  // prep for getting first bucket
+    };
+
+    // Open geod servo
+
+    std::vector<Pose2D> positionGeoCSC = {
+        Pose2D(BEACONX + 10, 3, WEST), // slam into wall
+        Pose2D(GEODX - 3, 3, WEST),    // align for clamping geodinium container
+    };
+
+    // Set to (43, 6, WEST)
+    // Close geod servo
+    std::vector<Pose2D> positionNebCSC_1 = {
+        Pose2D(3, MAXY - 3, WEST), // slam into top left corner
+    };
+
+    // Set to (6, MAXY-6, WEST)
+    std::vector<Pose2D> positionNebCSC_2 = {
+        Pose2D(NEBX - 3, MAXY - 6, WEST), // align for clamping neodinium container
+    };
+
+    // Close neod servo
+
+    std::vector<Pose2D> enterCave = {
+        Pose2D(NEBX - 3, CENTERY, WEST), // prep for entering cave
+        Pose2D(NEBX - 3, CENTERY, EAST),
+        Pose2D(MAXX - 3, CENTERY, EAST), // slam into east wall
+    };
+
+    // Set to (MAXX - 6, CENTERY, EASY)
+
+    std::vector<Pose2D> setupCaveSweepNorth = {
+        Pose2D(MAXX - 20, CENTERY, EAST),
+        Pose2D(MAXX - 20, CENTERY, NORTH),
+    };
+
+    std::vector<Pose2D> caveSweepNorth = {
+        Pose2D(MAXX - 6 * 1, CENTERY, NORTH),
+        Pose2D(MAXX - 6 * 1, MAXY - 6, NORTH),
+        Pose2D(MAXX - 6 * 1, CENTERY, NORTH),
+        Pose2D(MAXX - 6 * 2, CENTERY, NORTH),
+        Pose2D(MAXX - 6 * 2, MAXY - 6, NORTH),
+        Pose2D(MAXX - 6 * 2, CENTERY, NORTH),
+        Pose2D(MAXX - 6 * 3, CENTERY, NORTH),
+        Pose2D(MAXX - 6 * 3, MAXY - 6, NORTH),
+        Pose2D(MAXX - 6 * 3, CENTERY, NORTH),
+        Pose2D(MAXX - 6 * 4, CENTERY, NORTH),
+        Pose2D(MAXX - 6 * 4, MAXY - 6, NORTH),
+        Pose2D(MAXX - 6 * 4, CENTERY, NORTH),
+    };
+
+    std::vector<Pose2D> setupCaveSweepSouth = {
+        Pose2D(MAXX - 20, CENTERY, NORTH),
+        Pose2D(MAXX - 20, CENTERY, SOUTH),
+    };
+
+    std::vector<Pose2D> caveSweepSouth = {
+        Pose2D(MAXX - 6 * 1, CENTERY, SOUTH),
+        Pose2D(MAXX - 6 * 1, 6, SOUTH),
+        Pose2D(MAXX - 6 * 1, CENTERY, SOUTH),
+        Pose2D(MAXX - 6 * 2, CENTERY, SOUTH),
+        Pose2D(MAXX - 6 * 2, 6, SOUTH),
+        Pose2D(MAXX - 6 * 2, CENTERY, SOUTH),
+        Pose2D(MAXX - 6 * 3, CENTERY, SOUTH),
+        Pose2D(MAXX - 6 * 3, 6, SOUTH),
+        Pose2D(MAXX - 6 * 3, CENTERY, SOUTH),
+        Pose2D(MAXX - 6 * 4, CENTERY, SOUTH),
+        Pose2D(MAXX - 6 * 4, 6, SOUTH),
+        Pose2D(MAXX - 6 * 4, CENTERY, SOUTH),
+        Pose2D(62 + 3, 3, SOUTH), // Ending slam, bottom left corner
+    };
+
+    // set (65, CENTERY, SOUTH)
+    std::vector<Pose2D> caveExit = {
+        Pose2D(MAXX - 20, CENTERY, SOUTH),
+        Pose2D(MAXX - 20, CENTERY, WEST),
+        Pose2D(25, CENTERY, WEST),
+    };
+
+    std::vector<Pose2D> slamBottomLeft = {
+        Pose2D(3, 3, WEST),
+    };
+
+    // set (6, 6, WEST)
+
+    std::vector<Pose2D> setupMainSweep = {
+        Pose2D(20, 20, WEST),
+        Pose2D(20, 20, EAST),
+    };
+
+    std::vector<Pose2D> mainSweep = {
+        Pose2D(MAINSWEEPLEFTX + 3, 6, EAST),
+        Pose2D(LEFTCAVEWALLX - 3, 7, EAST),
+        Pose2D(MAINSWEEPLEFTX + 3, 6, EAST),
+
+        Pose2D(MAINSWEEPLEFTX + 3, 6 * 2, EAST),
+        Pose2D(LEFTCAVEWALLX - 3, 6 * 2, EAST),
+        Pose2D(MAINSWEEPLEFTX + 3, 6 * 2, EAST),
+
+        Pose2D(MAINSWEEPLEFTX + 3, 6 * 3, EAST),
+        Pose2D(LEFTCAVEWALLX - 3, 6 * 3, EAST),
+        Pose2D(MAINSWEEPLEFTX + 3, 6 * 3, EAST),
+
+        Pose2D(MAINSWEEPLEFTX + 3, 6 * 4, EAST),
+        Pose2D(LEFTCAVEWALLX - 3, 6 * 4, EAST),
+        Pose2D(MAINSWEEPLEFTX + 3, 6 * 4, EAST),
+
+        Pose2D(MAINSWEEPLEFTX + 3, 6 * 5, EAST),
+        Pose2D(LEFTCAVEWALLX - 3, 6 * 5, EAST),
+        Pose2D(MAINSWEEPLEFTX + 3, 6 * 5, EAST),
+
+        Pose2D(MAINSWEEPLEFTX + 3, 6 * 6, EAST),
+        Pose2D(LEFTCAVEWALLX - 3, 6 * 6, EAST),
+        Pose2D(MAINSWEEPLEFTX + 3, 6 * 6, EAST),
+
+        Pose2D(MAINSWEEPLEFTX + 3, 6 * 7, EAST),
+        Pose2D(LEFTCAVEWALLX - 3, 6 * 7, EAST),
+        Pose2D(MAINSWEEPLEFTX + 3, 6 * 7, EAST),
+    };
+};
+
 namespace Paths
 {
     std::vector<Pose2D> test_1 = {
@@ -53,4 +209,5 @@ namespace Paths
         Pose2D(20, 28.5, 0.5 * PI),
     };
 }
+
 #endif

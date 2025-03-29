@@ -579,9 +579,212 @@ void loop()
         // Drive update
         drive.Set(drive.Step());
         drive.Write();
+        break;
       }
       case BOX: // Cyan
       {
+        if (update10Available)
+        {
+          update10Available = false;
+          if (buttons.GetStates()[0] && RESET_AVAILABLE) // Reset function
+          {
+            reset();
+          }
+          for (int i = 0; i < 5; i++) // Write RGB
+          {
+            rgb.setSectionSolidColor(i, GOLD);
+          }
+          break;
+        }
+
+        if (update200Available)
+        {
+          update200Available = false;
+          // Path logic
+          static int path_index = -1;
+          static bool command_set = false;
+          static elapsedMillis command_timer = 0;
+          switch (path_index)
+          {
+          case -1: // start
+            command_set = false;
+            path_index++;
+            break;
+          case 0: // start to slam sw north
+            if (!command_set)
+            {
+              paths.addWaypoints(HardBox::startToSlamSW90);
+              command_set = true;
+              command_timer = 0;
+            }
+            if (paths.executePath())
+            {
+              drive.SetPosition(Pose2D(6, 6, NORTH));
+              command_set = false;
+              path_index++;
+            }
+            break;
+          case 1: // go to beacon position
+            if (!command_set)
+            {
+              paths.addWaypoints(HardBox::supposedBeacon);
+              command_set = true;
+              command_timer = 0;
+            }
+            if (paths.executePath())
+            {
+              beacon.MoveDown();
+              command_set = false;
+              path_index++;
+            }
+            break;
+          case 2: // jostle beacon, pullout
+            if (!command_set)
+            {
+              paths.addWaypoints(HardBox::jostleBeaconPullout);
+              command_set = true;
+              command_timer = 0;
+            }
+            if (paths.executePath())
+            {
+              mandibles.OpenLeft();
+              command_set = false;
+              path_index++;
+            }
+            break;
+          case 3: // go to get csc
+            if (!command_set)
+            {
+              paths.addWaypoints(HardBox::positionGeoCSC);
+              command_set = true;
+              command_timer = 0;
+            }
+            if (paths.executePath())
+            {
+              mandibles.CloseLeft();
+              delay(500);
+              drive.SetPosition(Pose2D(43, 6, WEST));
+              command_set = false;
+              path_index++;
+            }
+            break;
+          case 4: // top slam for neb csc
+            if (!command_set)
+            {
+              paths.addWaypoints(HardBox::positionNebCSC_1);
+              command_set = true;
+              command_timer = 0;
+            }
+            if (paths.executePath())
+            {
+              drive.SetPosition(Pose2D(6, MAXY - 6, WEST));
+              command_set = false;
+              path_index++;
+            }
+            break;
+          case 5: // align for neb csc
+            if (!command_set)
+            {
+              paths.addWaypoints(HardBox::positionNebCSC_2);
+              command_set = true;
+              command_timer = 0;
+            }
+            if (paths.executePath())
+            {
+              mandibles.CloseRight();
+              delay(500);
+              command_set = false;
+              path_index++;
+            }
+            break;
+          case 6: // enter cave
+            if (!command_set)
+            {
+              paths.addWaypoints(HardBox::enterCave);
+              command_set = true;
+              command_timer = 0;
+            }
+            if (paths.executePath())
+            {
+              drive.SetPosition(Pose2D(MAXX - 6, CENTERY, EAST));
+              command_set = false;
+              path_index++;
+            }
+            break;
+          case 7: // sweep north
+            if (!command_set)
+            {
+              paths.addWaypoints(HardBox::setupCaveSweepNorth);
+              paths.addWaypoints(HardBox::caveSweepNorth);
+              command_set = true;
+              command_timer = 0;
+            }
+            if (paths.executePath())
+            {
+              command_set = false;
+              path_index++;
+            }
+            break;
+          case 8: // sweep south
+            if (!command_set)
+            {
+              paths.addWaypoints(HardBox::setupCaveSweepSouth);
+              paths.addWaypoints(HardBox::caveSweepSouth);
+              command_set = true;
+              command_timer = 0;
+            }
+            if (paths.executePath())
+            {
+              drive.SetPosition(Pose2D(65, CENTERY, SOUTH));
+              command_set = false;
+              path_index++;
+            }
+            break;
+          case 9: // exit cave, slam bottom left
+            if (!command_set)
+            {
+              paths.addWaypoints(HardBox::caveExit);
+              paths.addWaypoints(HardBox::slamBottomLeft);
+              command_set = true;
+              command_timer = 0;
+            }
+            if (paths.executePath())
+            {
+              drive.SetPosition(Pose2D(6, 6, WEST));
+              command_set = false;
+              path_index++;
+            }
+            break;
+          case 10:
+            if (!command_set)
+            {
+              paths.addWaypoints(HardBox::mainSweep);
+              command_set = true;
+              command_timer = 0;
+            }
+            if (paths.executePath())
+            {
+              path_index++;
+            }
+            break;
+          case 11:
+            for (int i = 0; i < 7; i++)
+            {
+              rgb.setSectionPulseEffect(i, GREEN, 100);
+            }
+            break;
+          }
+          /*static bool path_clear = false;
+          path_clear = paths.executePath();
+          if (path_clear)
+          {
+            paths.addWaypoints(Paths::andrew_waypoint);
+          }*/
+        }
+
+        // Drive update
+        drive.Set(drive.Step());
+        drive.Write();
         break;
       }
       }
