@@ -1,3 +1,7 @@
+/*
+Aldem Pido, Tino Hernandez - 4/1/25
+RCHandler.h - interfaces with flysky receiver
+*/
 #ifndef RCHANDLER_H
 #define RCHANDLER_H
 

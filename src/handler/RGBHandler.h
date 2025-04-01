@@ -1,3 +1,7 @@
+/*
+Rafeed Khan - 4/1/25
+RGBHandler.h - controls rgb strips divided into different sections on a robot
+*/
 #ifndef RGBHANDLER_H
 #define RGBHANDLER_H
 
@@ -19,11 +23,11 @@ namespace GlobalColors
     constexpr RGBColor GREEN = {0, 255, 0};
     constexpr RGBColor CYAN = {0, 255, 255};
     constexpr RGBColor RED = {255, 0, 0};
-    // constexpr RGBColor CYAN = {0, 255, 255};
+    constexpr RGBColor BLUE = {0, 0, 255};
 };
 
 constexpr uint8_t NUM_SECTIONS = 7;
-constexpr uint16_t SECTION_SIZES[NUM_SECTIONS] = {15, 10, 10, 10, 15, 4, 4}; // example sizes, change later idfk
+constexpr uint16_t SECTION_SIZES[NUM_SECTIONS] = {15, 10, 10, 10, 15, 4, 4}; // example sizes, change later if needed
 
 // compile-time calculation of total LED count
 constexpr uint16_t TOTAL_LEDS = []()
@@ -64,10 +68,15 @@ public:
     bool setSectionSolidColor(uint8_t section, const RGBColor &color);                                  // sets a section to a solid color
     bool setSectionPulseEffect(uint8_t section, const RGBColor &color, unsigned long speed);            // enables pulse effect
     bool setSectionStreakEffect(uint8_t section, const RGBColor &color, unsigned long speed);           // enables streak effect
-    void stopSectionEffect(uint8_t section);                                                            // stops effect in a section
-    bool setGlobalBrightness(uint8_t brightness);                                                       // adjusts global brightness
-    bool processCommand(const String &command);                                                         // processes external command inputs
-    void stopAllEffects();                                                                              // stops all active effects
+
+    // overloaded declarations that accept a reverse flag
+    bool setSectionStreakEffect(uint8_t section, uint8_t r, uint8_t g, uint8_t b, unsigned long speed, bool reverse);
+    bool setSectionStreakEffect(uint8_t section, const RGBColor &color, unsigned long speed, bool reverse);
+
+    bool processCommand(const String &command);   // processes external command inputs
+    void stopSectionEffect(uint8_t section);      // stops effect in a section
+    bool setGlobalBrightness(uint8_t brightness); // adjusts global brightness
+    void stopAllEffects();                        // stops all active effects
 
     void PrintInfo(Print &output, bool printConfig) const;
     friend Print &operator<<(Print &output, const RGBHandler &handler);
@@ -90,6 +99,9 @@ private:
         uint8_t streak_r, streak_g, streak_b; // color of the streak
         int streak_position = 0;              // current position of the streak
         uint8_t streak_trailLength = 2;       // length of the trail
+
+        // flag to indicate if the streak should be reversed
+        bool reverseStreak = false;
     };
 
     SectionEffect sections[NUM_SECTIONS];          // array storing effect states per section
@@ -109,14 +121,13 @@ private:
     uint8_t drawingMemory[TOTAL_LEDS * 3] __attribute__((aligned(32))); // buffer for LED drawing
     alignas(32) uint8_t displayMemory[TOTAL_LEDS * 12];                 // buffer for LED display
 
-    // compile-time LED count calculation
-    /*static constexpr uint16_t TOTAL_LEDS = []()
-    {
-        uint16_t total = 0;
-        for (auto size : SECTION_SIZES)
-            total += size;
-        return total;
-    }();*/
+    //    static constexpr uint16_t TOTAL_LEDS = []()
+    //    {
+    //        uint16_t total = 0;
+    //        for (auto size : SECTION_SIZES)
+    //            total += size;
+    //        return total;
+    //    }();
 };
 
 #endif

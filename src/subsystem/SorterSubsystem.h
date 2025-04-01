@@ -1,3 +1,7 @@
+/*
+Aldem Pido - 4/1/25
+SorterSubsystem.h - hall magnet detect sorter
+*/
 #ifndef SORTERSUBSYSTEM_H
 #define SORTERSUBSYSTEM_H
 
@@ -6,9 +10,9 @@
 #include "../handler/HallHandler.h"
 #include "../handler/ServoHandler.h"
 #include "../drive/DriveMotor.h"
-#include "../handler/rgbhandler.h"
+#include "../handler/RGBHandler.h"
 
-#define OBJECT_RANGE 55
+#define OBJECT_RANGE 75
 #define BOUNDS_MAG 2
 #define SORTER_HALL_COUNT 3
 

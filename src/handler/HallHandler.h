@@ -1,3 +1,7 @@
+/*
+Aldem Pido - 4/1/25
+HallHandler.h - Handles hall sensor readings
+*/
 #ifndef HALLHANDLER_H
 #define HALLHANDLER_H
 

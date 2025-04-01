@@ -1,3 +1,7 @@
+/*
+Aldem Pido - 4/1/25
+TOFHandler.h - handles multiple VL53L0X sensors
+*/
 #ifndef TOFHANDLER_H
 #define TOFHANDLER_H
 

@@ -1,3 +1,7 @@
+/*
+Aldem Pido - 4/1/25
+BeaconSubsystem.h - used to control the beacon on the robot
+*/
 #ifndef BEACONSUBSYSTEM_H
 #define BEACONSUBSYSTEM_H
 
@@ -16,7 +20,9 @@ public:
     enum Positions : uint8_t
     {
         UP = 0,
-        DOWN = 65
+        DOWN1 = 20,
+        DOWN2 = 40,
+        DOWN = 53
     };
 
 private:

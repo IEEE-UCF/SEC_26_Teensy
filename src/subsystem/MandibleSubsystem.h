@@ -1,3 +1,7 @@
+/*
+Aldem Pido - 4/1/25
+MandibleSubsystem.h - subsystem for the mandibles on the back of the robot
+*/
 #ifndef MANDIBLESUBSYSTEM_H
 #define MANDIBLESUBSYSTEM_H
 
@@ -19,9 +23,9 @@ public:
     enum Positions : uint8_t
     {
         LEFT_OPEN = 180,
-        LEFT_CLOSE = 120,
+        LEFT_CLOSE = 115,
         RIGHT_OPEN = 0,
-        RIGHT_CLOSE = 60
+        RIGHT_CLOSE = 55
     };
 
 private:

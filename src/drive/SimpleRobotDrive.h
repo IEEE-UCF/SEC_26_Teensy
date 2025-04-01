@@ -1,3 +1,7 @@
+/*
+Aldem Pido - 4/1/25
+SimpleRobotDrive.h - base class for a robot drive
+*/
 #ifndef SIMPLEROBOTDRIVE_H
 #define SIMPLEROBOTDRIVE_H
 
@@ -19,7 +23,8 @@ public:
     void Write();
     virtual void PrintInfo(Print &output, bool printConfig = false) const;
     virtual void PrintLocal(Print &output) const;
-    Pose2D GetPosition() const;
+    void SetPosition(const Pose2D &setPosition) { localization.setPosition(setPosition); }
+    Pose2D GetPosition() const { return localization.getPosition(); }
 
 protected:
     const int numMotors;

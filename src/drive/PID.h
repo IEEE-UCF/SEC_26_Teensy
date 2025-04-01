@@ -1,3 +1,8 @@
+/*
+Eren Siegman - 4/1/25
+PID.h - singular general-purpose PID
+*/
+
 #ifndef PID_H
 #define PID_H
 

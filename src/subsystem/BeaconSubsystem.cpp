@@ -16,6 +16,10 @@ void BeaconSubsystem::MoveUp()
 
 void BeaconSubsystem::MoveDown(int offset)
 {
+    servos.WriteServoAngle(indexBeacon, BeaconSubsystem::Positions::DOWN1);
+    delay(200);
+    servos.WriteServoAngle(indexBeacon, BeaconSubsystem::Positions::DOWN2);
+    delay(200);
     servos.WriteServoAngle(indexBeacon, BeaconSubsystem::Positions::DOWN + offset);
 }
 

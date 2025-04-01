@@ -1,3 +1,7 @@
+/*
+Aldem Pido - 4/1/25
+ButtonHandler.h - gets button input (or switch input)
+*/
 #ifndef ButtonHandler_h
 #define ButtonHandler_h
 

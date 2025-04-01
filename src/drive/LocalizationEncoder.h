@@ -1,3 +1,7 @@
+/*
+Aldem Pido - 4/1/25
+LocalizationEncoder.h - tracks robot's position using encoder counts and a gyro yaw reading
+*/
 #ifndef LOCALIZATIONENCODER_H
 #define LOCALIZATIONENCODER_H
 
@@ -5,6 +9,8 @@
 #include <Arduino.h>
 #include "MOTORCONFIG.h"
 
+#define STARTX 30.5
+#define STARTY 6
 using namespace MotorConstants;
 
 class LocalizationEncoder
