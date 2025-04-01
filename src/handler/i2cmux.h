@@ -1,3 +1,7 @@
+/*
+Aldem Pido - 4/1/25
+i2cmux.h - Handles TCA9548A/PCA9548A
+*/
 #ifndef I2CMUX_H
 #define I2CMUX_H
 

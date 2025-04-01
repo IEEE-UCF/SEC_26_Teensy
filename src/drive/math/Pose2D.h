@@ -1,3 +1,7 @@
+/*
+Rafeed Khan, Aldem Pido - 4/1/25
+Pose2D.h - Pose2D object used to represent objects in 2D spcae
+*/
 #ifndef Pose2D_H
 #define Pose2D_H
 

@@ -1,3 +1,7 @@
+/*
+Aldem Pido - 4/1/25
+PathHandler.h - handles waypoints and target positions
+*/
 #ifndef PathHandler_H
 #define PathHandler_H
 

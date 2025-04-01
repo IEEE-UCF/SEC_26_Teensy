@@ -1,3 +1,7 @@
+/*
+Aldem Pido - 4/1/25
+GyroHandler.h - gets readings from a bno08x
+*/
 #ifndef GYROHANDLER_H
 #define GYROHANDLER_H
 

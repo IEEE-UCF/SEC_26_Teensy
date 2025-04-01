@@ -1,3 +1,7 @@
+/*
+Aldem Pido - 4/1/25
+ServoHandler.h - Controls servos on a robot
+*/
 #ifndef ServoHandler_h
 #define ServoHandler_h
 

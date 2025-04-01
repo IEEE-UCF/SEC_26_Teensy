@@ -1,3 +1,8 @@
+/*
+Aldem Pido - 4/1/25
+SEC_25_Teensy.ino - main code control for the Teensy board
+Developed for IEEE Southeastcon Hardware Competition 2025
+*/
 
 // Include Libraries
 #include <Wire.h>
@@ -25,6 +30,7 @@ using namespace GlobalColors;
 
 #include "src/drive/paths.h"
 
+// These functions are used to control the state of pins while the teensy starts.
 extern "C" void startup_early_hook(void);
 extern "C" void startup_middle_hook(void);
 extern "C" void unused_interrupt_vector(void); // startup.c
@@ -40,21 +46,6 @@ extern "C" void unused_interrupt_vector(void); // startup.c
 #define TOF_COUNT 5
 #define HALL_COUNT 3
 #define BUTTON_COUNT 4
-
-// Motor pins
-/**
- * kPwm, kCW, kENCA, kENCB, rev
- */
-/*MotorSetup driveMotors[DRIVEMOTOR_COUNT] = {
-    {10, 24, 3, 4, true},  // left
-    {12, 11, 5, 6, false}, // center
-    {25, 9, 7, 8, false}   // right
-};
-
-MotorSetup nonDriveMotors[NONDRIVEMOTOR_COUNT] = {
-    {28, 29, 31, 30, true}, // intake
-    {33, 32, -1, -1, true}  // transfer
-};*/
 
 MotorSetup driveMotors[DRIVEMOTOR_COUNT] = {
     {10, 24, 3, 4, true}, // left

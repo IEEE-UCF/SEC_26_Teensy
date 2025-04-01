@@ -1,3 +1,7 @@
+/*
+Aldem Pido - 4/1/25
+MandibleSubsystem.h - subsystem for the mandibles on the back of the robot
+*/
 #ifndef MANDIBLESUBSYSTEM_H
 #define MANDIBLESUBSYSTEM_H
 

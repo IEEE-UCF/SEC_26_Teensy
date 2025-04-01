@@ -1,3 +1,7 @@
+/*
+Aldem Pido - 4/1/25
+MOTORCONFIG.h - define constants for year of 25's robot
+*/
 #ifndef MOTORCONFIG_H
 #define MOTORCONFIG_H
 

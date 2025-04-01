@@ -1,3 +1,7 @@
+/*
+Aldem Pido - 4/1/25
+LineHandler.h - handles line sensors on a robot
+*/
 #ifndef LINEHANDLER_H
 #define LINEHANDLER_H
 

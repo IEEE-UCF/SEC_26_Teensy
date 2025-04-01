@@ -1,3 +1,7 @@
+/*
+Aldem Pido - 4/1/25
+BeaconSubsystem.h - used to control the beacon on the robot
+*/
 #ifndef BEACONSUBSYSTEM_H
 #define BEACONSUBSYSTEM_H
 

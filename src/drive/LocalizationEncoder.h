@@ -1,3 +1,7 @@
+/*
+Aldem Pido - 4/1/25
+LocalizationEncoder.h - tracks robot's position using encoder counts and a gyro yaw reading
+*/
 #ifndef LOCALIZATIONENCODER_H
 #define LOCALIZATIONENCODER_H
 

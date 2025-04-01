@@ -1,3 +1,7 @@
+/*
+Aldem Pido - 4/1/25
+LightHandler.h - handles BH1750 light sensor
+*/
 #ifndef LIGHTHANDLER_H
 #define LIGHTHANDLER_H
 

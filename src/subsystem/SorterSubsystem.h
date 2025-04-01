@@ -1,3 +1,7 @@
+/*
+Aldem Pido - 4/1/25
+SorterSubsystem.h - hall magnet detect sorter
+*/
 #ifndef SORTERSUBSYSTEM_H
 #define SORTERSUBSYSTEM_H
 
