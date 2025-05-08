@@ -1,4 +1,7 @@
 
+/*
+Pose2D.cpp - Pose2D Object used to represent components in 2D space
+*/
 #include "Pose2D.h"
 #include <Arduino.h>
 #include <math.h>
@@ -6,8 +9,8 @@
 /**
  * Creates a Pose2D. Has an x, y, and theta. Use however you'd like
  */
-Pose2D::Pose2D(float x, float y, float theta, float xymag, bool debug)
-    : x(x), y(y), theta(theta), xymag(xymag), normalized(false), debugMode(debug)
+Pose2D::Pose2D(float x, float y, float theta, float xymag)
+    : x(x), y(y), theta(theta), xymag(xymag), normalized(false)
 {
     if (this->xymag < 1e-6f)
         this->xymag = 1.0f;
@@ -15,8 +18,9 @@ Pose2D::Pose2D(float x, float y, float theta, float xymag, bool debug)
 
 /**
  * Normalizes magnitude of x and y to 1
+ * @param scaleTheta option to also scale Theta
  */
-Pose2D &Pose2D::normalize()
+Pose2D &Pose2D::normalize(bool scaleTheta)
 {
     if (!normalized)
     {
@@ -27,11 +31,15 @@ Pose2D &Pose2D::normalize()
             xymag = 1.0f;
             x = 0.0f;
             y = 0.0f;
+            if (scaleTheta)
+                theta = 0.0f;
         }
         else
         {
             x /= xymag;
             y /= xymag;
+            if (scaleTheta)
+                theta /= xymag;
         }
         normalized = true;
     }
@@ -39,30 +47,8 @@ Pose2D &Pose2D::normalize()
 }
 
 /**
- * Binds theta on pi bounds
- */
-Pose2D &Pose2D::fixTheta()
-{
-    theta = fmod(theta, 2 * PI);
-    while (theta >= PI)
-        theta -= 2 * PI;
-    while (theta < -PI)
-        theta += 2 * PI;
-    return *this;
-}
-
-/**
- * Noramlize with pi bounds
- */
-Pose2D &Pose2D::fullNormalize()
-{
-    normalize();
-    fixTheta();
-    return *this;
-}
-
-/**
- * Unnormalizes pose
+ * Scales pose based on xymag
+ * @param scaleTheta option to also scale Theta
  */
 Pose2D &Pose2D::unnormalize(bool scaleTheta)
 {
@@ -71,15 +57,26 @@ Pose2D &Pose2D::unnormalize(bool scaleTheta)
         constexpr float MIN_XYMAG = 1e-3f;
         if (xymag < MIN_XYMAG)
             xymag = MIN_XYMAG;
-
         x *= xymag;
         y *= xymag;
         if (scaleTheta)
             theta *= xymag;
-
         xymag = 1.0f;
         normalized = false;
     }
+    return *this;
+}
+
+/**
+ * Binds theta on +- pi bounds, ideal for position
+ */
+Pose2D &Pose2D::fixTheta()
+{
+    theta = fmod(theta, 2 * PI);
+    if (theta >= PI)
+        theta -= 2 * PI;
+    else if (theta < -PI)
+        theta += 2 * PI;
     return *this;
 }
 
@@ -95,11 +92,16 @@ Pose2D &Pose2D::constrainXyMag(float magnitude)
     return *this;
 }
 
+/**
+ * Constrains theta.
+ * @param magnitude magnitude of theta
+ */
 Pose2D &Pose2D::constrainTheta(float magnitude)
 {
     constrain(theta, -magnitude, magnitude);
     return *this;
 }
+
 /**
  * Rotate vector
  * @param angle angle to rate by in radians
@@ -122,6 +124,16 @@ Pose2D &Pose2D::rotateVectorCached(float cosAngle, float sinAngle)
     const float newY = x * sinAngle + y * cosAngle;
     x = newX;
     y = newY;
+    return *this;
+}
+
+/**
+ * Rotate (theta)
+ * @param dtheta: change in theta
+ */
+Pose2D &Pose2D::rotate(float dtheta)
+{
+    theta += dtheta;
     return *this;
 }
 
@@ -181,28 +193,6 @@ Pose2D &Pose2D::reset()
     x = 0;
     y = 0;
     theta = 0;
-    return *this;
-}
-
-/**
- * Translate pose (x, y)
- * @param dx: change in x
- * @param dy: change in y
- */
-Pose2D &Pose2D::translate(float dx, float dy)
-{
-    x += dx;
-    y += dy;
-    return *this;
-}
-
-/**
- * Rotate (theta)
- * @param dtheta: change in theta
- */
-Pose2D &Pose2D::rotate(float dtheta)
-{
-    theta += dtheta;
     return *this;
 }
 
