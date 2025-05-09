@@ -23,7 +23,7 @@
 #include <type_traits>  // For std::is_same_v, std::enable_if_t, std::aligned_storage, std::void_t, std::true_type, std::false_type
 #include <utility>      // For std::forward, std::declval
 
-#include "../encoders/QuadEncoderHandler.h"
+#include "../encoders/QuadEncoderObject.h"
 
 // --- Forward Declarations ---
 // Forward declare the main Motor class template
@@ -483,9 +483,8 @@ class Motor {
     // --- Construct Encoder Member ---
     // Will only construct if the encoder is not NoEncoder. Uses placement new.
     if constexpr (!std::is_same_v<EncoderType, NoEncoder>) {
-      // Use placement new to construct the EncoderType object directly in encoder_storage_
-      // The reference member 'encoder_' is then bound to this newly constructed object.
-      new (&encoder_) EncoderType(std::forward<EncoderArgs>(encoder_args)...);
+      new (&encoder_storage_)
+          EncoderType(std::forward<EncoderArgs>(encoder_args)...);  // <-- Target changed
     }
   }
 
@@ -500,7 +499,8 @@ class Motor {
   ~Motor() {
     // If EncoderType is not NoEncoder, explicitly call the destructor of the encoder object
     if constexpr (!std::is_same_v<EncoderType, NoEncoder>) {
-      encoder_.~EncoderType();  // Explicitly call destructor for object in storage
+      reinterpret_cast<EncoderType *>(&encoder_storage_)
+          ->~EncoderType();  // <-- Method of calling destructor changed
     }
     // Note: Member variables constants_ and pin_config_ have their destructors
     // called automatically after the explicit encoder destructor call.
@@ -519,7 +519,7 @@ class Motor {
     if constexpr (!std::is_same_v<EncoderType, NoEncoder>) {
       // Check if the encoder type has a 'beginEnc' method and call it if it exists
       if constexpr (has_method_beginEnc_v<EncoderType>) {
-        encoder_.beginEnc();  // Call the beginEnc method on the encoder object
+        getOwnedEncoder().beginEnc();  // Call the beginEnc method on the encoder object
       }
       // Add other method existence checks and calls for specific encoder types if they have a
       // 'beginEnc' method variant
@@ -546,7 +546,7 @@ class Motor {
     if constexpr (!std::is_same_v<EncoderType, NoEncoder>) {
       // Check if the encoder type has an 'updateEnc' method and call it if it exists
       if constexpr (has_method_updateEnc_v<EncoderType>) {
-        encoder_.updateEnc();  // Call the updateEnc method on the encoder object
+        getOwnedEncoder().updateEnc();  // Call the updateEnc method on the encoder object
       }
       // Add calls for other specific encoder types if needed using similar method existence
       // checks
@@ -668,7 +668,7 @@ class Motor {
     // Use if constexpr and method traits to call the correct method if it exists
     // The SFINAE already guarantees getEnc exists if we reach here, but double-checking is fine
     if constexpr (has_method_getEnc_v<EncoderType>) {
-      return encoder_.getEnc();  // Call getEnc() on the encoder object
+      getOwnedEncoder().getEnc();  // Call getEnc() on the encoder object
     } else {
       // This static_assert should theoretically not be reachable if SFINAE works correctly
       // and the outer if constexpr guards are correct, but left as a fallback.
@@ -696,7 +696,7 @@ class Motor {
   {
     // Check if the encoder type has a 'resetEnc' method and call it if it exists
     if constexpr (has_method_resetEnc_v<EncoderType>) {
-      encoder_.resetEnc();  // Call resetEnc() on the encoder object
+      getOwnedEncoder().resetEnc();  // Call resetEnc() on the encoder object
     } else {
       // This static_assert should theoretically not be reachable if SFINAE works correctly
       // and the outer if constexpr guards are correct, but left as a fallback.
@@ -733,22 +733,21 @@ class Motor {
    */
   typename std::aligned_storage<sizeof(EncoderType), alignof(EncoderType)>::type encoder_storage_;
 
-  /**
-   * @brief Reference to the encoder object stored in `encoder_storage_`.
-   *
-   * This reference is bound via `reinterpret_cast` to the `encoder_storage_`
-   * memory location. It is valid only after the encoder object is constructed
-   * via placement new in the constructor (if `EncoderType` is not `NoEncoder`)
-   * and before its destructor is explicitly called in the `Motor` destructor.
-   * It provides convenient access to the in-place constructed encoder object.
-   *
-   * @warning Accessing this reference when `EncoderType` is `NoEncoder` or
-   * before/after object lifetime within `encoder_storage_` results in
-   * undefined behavior. Access is guarded by `if constexpr` and SFINAE in public methods.
-   */
-  EncoderType &encoder_ = reinterpret_cast<EncoderType &>(encoder_storage_);
-
   // --- Helper Methods (Private) ---
+
+  /**
+   * @brief Safely accesses the owned encoder object stored in `encoder_storage_`.
+   *
+   */
+  EncoderType &getOwnedEncoder() { return *reinterpret_cast<EncoderType *>(&encoder_storage_); }
+
+  /**
+   * @brief Safely accesses the owned encoder object stored in `encoder_storage_` (const version).
+   *
+   */
+  const EncoderType &getOwnedEncoder() const {
+    return *reinterpret_cast<const EncoderType *>(&encoder_storage_);
+  }
 
   /**
    * @brief Calculates the raw motor command from a speed input value.
