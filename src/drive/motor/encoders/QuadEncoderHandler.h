@@ -33,10 +33,10 @@ class QuadEncoderHandler {
  public:
   explicit QuadEncoderHandler(const QuadEncoderSetup &config, Print &output);
   virtual ~QuadEncoderHandler() = default;
-  void Begin();
-  void UpdateEnc();
-  long GetEnc();
-  void PrintInfo(Print &output, bool printConfig = false) const;
+  void beginEnc();
+  void updateEnc();
+  long getEnc();
+  void printInfo(Print &output, bool printConfig = false) const;
   friend Print &operator<<(Print &output, const QuadEncoderHandler &enc);
 
  private:

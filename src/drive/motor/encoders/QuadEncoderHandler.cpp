@@ -7,8 +7,7 @@ Edit history
 */
 #include "QuadEncoderHandler.h"
 const int validEncoderPins[] = {0, 1, 2, 3, 4, 5, 7, 8, 30, 31, 33};
-const size_t numValidEncoderPins =
-    sizeof(validEncoderPins) / sizeof(validEncoderPins[0]);
+const size_t numValidEncoderPins = sizeof(validEncoderPins) / sizeof(validEncoderPins[0]);
 int QuadEncoderHandler::encoderNum = 1;
 
 /**
@@ -17,8 +16,7 @@ int QuadEncoderHandler::encoderNum = 1;
 bool pinCheck(int pin, const int *pinList, size_t listSize) {
   if (pin == -1)  // Check for sentinel value
     return false;
-  return std::find(pinList, pinList + listSize, pin) !=
-         (pinList + listSize);  // Use C++ function
+  return std::find(pinList, pinList + listSize, pin) != (pinList + listSize);  // Use C++ function
 }
 
 /**
@@ -26,13 +24,12 @@ bool pinCheck(int pin, const int *pinList, size_t listSize) {
  * @param config Setup pins for the encoder.
  * @param output Pass Serial in here.
  */
-QuadEncoderHandler::QuadEncoderHandler(const QuadEncoderSetup &config,
-                                       Print &output)
+QuadEncoderHandler::QuadEncoderHandler(const QuadEncoderSetup &config, Print &output)
     : config(config), output(output), enc(0) {}
 /**
  * Begin the encoder.
  */
-void QuadEncoderHandler::Begin() {
+void QuadEncoderHandler::beginEnc() {
   if (!pinCheck(config.kENCA, validEncoderPins, numValidEncoderPins) ||
       !pinCheck(config.kENCB, validEncoderPins, numValidEncoderPins)) {
     output.println("Invalid quad encoder pins");
@@ -42,8 +39,7 @@ void QuadEncoderHandler::Begin() {
     output.println("Quad encoder limit reached");
     return;
   }
-  encoder =
-      std::make_unique<QuadEncoder>(encoderNum, config.kENCA, config.kENCB);
+  encoder = std::make_unique<QuadEncoder>(encoderNum, config.kENCA, config.kENCB);
   encoderNum++;
   encoder->setInitConfig();
   encoder->EncConfig.decoderWorkMode = config.workMode;
@@ -53,7 +49,7 @@ void QuadEncoderHandler::Begin() {
 /**
  * Update the encoder.
  */
-void QuadEncoderHandler::UpdateEnc() {
+void QuadEncoderHandler::updateEnc() {
   if (!encoder) return;
   enc = encoder->read();
   if (config.rev) {
@@ -64,14 +60,14 @@ void QuadEncoderHandler::UpdateEnc() {
 /**
  * Return the encoder value.
  */
-long QuadEncoderHandler::GetEnc() { return encoder ? enc : 0; }
+long QuadEncoderHandler::getEnc() { return encoder ? enc : 0; }
 
 /**
  * Print the encoder info
  * @param output pass Serial in here.
  * @param printConfig true or false.
  */
-void QuadEncoderHandler::PrintInfo(Print &output, bool printConfig) const {
+void QuadEncoderHandler::printInfo(Print &output, bool printConfig) const {
   if (printConfig) {
     output.print(F("QuadEncoderHandler Configuration: "));
     output.print(F("kENCA: "));
@@ -104,6 +100,6 @@ void QuadEncoderHandler::PrintInfo(Print &output, bool printConfig) const {
 }
 
 Print &operator<<(Print &output, const QuadEncoderHandler &encoder) {
-  encoder.PrintInfo(output, false);
+  encoder.printInfo(output, false);
   return output;
 }
