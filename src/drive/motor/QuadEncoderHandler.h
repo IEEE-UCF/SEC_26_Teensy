@@ -12,6 +12,8 @@ Edit history
 #include <memory>
 #include <algorithm>
 
+class QuadEncoder; // Fwd declaration
+
 /**
  * Setup for QuadEncoder. Workmode is 0 for normal use, 1 for FG and direction.
  */
@@ -21,6 +23,8 @@ struct QuadEncoderSetup
     int kENCB = -1;
     int workMode = 0; // 0 for normal use, 1 for FG and direction
     bool rev = false;
+    constexpr QuadEncoderSetup(int kA, int kB, int mode = 0, bool rev = false)
+        : kENCA(kA), kENCB(kB), workMode(mode), rev(rev) {}
 };
 
 class QuadEncoderHandler
