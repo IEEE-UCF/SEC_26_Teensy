@@ -9,9 +9,8 @@ i2cmux.h - Handles TCA9548A/PCA9548A
 
 #define TCAADDR 0x70
 
-namespace i2cmux
-{
-    void tcaselect(uint8_t i);
+namespace i2cmux {
+void tcaselect(uint8_t i);
 }
 
 #endif
