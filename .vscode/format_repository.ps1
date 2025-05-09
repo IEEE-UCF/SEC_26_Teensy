@@ -8,7 +8,7 @@ Set-Location -Path $ScriptDir\..
 Write-Host "Starting clang-format on the repository..."
 
 # Define the file extensions to format
-$Extensions = "*.cpp", "*.h", "*.c", "*.hpp", "*.hxx", "*.cxx"
+$Extensions = "*.cpp", "*.h", "*.c", "*.hpp", "*.hxx", "*.cxx", "*.ino"
 
 # Find files recursively and format them in place
 Get-ChildItem -Path . -Recurse -Include $Extensions | ForEach-Object {
