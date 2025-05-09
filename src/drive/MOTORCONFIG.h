@@ -5,7 +5,10 @@ MOTORCONFIG.h - define constants for year of 25's robot
 #ifndef MOTORCONFIG_H
 #define MOTORCONFIG_H
 
+#include <Arduino.h>
+
 #include <cmath>
+
 
 namespace MotorConstants {
 constexpr float TRACK_WIDTH = 10.0f;
