@@ -1,0 +1,16 @@
+# Brace style
+style=allman
+
+# Indentation
+indent=spaces=4
+indent-classes
+indent-switches
+indent-cases
+
+# Padding
+pad-oper
+pad-paren
+pad-header
+
+# Breaking
+break-blocks
