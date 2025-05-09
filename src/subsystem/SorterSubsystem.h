@@ -9,7 +9,7 @@ SorterSubsystem.h - hall magnet detect sorter
 #include "../handler/TOFHandler.h"
 #include "../handler/HallHandler.h"
 #include "../handler/ServoHandler.h"
-#include "../drive/DriveMotor.h"
+#include "../drive/motor/DriveMotor.h"
 #include "../handler/RGBHandler.h"
 
 #define OBJECT_RANGE 75
