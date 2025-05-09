@@ -1,10 +1,14 @@
-/*
-QuadEncoderObject.cpp - Interfacing class for using the Quadrature Encoder
-library
+/**
+ * @file QuadEncoderObject.cpp
+ * @brief Implementation of QuadEncoderObject class.
+ *
+ * Provides the implementation details
+ *
+ * @authors Aldem Pido
+ * @section edit_history Edit history
+ * 5/9/25 - Begin tracking
+ */
 
-Edit history
-5/8/25 - Begin tracking - Aldem Pido
-*/
 #include "QuadEncoderObject.h"
 const int validEncoderPins[] = {0, 1, 2, 3, 4, 5, 7, 8, 30, 31, 33};
 const size_t numValidEncoderPins = sizeof(validEncoderPins) / sizeof(validEncoderPins[0]);

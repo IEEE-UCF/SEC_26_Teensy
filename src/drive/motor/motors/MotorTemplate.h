@@ -216,9 +216,9 @@ struct LinearMotorConstants {
 #pragma endregion  // Motor Constants
 
 // --- Pin Configuration Structures ---
-#pragma region Pin Configurations
+#pragma region Motor Pin Configurations
 /**
- * @defgroup pin_config Pin Configurations
+ * @defgroup pin_config Motor Pin Configurations
  * @brief Structs defining motor driver pin layouts.
  */
 
@@ -322,7 +322,11 @@ struct FourSpeedDirDirEn {  // H-bridge style with enable
 // This allows using if constexpr to conditionally call methods on the EncoderType.
 #pragma region Helper Traits
 /**
- * @ingroup motor_template
+ * @defgroup motor_helper_traits Motor Helper Traits
+ */
+
+/**
+ * @ingroup motor_helper_traits
  * @brief Helper trait to check if a type has a `beginEnc()` member function.
  */
 template <typename, typename = std::void_t<>>
@@ -334,7 +338,7 @@ template <typename T>
 constexpr bool has_method_beginEnc_v = has_method_beginEnc_impl<T>::value;
 
 /**
- * @ingroup motor_template
+ * @ingroup motor_helper_traits
  * @brief Helper trait to check if a type has an `updateEnc()` member function.
  */
 template <typename, typename = std::void_t<>>
@@ -346,7 +350,7 @@ template <typename T>
 constexpr bool has_method_updateEnc_v = has_method_updateEnc_impl<T>::value;
 
 /**
- * @ingroup motor_template
+ * @ingroup motor_helper_traits
  * @brief Helper trait to check if a type has a `getEnc()` member function.
  */
 template <typename, typename = std::void_t<>>
@@ -358,7 +362,7 @@ template <typename T>
 constexpr bool has_method_getEnc_v = has_method_getEnc_impl<T>::value;
 
 /**
- * @ingroup motor_template
+ * @ingroup motor_helper_traits
  * @brief Helper trait to check if a type has a `resetEnc()` member function.
  */
 template <typename, typename = std::void_t<>>
