@@ -7,22 +7,21 @@ LineHandler.h - handles line sensors on a robot
 
 #include <Arduino.h>
 
-class LineHandler
-{
-public:
-    LineHandler(int *kPins, int numPins);
-    ~LineHandler();
-    void Setup();
-    void Update();
-    void PrintInfo(Print &output, bool printConfig = false) const;
+class LineHandler {
+ public:
+  LineHandler(int *kPins, int numPins);
+  ~LineHandler();
+  void Setup();
+  void Update();
+  void PrintInfo(Print &output, bool printConfig = false) const;
 
-private:
-    int *kPins;
-    int numPins;
-    int *lineValues;
+ private:
+  int *kPins;
+  int numPins;
+  int *lineValues;
 };
 
 // Overload the << operator for Print class
 Print &operator<<(Print &output, const LineHandler &handler);
 
-#endif // LINEHANDLER_H
+#endif  // LINEHANDLER_H

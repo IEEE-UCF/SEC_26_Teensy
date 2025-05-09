@@ -6,28 +6,22 @@ BeaconSubsystem.h - used to control the beacon on the robot
 #define BEACONSUBSYSTEM_H
 
 #include <Arduino.h>
+
 #include "../handler/ServoHandler.h"
 
-class BeaconSubsystem
-{
-public:
-    BeaconSubsystem(int indexBeacon, ServoHandler &servos);
-    void Begin();
-    void MoveUp();
-    void WriteAngle(int angle);
-    void MoveDown(int offset = 0);
+class BeaconSubsystem {
+ public:
+  BeaconSubsystem(int indexBeacon, ServoHandler &servos);
+  void Begin();
+  void MoveUp();
+  void WriteAngle(int angle);
+  void MoveDown(int offset = 0);
 
-    enum Positions : uint8_t
-    {
-        UP = 0,
-        DOWN1 = 20,
-        DOWN2 = 40,
-        DOWN = 53
-    };
+  enum Positions : uint8_t { UP = 0, DOWN1 = 20, DOWN2 = 40, DOWN = 53 };
 
-private:
-    int indexBeacon;
-    ServoHandler &servos;
+ private:
+  int indexBeacon;
+  ServoHandler &servos;
 };
 
 #endif
