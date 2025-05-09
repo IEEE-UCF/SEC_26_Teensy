@@ -26,7 +26,7 @@ using namespace GlobalColors;
 #include "src/drive/VectorRobotDrive.h"
 #include "src/drive/SimpleRobotDrive.h"
 #include "src/drive/VectorRobotDrivePID.h"
-#include "src/drive/DriveMotor.h"
+#include "src/drive/motor/DriveMotor.h"
 
 #include "src/drive/paths.h"
 

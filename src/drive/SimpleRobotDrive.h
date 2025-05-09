@@ -5,7 +5,7 @@ SimpleRobotDrive.h - base class for a robot drive
 #ifndef SIMPLEROBOTDRIVE_H
 #define SIMPLEROBOTDRIVE_H
 
-#include "DriveMotor.h"
+#include "motor/DriveMotor.h"
 #include "LocalizationEncoder.h"
 #include <Arduino.h>
 #include <Print.h>

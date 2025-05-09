@@ -1,6 +1,9 @@
 
 /*
 Pose2D.cpp - Pose2D Object used to represent components in 2D space
+
+Edit history:
+5/8/24 - Begin tracking - Rafeed Khan, Aldem Pido
 */
 #include "Pose2D.h"
 #include <Arduino.h>
