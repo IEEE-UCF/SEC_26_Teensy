@@ -2,41 +2,18 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Format Project with AStyle Script",
+            "label": "Format Repository (clang-format)",
             "type": "shell",
-            // The command property here can serve as a default,
-            // but the platform-specific properties below will override it.
-            "command": "",
-            "options": {
-                "cwd": "${workspaceFolder}" // Ensure the command starts from project root
+            "command": "${workspaceFolder}/.vscode/format_repository.ps1",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
             },
             "group": {
                 "kind": "build",
-                "isDefault": false // Set to true if you want Ctrl+Shift+B to run this task
+                "isDefault": false
             },
-            "presentation": {
-                "reveal": "always", // Show the terminal panel when the task runs
-                "panel": "new"     // Use a new terminal panel each time
-            },
-            "problemMatcher": [], // No problem matching needed for this task
-
-            // -- Platform-specific commands --
-
-            "windows": {
-                "command": "${workspaceFolder}/.vscode/format_project.ps1",
-                "runner": "powershell" // Explicitly use the powershell runner on Windows
-            },
-            "linux": {
-                "command": "bash ${workspaceFolder}/.vscode/format_project.sh"
-                // The default runner is usually bash or sh on Linux, so no "runner" needed unless you use a different shell
-            },
-            "osx": {
-                "command": "bash ${workspaceFolder}/.vscode/format_project.sh"
-                // The default runner is usually bash or zsh on macOS
-            }
-
-            // If you only develop on one OS, you can remove the sections for other OSes.
-            // For example, if only on Windows, remove the "linux" and "osx" blocks.
+            "problemMatcher": []
         }
     ]
 }
