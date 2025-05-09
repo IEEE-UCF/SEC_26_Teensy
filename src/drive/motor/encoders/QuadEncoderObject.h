@@ -1,12 +1,12 @@
 /*
-QuadEncoderHandler.h - Interfacing class for using the Quadrature Encoder
+QuadEncoderObject.h - Interfacing class for using the Quadrature Encoder
 library
 
 Edit history
 5/8/25 - Begin tracking - Aldem Pido
 */
-#ifndef QUADENCODERHANDLER_h
-#define QUADENCODERHANDLER_h
+#ifndef QUADENCODEROBJECT_h
+#define QUADENCODEROBJECT_h
 
 #include <Arduino.h>
 
@@ -29,15 +29,15 @@ struct QuadEncoderSetup {
       : kENCA(kA), kENCB(kB), workMode(mode), rev(rev) {}
 };
 
-class QuadEncoderHandler {
+class QuadEncoderObject {
  public:
-  explicit QuadEncoderHandler(const QuadEncoderSetup &config, Print &output);
-  virtual ~QuadEncoderHandler() = default;
+  explicit QuadEncoderObject(const QuadEncoderSetup &config, Print &output);
+  virtual ~QuadEncoderObject() = default;
   void beginEnc();
   void updateEnc();
   long getEnc();
   void printInfo(Print &output, bool printConfig = false) const;
-  friend Print &operator<<(Print &output, const QuadEncoderHandler &enc);
+  friend Print &operator<<(Print &output, const QuadEncoderObject &enc);
 
  private:
   const QuadEncoderSetup &config;

@@ -1,14 +1,14 @@
 /*
-QuadEncoderHandler.cpp - Interfacing class for using the Quadrature Encoder
+QuadEncoderObject.cpp - Interfacing class for using the Quadrature Encoder
 library
 
 Edit history
 5/8/25 - Begin tracking - Aldem Pido
 */
-#include "QuadEncoderHandler.h"
+#include "QuadEncoderObject.h"
 const int validEncoderPins[] = {0, 1, 2, 3, 4, 5, 7, 8, 30, 31, 33};
 const size_t numValidEncoderPins = sizeof(validEncoderPins) / sizeof(validEncoderPins[0]);
-int QuadEncoderHandler::encoderNum = 1;
+int QuadEncoderObject::encoderNum = 1;
 
 /**
  * Standard way to check if pin is contained in valid pin list.
@@ -24,12 +24,12 @@ bool pinCheck(int pin, const int *pinList, size_t listSize) {
  * @param config Setup pins for the encoder.
  * @param output Pass Serial in here.
  */
-QuadEncoderHandler::QuadEncoderHandler(const QuadEncoderSetup &config, Print &output)
+QuadEncoderObject::QuadEncoderObject(const QuadEncoderSetup &config, Print &output)
     : config(config), output(output), enc(0) {}
 /**
  * Begin the encoder.
  */
-void QuadEncoderHandler::beginEnc() {
+void QuadEncoderObject::beginEnc() {
   if (!pinCheck(config.kENCA, validEncoderPins, numValidEncoderPins) ||
       !pinCheck(config.kENCB, validEncoderPins, numValidEncoderPins)) {
     output.println("Invalid quad encoder pins");
@@ -49,7 +49,7 @@ void QuadEncoderHandler::beginEnc() {
 /**
  * Update the encoder.
  */
-void QuadEncoderHandler::updateEnc() {
+void QuadEncoderObject::updateEnc() {
   if (!encoder) return;
   enc = encoder->read();
   if (config.rev) {
@@ -60,16 +60,16 @@ void QuadEncoderHandler::updateEnc() {
 /**
  * Return the encoder value.
  */
-long QuadEncoderHandler::getEnc() { return encoder ? enc : 0; }
+long QuadEncoderObject::getEnc() { return encoder ? enc : 0; }
 
 /**
  * Print the encoder info
  * @param output pass Serial in here.
  * @param printConfig true or false.
  */
-void QuadEncoderHandler::printInfo(Print &output, bool printConfig) const {
+void QuadEncoderObject::printInfo(Print &output, bool printConfig) const {
   if (printConfig) {
-    output.print(F("QuadEncoderHandler Configuration: "));
+    output.print(F("QuadEncoderObject Configuration: "));
     output.print(F("kENCA: "));
     // Use if/else here because we print a string or an int
     if (config.kENCA == -1)
@@ -87,7 +87,7 @@ void QuadEncoderHandler::printInfo(Print &output, bool printConfig) const {
     output.print(F(", Reverse: "));
     output.println(config.rev ? F("True") : F("False"));
   } else {
-    output.print(F("QuadEncoderHandler State: "));
+    output.print(F("QuadEncoderObject State: "));
     output.print(F("Initialized: "));
     output.print(encoder ? F("True") : F("False"));
     if (encoder) {
@@ -99,7 +99,7 @@ void QuadEncoderHandler::printInfo(Print &output, bool printConfig) const {
   }
 }
 
-Print &operator<<(Print &output, const QuadEncoderHandler &encoder) {
+Print &operator<<(Print &output, const QuadEncoderObject &encoder) {
   encoder.printInfo(output, false);
   return output;
 }
