@@ -9,9 +9,7 @@ RCHandler::RCHandler() : updateTimer(0) {
 /**
  * Start the RC communication
  */
-void RCHandler::Begin(HardwareSerial &serial) {
-  IBus.begin(serial, IBUSBM_NOTIMER);
-}
+void RCHandler::Begin(HardwareSerial &serial) { IBus.begin(serial, IBUSBM_NOTIMER); }
 
 /**
  * Read the values from the rc
@@ -22,8 +20,7 @@ void RCHandler::Update() {
     IBus.loop();
     int32_t newPots[10];
     for (int i = 0; i < 10; i++) {
-      newPots[i] = map(constrain(IBus.readChannel(i), 1000, 2000) - 1000, 0,
-                       1000, -255, 255);
+      newPots[i] = map(constrain(IBus.readChannel(i), 1000, 2000) - 1000, 0, 1000, -255, 255);
     }
     if (newPots[9] == -255) {
       pots[0] = 0;

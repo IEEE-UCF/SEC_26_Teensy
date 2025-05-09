@@ -1,10 +1,8 @@
 #include "VectorRobotDrivePID.h"
 
-VectorRobotDrivePID::VectorRobotDrivePID(const MotorSetup motorSetups[],
-                                         int numMotors, Print &output,
-                                         const PIDConfig &xConfig,
-                                         const PIDConfig &yConfig,
-                                         const PIDConfig &thetaConfig)
+VectorRobotDrivePID::VectorRobotDrivePID(const MotorSetup motorSetups[], int numMotors,
+                                         Print &output, const PIDConfig &xConfig,
+                                         const PIDConfig &yConfig, const PIDConfig &thetaConfig)
     : VectorRobotDrive(motorSetups, numMotors, output),
       pidController(xConfig, yConfig, thetaConfig),
       targetPose(0, 0, DRIVER_START_OFFSET) {}
@@ -12,10 +10,9 @@ VectorRobotDrivePID::VectorRobotDrivePID(const MotorSetup motorSetups[],
 void VectorRobotDrivePID::SetTargetByVelocity(const Pose2D &speedPose) {
   static elapsedMicros callTime = 0;
   float totTime = callTime * 0.000001f;  // Convert microseconds to seconds
-  Pose2D deltaPose =
-      Pose2D(speedPose.getX(), speedPose.getY(), speedPose.getTheta())
-          .multConstant(totTime)
-          .multConstant(0.7f);
+  Pose2D deltaPose = Pose2D(speedPose.getX(), speedPose.getY(), speedPose.getTheta())
+                         .multConstant(totTime)
+                         .multConstant(0.7f);
   targetPose.add(deltaPose).fixTheta();
   callTime = 0;  // Reset the timer after updating
 }
@@ -39,8 +36,7 @@ void VectorRobotDrivePID::PrintLocal(Print &output) const {
   output << targetPose;
 }
 
-void VectorRobotDrivePID::PrintController(Print &output,
-                                          bool printConfig) const {
+void VectorRobotDrivePID::PrintController(Print &output, bool printConfig) const {
   output.println(F("PID Controller Details:"));
   pidController.PrintInfo(output, printConfig);
 }

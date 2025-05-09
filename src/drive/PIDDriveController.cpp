@@ -1,16 +1,13 @@
 #include "PIDDriveController.h"
 
-PIDDriveController::PIDDriveController(const PIDConfig &xConfig,
-                                       const PIDConfig &yConfig,
+PIDDriveController::PIDDriveController(const PIDConfig &xConfig, const PIDConfig &yConfig,
                                        const PIDConfig &thetaConfig)
     : xPID(xConfig), yPID(yConfig), thetaPID(thetaConfig) {}
 
-Pose2D PIDDriveController::Step(const Pose2D &currentPose,
-                                const Pose2D &targetPose) const {
+Pose2D PIDDriveController::Step(const Pose2D &currentPose, const Pose2D &targetPose) const {
   float xSpeed = xPID.Step(currentPose.getX(), targetPose.getX());
   float ySpeed = yPID.Step(currentPose.getY(), targetPose.getY());
-  float thetaSpeed =
-      thetaPID.Step(currentPose.getTheta(), targetPose.getTheta());
+  float thetaSpeed = thetaPID.Step(currentPose.getTheta(), targetPose.getTheta());
   Pose2D speedPose = Pose2D(xSpeed, ySpeed, thetaSpeed)
                          .constrainXyMag(MAX_VELOCITY)
                          .constrainTheta(MAX_ANGULAR_VELOCITY);

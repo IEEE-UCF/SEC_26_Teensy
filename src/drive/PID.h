@@ -27,8 +27,8 @@ struct PIDConfig {
 
 class PID {
  public:
-  PID(double kp, double ki, double kd, double kaw, double timeConst, double max,
-      double min, double maxRate, bool thetaFix)
+  PID(double kp, double ki, double kd, double kaw, double timeConst, double max, double min,
+      double maxRate, bool thetaFix)
       : kp(kp),
         ki(ki),
         kd(kd),

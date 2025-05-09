@@ -1,7 +1,6 @@
 #include "VectorRobotDrive.h"
 
-VectorRobotDrive::VectorRobotDrive(const MotorSetup motorSetups[],
-                                   int numMotors, Print &output)
+VectorRobotDrive::VectorRobotDrive(const MotorSetup motorSetups[], int numMotors, Print &output)
     : SimpleRobotDrive(motorSetups, numMotors, output),
       currentSpeedPose(0, 0, 0),
       idealSpeedPose(0, 0, 0) {}
@@ -37,17 +36,16 @@ void VectorRobotDrive::Set(const Pose2D &speedPose) {
     // input MAX_VELOCITY for each motor isn't really the correct way to
     // constrain things here, but the input magnitude should already be
     // constrained to max_velocity anyways
-    const float xTerm = constrain(motorCoeffs[i][0] * currentSpeedPose.getX(),
-                                  -MAX_VELOCITY, MAX_VELOCITY);
-    const float yTerm = constrain(motorCoeffs[i][1] * currentSpeedPose.getY(),
-                                  -MAX_VELOCITY, MAX_VELOCITY);
-    const float thetaTerm =
-        constrain(motorCoeffs[i][2] * currentSpeedPose.getTheta(),
-                  -MAX_ANGULAR_VELOCITY, MAX_ANGULAR_VELOCITY) *
-        TRACK_WIDTH * 0.5;
+    const float xTerm =
+        constrain(motorCoeffs[i][0] * currentSpeedPose.getX(), -MAX_VELOCITY, MAX_VELOCITY);
+    const float yTerm =
+        constrain(motorCoeffs[i][1] * currentSpeedPose.getY(), -MAX_VELOCITY, MAX_VELOCITY);
+    const float thetaTerm = constrain(motorCoeffs[i][2] * currentSpeedPose.getTheta(),
+                                      -MAX_ANGULAR_VELOCITY, MAX_ANGULAR_VELOCITY) *
+                            TRACK_WIDTH * 0.5;
 
-    const float motorSpeed = (xTerm + yTerm + thetaTerm) / WHEEL_CIRCUMFERENCE /
-                             MOTOR_RPS_NOLOAD * 255.0f;
+    const float motorSpeed =
+        (xTerm + yTerm + thetaTerm) / WHEEL_CIRCUMFERENCE / MOTOR_RPS_NOLOAD * 255.0f;
 
     motors[i]->Set(static_cast<int>(constrain(motorSpeed, -255, 255)));
   }
@@ -60,31 +58,25 @@ Pose2D VectorRobotDrive::ConstrainNewSpeedPose(Pose2D newSpeedPose) {
   float deltaTime = dt / 1000000.0f;  // Convert to seconds
 
   // Constrain the x, y, and theta components of currentSpeedPose
-  float deltaX =
-      constrain(newSpeedPose.getX() - idealSpeedPose.getX(),
-                -MAX_ACCELERATION * deltaTime, MAX_ACCELERATION * deltaTime);
+  float deltaX = constrain(newSpeedPose.getX() - idealSpeedPose.getX(),
+                           -MAX_ACCELERATION * deltaTime, MAX_ACCELERATION * deltaTime);
 
-  float deltaY =
-      constrain(newSpeedPose.getY() - idealSpeedPose.getY(),
-                -MAX_ACCELERATION * deltaTime, MAX_ACCELERATION * deltaTime);
+  float deltaY = constrain(newSpeedPose.getY() - idealSpeedPose.getY(),
+                           -MAX_ACCELERATION * deltaTime, MAX_ACCELERATION * deltaTime);
 
-  float deltaTheta =
-      constrain(newSpeedPose.getTheta() - idealSpeedPose.getTheta(),
-                -MAX_ANGULAR_ACCELERATION * TRACK_WIDTH * 0.5 * deltaTime,
-                MAX_ANGULAR_ACCELERATION * TRACK_WIDTH * 0.5 * deltaTime);
+  float deltaTheta = constrain(newSpeedPose.getTheta() - idealSpeedPose.getTheta(),
+                               -MAX_ANGULAR_ACCELERATION * TRACK_WIDTH * 0.5 * deltaTime,
+                               MAX_ANGULAR_ACCELERATION * TRACK_WIDTH * 0.5 * deltaTime);
 
   Pose2D deacceleratingScalar(
       isDeaccelerating(newSpeedPose.getX(), idealSpeedPose.getX()) ? 2 : 1,
       isDeaccelerating(newSpeedPose.getY(), idealSpeedPose.getY()) ? 2 : 1,
-      isDeaccelerating(newSpeedPose.getTheta(), idealSpeedPose.getTheta()) ? 2
-                                                                           : 1);
+      isDeaccelerating(newSpeedPose.getTheta(), idealSpeedPose.getTheta()) ? 2 : 1);
   Pose2D deltaPose(deltaX, deltaY, deltaTheta);
   deltaPose.multElement(deacceleratingScalar);
   // Update currentSpeedPose with constrained values
   // currentSpeedPose.add(deltaPose);
-  idealSpeedPose.add(deltaPose)
-      .constrainXyMag(MAX_VELOCITY)
-      .constrainTheta(MAX_ANGULAR_VELOCITY);
+  idealSpeedPose.add(deltaPose).constrainXyMag(MAX_VELOCITY).constrainTheta(MAX_ANGULAR_VELOCITY);
   dt = 0;
   return idealSpeedPose;
 }
@@ -100,8 +92,8 @@ bool VectorRobotDrive::isDeaccelerating(float newValue, float oldValue) {
  * @param theta theta
  * @param yaw yaw of the robot
  */
-Pose2D VectorRobotDrive::CalculateRCVector(float x, float y, float theta,
-                                           float yaw, bool positionControl) {
+Pose2D VectorRobotDrive::CalculateRCVector(float x, float y, float theta, float yaw,
+                                           bool positionControl) {
   Pose2D speedPose((abs(x) > 0.05f) ? x : 0.0f, (abs(y) > 0.05f) ? y : 0.0f,
                    (abs(theta) > 0.05f) ? theta : 0.0f);
   Pose2D scalePose(MAX_VELOCITY, MAX_VELOCITY, -MAX_ANGULAR_VELOCITY);
@@ -111,6 +103,5 @@ Pose2D VectorRobotDrive::CalculateRCVector(float x, float y, float theta,
   yaw = (positionControl) ? 0 : yaw;
   Pose2D angleOffsetPose = Pose2D(0, 0, -yaw + DRIVER_START_OFFSET).fixTheta();
   return speedPose.rotateVector(
-      angleOffsetPose
-          .getTheta());  // rotate vector by opposite current orientation
+      angleOffsetPose.getTheta());  // rotate vector by opposite current orientation
 }

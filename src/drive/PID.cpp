@@ -24,8 +24,7 @@ double PID::Step(double measurement, double setpoint) {
     integral += (ki * error + kaw * (prevSatCommand - prevCommand)) * timeStep;
 
     // Calculate filtered derivative
-    double deriv_filter =
-        (error - prevError + timeConst * derivPrev) / (timeStep + timeConst);
+    double deriv_filter = (error - prevError + timeConst * derivPrev) / (timeStep + timeConst);
 
     // Calculate command using PID equation
     double command = kp * error + integral + kd * deriv_filter;
@@ -38,8 +37,7 @@ double PID::Step(double measurement, double setpoint) {
 
     // Apply rate limiter
     float maxStep = maxRate * timeStep;
-    satCommand = constrain(satCommand, prevSatCommand - maxStep,
-                           prevSatCommand + maxStep);
+    satCommand = constrain(satCommand, prevSatCommand - maxStep, prevSatCommand + maxStep);
     if (abs(satCommand) - abs(prevSatCommand) < 0) {
       float deltaCommand = satCommand - prevSatCommand;
       satCommand += deltaCommand * 2;

@@ -13,8 +13,7 @@ LocalizationEncoder::LocalizationEncoder() : transform(0, 0, 0) {
  *
  * @param encoderCounts Array of encoder counts, {left, back, right}
  */
-void LocalizationEncoder::updatePosition(const long encoderCounts[3],
-                                         float yaw) {
+void LocalizationEncoder::updatePosition(const long encoderCounts[3], float yaw) {
   /*if (fabsf(trackWidth) < 1e-6f)
   {
       output.println(F("Error: TRACK_WIDTH invalid!"));
@@ -39,21 +38,19 @@ void LocalizationEncoder::updatePosition(const long encoderCounts[3],
   const float cosTheta = cosf(yaw);
   const float sinTheta = sinf(yaw);
 
-  const float deltaX =
-      ((leftDistance + rightDistance) * 0.5f * cosTheta) -
-      (backDistance * sinTheta);  // -
-                                  //(WHEEL_OFFSET_Y * deltaTheta * sinTheta); we
-                                  // can assume 100%
-                                  // slippage, this term is irrelevant
+  const float deltaX = ((leftDistance + rightDistance) * 0.5f * cosTheta) -
+                       (backDistance * sinTheta);  // -
+                                                   //(WHEEL_OFFSET_Y * deltaTheta * sinTheta); we
+                                                   // can assume 100%
+                                                   // slippage, this term is irrelevant
 
   const float deltaY =
       ((leftDistance + rightDistance) * 0.5f * sinTheta) +
-      (backDistance *
-       cosTheta);  // +
-                   //(WHEEL_OFFSET_Y * deltaTheta * cosTheta); we can assume
-                   // 100%
-                   // slippage, this term is irrelevant
-                   //(MotorConstants::BACK_OFFSET_F * deltaTheta * cosTheta);
+      (backDistance * cosTheta);  // +
+                                  //(WHEEL_OFFSET_Y * deltaTheta * cosTheta); we can assume
+                                  // 100%
+                                  // slippage, this term is irrelevant
+                                  //(MotorConstants::BACK_OFFSET_F * deltaTheta * cosTheta);
 
   const float deltaTheta = yawChange;
   transform.add(Pose2D(deltaX, deltaY, deltaTheta)).fixTheta();
@@ -71,9 +68,7 @@ Pose2D LocalizationEncoder::getPosition() const { return transform; }
  *
  * @param transform Pose2D of the new position
  */
-void LocalizationEncoder::setPosition(const Pose2D &transform) {
-  this->transform = transform;
-}
+void LocalizationEncoder::setPosition(const Pose2D &transform) { this->transform = transform; }
 
 void LocalizationEncoder::PrintInfo(Print &output) const {
   output.println(F("Localization Encoder Information:"));

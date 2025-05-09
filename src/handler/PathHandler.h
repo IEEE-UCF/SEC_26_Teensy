@@ -30,15 +30,14 @@ class PathHandler {
   void setTimeout(float seconds);  // Set a custom timeout value
 
  private:
-  VectorRobotDrivePID &drive;  // Reference to the robot drive
-  std::vector<Pose2D> path;    // List of waypoints
-  size_t currentPathIndex;     // Index of the current waypoint
-  long lastWaypointTime;       // Time when reached waypoint for pause
-  long waypointStartTime;      // Time when started approaching current waypoint
-  float timeoutSeconds;        // Timeout value in seconds
-  bool hasReachedWaypoint(
-      const Pose2D &target);  // Check if the robot reached the target
-  bool hasTimedOut();         // Check if current waypoint has timed out
+  VectorRobotDrivePID &drive;                     // Reference to the robot drive
+  std::vector<Pose2D> path;                       // List of waypoints
+  size_t currentPathIndex;                        // Index of the current waypoint
+  long lastWaypointTime;                          // Time when reached waypoint for pause
+  long waypointStartTime;                         // Time when started approaching current waypoint
+  float timeoutSeconds;                           // Timeout value in seconds
+  bool hasReachedWaypoint(const Pose2D &target);  // Check if the robot reached the target
+  bool hasTimedOut();                             // Check if current waypoint has timed out
 };
 
 #endif

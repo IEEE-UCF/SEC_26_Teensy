@@ -120,8 +120,8 @@ PIDConfig pidConfigs[DRIVEMOTOR_COUNT]{
      .maxRate = MAX_ANGULAR_ACCELERATION,
      .thetaFix = true},
 };
-VectorRobotDrivePID drive(driveMotors, DRIVEMOTOR_COUNT, Serial, pidConfigs[0],
-                          pidConfigs[0], pidConfigs[2]);
+VectorRobotDrivePID drive(driveMotors, DRIVEMOTOR_COUNT, Serial, pidConfigs[0], pidConfigs[0],
+                          pidConfigs[2]);
 DriveMotor intakeMotor(nonDriveMotors[0], Serial);
 DriveMotor transferMotor(nonDriveMotors[1], Serial);
 
@@ -277,9 +277,8 @@ void loop() {
         // --- Ready function ---
         bool READY_TO_ARM;
         RGBColor sideColor;
-        ROBOT_CONTROL_TYPE = USING_EXTERNAL_CONTROL
-                                 ? HARD
-                                 : (CONTROLLED_BY_PI ? RASP_PI : REMOTE_CON);
+        ROBOT_CONTROL_TYPE =
+            USING_EXTERNAL_CONTROL ? HARD : (CONTROLLED_BY_PI ? RASP_PI : REMOTE_CON);
         PROGRAM_SELECTION = dips[1] ? BOX : NO_BOX;
         // Determine correct control type
         switch (ROBOT_CONTROL_TYPE) {
@@ -419,8 +418,7 @@ void loop() {
             {
               if (update10Available) {
                 update10Available = false;
-                if (buttons.GetStates()[0] &&
-                    RESET_AVAILABLE)  // Reset function
+                if (buttons.GetStates()[0] && RESET_AVAILABLE)  // Reset function
                 {
                   reset();
                 }
@@ -516,8 +514,7 @@ void loop() {
             {
               if (update10Available) {
                 update10Available = false;
-                if (buttons.GetStates()[0] &&
-                    RESET_AVAILABLE)  // Reset function
+                if (buttons.GetStates()[0] && RESET_AVAILABLE)  // Reset function
                 {
                   reset();
                 }
@@ -574,8 +571,7 @@ void loop() {
                       paths.addWaypoint(Pose2D(BEACONX + 5, MAXY - 13, NORTH));
                       paths.addWaypoint(Pose2D(BEACONX - 1, MAXY - 13, NORTH));
                       paths.addWaypoint(Pose2D(BEACONX - 1, MAXY - 3, NORTH));
-                      paths.addWaypoint(
-                          Pose2D(BEACONX + 5, BEACONY - 4, NORTH));
+                      paths.addWaypoint(Pose2D(BEACONX + 5, BEACONY - 4, NORTH));
 
                       command_set = true;
                       command_timer = 0;
@@ -853,8 +849,8 @@ void loop() {
             update200hz = 0;
 
             // --- Drive Update ---
-            Pose2D speedPose = CalculateRCVector(
-                true);  // drive.ConstrainNewSpeedPose(CalculateRCVector(true));
+            Pose2D speedPose =
+                CalculateRCVector(true);  // drive.ConstrainNewSpeedPose(CalculateRCVector(true));
             drive.SetTargetByVelocity(speedPose);
             Pose2D hihi = drive.Step();
             drive.Set(hihi);
@@ -868,8 +864,7 @@ void loop() {
             intakeMotor.Set(intakeSpeed);
 
             (rc.Get(6) == -255) ? mandibles.CloseLeft() : mandibles.OpenLeft();
-            (rc.Get(7) == -255) ? mandibles.CloseRight()
-                                : mandibles.OpenRight();
+            (rc.Get(7) == -255) ? mandibles.CloseRight() : mandibles.OpenRight();
             if (rc.Get(8) == -255) {
               sorter.SetState(1);
             }
@@ -986,8 +981,7 @@ Pose2D CalculateRCVector(bool positionControl) {
                 1);  // RPot Y (x direction at 0 deg)
   float y = map((float)constrain(rc.Get(0), -255, 255), -255, 255, 1,
                 -1);  // RPot X, rev (y direction at 0 deg)
-  float theta =
-      map((float)constrain(rc.Get(3), -255, 255), -255, 255, -1, 1);  // LPot X
+  float theta = map((float)constrain(rc.Get(3), -255, 255), -255, 255, -1, 1);  // LPot X
   float yaw = gyro.GetGyroData()[0];
   return drive.CalculateRCVector(x, y, theta, yaw, positionControl);
 }

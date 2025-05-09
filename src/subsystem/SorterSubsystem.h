@@ -19,9 +19,8 @@ SorterSubsystem.h - hall magnet detect sorter
 
 class SorterSubsystem {
  public:
-  SorterSubsystem(int iTOF, int hallCount, int iServo, TOFHandler &tofs,
-                  HallHandler &halls, ServoHandler &servos,
-                  DriveMotor &transferMotor, RGBHandler &rgb);
+  SorterSubsystem(int iTOF, int hallCount, int iServo, TOFHandler &tofs, HallHandler &halls,
+                  ServoHandler &servos, DriveMotor &transferMotor, RGBHandler &rgb);
   void Begin();
   void Update();
   void MoveCenter();

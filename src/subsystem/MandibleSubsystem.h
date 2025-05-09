@@ -20,12 +20,7 @@ class MandibleSubsystem {
   void CloseRight();
   void SetState();
 
-  enum Positions : uint8_t {
-    LEFT_OPEN = 180,
-    LEFT_CLOSE = 115,
-    RIGHT_OPEN = 0,
-    RIGHT_CLOSE = 55
-  };
+  enum Positions : uint8_t { LEFT_OPEN = 180, LEFT_CLOSE = 115, RIGHT_OPEN = 0, RIGHT_CLOSE = 55 };
 
  private:
   int indexLeft;

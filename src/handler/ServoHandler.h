@@ -23,13 +23,12 @@ class ServoHandler {
   void Set(int *anglesWrite);
   void Write();
   void WriteServoAngle(int index, int angle);
-  void WriteServoAngleSmooth(int index, int angle,
-                             int speed = DEFAULT_MOVEMENT_SPEED);
+  void WriteServoAngleSmooth(int index, int angle, int speed = DEFAULT_MOVEMENT_SPEED);
   int *Get();
   void Attach();
   void Detach();
   void PrintInfo(Print &output, bool printConfig = false) const;
-  void Update();  // Must be called in loop to handle smooth movements
+  void Update();             // Must be called in loop to handle smooth movements
   void SetSpeed(int speed);  // Set global movement speed in degrees per second
   friend Print &operator<<(Print &output, const ServoHandler &handler);
 

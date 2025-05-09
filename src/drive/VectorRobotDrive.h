@@ -11,10 +11,8 @@ using namespace MotorConstants;
 
 class VectorRobotDrive : public SimpleRobotDrive {
  public:
-  VectorRobotDrive(const MotorSetup motorSetups[], int numMotors,
-                   Print &output);
-  Pose2D CalculateRCVector(float x, float y, float theta, float yaw,
-                           bool positionControl = false);
+  VectorRobotDrive(const MotorSetup motorSetups[], int numMotors, Print &output);
+  Pose2D CalculateRCVector(float x, float y, float theta, float yaw, bool positionControl = false);
   void Set(const Pose2D &speedPose);
   Pose2D GetVelocity() const { return currentSpeedPose; }
   Pose2D GetIdealVelocity() const { return idealSpeedPose; }

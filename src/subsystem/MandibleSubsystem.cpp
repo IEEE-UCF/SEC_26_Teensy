@@ -1,7 +1,6 @@
 #include "MandibleSubsystem.h"
 
-MandibleSubsystem::MandibleSubsystem(int indexLeft, int indexRight,
-                                     ServoHandler &servos)
+MandibleSubsystem::MandibleSubsystem(int indexLeft, int indexRight, ServoHandler &servos)
     : indexLeft(indexLeft), indexRight(indexRight), servos(servos) {}
 
 void MandibleSubsystem::Begin() {

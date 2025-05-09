@@ -16,8 +16,7 @@ SimpleRobotDrive.h - base class for a robot drive
 
 class SimpleRobotDrive {
  public:
-  SimpleRobotDrive(const MotorSetup motorSetups[], int numMotors,
-                   Print &output);
+  SimpleRobotDrive(const MotorSetup motorSetups[], int numMotors, Print &output);
   void Begin();
   void Set(const int motorDirectSpeed[]);
   void SetIndex(int motorDirectSpeed, int index);
@@ -25,9 +24,7 @@ class SimpleRobotDrive {
   void Write();
   virtual void PrintInfo(Print &output, bool printConfig = false) const;
   virtual void PrintLocal(Print &output) const;
-  void SetPosition(const Pose2D &setPosition) {
-    localization.setPosition(setPosition);
-  }
+  void SetPosition(const Pose2D &setPosition) { localization.setPosition(setPosition); }
   Pose2D GetPosition() const { return localization.getPosition(); }
 
  protected:

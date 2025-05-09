@@ -1,7 +1,6 @@
 #include "LightHandler.h"
 
-LightHandler::LightHandler(int cLight)
-    : cLight(cLight), lightMeter(), lightLevel(0.0) {}
+LightHandler::LightHandler(int cLight) : cLight(cLight), lightMeter(), lightLevel(0.0) {}
 
 bool LightHandler::Begin() {
   i2cmux::tcaselect(cLight);

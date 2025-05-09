@@ -4,8 +4,7 @@
 int RGBHandler::prev_positions[NUM_SECTIONS];
 
 RGBHandler::RGBHandler(uint8_t kLED)
-    : kLED(kLED),
-      leds(TOTAL_LEDS, displayMemory, drawingMemory, kLED, WS2812_GRB) {
+    : kLED(kLED), leds(TOTAL_LEDS, displayMemory, drawingMemory, kLED, WS2812_GRB) {
   // setting all previous positions to -1 (no active streaks)
   for (int i = 0; i < NUM_SECTIONS; i++) {
     prev_positions[i] = -1;
@@ -32,16 +31,14 @@ bool RGBHandler::Begin() {
 }
 
 // brightness scaling with rounding correction
-void RGBHandler::applyBrightness(uint8_t r, uint8_t g, uint8_t b,
-                                 uint8_t &r_out, uint8_t &g_out,
+void RGBHandler::applyBrightness(uint8_t r, uint8_t g, uint8_t b, uint8_t &r_out, uint8_t &g_out,
                                  uint8_t &b_out) {
   r_out = constrain(((uint32_t)r * globalBrightness + 127) / 255, 0U, 255U);
   g_out = constrain(((uint32_t)g * globalBrightness + 127) / 255, 0U, 255U);
   b_out = constrain(((uint32_t)b * globalBrightness + 127) / 255, 0U, 255U);
 }
 
-bool RGBHandler::setSectionSolidColor(uint8_t section, uint8_t r, uint8_t g,
-                                      uint8_t b) {
+bool RGBHandler::setSectionSolidColor(uint8_t section, uint8_t r, uint8_t g, uint8_t b) {
   if (section >= NUM_SECTIONS) return false;
   stopSectionEffect(section);
 
@@ -62,10 +59,9 @@ bool RGBHandler::setSectionSolidColor(uint8_t section, const RGBColor &color) {
 }
 
 // setting up pulse effect with smooth transition control
-bool RGBHandler::setSectionPulseEffect(uint8_t section, uint8_t r, uint8_t g,
-                                       uint8_t b, unsigned long speed) {
-  if (section >= NUM_SECTIONS || speed < MIN_SPEED || speed > MAX_SPEED)
-    return false;
+bool RGBHandler::setSectionPulseEffect(uint8_t section, uint8_t r, uint8_t g, uint8_t b,
+                                       unsigned long speed) {
+  if (section >= NUM_SECTIONS || speed < MIN_SPEED || speed > MAX_SPEED) return false;
 
   SectionEffect &sec = sections[section];
   if (!(sec.currentEffect == NONE)) {
@@ -93,24 +89,21 @@ bool RGBHandler::setSectionPulseEffect(uint8_t section, const RGBColor &color,
 }
 
 // setting up streak effect (forward direction)
-bool RGBHandler::setSectionStreakEffect(uint8_t section, uint8_t r, uint8_t g,
-                                        uint8_t b, unsigned long speed) {
+bool RGBHandler::setSectionStreakEffect(uint8_t section, uint8_t r, uint8_t g, uint8_t b,
+                                        unsigned long speed) {
   // Call the reverse overload with reverse set to false
   return setSectionStreakEffect(section, r, g, b, speed, false);
 }
 
 bool RGBHandler::setSectionStreakEffect(uint8_t section, const RGBColor &color,
                                         unsigned long speed) {
-  return setSectionStreakEffect(section, color.r, color.g, color.b, speed,
-                                false);
+  return setSectionStreakEffect(section, color.r, color.g, color.b, speed, false);
 }
 
 // overloaded versions that accept a reverse flag
-bool RGBHandler::setSectionStreakEffect(uint8_t section, uint8_t r, uint8_t g,
-                                        uint8_t b, unsigned long speed,
-                                        bool reverse) {
-  if (section >= NUM_SECTIONS || speed < MIN_SPEED || speed > MAX_SPEED)
-    return false;
+bool RGBHandler::setSectionStreakEffect(uint8_t section, uint8_t r, uint8_t g, uint8_t b,
+                                        unsigned long speed, bool reverse) {
+  if (section >= NUM_SECTIONS || speed < MIN_SPEED || speed > MAX_SPEED) return false;
 
   SectionEffect &sec = sections[section];
   if (!(sec.currentEffect == NONE)) {
@@ -133,10 +126,9 @@ bool RGBHandler::setSectionStreakEffect(uint8_t section, uint8_t r, uint8_t g,
   return true;
 }
 
-bool RGBHandler::setSectionStreakEffect(uint8_t section, const RGBColor &color,
-                                        unsigned long speed, bool reverse) {
-  return setSectionStreakEffect(section, color.r, color.g, color.b, speed,
-                                reverse);
+bool RGBHandler::setSectionStreakEffect(uint8_t section, const RGBColor &color, unsigned long speed,
+                                        bool reverse) {
+  return setSectionStreakEffect(section, color.r, color.g, color.b, speed, reverse);
 }
 
 // updating pulse effect
@@ -210,8 +202,7 @@ void RGBHandler::updateStreak(uint8_t section) {
       leds.setPixel(led, (sec.streak_r * 200) >> 8, (sec.streak_g * 200) >> 8,
                     (sec.streak_b * 200) >> 8);
     }
-    prev_positions[section] =
-        (current_pos - sec.streak_trailLength + size) % size;
+    prev_positions[section] = (current_pos - sec.streak_trailLength + size) % size;
     sec.streak_position = (current_pos + 1) % size;
   } else {
     // reverse streak: drawing new streak in the opposite direction

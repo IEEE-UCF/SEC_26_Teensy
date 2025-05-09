@@ -3,9 +3,7 @@
 #include <Arduino.h>
 
 ServoHandler::ServoHandler(int *kServo, int numServos)
-    : kServo(kServo),
-      numServos(numServos),
-      movementSpeed(DEFAULT_MOVEMENT_SPEED) {}
+    : kServo(kServo), numServos(numServos), movementSpeed(DEFAULT_MOVEMENT_SPEED) {}
 
 void ServoHandler::Begin() {
   servos = new Servo[numServos];
@@ -105,12 +103,10 @@ void ServoHandler::Update() {
     // Determine direction and amount to move
     if (currentAngles[i] < targetAngles[i]) {
       // Moving up
-      currentAngles[i] +=
-          min(degreesToMove, targetAngles[i] - currentAngles[i]);
+      currentAngles[i] += min(degreesToMove, targetAngles[i] - currentAngles[i]);
     } else if (currentAngles[i] > targetAngles[i]) {
       // Moving down
-      currentAngles[i] -=
-          min(degreesToMove, currentAngles[i] - targetAngles[i]);
+      currentAngles[i] -= min(degreesToMove, currentAngles[i] - targetAngles[i]);
     }
 
     // Apply the new position

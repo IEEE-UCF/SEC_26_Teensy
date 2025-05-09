@@ -1,8 +1,7 @@
 #include "SorterSubsystem.h"
 
-SorterSubsystem::SorterSubsystem(int iTOF, int hallCount, int iServo,
-                                 TOFHandler &tofs, HallHandler &halls,
-                                 ServoHandler &servos,
+SorterSubsystem::SorterSubsystem(int iTOF, int hallCount, int iServo, TOFHandler &tofs,
+                                 HallHandler &halls, ServoHandler &servos,
                                  DriveMotor &transferMotor, RGBHandler &rgb)
     : iTOF(iTOF),
       hallCount(hallCount),

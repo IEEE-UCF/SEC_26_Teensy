@@ -15,10 +15,9 @@
 // class to handle ROS communication and transformations
 class ROSHandler {
  public:
-  ROSHandler();  // constructor
-  void Setup();  // initalizes ROS node
-  void Update(
-      const Pose2D &pose);  // publishes transform updates based on robot pose
+  ROSHandler();                     // constructor
+  void Setup();                     // initalizes ROS node
+  void Update(const Pose2D &pose);  // publishes transform updates based on robot pose
 
  private:
   ros::NodeHandle nh;                    // ROS node handle for communication

@@ -2,8 +2,7 @@
 
 #include <Arduino.h>
 
-SimpleRobotDrive::SimpleRobotDrive(const MotorSetup motorSetups[],
-                                   int numMotors, Print &output)
+SimpleRobotDrive::SimpleRobotDrive(const MotorSetup motorSetups[], int numMotors, Print &output)
     : numMotors(numMotors > 0 ? numMotors : 1),  // Ensure at least 1 motor
       output(output),
       enc(std::make_unique<long[]>(numMotors)),
@@ -97,9 +96,7 @@ void SimpleRobotDrive::PrintInfo(Print &output, bool printConfig) const {
   }
 }
 
-void SimpleRobotDrive::PrintLocal(Print &output) const {
-  localization.PrintInfo(output);
-}
+void SimpleRobotDrive::PrintLocal(Print &output) const { localization.PrintInfo(output); }
 
 Print &operator<<(Print &output, const SimpleRobotDrive &drive) {
   drive.PrintInfo(output, false);

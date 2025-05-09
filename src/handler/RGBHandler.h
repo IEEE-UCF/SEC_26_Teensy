@@ -60,23 +60,21 @@ class RGBHandler {
                              unsigned long speed);  // enables pulse effect
   bool setSectionStreakEffect(uint8_t section, uint8_t r, uint8_t g, uint8_t b,
                               unsigned long speed);  // enables streak effect
-  bool setSectionSolidColor(
-      uint8_t section,
-      const RGBColor &color);  // sets a section to a solid color
+  bool setSectionSolidColor(uint8_t section,
+                            const RGBColor &color);  // sets a section to a solid color
   bool setSectionPulseEffect(uint8_t section, const RGBColor &color,
                              unsigned long speed);  // enables pulse effect
   bool setSectionStreakEffect(uint8_t section, const RGBColor &color,
                               unsigned long speed);  // enables streak effect
 
   // overloaded declarations that accept a reverse flag
-  bool setSectionStreakEffect(uint8_t section, uint8_t r, uint8_t g, uint8_t b,
-                              unsigned long speed, bool reverse);
-  bool setSectionStreakEffect(uint8_t section, const RGBColor &color,
-                              unsigned long speed, bool reverse);
+  bool setSectionStreakEffect(uint8_t section, uint8_t r, uint8_t g, uint8_t b, unsigned long speed,
+                              bool reverse);
+  bool setSectionStreakEffect(uint8_t section, const RGBColor &color, unsigned long speed,
+                              bool reverse);
 
-  bool processCommand(
-      const String &command);               // processes external command inputs
-  void stopSectionEffect(uint8_t section);  // stops effect in a section
+  bool processCommand(const String &command);    // processes external command inputs
+  void stopSectionEffect(uint8_t section);       // stops effect in a section
   bool setGlobalBrightness(uint8_t brightness);  // adjusts global brightness
   void stopAllEffects();                         // stops all active effects
 
@@ -87,8 +85,7 @@ class RGBHandler {
   uint8_t kLED;
   // storing effect states for each section
   struct SectionEffect {
-    EffectType currentEffect =
-        NONE;  // current effect type (NONE, PULSE, STREAK, SOLID)
+    EffectType currentEffect = NONE;            // current effect type (NONE, PULSE, STREAK, SOLID)
     unsigned long lastUpdate = 0;               // timestamp of last update
     unsigned long effectSpeed = DEFAULT_SPEED;  // speed of the effect
 
@@ -106,16 +103,14 @@ class RGBHandler {
     bool reverseStreak = false;
   };
 
-  SectionEffect
-      sections[NUM_SECTIONS];  // array storing effect states per section
-  uint16_t sectionStarts[NUM_SECTIONS];  // array storing the starting indices
-                                         // of each section
+  SectionEffect sections[NUM_SECTIONS];           // array storing effect states per section
+  uint16_t sectionStarts[NUM_SECTIONS];           // array storing the starting indices
+                                                  // of each section
   uint8_t globalBrightness = DEFAULT_BRIGHTNESS;  // current global brightness
   WS2812Serial leds;                              // LED strip driver instance
 
   // utility functions for effects
-  void applyBrightness(uint8_t r, uint8_t g, uint8_t b, uint8_t &r_out,
-                       uint8_t &g_out,
+  void applyBrightness(uint8_t r, uint8_t g, uint8_t b, uint8_t &r_out, uint8_t &g_out,
                        uint8_t &b_out);  // applies brightness scaling
   void updatePulse(uint8_t section);     // updates pulse effect for a section
   void updateStreak(uint8_t section);    // updates streak effect for a section
@@ -124,9 +119,8 @@ class RGBHandler {
   static int prev_positions[NUM_SECTIONS];
 
   // memory buffers for WS2812Serial
-  uint8_t drawingMemory[TOTAL_LEDS * 3]
-      __attribute__((aligned(32)));                    // buffer for LED drawing
-  alignas(32) uint8_t displayMemory[TOTAL_LEDS * 12];  // buffer for LED display
+  uint8_t drawingMemory[TOTAL_LEDS * 3] __attribute__((aligned(32)));  // buffer for LED drawing
+  alignas(32) uint8_t displayMemory[TOTAL_LEDS * 12];                  // buffer for LED display
 
   //    static constexpr uint16_t TOTAL_LEDS = []()
   //    {

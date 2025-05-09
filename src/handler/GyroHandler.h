@@ -15,9 +15,7 @@ class GyroHandler {
   bool Begin();
   void Update();
   void PrintInfo(Print &output, bool printConfig = false) const;
-  void Set_Gametime_Offset(float angleRad) {
-    Gametime_Offset = angleRad - BEGIN_OFFSET * PI / 180;
-  }
+  void Set_Gametime_Offset(float angleRad) { Gametime_Offset = angleRad - BEGIN_OFFSET * PI / 180; }
   float *GetGyroData();
 
  private:

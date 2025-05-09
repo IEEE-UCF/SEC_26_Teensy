@@ -94,6 +94,5 @@ bool PathHandler::hasReachedWaypoint(const Pose2D &target) {
 
 bool PathHandler::hasTimedOut() {
   // Check if the current waypoint has exceeded the timeout duration
-  return (waypointStartTime > 0) &&
-         (millis() - waypointStartTime >= timeoutSeconds * 1000);
+  return (waypointStartTime > 0) && (millis() - waypointStartTime >= timeoutSeconds * 1000);
 }
