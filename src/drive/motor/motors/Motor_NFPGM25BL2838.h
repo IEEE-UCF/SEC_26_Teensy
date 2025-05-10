@@ -34,6 +34,8 @@
 #ifndef MOTOR_NFPGM25BL2838
 #define MOTOR_NFPGM25BL2838
 
+#include <elapsedMillis.h>
+
 #include <cstdint>
 #include <type_traits>
 #include <utility>
@@ -68,6 +70,7 @@ class Motor_NFPGM25BL2838
    * For convenience when referring to the base type.
    */
   using base = Motor<RotationalMotor, EncoderType, RotationalMotorConstants, TwoSpeedDir>;
+  using timer = elapsedMillis;
 
   /**
    * @brief Constructs a Motor_NFPGM25BL2838 instance.
