@@ -1,0 +1,56 @@
+name: Formatting workflow
+
+on:
+  push:
+    branches: [doc]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  format-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install clang-format (if not pre-installed)
+        # clang-format is usually pre-installed on ubuntu-latest runners.
+        # This step is a safeguard or for specific versions.
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang-format
+
+      - name: Run clang-format
+        id: clang_format
+        run: |
+          # Find all C/C++/Objective-C source and header files
+          # Adjust the file extensions to match your project
+          find . -type f \( -name "*.ino" -name "*.c" -o -name "*.cpp" -o -name "*.cxx" -o -name "*.h" -o -name "*.hpp" -o -name "*.hxx" \) -exec clang-format -i {} \;
+
+      - name: Check for changes
+        id: git_status
+        run: |
+          git diff --exit-code || echo "changes_detected=true" >> "$GITHUB_OUTPUT"
+
+      - name: Configure Git for committing to 'doc' repo
+        if: steps.git_status.outputs.changes_detected == 'true'
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+          # Since we're pushing to a different repo, we need to adjust the remote URL
+          # using the PAT for authentication.
+          # Replace YOUR_GITHUB_USERNAME with the username of the PAT owner or an organization bot account.
+          # git remote add doc-repo "https://${{ secrets.TEENSY_TOKEN }}@github.com/YOUR_GITHUB_USERNAME/doc.git"
+          # Or if the doc repo is under an organization:
+          git remote add doc-repo "https://${{ secrets.TEENSY_TOKEN }}@github.com/IEEE-UCF/doc.git"
+
+      - name: Commit and push changes to 'doc' repo
+        if: steps.git_status.outputs.changes_detected == 'true'
+        run: |
+          git add .
+          git commit -m "Automated: Apply clang-format changes"
+          # Push the current branch (e.g., main) to the 'doc' remote.
+          # This assumes you want to push the formatted code to the same branch name in 'doc'.
+          git push doc HEAD:main
