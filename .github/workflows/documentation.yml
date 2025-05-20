@@ -29,6 +29,10 @@ jobs:
           path: |
             /var/cache/apt/archives
             /var/lib/apt/lists
+            !/var/cache/apt/archives/lock # Exclude lock file
+            !/var/cache/apt/archives/partial # Exclude partial directory
+            !/var/lib/apt/lists/lock    # Exclude lock file
+            !/var/lib/apt/lists/partial # Exclude partial directory
           key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles(env.WORKFLOW_FILE_PATH)}}
           restore-keys: |
             ${{ runner.os }}-${{ env.cache-name }}
