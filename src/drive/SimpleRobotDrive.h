@@ -1,43 +1,56 @@
-/*
-Aldem Pido - 4/1/25
-SimpleRobotDrive.h - base class for a robot drive
-*/
+/**
+ * @file SimpleRobotDrive.h
+ * @defgroup drives Robot Drive Systems
+ * @ingroup drives
+ * @brief Classes related to robot drive mechanisms.
+ *
+ * This group contains all drive-related classes used for robot motion.
+ *
+ * @author Aldem Pido
+ */
+
 #ifndef SIMPLEROBOTDRIVE_H
 #define SIMPLEROBOTDRIVE_H
 
-#include "DriveMotor.h"
-#include "LocalizationEncoder.h"
 #include <Arduino.h>
 #include <Print.h>
-#include <vector>
+
 #include <memory>
+#include <vector>
 
-class SimpleRobotDrive
-{
-public:
-    SimpleRobotDrive(const MotorSetup motorSetups[], int numMotors, Print &output);
-    void Begin();
-    void Set(const int motorDirectSpeed[]);
-    void SetIndex(int motorDirectSpeed, int index);
-    void ReadAll(float yaw);
-    void Write();
-    virtual void PrintInfo(Print &output, bool printConfig = false) const;
-    virtual void PrintLocal(Print &output) const;
-    void SetPosition(const Pose2D &setPosition) { localization.setPosition(setPosition); }
-    Pose2D GetPosition() const { return localization.getPosition(); }
+#include "DriveMotor.h"
+#include "LocalizationEncoder.h"
 
-protected:
-    const int numMotors;
-    Print &output;
-    elapsedMicros accelCall;
-    std::unique_ptr<long[]> enc;
-    std::vector<std::unique_ptr<DriveMotor>> motors;
-    LocalizationEncoder localization;
+/**
+ * @class SimpleRobotDrive
+ * @ingroup drives
+ * @brief Base class for a robot drive system.
+ */
+class SimpleRobotDrive {
+ public:
+  SimpleRobotDrive(const MotorSetup motorSetups[], int numMotors, Print &output);
+  void Begin();
+  void Set(const int motorDirectSpeed[]);
+  void SetIndex(int motorDirectSpeed, int index);
+  void ReadAll(float yaw);
+  void Write();
+  virtual void PrintInfo(Print &output, bool printConfig = false) const;
+  virtual void PrintLocal(Print &output) const;
+  void SetPosition(const Pose2D &setPosition) { localization.setPosition(setPosition); }
+  Pose2D GetPosition() const { return localization.getPosition(); }
 
-    void ReadEnc();
-    const long *GetEnc() const;
+ protected:
+  const int numMotors;
+  Print &output;
+  elapsedMicros accelCall;
+  std::unique_ptr<long[]> enc;
+  std::vector<std::unique_ptr<DriveMotor>> motors;
+  LocalizationEncoder localization;
 
-    friend Print &operator<<(Print &output, const SimpleRobotDrive &drive);
+  void ReadEnc();
+  const long *GetEnc() const;
+
+  friend Print &operator<<(Print &output, const SimpleRobotDrive &drive);
 };
 
 Print &operator<<(Print &output, const SimpleRobotDrive &drive);

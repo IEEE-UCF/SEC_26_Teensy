@@ -1,15 +1,25 @@
-/*
-Aldem Pido - 4/1/25
-ButtonHandler.h - gets button input (or switch input)
-*/
+/**
+ * @file ButtonHandler.h
+ * @defgroup inputs Button Input System
+ * @brief Handles button and switch inputs.
+ *
+ * This group contains components for managing button states and handling user interactions.
+ *
+ * @author Aldem Pido
+ */
+
 #ifndef ButtonHandler_h
 #define ButtonHandler_h
 
 #include <Arduino.h>
 
-class ButtonHandler
-{
-public:
+/**
+ * @class ButtonHandler
+ * @ingroup inputs
+ * @brief Manages button input states.
+ */
+class ButtonHandler {
+ public:
   ButtonHandler(int *kPins, int numPins);
   void Begin();
   void Update();
@@ -18,10 +28,10 @@ public:
   void PrintInfo(Print &output, bool printConfig) const;
   friend Print &operator<<(Print &output, const ButtonHandler &handler);
 
-private:
-  bool *buttonStates;
-  int *kPins;
-  int numPins;
+ private:
+  bool *buttonStates;  ///< Stores button press states
+  int *kPins;          ///< Array of pin numbers for buttons
+  int numPins;         ///< Number of buttons
 };
 
 #endif

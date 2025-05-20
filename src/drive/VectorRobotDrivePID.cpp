@@ -1,43 +1,40 @@
-#include "VectorRobotDrivePID.h"
+/**
+ * @file VectorRobotDrivePID.h
+ * @ingroup drives
+ * @brief Implements robot drive based on PID control.
+ *
+ * This class extends `VectorRobotDrive` and uses PID controllers for precise robot motion.
+ *
+ * @author Aldem Pido
+ */
 
-VectorRobotDrivePID::VectorRobotDrivePID(const MotorSetup motorSetups[], int numMotors, Print &output, const PIDConfig &xConfig, const PIDConfig &yConfig, const PIDConfig &thetaConfig)
-    : VectorRobotDrive(motorSetups, numMotors, output),
-      pidController(xConfig, yConfig, thetaConfig),
-      targetPose(0, 0, DRIVER_START_OFFSET) {}
+#ifndef VECTORROBOTDRIVEPID_H
+#define VECTORROBOTDRIVEPID_H
 
-void VectorRobotDrivePID::SetTargetByVelocity(const Pose2D &speedPose)
-{
-  static elapsedMicros callTime = 0;
-  float totTime = callTime * 0.000001f; // Convert microseconds to seconds
-  Pose2D deltaPose = Pose2D(speedPose.getX(), speedPose.getY(), speedPose.getTheta()).multConstant(totTime).multConstant(0.7f);
-  targetPose.add(deltaPose).fixTheta();
-  callTime = 0; // Reset the timer after updating
-}
+#include "PIDDriveController.h"
+#include "VectorRobotDrive.h"
 
-void VectorRobotDrivePID::PrintInfo(Print &output, bool printConfig) const
-{
-  output.print(F("SimpleRobotDrive Configuration: "));
-  output.print(F("Number of Motors: "));
-  output.println(numMotors);
+/**
+ * @class VectorRobotDrivePID
+ * @ingroup drives
+ * @brief Drive system utilizing PID control.
+ */
+class VectorRobotDrivePID : public VectorRobotDrive {
+ public:
+  VectorRobotDrivePID(const MotorSetup motorSetups[], int numMotors, Print &output,
+                      const PIDConfig &xConfig, const PIDConfig &yConfig,
+                      const PIDConfig &thetaConfig);
 
-  for (int i = 0; i < numMotors; i++)
-  {
-    output.print(F("Motor "));
-    output.print(i);
-    output.print(F(": "));
-    motors[i]->PrintInfo(output, printConfig);
-  }
-}
+  void SetTarget(const Pose2D &targetPose) { this->targetPose = targetPose; }
+  Pose2D Step();
+  void SetTargetByVelocity(const Pose2D &speedPose);
+  void PrintInfo(Print &output, bool printConfig) const;
+  void PrintLocal(Print &output) const;
+  void PrintController(Print &output, bool printConfig) const;
 
-void VectorRobotDrivePID::PrintLocal(Print &output) const
-{
-  localization.PrintInfo(output);
-  output.print(F("Target Location "));
-  output << targetPose;
-}
+ private:
+  PIDDriveController pidController;  ///< PID controller for position correction
+  Pose2D targetPose;                 ///< Target position for the robot
+};
 
-void VectorRobotDrivePID::PrintController(Print &output, bool printConfig) const
-{
-  output.println(F("PID Controller Details:"));
-  pidController.PrintInfo(output, printConfig);
-}
+#endif  // VECTORROBOTDRIVEPID_H
