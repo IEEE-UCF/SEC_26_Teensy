@@ -16,12 +16,22 @@ jobs:
       pages: write
       id-token: write
     steps:
-      - name: checkout-respoitory
+      - name: Clean apt cache directories before restore
+        run: |
+          # These commands ensure the directories are empty or non-existent
+          # before the cache action attempts to restore into them.
+          sudo rm -rf /var/cache/apt/archives/* || true
+          sudo rm -rf /var/lib/apt/lists/* || true
+          # We use || true to prevent the step from failing if the directories are already empty/non-existent.
+          # This step should run even if checkout fails.
+        if: always()
+
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Fetches all history
 
-      - name: cache-doxygen-dependencies
+      - name: Cache Doxygen Dependencies
         uses: actions/cache@v4
         env:
           cache-name: apt-doxygen-v1
