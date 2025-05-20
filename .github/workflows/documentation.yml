@@ -27,7 +27,7 @@ jobs:
           cache-name: apt-doxygen-v1
         with:
           path: |
-            /var/cache/apt/archives
+            /var/cache/apt/archives/*.deb
             /var/lib/apt/lists
             !/var/cache/apt/archives/lock # Exclude lock file
             !/var/cache/apt/archives/partial # Exclude partial directory
