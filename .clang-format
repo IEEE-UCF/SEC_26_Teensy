@@ -209,7 +209,7 @@ RawStringFormats: # This structure is likely too new for Clang 10, or has differ
                   # If this is critical, you'll have to use a newer clang-format.
 
 ReferenceAlignment: Pointer
-ReflowComments: Always
+ReflowComments: true
 RemoveBracesLLVM: false
 RemoveEmptyLinesInUnwrappedLines: false
 RemoveParentheses: Leave
