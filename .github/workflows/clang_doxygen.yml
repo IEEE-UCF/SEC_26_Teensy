@@ -1,0 +1,42 @@
+name: Clang & Doxygen Build
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - doc
+  pull_request:
+      - main
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y clang doxygen
+      
+      - name: Compile using Clang
+        run: |
+          clang -Wall -Wextra -o my_program src/*.cpp # Modify paths as needed
+          
+      - name: Generate Doxygen Documentation
+        run: |
+          doxygen Doxyfile # Ensure your `Doxyfile` exists at the root
+
+      - name: Upload documentation (Optional)
+        uses: actions/upload-artifact@v3
+        with:
+          name: DoxygenDocs
+          path: docs # Adjust based on your Doxygen output location
+      
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.TEENSY_TOKEN }}
+          publish_dir: docs
