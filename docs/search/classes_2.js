@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['gyrohandler_0',['GyroHandler',['../class_gyro_handler.html',1,'']]]
+  ['gyrohandler_0',['GyroHandler',['../classGyroHandler.html',1,'']]]
 ];

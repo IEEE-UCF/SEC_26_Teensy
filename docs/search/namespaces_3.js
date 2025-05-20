@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['motorconstants_0',['MotorConstants',['../namespace_motor_constants.html',1,'']]]
+  ['motorconstants_0',['MotorConstants',['../namespaceMotorConstants.html',1,'']]]
 ];

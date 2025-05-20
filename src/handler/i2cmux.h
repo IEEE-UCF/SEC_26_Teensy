@@ -13,7 +13,7 @@
 
 #include <Wire.h>
 
-#define TCAADDR 0x70  ///< I2C address of the multiplexer
+#define TCAADDR 0x70  ///< I2C address of the multiplexer flag
 
 /**
  * @namespace i2cmux

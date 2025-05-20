@@ -1,0 +1,101 @@
+name: Doxygen Wiki workflow
+
+on:
+  push:
+    branches: [doc]
+
+env:
+  WORKFLOW_FILE_PATH: ".github/workflows/documentation.yml"
+  DOXYGEN_OUTPUT_DIR: "docs"
+
+jobs:
+  doxygen-generation:
+    name: Doxygen HTML Generation and Commit
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    steps:
+      - name: Clean apt cache directories before restore
+        run: |
+          # These commands ensure the directories are empty or non-existent
+          # before the cache action attempts to restore into them.
+          sudo rm -rf /var/cache/apt/archives/* || true
+          sudo rm -rf /var/lib/apt/lists/* || true
+          # We use || true to prevent the step from failing if the directories are already empty/non-existent.
+          # This step should run even if checkout fails.
+        if: always()
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetches all history
+
+      - name: Cache Doxygen Dependencies
+        uses: actions/cache@v4
+        env:
+          cache-name: apt-doxygen-v1
+        with:
+          path: |
+            /var/cache/apt/archives/*.deb
+            /var/lib/apt/lists
+            !/var/cache/apt/archives/lock # Exclude lock file
+            !/var/cache/apt/archives/partial # Exclude partial directory
+            !/var/lib/apt/lists/lock    # Exclude lock file
+            !/var/lib/apt/lists/partial # Exclude partial directory
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles(env.WORKFLOW_FILE_PATH)}}
+          restore-keys: |
+            ${{ runner.os }}-${{ env.cache-name }}
+
+      - name: Install Doxygen and Graphviz
+        run: |
+          sudo apt-get update -q
+          apt-cache policy doxygen
+          sudo apt-get install -y doxygen graphviz
+
+      - name: Run Doxygen
+        run: |
+          mkdir -p ./docs
+          doxygen Doxyfile
+          echo "Doxygen HTML output generated in ./docs"
+
+      - name: Commit generated documentation to 'doc' branch
+        run: |
+          # Configure Git for the commit
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Add generated files to staging
+          git add -f ${{ env.DOXYGEN_OUTPUT_DIR }}
+
+          # Check if there are changes to commit
+          git diff-index --quiet HEAD || git commit -m "chore: Update Doxygen documentation"
+
+          # Push changes to the 'doc' branch
+          # Use --force-with-lease to avoid overwriting other commits if branch changed
+          git push origin HEAD:${{ github.ref_name }} --force-with-lease
+        # Only run if the Doxygen step succeeded and if we are on a push to the 'doc' branch
+        if: success() && github.event_name == 'push' && github.ref_name == 'doc'
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v5 # Recommended action for Pages setup
+
+      - name: Upload Doxygen artifact for Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ env.DOXYGEN_OUTPUT_DIR }} # Upload the generated HTML directory
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Final APT cache cleanup and permissions for saving
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/partial/* || true
+          sudo rm -f /var/lib/apt/lists/*lock || true
+          sudo rm -f /var/cache/apt/archives/*lock || true
+          sudo chmod -R 777 /var/lib/apt/lists || true
+          sudo chmod -R 777 /var/cache/apt/archives || true
+        if: always()
