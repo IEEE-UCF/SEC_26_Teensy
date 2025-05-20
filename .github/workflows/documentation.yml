@@ -55,5 +55,9 @@ jobs:
           sudo rm -rf /var/lib/apt/lists/partial/*
           sudo rm -f /var/lib/apt/lists/*lock
           sudo rm -f /var/cache/apt/archives/*lock
-        # Make sure this runs even if previous steps fail, to ensure cache save doesn't fail
+          # Make sure this runs even if previous steps fail, to ensure cache save doesn't fail
+          # CRITICAL: Change permissions of the 'partial' directory itself
+          # This ensures the 'runner' user can traverse into it, even if empty
+          sudo chmod 755 /var/lib/apt/lists/partial || true
+          sudo chmod 755 /var/cache/apt/archives/partial || true
         if: always()
