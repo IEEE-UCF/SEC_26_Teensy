@@ -1,0 +1,119 @@
+\doxysection{PIDDrive\+Controller Class Reference}
+\hypertarget{class_p_i_d_drive_controller}{}\label{class_p_i_d_drive_controller}\index{PIDDriveController@{PIDDriveController}}
+
+
+Implements a fused \doxylink{class_p_i_d}{PID} controller for robot motion.  
+
+
+
+
+{\ttfamily \#include $<$PIDDrive\+Controller.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_p_i_d_drive_controller_a7d485902033791734cbaf6aa9f257133}{PIDDrive\+Controller}} (const \mbox{\hyperlink{struct_p_i_d_config}{PIDConfig}} \&x\+Config, const \mbox{\hyperlink{struct_p_i_d_config}{PIDConfig}} \&y\+Config, const \mbox{\hyperlink{struct_p_i_d_config}{PIDConfig}} \&theta\+Config)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_p_i_d_drive_controller}{PIDDrive\+Controller} with individual \doxylink{class_p_i_d}{PID} controllers. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \mbox{\hyperlink{class_p_i_d_drive_controller_a708fbb7b5c7a6798b4a630543cdce494}{Step}} (const \mbox{\hyperlink{class_pose2_d}{Pose2D}} \&current\+Pose, const \mbox{\hyperlink{class_pose2_d}{Pose2D}} \&target\+Pose) const
+\begin{DoxyCompactList}\small\item\em Calculates movement correction using \doxylink{class_p_i_d}{PID} controllers. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_p_i_d_drive_controller_a47b9b992bfc9a780c0f61f1928df774e}{Print\+Info}} (Print \&output, bool print\+Config) const
+\begin{DoxyCompactList}\small\item\em Prints \doxylink{class_p_i_d}{PID} controller information. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+Print \& \mbox{\hyperlink{class_p_i_d_drive_controller_ac7e9f8e73cd80482ca0a5daa7b65750a}{operator$<$$<$}} (Print \&output, const \mbox{\hyperlink{class_p_i_d_drive_controller}{PIDDrive\+Controller}} \&controller)
+\begin{DoxyCompactList}\small\item\em Overloaded stream operator for printing \doxylink{class_p_i_d}{PID} controller details. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implements a fused \doxylink{class_p_i_d}{PID} controller for robot motion. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_p_i_d_drive_controller_a7d485902033791734cbaf6aa9f257133}\index{PIDDriveController@{PIDDriveController}!PIDDriveController@{PIDDriveController}}
+\index{PIDDriveController@{PIDDriveController}!PIDDriveController@{PIDDriveController}}
+\doxysubsubsection{\texorpdfstring{PIDDriveController()}{PIDDriveController()}}
+{\footnotesize\ttfamily \label{class_p_i_d_drive_controller_a7d485902033791734cbaf6aa9f257133} 
+PIDDrive\+Controller\+::\+PIDDrive\+Controller (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_p_i_d_config}{PIDConfig}} \&}]{x\+Config}{, }\item[{const \mbox{\hyperlink{struct_p_i_d_config}{PIDConfig}} \&}]{y\+Config}{, }\item[{const \mbox{\hyperlink{struct_p_i_d_config}{PIDConfig}} \&}]{theta\+Config}{}\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{class_p_i_d_drive_controller}{PIDDrive\+Controller} with individual \doxylink{class_p_i_d}{PID} controllers. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x\+Config} & Configuration for X-\/axis \doxylink{class_p_i_d}{PID}. \\
+\hline
+{\em y\+Config} & Configuration for Y-\/axis \doxylink{class_p_i_d}{PID}. \\
+\hline
+{\em theta\+Config} & Configuration for Theta \doxylink{class_p_i_d}{PID}. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_p_i_d_drive_controller_a47b9b992bfc9a780c0f61f1928df774e}\index{PIDDriveController@{PIDDriveController}!PrintInfo@{PrintInfo}}
+\index{PrintInfo@{PrintInfo}!PIDDriveController@{PIDDriveController}}
+\doxysubsubsection{\texorpdfstring{PrintInfo()}{PrintInfo()}}
+{\footnotesize\ttfamily \label{class_p_i_d_drive_controller_a47b9b992bfc9a780c0f61f1928df774e} 
+void PIDDrive\+Controller\+::\+Print\+Info (\begin{DoxyParamCaption}\item[{Print \&}]{output}{, }\item[{bool}]{print\+Config}{}\end{DoxyParamCaption}) const}
+
+
+
+Prints \doxylink{class_p_i_d}{PID} controller information. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em output} & Output stream for logging. \\
+\hline
+{\em print\+Config} & If true, prints configuration details; otherwise, prints runtime values. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_p_i_d_drive_controller_a708fbb7b5c7a6798b4a630543cdce494}\index{PIDDriveController@{PIDDriveController}!Step@{Step}}
+\index{Step@{Step}!PIDDriveController@{PIDDriveController}}
+\doxysubsubsection{\texorpdfstring{Step()}{Step()}}
+{\footnotesize\ttfamily \label{class_p_i_d_drive_controller_a708fbb7b5c7a6798b4a630543cdce494} 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} PIDDrive\+Controller\+::\+Step (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_pose2_d}{Pose2D}} \&}]{current\+Pose}{, }\item[{const \mbox{\hyperlink{class_pose2_d}{Pose2D}} \&}]{target\+Pose}{}\end{DoxyParamCaption}) const}
+
+
+
+Calculates movement correction using \doxylink{class_p_i_d}{PID} controllers. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em current\+Pose} & Current position of the robot. \\
+\hline
+{\em target\+Pose} & Desired target position. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{class_pose2_d}{Pose2D} containing computed movement corrections. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{class_p_i_d_drive_controller_ac7e9f8e73cd80482ca0a5daa7b65750a}\index{PIDDriveController@{PIDDriveController}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!PIDDriveController@{PIDDriveController}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily \label{class_p_i_d_drive_controller_ac7e9f8e73cd80482ca0a5daa7b65750a} 
+Print \& operator$<$$<$ (\begin{DoxyParamCaption}\item[{Print \&}]{output}{, }\item[{const \mbox{\hyperlink{class_p_i_d_drive_controller}{PIDDrive\+Controller}} \&}]{controller}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Overloaded stream operator for printing \doxylink{class_p_i_d}{PID} controller details. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em output} & Output stream. \\
+\hline
+{\em controller} & \doxylink{class_p_i_d_drive_controller}{PIDDrive\+Controller} instance. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Modified output stream. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/drive/\mbox{\hyperlink{_p_i_d_drive_controller_8h}{PIDDrive\+Controller.\+h}}\item 
+src/drive/\mbox{\hyperlink{_p_i_d_drive_controller_8cpp}{PIDDrive\+Controller.\+cpp}}\end{DoxyCompactItemize}

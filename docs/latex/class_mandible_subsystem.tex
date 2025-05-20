@@ -1,0 +1,150 @@
+\doxysection{Mandible\+Subsystem Class Reference}
+\hypertarget{class_mandible_subsystem}{}\label{class_mandible_subsystem}\index{MandibleSubsystem@{MandibleSubsystem}}
+
+
+Controls a pair of servo-\/actuated mandibles (left and right). Manages the opening and closing of left and right mandibles using predefined servo positions.  
+
+
+
+
+{\ttfamily \#include $<$Mandible\+Subsystem.\+h$>$}
+
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{class_mandible_subsystem_a7d24308a7e48fe769fc07bd70308b4bb}{Positions}} \+: uint8\+\_\+t \{ \mbox{\hyperlink{class_mandible_subsystem_a7d24308a7e48fe769fc07bd70308b4bba73426c1ac92f8a3aa47b28ae67520b1c}{LEFT\+\_\+\+OPEN}} = 180
+, \mbox{\hyperlink{class_mandible_subsystem_a7d24308a7e48fe769fc07bd70308b4bba470c692bd1f1f63ca94113e1841b992e}{LEFT\+\_\+\+CLOSE}} = 115
+, \mbox{\hyperlink{class_mandible_subsystem_a7d24308a7e48fe769fc07bd70308b4bba39de83978184e7327d3923eb27c8e836}{RIGHT\+\_\+\+OPEN}} = 0
+, \mbox{\hyperlink{class_mandible_subsystem_a7d24308a7e48fe769fc07bd70308b4bbab2273e32d7b05f8f59d0ba80c47ba7cb}{RIGHT\+\_\+\+CLOSE}} = 55
+ \}
+\begin{DoxyCompactList}\small\item\em Predefined servo angle positions for the mandibles. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_mandible_subsystem_aa0f31d1f82097250721dca752c3eeca0}{Mandible\+Subsystem}} (int left\+Servo\+Index, int right\+Servo\+Index, \mbox{\hyperlink{class_servo_handler}{Servo\+Handler}} \&servos)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_mandible_subsystem}{Mandible\+Subsystem} object. Initializes the mandible subsystem with the servo indices for the left and right mandibles and a reference to the shared \doxylink{class_servo_handler}{Servo\+Handler}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_mandible_subsystem_adad3011a36b06e89021c3fc834a5e127}{Begin}} ()
+\begin{DoxyCompactList}\small\item\em Initializes the mandible subsystem. Moves both left and right mandibles to their default \textquotesingle{}CLOSED\textquotesingle{} positions. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_mandible_subsystem_a770a76f52f52fb1e390eb06a2180169a}{Open\+Left}} ()
+\begin{DoxyCompactList}\small\item\em Opens the left mandible. Commands the left mandible servo to its predefined {\ttfamily LEFT\+\_\+\+OPEN} position. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_mandible_subsystem_ac7c27f6440d029bc66bf3657db88c18a}{Close\+Left}} ()
+\begin{DoxyCompactList}\small\item\em Closes the left mandible. Commands the left mandible servo to its predefined {\ttfamily LEFT\+\_\+\+CLOSE} position. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_mandible_subsystem_aa1d08ed36f0c3cbe8fe5ab168180802d}{Open\+Right}} ()
+\begin{DoxyCompactList}\small\item\em Opens the right mandible. Commands the right mandible servo to its predefined {\ttfamily RIGHT\+\_\+\+OPEN} position. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_mandible_subsystem_aab5669b685cf6e3710cf2104c221d03f}{Close\+Right}} ()
+\begin{DoxyCompactList}\small\item\em Closes the right mandible. Commands the right mandible servo to its predefined {\ttfamily RIGHT\+\_\+\+CLOSE} position. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Controls a pair of servo-\/actuated mandibles (left and right). Manages the opening and closing of left and right mandibles using predefined servo positions. 
+
+\doxysubsection{Member Enumeration Documentation}
+\Hypertarget{class_mandible_subsystem_a7d24308a7e48fe769fc07bd70308b4bb}\index{MandibleSubsystem@{MandibleSubsystem}!Positions@{Positions}}
+\index{Positions@{Positions}!MandibleSubsystem@{MandibleSubsystem}}
+\doxysubsubsection{\texorpdfstring{Positions}{Positions}}
+{\footnotesize\ttfamily \label{class_mandible_subsystem_a7d24308a7e48fe769fc07bd70308b4bb} 
+enum \mbox{\hyperlink{class_mandible_subsystem_a7d24308a7e48fe769fc07bd70308b4bb}{Mandible\+Subsystem\+::\+Positions}} \+: uint8\+\_\+t}
+
+
+
+Predefined servo angle positions for the mandibles. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LEFT\_OPEN@{LEFT\_OPEN}!MandibleSubsystem@{MandibleSubsystem}}\index{MandibleSubsystem@{MandibleSubsystem}!LEFT\_OPEN@{LEFT\_OPEN}}}\Hypertarget{class_mandible_subsystem_a7d24308a7e48fe769fc07bd70308b4bba73426c1ac92f8a3aa47b28ae67520b1c}\label{class_mandible_subsystem_a7d24308a7e48fe769fc07bd70308b4bba73426c1ac92f8a3aa47b28ae67520b1c} 
+LEFT\+\_\+\+OPEN&Servo angle for the left mandible when fully open. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LEFT\_CLOSE@{LEFT\_CLOSE}!MandibleSubsystem@{MandibleSubsystem}}\index{MandibleSubsystem@{MandibleSubsystem}!LEFT\_CLOSE@{LEFT\_CLOSE}}}\Hypertarget{class_mandible_subsystem_a7d24308a7e48fe769fc07bd70308b4bba470c692bd1f1f63ca94113e1841b992e}\label{class_mandible_subsystem_a7d24308a7e48fe769fc07bd70308b4bba470c692bd1f1f63ca94113e1841b992e} 
+LEFT\+\_\+\+CLOSE&Servo angle for the left mandible when fully closed. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RIGHT\_OPEN@{RIGHT\_OPEN}!MandibleSubsystem@{MandibleSubsystem}}\index{MandibleSubsystem@{MandibleSubsystem}!RIGHT\_OPEN@{RIGHT\_OPEN}}}\Hypertarget{class_mandible_subsystem_a7d24308a7e48fe769fc07bd70308b4bba39de83978184e7327d3923eb27c8e836}\label{class_mandible_subsystem_a7d24308a7e48fe769fc07bd70308b4bba39de83978184e7327d3923eb27c8e836} 
+RIGHT\+\_\+\+OPEN&Servo angle for the right mandible when fully open. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RIGHT\_CLOSE@{RIGHT\_CLOSE}!MandibleSubsystem@{MandibleSubsystem}}\index{MandibleSubsystem@{MandibleSubsystem}!RIGHT\_CLOSE@{RIGHT\_CLOSE}}}\Hypertarget{class_mandible_subsystem_a7d24308a7e48fe769fc07bd70308b4bbab2273e32d7b05f8f59d0ba80c47ba7cb}\label{class_mandible_subsystem_a7d24308a7e48fe769fc07bd70308b4bbab2273e32d7b05f8f59d0ba80c47ba7cb} 
+RIGHT\+\_\+\+CLOSE&Servo angle for the right mandible when fully closed. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_mandible_subsystem_aa0f31d1f82097250721dca752c3eeca0}\index{MandibleSubsystem@{MandibleSubsystem}!MandibleSubsystem@{MandibleSubsystem}}
+\index{MandibleSubsystem@{MandibleSubsystem}!MandibleSubsystem@{MandibleSubsystem}}
+\doxysubsubsection{\texorpdfstring{MandibleSubsystem()}{MandibleSubsystem()}}
+{\footnotesize\ttfamily \label{class_mandible_subsystem_aa0f31d1f82097250721dca752c3eeca0} 
+Mandible\+Subsystem\+::\+Mandible\+Subsystem (\begin{DoxyParamCaption}\item[{int}]{left\+Servo\+Index}{, }\item[{int}]{right\+Servo\+Index}{, }\item[{\mbox{\hyperlink{class_servo_handler}{Servo\+Handler}} \&}]{servos}{}\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{class_mandible_subsystem}{Mandible\+Subsystem} object. Initializes the mandible subsystem with the servo indices for the left and right mandibles and a reference to the shared \doxylink{class_servo_handler}{Servo\+Handler}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em left\+Servo\+Index} & The index of the left mandible servo in \doxylink{class_servo_handler}{Servo\+Handler}. \\
+\hline
+{\em right\+Servo\+Index} & The index of the right mandible servo in \doxylink{class_servo_handler}{Servo\+Handler}. \\
+\hline
+{\em servos} & Reference to the \doxylink{class_servo_handler}{Servo\+Handler} instance. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_mandible_subsystem_adad3011a36b06e89021c3fc834a5e127}\index{MandibleSubsystem@{MandibleSubsystem}!Begin@{Begin}}
+\index{Begin@{Begin}!MandibleSubsystem@{MandibleSubsystem}}
+\doxysubsubsection{\texorpdfstring{Begin()}{Begin()}}
+{\footnotesize\ttfamily \label{class_mandible_subsystem_adad3011a36b06e89021c3fc834a5e127} 
+void Mandible\+Subsystem\+::\+Begin (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Initializes the mandible subsystem. Moves both left and right mandibles to their default \textquotesingle{}CLOSED\textquotesingle{} positions. 
+
+\Hypertarget{class_mandible_subsystem_ac7c27f6440d029bc66bf3657db88c18a}\index{MandibleSubsystem@{MandibleSubsystem}!CloseLeft@{CloseLeft}}
+\index{CloseLeft@{CloseLeft}!MandibleSubsystem@{MandibleSubsystem}}
+\doxysubsubsection{\texorpdfstring{CloseLeft()}{CloseLeft()}}
+{\footnotesize\ttfamily \label{class_mandible_subsystem_ac7c27f6440d029bc66bf3657db88c18a} 
+void Mandible\+Subsystem\+::\+Close\+Left (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Closes the left mandible. Commands the left mandible servo to its predefined {\ttfamily LEFT\+\_\+\+CLOSE} position. 
+
+\Hypertarget{class_mandible_subsystem_aab5669b685cf6e3710cf2104c221d03f}\index{MandibleSubsystem@{MandibleSubsystem}!CloseRight@{CloseRight}}
+\index{CloseRight@{CloseRight}!MandibleSubsystem@{MandibleSubsystem}}
+\doxysubsubsection{\texorpdfstring{CloseRight()}{CloseRight()}}
+{\footnotesize\ttfamily \label{class_mandible_subsystem_aab5669b685cf6e3710cf2104c221d03f} 
+void Mandible\+Subsystem\+::\+Close\+Right (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Closes the right mandible. Commands the right mandible servo to its predefined {\ttfamily RIGHT\+\_\+\+CLOSE} position. 
+
+\Hypertarget{class_mandible_subsystem_a770a76f52f52fb1e390eb06a2180169a}\index{MandibleSubsystem@{MandibleSubsystem}!OpenLeft@{OpenLeft}}
+\index{OpenLeft@{OpenLeft}!MandibleSubsystem@{MandibleSubsystem}}
+\doxysubsubsection{\texorpdfstring{OpenLeft()}{OpenLeft()}}
+{\footnotesize\ttfamily \label{class_mandible_subsystem_a770a76f52f52fb1e390eb06a2180169a} 
+void Mandible\+Subsystem\+::\+Open\+Left (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Opens the left mandible. Commands the left mandible servo to its predefined {\ttfamily LEFT\+\_\+\+OPEN} position. 
+
+\Hypertarget{class_mandible_subsystem_aa1d08ed36f0c3cbe8fe5ab168180802d}\index{MandibleSubsystem@{MandibleSubsystem}!OpenRight@{OpenRight}}
+\index{OpenRight@{OpenRight}!MandibleSubsystem@{MandibleSubsystem}}
+\doxysubsubsection{\texorpdfstring{OpenRight()}{OpenRight()}}
+{\footnotesize\ttfamily \label{class_mandible_subsystem_aa1d08ed36f0c3cbe8fe5ab168180802d} 
+void Mandible\+Subsystem\+::\+Open\+Right (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Opens the right mandible. Commands the right mandible servo to its predefined {\ttfamily RIGHT\+\_\+\+OPEN} position. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/subsystem/\mbox{\hyperlink{_mandible_subsystem_8h}{Mandible\+Subsystem.\+h}}\item 
+src/subsystem/\mbox{\hyperlink{_mandible_subsystem_8cpp}{Mandible\+Subsystem.\+cpp}}\end{DoxyCompactItemize}

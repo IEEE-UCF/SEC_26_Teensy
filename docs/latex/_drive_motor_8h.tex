@@ -1,0 +1,58 @@
+\doxysection{src/drive/\+Drive\+Motor.h File Reference}
+\hypertarget{_drive_motor_8h}{}\label{_drive_motor_8h}\index{src/drive/DriveMotor.h@{src/drive/DriveMotor.h}}
+
+
+Defines the \doxylink{class_drive_motor}{Drive\+Motor} class for motor control.  
+
+
+{\ttfamily \#include $<$Arduino.\+h$>$}\newline
+{\ttfamily \#include $<$Print.\+h$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include "{}Quad\+Encoder.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_motor_setup}{Motor\+Setup}}
+\begin{DoxyCompactList}\small\item\em Motor configuration settings. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_drive_motor}{Drive\+Motor}}
+\begin{DoxyCompactList}\small\item\em Controls a motor using PWM and encoder feedback. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_drive_motor_8h_ad7c86544bbb397ff14a6bb7f288f63a0}{SPEED\+\_\+\+MAX}}~255
+\begin{DoxyCompactList}\small\item\em Maximum speed value. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_drive_motor_8h_a391fa1e490bd712720989b58fa0d9904}{PWM\+\_\+\+MAX}}~255
+\begin{DoxyCompactList}\small\item\em Maximum PWM value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Defines the \doxylink{class_drive_motor}{Drive\+Motor} class for motor control. 
+
+This class controls an NFPShop motor using PWM signals and encoders. It accounts for an edge case in the motor controller.
+
+\begin{DoxyAuthor}{Author}
+Aldem Pido 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{_drive_motor_8h_a391fa1e490bd712720989b58fa0d9904}\index{DriveMotor.h@{DriveMotor.h}!PWM\_MAX@{PWM\_MAX}}
+\index{PWM\_MAX@{PWM\_MAX}!DriveMotor.h@{DriveMotor.h}}
+\doxysubsubsection{\texorpdfstring{PWM\_MAX}{PWM\_MAX}}
+{\footnotesize\ttfamily \label{_drive_motor_8h_a391fa1e490bd712720989b58fa0d9904} 
+\#define PWM\+\_\+\+MAX~255}
+
+
+
+Maximum PWM value. 
+
+\Hypertarget{_drive_motor_8h_ad7c86544bbb397ff14a6bb7f288f63a0}\index{DriveMotor.h@{DriveMotor.h}!SPEED\_MAX@{SPEED\_MAX}}
+\index{SPEED\_MAX@{SPEED\_MAX}!DriveMotor.h@{DriveMotor.h}}
+\doxysubsubsection{\texorpdfstring{SPEED\_MAX}{SPEED\_MAX}}
+{\footnotesize\ttfamily \label{_drive_motor_8h_ad7c86544bbb397ff14a6bb7f288f63a0} 
+\#define SPEED\+\_\+\+MAX~255}
+
+
+
+Maximum speed value. 
+

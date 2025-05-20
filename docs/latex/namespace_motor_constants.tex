@@ -1,0 +1,280 @@
+\doxysection{Motor\+Constants Namespace Reference}
+\hypertarget{namespace_motor_constants}{}\label{namespace_motor_constants}\index{MotorConstants@{MotorConstants}}
+
+
+Contains constants for motor configuration.  
+
+
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+constexpr float \mbox{\hyperlink{namespace_motor_constants_a10f8313ea95e7783bc6793bd1ec873f6}{TRACK\+\_\+\+WIDTH}} = 10.\+0f
+\begin{DoxyCompactList}\small\item\em Distance between left and right wheels. \end{DoxyCompactList}\item 
+constexpr float \mbox{\hyperlink{namespace_motor_constants_a2e8c0e0dd63cb7b7efa10196f52dd22b}{WHEEL\+\_\+\+DIAMETER}} = 3.\+25f
+\begin{DoxyCompactList}\small\item\em Diameter of the wheel in inches. \end{DoxyCompactList}\item 
+constexpr float \mbox{\hyperlink{namespace_motor_constants_a1dcca3c5ddffe3f0ed620da113e5cdc5}{WHEEL\+\_\+\+RADIUS}} = \mbox{\hyperlink{namespace_motor_constants_a2e8c0e0dd63cb7b7efa10196f52dd22b}{WHEEL\+\_\+\+DIAMETER}} \texorpdfstring{$\ast$}{*} 0.\+5f
+\begin{DoxyCompactList}\small\item\em Radius of the wheel. \end{DoxyCompactList}\item 
+constexpr float \mbox{\hyperlink{namespace_motor_constants_a18b6eace971d491a8f8bb58b70dde6c2}{WHEEL\+\_\+\+CIRCUMFERENCE}} = PI \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{namespace_motor_constants_a2e8c0e0dd63cb7b7efa10196f52dd22b}{WHEEL\+\_\+\+DIAMETER}}
+\begin{DoxyCompactList}\small\item\em Circumference of the wheel. \end{DoxyCompactList}\item 
+constexpr float \mbox{\hyperlink{namespace_motor_constants_a1c0c3bb4e1feb281344bb32dc892f230}{WHEEL\+\_\+\+OFFSET\+\_\+Y}} = 2.\+0f
+\begin{DoxyCompactList}\small\item\em Offset distance of the wheel in the Y direction. \end{DoxyCompactList}\item 
+constexpr float \mbox{\hyperlink{namespace_motor_constants_af821e128f6b4cb74e834bd3ab40892dd}{BACK\+\_\+\+OFFSET\+\_\+F}} = 4.\+0f
+\begin{DoxyCompactList}\small\item\em Back wheel offset. \end{DoxyCompactList}\item 
+constexpr int \mbox{\hyperlink{namespace_motor_constants_a07b5e47517780b66086962e66848cce1}{RAW\+\_\+\+TICKS\+\_\+\+PER\+\_\+\+REVOLUTION}} = 3
+\begin{DoxyCompactList}\small\item\em Encoder raw ticks per revolution. \end{DoxyCompactList}\item 
+constexpr int \mbox{\hyperlink{namespace_motor_constants_ac90e9de749924c8c50d20e2d6ac878a8}{GEAR\+\_\+\+RATIO}} = 34
+\begin{DoxyCompactList}\small\item\em Gear ratio of the motor. \end{DoxyCompactList}\item 
+constexpr long \mbox{\hyperlink{namespace_motor_constants_a82a109a170dac905a3d54eaf96fb517c}{TICKS\+\_\+\+PER\+\_\+\+REVOLUTION}}
+\begin{DoxyCompactList}\small\item\em Computed ticks per revolution. \end{DoxyCompactList}\item 
+constexpr float \mbox{\hyperlink{namespace_motor_constants_ad78999691bb74723c9ec8e4f87b383cd}{IN\+\_\+\+PER\+\_\+\+TICK}}
+\begin{DoxyCompactList}\small\item\em Distance traveled per encoder tick. \end{DoxyCompactList}\item 
+constexpr float \mbox{\hyperlink{namespace_motor_constants_ae1840ef1080183ee7cfbfab9e1c4fd7b}{MAX\+\_\+\+VELOCITY}} = 30.\+0f
+\begin{DoxyCompactList}\small\item\em Maximum velocity in inches per second. \end{DoxyCompactList}\item 
+constexpr float \mbox{\hyperlink{namespace_motor_constants_afd77c776ec67379aaa17ea5744960c97}{MAX\+\_\+\+ACCELERATION}} = 30.\+0f
+\begin{DoxyCompactList}\small\item\em Maximum acceleration in inches per second squared. \end{DoxyCompactList}\item 
+constexpr float \mbox{\hyperlink{namespace_motor_constants_a312fb3fbb5adea398f35c43391cb091b}{MAX\+\_\+\+ANGULAR\+\_\+\+VELOCITY}} = 4.\+0f
+\begin{DoxyCompactList}\small\item\em Maximum angular velocity in radians per second. \end{DoxyCompactList}\item 
+constexpr float \mbox{\hyperlink{namespace_motor_constants_ab3a8f1563a9295e3f45a9a55898fe135}{MAX\+\_\+\+ANGULAR\+\_\+\+ACCELERATION}}
+\begin{DoxyCompactList}\small\item\em Maximum angular acceleration in radians per second squared. \end{DoxyCompactList}\item 
+constexpr float \mbox{\hyperlink{namespace_motor_constants_ae759d86f7c3ba0301c663fe01f6f53af}{RAW\+\_\+\+MOTOR\+\_\+\+RPM\+\_\+\+NOLOAD}} = 11880.\+0f
+\begin{DoxyCompactList}\small\item\em Raw motor RPM without load. \end{DoxyCompactList}\item 
+constexpr float \mbox{\hyperlink{namespace_motor_constants_a7b7f6437bd9d40f5df25f3eb6b14149d}{MOTOR\+\_\+\+RPM\+\_\+\+NOLOAD}}
+\begin{DoxyCompactList}\small\item\em Adjusted motor RPM accounting for gear ratio. \end{DoxyCompactList}\item 
+constexpr float \mbox{\hyperlink{namespace_motor_constants_abe5db37b90875b89564dfca1d08defa9}{MOTOR\+\_\+\+RPS\+\_\+\+NOLOAD}}
+\begin{DoxyCompactList}\small\item\em Motor revolutions per second without load. \end{DoxyCompactList}\item 
+constexpr float \mbox{\hyperlink{namespace_motor_constants_a5ff215284a0a81f1cd6c7e34b9b5350c}{DRIVER\+\_\+\+START\+\_\+\+OFFSET\+\_\+\+DEGREES}} = 90.\+0f
+\begin{DoxyCompactList}\small\item\em Initial driver start offset in degrees. \end{DoxyCompactList}\item 
+constexpr float \mbox{\hyperlink{namespace_motor_constants_a7f8c1148797ad32515e3b1b5496d3d23}{DRIVER\+\_\+\+START\+\_\+\+OFFSET}}
+\begin{DoxyCompactList}\small\item\em Initial driver start offset in radians. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains constants for motor configuration. 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespace_motor_constants_af821e128f6b4cb74e834bd3ab40892dd}\index{MotorConstants@{MotorConstants}!BACK\_OFFSET\_F@{BACK\_OFFSET\_F}}
+\index{BACK\_OFFSET\_F@{BACK\_OFFSET\_F}!MotorConstants@{MotorConstants}}
+\doxysubsubsection{\texorpdfstring{BACK\_OFFSET\_F}{BACK\_OFFSET\_F}}
+{\footnotesize\ttfamily \label{namespace_motor_constants_af821e128f6b4cb74e834bd3ab40892dd} 
+float Motor\+Constants\+::\+BACK\+\_\+\+OFFSET\+\_\+F = 4.\+0f\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Back wheel offset. 
+
+\Hypertarget{namespace_motor_constants_a7f8c1148797ad32515e3b1b5496d3d23}\index{MotorConstants@{MotorConstants}!DRIVER\_START\_OFFSET@{DRIVER\_START\_OFFSET}}
+\index{DRIVER\_START\_OFFSET@{DRIVER\_START\_OFFSET}!MotorConstants@{MotorConstants}}
+\doxysubsubsection{\texorpdfstring{DRIVER\_START\_OFFSET}{DRIVER\_START\_OFFSET}}
+{\footnotesize\ttfamily \label{namespace_motor_constants_a7f8c1148797ad32515e3b1b5496d3d23} 
+float Motor\+Constants\+::\+DRIVER\+\_\+\+START\+\_\+\+OFFSET\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{namespace_motor_constants_a5ff215284a0a81f1cd6c7e34b9b5350c}{DRIVER\_START\_OFFSET\_DEGREES}}\ *\ PI\ /\ 180}
+
+\end{DoxyCode}
+
+
+Initial driver start offset in radians. 
+
+\Hypertarget{namespace_motor_constants_a5ff215284a0a81f1cd6c7e34b9b5350c}\index{MotorConstants@{MotorConstants}!DRIVER\_START\_OFFSET\_DEGREES@{DRIVER\_START\_OFFSET\_DEGREES}}
+\index{DRIVER\_START\_OFFSET\_DEGREES@{DRIVER\_START\_OFFSET\_DEGREES}!MotorConstants@{MotorConstants}}
+\doxysubsubsection{\texorpdfstring{DRIVER\_START\_OFFSET\_DEGREES}{DRIVER\_START\_OFFSET\_DEGREES}}
+{\footnotesize\ttfamily \label{namespace_motor_constants_a5ff215284a0a81f1cd6c7e34b9b5350c} 
+float Motor\+Constants\+::\+DRIVER\+\_\+\+START\+\_\+\+OFFSET\+\_\+\+DEGREES = 90.\+0f\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Initial driver start offset in degrees. 
+
+\Hypertarget{namespace_motor_constants_ac90e9de749924c8c50d20e2d6ac878a8}\index{MotorConstants@{MotorConstants}!GEAR\_RATIO@{GEAR\_RATIO}}
+\index{GEAR\_RATIO@{GEAR\_RATIO}!MotorConstants@{MotorConstants}}
+\doxysubsubsection{\texorpdfstring{GEAR\_RATIO}{GEAR\_RATIO}}
+{\footnotesize\ttfamily \label{namespace_motor_constants_ac90e9de749924c8c50d20e2d6ac878a8} 
+int Motor\+Constants\+::\+GEAR\+\_\+\+RATIO = 34\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Gear ratio of the motor. 
+
+\Hypertarget{namespace_motor_constants_ad78999691bb74723c9ec8e4f87b383cd}\index{MotorConstants@{MotorConstants}!IN\_PER\_TICK@{IN\_PER\_TICK}}
+\index{IN\_PER\_TICK@{IN\_PER\_TICK}!MotorConstants@{MotorConstants}}
+\doxysubsubsection{\texorpdfstring{IN\_PER\_TICK}{IN\_PER\_TICK}}
+{\footnotesize\ttfamily \label{namespace_motor_constants_ad78999691bb74723c9ec8e4f87b383cd} 
+float Motor\+Constants\+::\+IN\+\_\+\+PER\+\_\+\+TICK\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{namespace_motor_constants_a18b6eace971d491a8f8bb58b70dde6c2}{WHEEL\_CIRCUMFERENCE}}\ /\ \mbox{\hyperlink{namespace_motor_constants_a82a109a170dac905a3d54eaf96fb517c}{TICKS\_PER\_REVOLUTION}}}
+
+\end{DoxyCode}
+
+
+Distance traveled per encoder tick. 
+
+\Hypertarget{namespace_motor_constants_afd77c776ec67379aaa17ea5744960c97}\index{MotorConstants@{MotorConstants}!MAX\_ACCELERATION@{MAX\_ACCELERATION}}
+\index{MAX\_ACCELERATION@{MAX\_ACCELERATION}!MotorConstants@{MotorConstants}}
+\doxysubsubsection{\texorpdfstring{MAX\_ACCELERATION}{MAX\_ACCELERATION}}
+{\footnotesize\ttfamily \label{namespace_motor_constants_afd77c776ec67379aaa17ea5744960c97} 
+float Motor\+Constants\+::\+MAX\+\_\+\+ACCELERATION = 30.\+0f\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Maximum acceleration in inches per second squared. 
+
+\Hypertarget{namespace_motor_constants_ab3a8f1563a9295e3f45a9a55898fe135}\index{MotorConstants@{MotorConstants}!MAX\_ANGULAR\_ACCELERATION@{MAX\_ANGULAR\_ACCELERATION}}
+\index{MAX\_ANGULAR\_ACCELERATION@{MAX\_ANGULAR\_ACCELERATION}!MotorConstants@{MotorConstants}}
+\doxysubsubsection{\texorpdfstring{MAX\_ANGULAR\_ACCELERATION}{MAX\_ANGULAR\_ACCELERATION}}
+{\footnotesize\ttfamily \label{namespace_motor_constants_ab3a8f1563a9295e3f45a9a55898fe135} 
+float Motor\+Constants\+::\+MAX\+\_\+\+ANGULAR\+\_\+\+ACCELERATION\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{\ \ \ \ 10.0f}
+
+\end{DoxyCode}
+
+
+Maximum angular acceleration in radians per second squared. 
+
+\Hypertarget{namespace_motor_constants_a312fb3fbb5adea398f35c43391cb091b}\index{MotorConstants@{MotorConstants}!MAX\_ANGULAR\_VELOCITY@{MAX\_ANGULAR\_VELOCITY}}
+\index{MAX\_ANGULAR\_VELOCITY@{MAX\_ANGULAR\_VELOCITY}!MotorConstants@{MotorConstants}}
+\doxysubsubsection{\texorpdfstring{MAX\_ANGULAR\_VELOCITY}{MAX\_ANGULAR\_VELOCITY}}
+{\footnotesize\ttfamily \label{namespace_motor_constants_a312fb3fbb5adea398f35c43391cb091b} 
+float Motor\+Constants\+::\+MAX\+\_\+\+ANGULAR\+\_\+\+VELOCITY = 4.\+0f\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Maximum angular velocity in radians per second. 
+
+\Hypertarget{namespace_motor_constants_ae1840ef1080183ee7cfbfab9e1c4fd7b}\index{MotorConstants@{MotorConstants}!MAX\_VELOCITY@{MAX\_VELOCITY}}
+\index{MAX\_VELOCITY@{MAX\_VELOCITY}!MotorConstants@{MotorConstants}}
+\doxysubsubsection{\texorpdfstring{MAX\_VELOCITY}{MAX\_VELOCITY}}
+{\footnotesize\ttfamily \label{namespace_motor_constants_ae1840ef1080183ee7cfbfab9e1c4fd7b} 
+float Motor\+Constants\+::\+MAX\+\_\+\+VELOCITY = 30.\+0f\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Maximum velocity in inches per second. 
+
+\Hypertarget{namespace_motor_constants_a7b7f6437bd9d40f5df25f3eb6b14149d}\index{MotorConstants@{MotorConstants}!MOTOR\_RPM\_NOLOAD@{MOTOR\_RPM\_NOLOAD}}
+\index{MOTOR\_RPM\_NOLOAD@{MOTOR\_RPM\_NOLOAD}!MotorConstants@{MotorConstants}}
+\doxysubsubsection{\texorpdfstring{MOTOR\_RPM\_NOLOAD}{MOTOR\_RPM\_NOLOAD}}
+{\footnotesize\ttfamily \label{namespace_motor_constants_a7b7f6437bd9d40f5df25f3eb6b14149d} 
+float Motor\+Constants\+::\+MOTOR\+\_\+\+RPM\+\_\+\+NOLOAD\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{namespace_motor_constants_ae759d86f7c3ba0301c663fe01f6f53af}{RAW\_MOTOR\_RPM\_NOLOAD}}\ /\ \mbox{\hyperlink{namespace_motor_constants_ac90e9de749924c8c50d20e2d6ac878a8}{GEAR\_RATIO}}}
+
+\end{DoxyCode}
+
+
+Adjusted motor RPM accounting for gear ratio. 
+
+\Hypertarget{namespace_motor_constants_abe5db37b90875b89564dfca1d08defa9}\index{MotorConstants@{MotorConstants}!MOTOR\_RPS\_NOLOAD@{MOTOR\_RPS\_NOLOAD}}
+\index{MOTOR\_RPS\_NOLOAD@{MOTOR\_RPS\_NOLOAD}!MotorConstants@{MotorConstants}}
+\doxysubsubsection{\texorpdfstring{MOTOR\_RPS\_NOLOAD}{MOTOR\_RPS\_NOLOAD}}
+{\footnotesize\ttfamily \label{namespace_motor_constants_abe5db37b90875b89564dfca1d08defa9} 
+float Motor\+Constants\+::\+MOTOR\+\_\+\+RPS\+\_\+\+NOLOAD\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{namespace_motor_constants_a7b7f6437bd9d40f5df25f3eb6b14149d}{MOTOR\_RPM\_NOLOAD}}\ /\ 60.0f}
+
+\end{DoxyCode}
+
+
+Motor revolutions per second without load. 
+
+\Hypertarget{namespace_motor_constants_ae759d86f7c3ba0301c663fe01f6f53af}\index{MotorConstants@{MotorConstants}!RAW\_MOTOR\_RPM\_NOLOAD@{RAW\_MOTOR\_RPM\_NOLOAD}}
+\index{RAW\_MOTOR\_RPM\_NOLOAD@{RAW\_MOTOR\_RPM\_NOLOAD}!MotorConstants@{MotorConstants}}
+\doxysubsubsection{\texorpdfstring{RAW\_MOTOR\_RPM\_NOLOAD}{RAW\_MOTOR\_RPM\_NOLOAD}}
+{\footnotesize\ttfamily \label{namespace_motor_constants_ae759d86f7c3ba0301c663fe01f6f53af} 
+float Motor\+Constants\+::\+RAW\+\_\+\+MOTOR\+\_\+\+RPM\+\_\+\+NOLOAD = 11880.\+0f\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Raw motor RPM without load. 
+
+\Hypertarget{namespace_motor_constants_a07b5e47517780b66086962e66848cce1}\index{MotorConstants@{MotorConstants}!RAW\_TICKS\_PER\_REVOLUTION@{RAW\_TICKS\_PER\_REVOLUTION}}
+\index{RAW\_TICKS\_PER\_REVOLUTION@{RAW\_TICKS\_PER\_REVOLUTION}!MotorConstants@{MotorConstants}}
+\doxysubsubsection{\texorpdfstring{RAW\_TICKS\_PER\_REVOLUTION}{RAW\_TICKS\_PER\_REVOLUTION}}
+{\footnotesize\ttfamily \label{namespace_motor_constants_a07b5e47517780b66086962e66848cce1} 
+int Motor\+Constants\+::\+RAW\+\_\+\+TICKS\+\_\+\+PER\+\_\+\+REVOLUTION = 3\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Encoder raw ticks per revolution. 
+
+\Hypertarget{namespace_motor_constants_a82a109a170dac905a3d54eaf96fb517c}\index{MotorConstants@{MotorConstants}!TICKS\_PER\_REVOLUTION@{TICKS\_PER\_REVOLUTION}}
+\index{TICKS\_PER\_REVOLUTION@{TICKS\_PER\_REVOLUTION}!MotorConstants@{MotorConstants}}
+\doxysubsubsection{\texorpdfstring{TICKS\_PER\_REVOLUTION}{TICKS\_PER\_REVOLUTION}}
+{\footnotesize\ttfamily \label{namespace_motor_constants_a82a109a170dac905a3d54eaf96fb517c} 
+long Motor\+Constants\+::\+TICKS\+\_\+\+PER\+\_\+\+REVOLUTION\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{namespace_motor_constants_a07b5e47517780b66086962e66848cce1}{RAW\_TICKS\_PER\_REVOLUTION}}\ *\ \mbox{\hyperlink{namespace_motor_constants_ac90e9de749924c8c50d20e2d6ac878a8}{GEAR\_RATIO}}}
+
+\end{DoxyCode}
+
+
+Computed ticks per revolution. 
+
+\Hypertarget{namespace_motor_constants_a10f8313ea95e7783bc6793bd1ec873f6}\index{MotorConstants@{MotorConstants}!TRACK\_WIDTH@{TRACK\_WIDTH}}
+\index{TRACK\_WIDTH@{TRACK\_WIDTH}!MotorConstants@{MotorConstants}}
+\doxysubsubsection{\texorpdfstring{TRACK\_WIDTH}{TRACK\_WIDTH}}
+{\footnotesize\ttfamily \label{namespace_motor_constants_a10f8313ea95e7783bc6793bd1ec873f6} 
+float Motor\+Constants\+::\+TRACK\+\_\+\+WIDTH = 10.\+0f\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Distance between left and right wheels. 
+
+\Hypertarget{namespace_motor_constants_a18b6eace971d491a8f8bb58b70dde6c2}\index{MotorConstants@{MotorConstants}!WHEEL\_CIRCUMFERENCE@{WHEEL\_CIRCUMFERENCE}}
+\index{WHEEL\_CIRCUMFERENCE@{WHEEL\_CIRCUMFERENCE}!MotorConstants@{MotorConstants}}
+\doxysubsubsection{\texorpdfstring{WHEEL\_CIRCUMFERENCE}{WHEEL\_CIRCUMFERENCE}}
+{\footnotesize\ttfamily \label{namespace_motor_constants_a18b6eace971d491a8f8bb58b70dde6c2} 
+float Motor\+Constants\+::\+WHEEL\+\_\+\+CIRCUMFERENCE = PI \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{namespace_motor_constants_a2e8c0e0dd63cb7b7efa10196f52dd22b}{WHEEL\+\_\+\+DIAMETER}}\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Circumference of the wheel. 
+
+\Hypertarget{namespace_motor_constants_a2e8c0e0dd63cb7b7efa10196f52dd22b}\index{MotorConstants@{MotorConstants}!WHEEL\_DIAMETER@{WHEEL\_DIAMETER}}
+\index{WHEEL\_DIAMETER@{WHEEL\_DIAMETER}!MotorConstants@{MotorConstants}}
+\doxysubsubsection{\texorpdfstring{WHEEL\_DIAMETER}{WHEEL\_DIAMETER}}
+{\footnotesize\ttfamily \label{namespace_motor_constants_a2e8c0e0dd63cb7b7efa10196f52dd22b} 
+float Motor\+Constants\+::\+WHEEL\+\_\+\+DIAMETER = 3.\+25f\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Diameter of the wheel in inches. 
+
+\Hypertarget{namespace_motor_constants_a1c0c3bb4e1feb281344bb32dc892f230}\index{MotorConstants@{MotorConstants}!WHEEL\_OFFSET\_Y@{WHEEL\_OFFSET\_Y}}
+\index{WHEEL\_OFFSET\_Y@{WHEEL\_OFFSET\_Y}!MotorConstants@{MotorConstants}}
+\doxysubsubsection{\texorpdfstring{WHEEL\_OFFSET\_Y}{WHEEL\_OFFSET\_Y}}
+{\footnotesize\ttfamily \label{namespace_motor_constants_a1c0c3bb4e1feb281344bb32dc892f230} 
+float Motor\+Constants\+::\+WHEEL\+\_\+\+OFFSET\+\_\+Y = 2.\+0f\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Offset distance of the wheel in the Y direction. 
+
+\Hypertarget{namespace_motor_constants_a1dcca3c5ddffe3f0ed620da113e5cdc5}\index{MotorConstants@{MotorConstants}!WHEEL\_RADIUS@{WHEEL\_RADIUS}}
+\index{WHEEL\_RADIUS@{WHEEL\_RADIUS}!MotorConstants@{MotorConstants}}
+\doxysubsubsection{\texorpdfstring{WHEEL\_RADIUS}{WHEEL\_RADIUS}}
+{\footnotesize\ttfamily \label{namespace_motor_constants_a1dcca3c5ddffe3f0ed620da113e5cdc5} 
+float Motor\+Constants\+::\+WHEEL\+\_\+\+RADIUS = \mbox{\hyperlink{namespace_motor_constants_a2e8c0e0dd63cb7b7efa10196f52dd22b}{WHEEL\+\_\+\+DIAMETER}} \texorpdfstring{$\ast$}{*} 0.\+5f\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Radius of the wheel. 
+

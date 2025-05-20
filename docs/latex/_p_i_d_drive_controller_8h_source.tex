@@ -1,0 +1,33 @@
+\doxysection{PIDDrive\+Controller.\+h}
+\hypertarget{_p_i_d_drive_controller_8h_source}{}\label{_p_i_d_drive_controller_8h_source}\index{src/drive/PIDDriveController.h@{src/drive/PIDDriveController.h}}
+\mbox{\hyperlink{_p_i_d_drive_controller_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifndef\ PIDDRIVECONTROLLER\_H}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ PIDDRIVECONTROLLER\_H}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}Arduino.h"{}}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_m_o_t_o_r_c_o_n_f_i_g_8h}{MOTORCONFIG.h}}"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_p_i_d_8h}{PID.h}}"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_simple_robot_drive_8h}{SimpleRobotDrive.h}}"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_pose2_d_8h}{math/Pose2D.h}}"{}}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_p_i_d_drive_controller_a7d485902033791734cbaf6aa9f257133}{PIDDriveController}}\ \{}
+\DoxyCodeLine{00024\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00025\ \ \ \mbox{\hyperlink{class_p_i_d_drive_controller_a7d485902033791734cbaf6aa9f257133}{PIDDriveController}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_p_i_d_config}{PIDConfig}}\ \&xConfig,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_p_i_d_config}{PIDConfig}}\ \&yConfig,}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{struct_p_i_d_config}{PIDConfig}}\ \&thetaConfig);}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ \mbox{\hyperlink{class_p_i_d_drive_controller_a708fbb7b5c7a6798b4a630543cdce494}{Step}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ \&currentPose,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ \&targetPose)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00029\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_p_i_d_drive_controller_a47b9b992bfc9a780c0f61f1928df774e}{PrintInfo}}(Print\ \&output,\ \textcolor{keywordtype}{bool}\ printConfig)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00030\ \ \ \textcolor{keyword}{friend}\ Print\ \&\mbox{\hyperlink{class_p_i_d_drive_controller_ac7e9f8e73cd80482ca0a5daa7b65750a}{operator<<}}(Print\ \&output,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_p_i_d_drive_controller_a7d485902033791734cbaf6aa9f257133}{PIDDriveController}}\ \&controller);}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00033\ \ \ \mbox{\hyperlink{class_p_i_d}{PID}}\ xPID;\ \ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \mbox{\hyperlink{class_p_i_d}{PID}}\ yPID;\ \ \ \ \ \ }
+\DoxyCodeLine{00035\ \ \ \mbox{\hyperlink{class_p_i_d}{PID}}\ thetaPID;\ \ }
+\DoxyCodeLine{00036\ \};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ PIDDRIVECONTROLLER\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,28 @@
+var annotated_dup =
+[
+    [ "BeaconSubsystem", "class_beacon_subsystem.html", "class_beacon_subsystem" ],
+    [ "ButtonHandler", "class_button_handler.html", "class_button_handler" ],
+    [ "DriveMotor", "class_drive_motor.html", "class_drive_motor" ],
+    [ "GyroHandler", "class_gyro_handler.html", "class_gyro_handler" ],
+    [ "HallHandler", "class_hall_handler.html", "class_hall_handler" ],
+    [ "LightHandler", "class_light_handler.html", "class_light_handler" ],
+    [ "LineHandler", "class_line_handler.html", "class_line_handler" ],
+    [ "LocalizationEncoder", "class_localization_encoder.html", "class_localization_encoder" ],
+    [ "MandibleSubsystem", "class_mandible_subsystem.html", "class_mandible_subsystem" ],
+    [ "MotorSetup", "struct_motor_setup.html", "struct_motor_setup" ],
+    [ "PathHandler", "class_path_handler.html", "class_path_handler" ],
+    [ "PID", "class_p_i_d.html", "class_p_i_d" ],
+    [ "PIDConfig", "struct_p_i_d_config.html", "struct_p_i_d_config" ],
+    [ "PIDDriveController", "class_p_i_d_drive_controller.html", "class_p_i_d_drive_controller" ],
+    [ "Pose2D", "class_pose2_d.html", "class_pose2_d" ],
+    [ "RCHandler", "class_r_c_handler.html", "class_r_c_handler" ],
+    [ "RGBColor", "struct_r_g_b_color.html", "struct_r_g_b_color" ],
+    [ "RGBHandler", "class_r_g_b_handler.html", "class_r_g_b_handler" ],
+    [ "ROSHandler", "class_r_o_s_handler.html", "class_r_o_s_handler" ],
+    [ "ServoHandler", "class_servo_handler.html", "class_servo_handler" ],
+    [ "SimpleRobotDrive", "class_simple_robot_drive.html", "class_simple_robot_drive" ],
+    [ "SorterSubsystem", "class_sorter_subsystem.html", "class_sorter_subsystem" ],
+    [ "TOFHandler", "class_t_o_f_handler.html", "class_t_o_f_handler" ],
+    [ "VectorRobotDrive", "class_vector_robot_drive.html", "class_vector_robot_drive" ],
+    [ "VectorRobotDrivePID", "class_vector_robot_drive_p_i_d.html", "class_vector_robot_drive_p_i_d" ]
+];

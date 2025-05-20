@@ -1,0 +1,48 @@
+\doxysection{src/handler/\+RGBHandler.cpp File Reference}
+\hypertarget{_r_g_b_handler_8cpp}{}\label{_r_g_b_handler_8cpp}\index{src/handler/RGBHandler.cpp@{src/handler/RGBHandler.cpp}}
+
+
+Implements the \doxylink{class_r_g_b_handler}{RGBHandler} class for advanced control of WS2812 LED strips.  
+
+
+{\ttfamily \#include "{}RGBHandler.\+h"{}}\newline
+{\ttfamily \#include $<$Arduino.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Print \& \mbox{\hyperlink{_r_g_b_handler_8cpp_a905e179934b8744fb7b9241cee21b373}{operator$<$$<$}} (Print \&output, const \mbox{\hyperlink{class_r_g_b_handler}{RGBHandler}} \&handler)
+\begin{DoxyCompactList}\small\item\em Overloaded stream insertion operator for printing \doxylink{class_r_g_b_handler}{RGBHandler} details. Allows an \doxylink{class_r_g_b_handler}{RGBHandler} object to be easily printed to any Print-\/derived stream. By default, prints the current runtime state of the LED sections. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implements the \doxylink{class_r_g_b_handler}{RGBHandler} class for advanced control of WS2812 LED strips. 
+
+\begin{DoxyAuthor}{Author}
+Rafeed Khan 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+May 19, 2025 // Assuming current date for last modification 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_r_g_b_handler_8cpp_a905e179934b8744fb7b9241cee21b373}\index{RGBHandler.cpp@{RGBHandler.cpp}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!RGBHandler.cpp@{RGBHandler.cpp}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}}
+{\footnotesize\ttfamily \label{_r_g_b_handler_8cpp_a905e179934b8744fb7b9241cee21b373} 
+Print \& operator$<$$<$ (\begin{DoxyParamCaption}\item[{Print \&}]{output}{, }\item[{const \mbox{\hyperlink{class_r_g_b_handler}{RGBHandler}} \&}]{handler}{}\end{DoxyParamCaption})}
+
+
+
+Overloaded stream insertion operator for printing \doxylink{class_r_g_b_handler}{RGBHandler} details. Allows an \doxylink{class_r_g_b_handler}{RGBHandler} object to be easily printed to any Print-\/derived stream. By default, prints the current runtime state of the LED sections. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em output} & Reference to the Print stream. \\
+\hline
+{\em handler} & Const reference to the \doxylink{class_r_g_b_handler}{RGBHandler} object. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Reference to the Print stream. 
+\end{DoxyReturn}

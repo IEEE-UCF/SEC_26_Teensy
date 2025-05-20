@@ -1,0 +1,75 @@
+\doxysection{Sorter\+Subsystem.\+h}
+\hypertarget{_sorter_subsystem_8h_source}{}\label{_sorter_subsystem_8h_source}\index{src/subsystem/SorterSubsystem.h@{src/subsystem/SorterSubsystem.h}}
+\mbox{\hyperlink{_sorter_subsystem_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifndef\ SORTERSUBSYSTEM\_H}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ SORTERSUBSYSTEM\_H}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <Print.h>}\ \ \textcolor{comment}{//\ For\ Print\ \&operator<<}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_drive_motor_8h}{../drive/DriveMotor.h}}"{}}\ \ \ \ \ \ \textcolor{comment}{//\ Ensure\ path\ is\ correct}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_hall_handler_8h}{../handler/HallHandler.h}}"{}}\ \ \ \textcolor{comment}{//\ Ensure\ path\ is\ correct}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_r_g_b_handler_8h}{../handler/RGBHandler.h}}"{}}\ \ \ \ \textcolor{comment}{//\ Ensure\ path\ is\ correct}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_servo_handler_8h}{../handler/ServoHandler.h}}"{}}\ \ \textcolor{comment}{//\ Ensure\ path\ is\ correct}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_t_o_f_handler_8h}{../handler/TOFHandler.h}}"{}}\ \ \ \ \textcolor{comment}{//\ Ensure\ path\ is\ correct}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ Constants\ for\ sorter\ operation}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ OBJECT\_RANGE\ 75\ \ }}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ BOUNDS\_MAG\ \(\backslash\)}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\ \ 2\ \ }}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ SORTER\_HALL\_COUNT\ 3\ \ }}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_sorter_subsystem_a217ee4a95fa68cc0390285882973bcfc}{SorterSubsystem}}\ \{}
+\DoxyCodeLine{00035\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00039\ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{class_sorter_subsystem_a57af9c69817cf8b3541451652455249a}{ServoPositions}}\ :\ uint8\_t\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{class_sorter_subsystem_a57af9c69817cf8b3541451652455249aa521c975387333c39ba2f6c21961830e8}{LEFT}}\ =\ 40,\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{class_sorter_subsystem_a57af9c69817cf8b3541451652455249aa3d2e8ab6bc8d75f9fd777973ba4ec99d}{SOFTLEFT}}\ =\ 70,\ \ \ \ }
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{class_sorter_subsystem_a57af9c69817cf8b3541451652455249aa8663bbf51bf942f0c9d362c04f403e5e}{CENTER}}\ =\ 90,\ \ \ \ \ \ }
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{class_sorter_subsystem_a57af9c69817cf8b3541451652455249aa9bd893bf25d68f5bff1c2e4f4b4bc392}{SOFTRIGHT}}\ =\ 110,\ \ }
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{class_sorter_subsystem_a57af9c69817cf8b3541451652455249aafaae9bff8ffbcba7cb0ea6de5b8990e4}{RIGHT}}\ =\ 140\ \ \ \ \ \ \ }
+\DoxyCodeLine{00045\ \ \ \};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \mbox{\hyperlink{class_sorter_subsystem_a217ee4a95fa68cc0390285882973bcfc}{SorterSubsystem}}(\textcolor{keywordtype}{int}\ tofSensorIndex,\ \textcolor{keywordtype}{int}\ numHallSensors,\ \textcolor{keywordtype}{int}\ servoMotorIndex,\ \mbox{\hyperlink{class_t_o_f_handler}{TOFHandler}}\ \&tofs,}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_hall_handler}{HallHandler}}\ \&halls,\ \mbox{\hyperlink{class_servo_handler}{ServoHandler}}\ \&servos,\ \mbox{\hyperlink{class_drive_motor}{DriveMotor}}\ \&transferMotor,}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_r_g_b_handler}{RGBHandler}}\ \&rgb);}
+\DoxyCodeLine{00050\ \ \ \mbox{\hyperlink{class_sorter_subsystem_ab76f8d8fc20834179768285e90b7566a}{\string~SorterSubsystem}}();\ \ \textcolor{comment}{//\ Destructor\ to\ free\ \_baseReadings}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_sorter_subsystem_a43bcfe25cc2f9d286cb97dd3704d1f32}{Begin}}();}
+\DoxyCodeLine{00053\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_sorter_subsystem_a6212ae2b420d77773c750f5b43da193c}{Update}}();}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_sorter_subsystem_a267bb0dedb3c1d65388a251c0ca6d8a0}{MoveCenter}}();}
+\DoxyCodeLine{00056\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_sorter_subsystem_a7df3f485f399a4ecd1a6233465c23b44}{MoveLeft}}();}
+\DoxyCodeLine{00057\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_sorter_subsystem_ab09d305ab515138f3a8769d358fa4658}{MoveRight}}();}
+\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_sorter_subsystem_a425e8207588f6d12717f89b5acca9b4b}{MoveSoftLeft}}();}
+\DoxyCodeLine{00059\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_sorter_subsystem_aaf8cbddb229cd00ea91ff307dc2f68fa}{MoveSoftRight}}();}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_sorter_subsystem_ae6001b930eb558c99f00cf37fa04748a}{SetState}}(\textcolor{keywordtype}{int}\ newState)\ \{}
+\DoxyCodeLine{00062\ \ \ \ \ this-\/>\_state\ =\ newState;}
+\DoxyCodeLine{00063\ \ \ \}\ \ }
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_sorter_subsystem_a4d8f9315194facf0927543c851cefc83}{PrintInfo}}(Print\ \&output,\ \textcolor{keywordtype}{bool}\ printConfig\ =\ \textcolor{keyword}{false})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00066\ \ \ \textcolor{keyword}{friend}\ Print\ \&\mbox{\hyperlink{class_sorter_subsystem_a8eb44188d7b82b8b5d7fa77a9cfddf96}{operator<<}}(Print\ \&output,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_sorter_subsystem}{SorterSubsystem}}\ \&subsystem);}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00069\ \ \ \textcolor{comment}{//\ Sensor\ and\ actuator\ indices/references}}
+\DoxyCodeLine{00070\ \ \ \textcolor{keywordtype}{int}\ iTOF;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00071\ \ \ \textcolor{keywordtype}{int}\ hallCount;\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00072\ \ \ \textcolor{keywordtype}{int}\ iServo;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00073\ \ \ \mbox{\hyperlink{class_t_o_f_handler}{TOFHandler}}\ \&tofs;\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00074\ \ \ \mbox{\hyperlink{class_hall_handler}{HallHandler}}\ \&halls;\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00075\ \ \ \mbox{\hyperlink{class_servo_handler}{ServoHandler}}\ \&servos;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00076\ \ \ \mbox{\hyperlink{class_drive_motor}{DriveMotor}}\ \&transferMotor;\ \ }
+\DoxyCodeLine{00077\ \ \ \mbox{\hyperlink{class_r_g_b_handler}{RGBHandler}}\ \&rgb;\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \textcolor{comment}{//\ State\ variables}}
+\DoxyCodeLine{00080\ \ \ \textcolor{keywordtype}{int}\ \_state;\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00081\ \ \ \textcolor{keywordtype}{int}\ *\_baseReadings;\ \ }
+\DoxyCodeLine{00082\ \ \ \textcolor{keywordtype}{bool}\ objectMagnet;\ \ \ }
+\DoxyCodeLine{00083\ \};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ SORTERSUBSYSTEM\_H}}
+
+\end{DoxyCode}

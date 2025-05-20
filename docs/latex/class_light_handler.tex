@@ -1,0 +1,107 @@
+\doxysection{Light\+Handler Class Reference}
+\hypertarget{class_light_handler}{}\label{class_light_handler}\index{LightHandler@{LightHandler}}
+
+
+Manages BH1750 light sensor readings.  
+
+
+
+
+{\ttfamily \#include $<$Light\+Handler.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_light_handler_aabfc87c4e2a9260af9ee646fcfc6ac42}{Light\+Handler}} (int c\+Light)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_light_handler}{Light\+Handler} object. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_light_handler_a2742d741fcd5bf48f538c5b229a464fe}{Begin}} ()
+\begin{DoxyCompactList}\small\item\em Initializes the BH1750 light sensor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_light_handler_a0cc4c4ce19272685c210eb62c565a15d}{Update}} ()
+\begin{DoxyCompactList}\small\item\em Reads and updates the light sensor data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_light_handler_a1cf2b373e15c4783ed4779a27e3cc563}{Print\+Info}} (Print \&output, bool print\+Config=false) const
+\begin{DoxyCompactList}\small\item\em Prints light sensor configuration or current readings. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_light_handler_acce75e6ff2832729f2b7130adc26aad0}{Get\+Light\+Level}} () const
+\begin{DoxyCompactList}\small\item\em Retrieves the current light level measurement. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages BH1750 light sensor readings. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_light_handler_aabfc87c4e2a9260af9ee646fcfc6ac42}\index{LightHandler@{LightHandler}!LightHandler@{LightHandler}}
+\index{LightHandler@{LightHandler}!LightHandler@{LightHandler}}
+\doxysubsubsection{\texorpdfstring{LightHandler()}{LightHandler()}}
+{\footnotesize\ttfamily \label{class_light_handler_aabfc87c4e2a9260af9ee646fcfc6ac42} 
+Light\+Handler\+::\+Light\+Handler (\begin{DoxyParamCaption}\item[{int}]{c\+Light}{}\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{class_light_handler}{Light\+Handler} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em c\+Light} & Channel index for the I2C multiplexer. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_light_handler_a2742d741fcd5bf48f538c5b229a464fe}\index{LightHandler@{LightHandler}!Begin@{Begin}}
+\index{Begin@{Begin}!LightHandler@{LightHandler}}
+\doxysubsubsection{\texorpdfstring{Begin()}{Begin()}}
+{\footnotesize\ttfamily \label{class_light_handler_a2742d741fcd5bf48f538c5b229a464fe} 
+bool Light\+Handler\+::\+Begin (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Initializes the BH1750 light sensor. 
+
+\begin{DoxyReturn}{Returns}
+True if initialization succeeds, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_light_handler_acce75e6ff2832729f2b7130adc26aad0}\index{LightHandler@{LightHandler}!GetLightLevel@{GetLightLevel}}
+\index{GetLightLevel@{GetLightLevel}!LightHandler@{LightHandler}}
+\doxysubsubsection{\texorpdfstring{GetLightLevel()}{GetLightLevel()}}
+{\footnotesize\ttfamily \label{class_light_handler_acce75e6ff2832729f2b7130adc26aad0} 
+float Light\+Handler\+::\+Get\+Light\+Level (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Retrieves the current light level measurement. 
+
+\begin{DoxyReturn}{Returns}
+Light level in lux. 
+\end{DoxyReturn}
+\Hypertarget{class_light_handler_a1cf2b373e15c4783ed4779a27e3cc563}\index{LightHandler@{LightHandler}!PrintInfo@{PrintInfo}}
+\index{PrintInfo@{PrintInfo}!LightHandler@{LightHandler}}
+\doxysubsubsection{\texorpdfstring{PrintInfo()}{PrintInfo()}}
+{\footnotesize\ttfamily \label{class_light_handler_a1cf2b373e15c4783ed4779a27e3cc563} 
+void Light\+Handler\+::\+Print\+Info (\begin{DoxyParamCaption}\item[{Print \&}]{output}{, }\item[{bool}]{print\+Config}{ = {\ttfamily false}}\end{DoxyParamCaption}) const}
+
+
+
+Prints light sensor configuration or current readings. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em output} & Output stream for logging. \\
+\hline
+{\em print\+Config} & If true, prints sensor configuration; otherwise, prints current readings. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_light_handler_a0cc4c4ce19272685c210eb62c565a15d}\index{LightHandler@{LightHandler}!Update@{Update}}
+\index{Update@{Update}!LightHandler@{LightHandler}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{class_light_handler_a0cc4c4ce19272685c210eb62c565a15d} 
+void Light\+Handler\+::\+Update (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Reads and updates the light sensor data. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/handler/\mbox{\hyperlink{_light_handler_8h}{Light\+Handler.\+h}}\item 
+src/handler/\mbox{\hyperlink{_light_handler_8cpp}{Light\+Handler.\+cpp}}\end{DoxyCompactItemize}

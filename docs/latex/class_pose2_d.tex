@@ -1,0 +1,360 @@
+\doxysection{Pose2D Class Reference}
+\hypertarget{class_pose2_d}{}\label{class_pose2_d}\index{Pose2D@{Pose2D}}
+
+
+Class for handling 2D objects.  
+
+
+
+
+{\ttfamily \#include $<$Pose2\+D.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_pose2_d_ae60fac40bc37d262b923265387535c22}{Pose2D}} (float x=0, float y=0, float theta=0, float xymag=1)
+\begin{DoxyCompactList}\small\item\em Creates a \doxylink{class_pose2_d}{Pose2D}. You can use this to represent position, velocity, or acceleration. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_pose2_d_ae8e7d88214fd18b3caf44862993414bf}{getX}} () const
+\begin{DoxyCompactList}\small\item\em Get X component. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_pose2_d_a09eba33da07962e2b5d6dc978da98b1c}{getY}} () const
+\begin{DoxyCompactList}\small\item\em Get Y component. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_pose2_d_a914618ce4d7929a5354850452ce6153c}{get\+Theta}} () const
+\begin{DoxyCompactList}\small\item\em Get theta component. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_pose2_d_a5d185f00fe70600418142aa88e1eb9ef}{get\+Xy\+Mag}} () const
+\begin{DoxyCompactList}\small\item\em Get the magnitude of the vector if x and y are normalized to 1. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_pose2_d_a5069d532deca1cf3c4b1ccf039a0d796}{set\+Xy\+Mag}} (float val)
+\begin{DoxyCompactList}\small\item\em Set the magnitude of the vector if x and y are normalized to 1. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \& \mbox{\hyperlink{class_pose2_d_aa77584756b8499b001f2175da64c8335}{normalize}} (bool scale\+Theta=false)
+\begin{DoxyCompactList}\small\item\em Normalizes magnitude of x and y to 1. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \& \mbox{\hyperlink{class_pose2_d_adfe3129f0935221930dbab133a2e3eae}{unnormalize}} (bool scale\+Theta=false)
+\begin{DoxyCompactList}\small\item\em Scales pose based on xymag. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \& \mbox{\hyperlink{class_pose2_d_a67a7ec63d39f70d7a5d65a60ce0ab13f}{fix\+Theta}} ()
+\begin{DoxyCompactList}\small\item\em Binds theta on +-\/ pi bounds. Only use if you are working with position. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \& \mbox{\hyperlink{class_pose2_d_a2bcf5c1913863c1e0d5c1d0014ddd06d}{constrain\+Xy\+Mag}} (float magnitude)
+\begin{DoxyCompactList}\small\item\em Constrains the x and y magnitude if x and y are normalized to 1. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \& \mbox{\hyperlink{class_pose2_d_a41300e6f09dd260d43f928db029635eb}{constrain\+Theta}} (float magnitude)
+\begin{DoxyCompactList}\small\item\em Constrains theta. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \& \mbox{\hyperlink{class_pose2_d_a5e9a668d707813ac9b7d7ea49c0f12c7}{rotate\+Vector}} (float angle)
+\begin{DoxyCompactList}\small\item\em Rotate vector. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \& \mbox{\hyperlink{class_pose2_d_a50a0e3468171fde29d5b24882516a980}{rotate\+Vector\+Cached}} (float cos\+Angle, float sin\+Angle)
+\begin{DoxyCompactList}\small\item\em Rotate vector with cached angles. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \& \mbox{\hyperlink{class_pose2_d_ad6fb42ed4b5d3e2156bf9bf9f720c437}{rotate}} (float dtheta)
+\begin{DoxyCompactList}\small\item\em Rotate (theta) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \& \mbox{\hyperlink{class_pose2_d_ae3049db0e04c609a752653b055cdb29d}{add}} (const \mbox{\hyperlink{class_pose2_d}{Pose2D}} \&pose)
+\begin{DoxyCompactList}\small\item\em Add a pose to current pose. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \& \mbox{\hyperlink{class_pose2_d_aac34f37442c120db0aa9769264a68b85}{subtract}} (const \mbox{\hyperlink{class_pose2_d}{Pose2D}} \&pose)
+\begin{DoxyCompactList}\small\item\em Subtract a pose from current pose. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \& \mbox{\hyperlink{class_pose2_d_a85929bda0862cfa4643a13b78edde931}{mult\+Element}} (const \mbox{\hyperlink{class_pose2_d}{Pose2D}} \&pose)
+\begin{DoxyCompactList}\small\item\em Multiply pose element by element. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \& \mbox{\hyperlink{class_pose2_d_a925d35fcc25b400238c9164ff0406aa3}{mult\+Constant}} (float scalar)
+\begin{DoxyCompactList}\small\item\em Multiply all components by a scalar. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \& \mbox{\hyperlink{class_pose2_d_a973bb6629736a4ae37dcbeffa7740efe}{reset}} ()
+\begin{DoxyCompactList}\small\item\em Set all values to 0. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+Print \& \mbox{\hyperlink{class_pose2_d_a8fe044f194ca4d046929ec5fd3a8959d}{operator$<$$<$}} (Print \&output, const \mbox{\hyperlink{class_pose2_d}{Pose2D}} \&pose)
+\begin{DoxyCompactList}\small\item\em Overloaded stream operator for printing pose details. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class for handling 2D objects. 
+
+This class can represent position, acceleration, or velocity. Users must track the type of value stored. For example, {\ttfamily \doxylink{class_pose2_d_a67a7ec63d39f70d7a5d65a60ce0ab13f}{fix\+Theta()}} should be used on a position vector but not on a velocity vector. Many functions return {\ttfamily \doxylink{class_pose2_d}{Pose2D}}, allowing method chaining.
+
+\begin{DoxyAuthor}{Authors}
+Aldem Pido, Rafeed Khan 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_pose2_d_ae60fac40bc37d262b923265387535c22}\index{Pose2D@{Pose2D}!Pose2D@{Pose2D}}
+\index{Pose2D@{Pose2D}!Pose2D@{Pose2D}}
+\doxysubsubsection{\texorpdfstring{Pose2D()}{Pose2D()}}
+{\footnotesize\ttfamily \label{class_pose2_d_ae60fac40bc37d262b923265387535c22} 
+Pose2\+D\+::\+Pose2D (\begin{DoxyParamCaption}\item[{float}]{x}{ = {\ttfamily 0}, }\item[{float}]{y}{ = {\ttfamily 0}, }\item[{float}]{theta}{ = {\ttfamily 0}, }\item[{float}]{xymag}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+
+
+Creates a \doxylink{class_pose2_d}{Pose2D}. You can use this to represent position, velocity, or acceleration. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Represents the x component. \\
+\hline
+{\em y} & Reperesents the y component. \\
+\hline
+{\em theta} & Represents the theta component if needed. \\
+\hline
+{\em xymag} & Reperesnts the combined x and y magnitude if x and y are normalized to 1. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_pose2_d_ae3049db0e04c609a752653b055cdb29d}\index{Pose2D@{Pose2D}!add@{add}}
+\index{add@{add}!Pose2D@{Pose2D}}
+\doxysubsubsection{\texorpdfstring{add()}{add()}}
+{\footnotesize\ttfamily \label{class_pose2_d_ae3049db0e04c609a752653b055cdb29d} 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \& Pose2\+D\+::add (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_pose2_d}{Pose2D}} \&}]{pose}{}\end{DoxyParamCaption})}
+
+
+
+Add a pose to current pose. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pose} & Pose to add. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_pose2_d_a41300e6f09dd260d43f928db029635eb}\index{Pose2D@{Pose2D}!constrainTheta@{constrainTheta}}
+\index{constrainTheta@{constrainTheta}!Pose2D@{Pose2D}}
+\doxysubsubsection{\texorpdfstring{constrainTheta()}{constrainTheta()}}
+{\footnotesize\ttfamily \label{class_pose2_d_a41300e6f09dd260d43f928db029635eb} 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \& Pose2\+D\+::constrain\+Theta (\begin{DoxyParamCaption}\item[{float}]{magnitude}{}\end{DoxyParamCaption})}
+
+
+
+Constrains theta. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em magnitude} & Magnitude to constrain theta to. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_pose2_d_a2bcf5c1913863c1e0d5c1d0014ddd06d}\index{Pose2D@{Pose2D}!constrainXyMag@{constrainXyMag}}
+\index{constrainXyMag@{constrainXyMag}!Pose2D@{Pose2D}}
+\doxysubsubsection{\texorpdfstring{constrainXyMag()}{constrainXyMag()}}
+{\footnotesize\ttfamily \label{class_pose2_d_a2bcf5c1913863c1e0d5c1d0014ddd06d} 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \& Pose2\+D\+::constrain\+Xy\+Mag (\begin{DoxyParamCaption}\item[{float}]{magnitude}{}\end{DoxyParamCaption})}
+
+
+
+Constrains the x and y magnitude if x and y are normalized to 1. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em magnitude} & magnitude of xymag \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_pose2_d_a67a7ec63d39f70d7a5d65a60ce0ab13f}\index{Pose2D@{Pose2D}!fixTheta@{fixTheta}}
+\index{fixTheta@{fixTheta}!Pose2D@{Pose2D}}
+\doxysubsubsection{\texorpdfstring{fixTheta()}{fixTheta()}}
+{\footnotesize\ttfamily \label{class_pose2_d_a67a7ec63d39f70d7a5d65a60ce0ab13f} 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \& Pose2\+D\+::fix\+Theta (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Binds theta on +-\/ pi bounds. Only use if you are working with position. 
+
+\Hypertarget{class_pose2_d_a914618ce4d7929a5354850452ce6153c}\index{Pose2D@{Pose2D}!getTheta@{getTheta}}
+\index{getTheta@{getTheta}!Pose2D@{Pose2D}}
+\doxysubsubsection{\texorpdfstring{getTheta()}{getTheta()}}
+{\footnotesize\ttfamily \label{class_pose2_d_a914618ce4d7929a5354850452ce6153c} 
+float Pose2\+D\+::get\+Theta (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get theta component. 
+
+\Hypertarget{class_pose2_d_ae8e7d88214fd18b3caf44862993414bf}\index{Pose2D@{Pose2D}!getX@{getX}}
+\index{getX@{getX}!Pose2D@{Pose2D}}
+\doxysubsubsection{\texorpdfstring{getX()}{getX()}}
+{\footnotesize\ttfamily \label{class_pose2_d_ae8e7d88214fd18b3caf44862993414bf} 
+float Pose2\+D\+::getX (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get X component. 
+
+\Hypertarget{class_pose2_d_a5d185f00fe70600418142aa88e1eb9ef}\index{Pose2D@{Pose2D}!getXyMag@{getXyMag}}
+\index{getXyMag@{getXyMag}!Pose2D@{Pose2D}}
+\doxysubsubsection{\texorpdfstring{getXyMag()}{getXyMag()}}
+{\footnotesize\ttfamily \label{class_pose2_d_a5d185f00fe70600418142aa88e1eb9ef} 
+float Pose2\+D\+::get\+Xy\+Mag (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the magnitude of the vector if x and y are normalized to 1. 
+
+\Hypertarget{class_pose2_d_a09eba33da07962e2b5d6dc978da98b1c}\index{Pose2D@{Pose2D}!getY@{getY}}
+\index{getY@{getY}!Pose2D@{Pose2D}}
+\doxysubsubsection{\texorpdfstring{getY()}{getY()}}
+{\footnotesize\ttfamily \label{class_pose2_d_a09eba33da07962e2b5d6dc978da98b1c} 
+float Pose2\+D\+::getY (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get Y component. 
+
+\Hypertarget{class_pose2_d_a925d35fcc25b400238c9164ff0406aa3}\index{Pose2D@{Pose2D}!multConstant@{multConstant}}
+\index{multConstant@{multConstant}!Pose2D@{Pose2D}}
+\doxysubsubsection{\texorpdfstring{multConstant()}{multConstant()}}
+{\footnotesize\ttfamily \label{class_pose2_d_a925d35fcc25b400238c9164ff0406aa3} 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \& Pose2\+D\+::mult\+Constant (\begin{DoxyParamCaption}\item[{float}]{scalar}{}\end{DoxyParamCaption})}
+
+
+
+Multiply all components by a scalar. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scalar} & \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_pose2_d_a85929bda0862cfa4643a13b78edde931}\index{Pose2D@{Pose2D}!multElement@{multElement}}
+\index{multElement@{multElement}!Pose2D@{Pose2D}}
+\doxysubsubsection{\texorpdfstring{multElement()}{multElement()}}
+{\footnotesize\ttfamily \label{class_pose2_d_a85929bda0862cfa4643a13b78edde931} 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \& Pose2\+D\+::mult\+Element (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_pose2_d}{Pose2D}} \&}]{pose}{}\end{DoxyParamCaption})}
+
+
+
+Multiply pose element by element. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pose} & Pose to mult element by element. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_pose2_d_aa77584756b8499b001f2175da64c8335}\index{Pose2D@{Pose2D}!normalize@{normalize}}
+\index{normalize@{normalize}!Pose2D@{Pose2D}}
+\doxysubsubsection{\texorpdfstring{normalize()}{normalize()}}
+{\footnotesize\ttfamily \label{class_pose2_d_aa77584756b8499b001f2175da64c8335} 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \& Pose2\+D\+::normalize (\begin{DoxyParamCaption}\item[{bool}]{scale\+Theta}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+
+
+Normalizes magnitude of x and y to 1. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scale\+Theta} & Option to also scale theta. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_pose2_d_a973bb6629736a4ae37dcbeffa7740efe}\index{Pose2D@{Pose2D}!reset@{reset}}
+\index{reset@{reset}!Pose2D@{Pose2D}}
+\doxysubsubsection{\texorpdfstring{reset()}{reset()}}
+{\footnotesize\ttfamily \label{class_pose2_d_a973bb6629736a4ae37dcbeffa7740efe} 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \& Pose2\+D\+::reset (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Set all values to 0. 
+
+\Hypertarget{class_pose2_d_ad6fb42ed4b5d3e2156bf9bf9f720c437}\index{Pose2D@{Pose2D}!rotate@{rotate}}
+\index{rotate@{rotate}!Pose2D@{Pose2D}}
+\doxysubsubsection{\texorpdfstring{rotate()}{rotate()}}
+{\footnotesize\ttfamily \label{class_pose2_d_ad6fb42ed4b5d3e2156bf9bf9f720c437} 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \& Pose2\+D\+::rotate (\begin{DoxyParamCaption}\item[{float}]{dtheta}{}\end{DoxyParamCaption})}
+
+
+
+Rotate (theta) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dtheta} & Change in theta. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_pose2_d_a5e9a668d707813ac9b7d7ea49c0f12c7}\index{Pose2D@{Pose2D}!rotateVector@{rotateVector}}
+\index{rotateVector@{rotateVector}!Pose2D@{Pose2D}}
+\doxysubsubsection{\texorpdfstring{rotateVector()}{rotateVector()}}
+{\footnotesize\ttfamily \label{class_pose2_d_a5e9a668d707813ac9b7d7ea49c0f12c7} 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \& Pose2\+D\+::rotate\+Vector (\begin{DoxyParamCaption}\item[{float}]{angle}{}\end{DoxyParamCaption})}
+
+
+
+Rotate vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em angle} & Angle to rotate by radians. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_pose2_d_a50a0e3468171fde29d5b24882516a980}\index{Pose2D@{Pose2D}!rotateVectorCached@{rotateVectorCached}}
+\index{rotateVectorCached@{rotateVectorCached}!Pose2D@{Pose2D}}
+\doxysubsubsection{\texorpdfstring{rotateVectorCached()}{rotateVectorCached()}}
+{\footnotesize\ttfamily \label{class_pose2_d_a50a0e3468171fde29d5b24882516a980} 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \& Pose2\+D\+::rotate\+Vector\+Cached (\begin{DoxyParamCaption}\item[{float}]{cos\+Angle}{, }\item[{float}]{sin\+Angle}{}\end{DoxyParamCaption})}
+
+
+
+Rotate vector with cached angles. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cos\+Angle} & Cached value of cos. \\
+\hline
+{\em sin\+Angle} & Cached value of sin. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_pose2_d_a5069d532deca1cf3c4b1ccf039a0d796}\index{Pose2D@{Pose2D}!setXyMag@{setXyMag}}
+\index{setXyMag@{setXyMag}!Pose2D@{Pose2D}}
+\doxysubsubsection{\texorpdfstring{setXyMag()}{setXyMag()}}
+{\footnotesize\ttfamily \label{class_pose2_d_a5069d532deca1cf3c4b1ccf039a0d796} 
+void Pose2\+D\+::set\+Xy\+Mag (\begin{DoxyParamCaption}\item[{float}]{val}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Set the magnitude of the vector if x and y are normalized to 1. 
+
+\Hypertarget{class_pose2_d_aac34f37442c120db0aa9769264a68b85}\index{Pose2D@{Pose2D}!subtract@{subtract}}
+\index{subtract@{subtract}!Pose2D@{Pose2D}}
+\doxysubsubsection{\texorpdfstring{subtract()}{subtract()}}
+{\footnotesize\ttfamily \label{class_pose2_d_aac34f37442c120db0aa9769264a68b85} 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \& Pose2\+D\+::subtract (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_pose2_d}{Pose2D}} \&}]{pose}{}\end{DoxyParamCaption})}
+
+
+
+Subtract a pose from current pose. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pose} & Pose to subtract. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_pose2_d_adfe3129f0935221930dbab133a2e3eae}\index{Pose2D@{Pose2D}!unnormalize@{unnormalize}}
+\index{unnormalize@{unnormalize}!Pose2D@{Pose2D}}
+\doxysubsubsection{\texorpdfstring{unnormalize()}{unnormalize()}}
+{\footnotesize\ttfamily \label{class_pose2_d_adfe3129f0935221930dbab133a2e3eae} 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \& Pose2\+D\+::unnormalize (\begin{DoxyParamCaption}\item[{bool}]{scale\+Theta}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+
+
+Scales pose based on xymag. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scale\+Theta} & Option to also scale theta. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{class_pose2_d_a8fe044f194ca4d046929ec5fd3a8959d}\index{Pose2D@{Pose2D}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Pose2D@{Pose2D}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily \label{class_pose2_d_a8fe044f194ca4d046929ec5fd3a8959d} 
+Print \& operator$<$$<$ (\begin{DoxyParamCaption}\item[{Print \&}]{output}{, }\item[{const \mbox{\hyperlink{class_pose2_d}{Pose2D}} \&}]{pose}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Overloaded stream operator for printing pose details. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em output} & Output stream. \\
+\hline
+{\em pose} & \doxylink{class_pose2_d}{Pose2D} instance. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Modified output stream. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/drive/math/\mbox{\hyperlink{_pose2_d_8h}{Pose2\+D.\+h}}\item 
+src/drive/math/\mbox{\hyperlink{_pose2_d_8cpp}{Pose2\+D.\+cpp}}\end{DoxyCompactItemize}

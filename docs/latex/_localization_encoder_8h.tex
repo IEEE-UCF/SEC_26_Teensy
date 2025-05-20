@@ -1,0 +1,55 @@
+\doxysection{src/drive/\+Localization\+Encoder.h File Reference}
+\hypertarget{_localization_encoder_8h}{}\label{_localization_encoder_8h}\index{src/drive/LocalizationEncoder.h@{src/drive/LocalizationEncoder.h}}
+
+
+Tracks the robot\textquotesingle{}s position using encoder counts and a gyro yaw reading.  
+
+
+{\ttfamily \#include $<$Arduino.\+h$>$}\newline
+{\ttfamily \#include "{}MOTORCONFIG.\+h"{}}\newline
+{\ttfamily \#include "{}math/\+Pose2\+D.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_localization_encoder}{Localization\+Encoder}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_localization_encoder_8h_a6ffc62811b3e92f8acbedcec612c8030}{STARTX}}~30.\+5
+\begin{DoxyCompactList}\small\item\em Initial X position. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_localization_encoder_8h_afa7f69258876ee4ca4c4f9ee3cafffd4}{STARTY}}~6
+\begin{DoxyCompactList}\small\item\em Initial Y position. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Tracks the robot\textquotesingle{}s position using encoder counts and a gyro yaw reading. 
+
+Maintains the robot\textquotesingle{}s position by processing encoder data from three wheels along with yaw readings from a gyroscope.
+
+\begin{DoxyAuthor}{Author}
+Aldem Pido 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{_localization_encoder_8h_a6ffc62811b3e92f8acbedcec612c8030}\index{LocalizationEncoder.h@{LocalizationEncoder.h}!STARTX@{STARTX}}
+\index{STARTX@{STARTX}!LocalizationEncoder.h@{LocalizationEncoder.h}}
+\doxysubsubsection{\texorpdfstring{STARTX}{STARTX}}
+{\footnotesize\ttfamily \label{_localization_encoder_8h_a6ffc62811b3e92f8acbedcec612c8030} 
+\#define STARTX~30.\+5}
+
+
+
+Initial X position. 
+
+\Hypertarget{_localization_encoder_8h_afa7f69258876ee4ca4c4f9ee3cafffd4}\index{LocalizationEncoder.h@{LocalizationEncoder.h}!STARTY@{STARTY}}
+\index{STARTY@{STARTY}!LocalizationEncoder.h@{LocalizationEncoder.h}}
+\doxysubsubsection{\texorpdfstring{STARTY}{STARTY}}
+{\footnotesize\ttfamily \label{_localization_encoder_8h_afa7f69258876ee4ca4c4f9ee3cafffd4} 
+\#define STARTY~6}
+
+
+
+Initial Y position. 
+

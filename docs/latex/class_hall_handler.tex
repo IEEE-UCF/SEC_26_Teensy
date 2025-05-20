@@ -1,0 +1,138 @@
+\doxysection{Hall\+Handler Class Reference}
+\hypertarget{class_hall_handler}{}\label{class_hall_handler}\index{HallHandler@{HallHandler}}
+
+
+{\ttfamily \#include $<$Hall\+Handler.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_hall_handler_a72bbcfc060a251ed4a1e6f136858869e}{Hall\+Handler}} (int \texorpdfstring{$\ast$}{*}k\+Pins, int num\+Pins)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_hall_handler}{Hall\+Handler} object. \end{DoxyCompactList}\item 
+int \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_hall_handler_a9a618324aff57c900083698f853d8cae}{get\+Readings}} () const
+\begin{DoxyCompactList}\small\item\em Retrieves the current hall sensor readings. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_hall_handler_a6ebce032ee888b50d84e97440a21a7ad}{\texorpdfstring{$\sim$}{\string~}\+Hall\+Handler}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for \doxylink{class_hall_handler}{Hall\+Handler}, releasing allocated memory. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_hall_handler_ad9d215dd0b52770fb808323a61ce0ae4}{Begin}} ()
+\begin{DoxyCompactList}\small\item\em Initializes sensor pins and sets analog read resolution. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_hall_handler_a700dd3d54f3f258a4f4a8750ad64c60c}{Update}} ()
+\begin{DoxyCompactList}\small\item\em Reads hall sensor values and updates stored data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_hall_handler_a5b9adb3f7fcc4ead01b855045d41074f}{Print\+Info}} (Print \&output, bool print\+Config) const
+\begin{DoxyCompactList}\small\item\em Prints hall sensor configuration or current readings. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+Print \& \mbox{\hyperlink{class_hall_handler_a22db976ca1e3b328ae413615ce5f253f}{operator$<$$<$}} (Print \&output, const \mbox{\hyperlink{class_hall_handler}{Hall\+Handler}} \&handler)
+\begin{DoxyCompactList}\small\item\em Overloaded stream operator for printing hall sensor details. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_hall_handler_a72bbcfc060a251ed4a1e6f136858869e}\index{HallHandler@{HallHandler}!HallHandler@{HallHandler}}
+\index{HallHandler@{HallHandler}!HallHandler@{HallHandler}}
+\doxysubsubsection{\texorpdfstring{HallHandler()}{HallHandler()}}
+{\footnotesize\ttfamily \label{class_hall_handler_a72bbcfc060a251ed4a1e6f136858869e} 
+Hall\+Handler\+::\+Hall\+Handler (\begin{DoxyParamCaption}\item[{int \texorpdfstring{$\ast$}{*}}]{k\+Pins}{, }\item[{int}]{num\+Pins}{}\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{class_hall_handler}{Hall\+Handler} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em k\+Pins} & Array of hall sensor pins. \\
+\hline
+{\em num\+Pins} & Number of sensors. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_hall_handler_a6ebce032ee888b50d84e97440a21a7ad}\index{HallHandler@{HallHandler}!````~HallHandler@{\texorpdfstring{$\sim$}{\string~}HallHandler}}
+\index{````~HallHandler@{\texorpdfstring{$\sim$}{\string~}HallHandler}!HallHandler@{HallHandler}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}HallHandler()}{\string~HallHandler()}}
+{\footnotesize\ttfamily \label{class_hall_handler_a6ebce032ee888b50d84e97440a21a7ad} 
+Hall\+Handler\+::\texorpdfstring{$\sim$}{\string~}\+Hall\+Handler (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Destructor for \doxylink{class_hall_handler}{Hall\+Handler}, releasing allocated memory. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_hall_handler_ad9d215dd0b52770fb808323a61ce0ae4}\index{HallHandler@{HallHandler}!Begin@{Begin}}
+\index{Begin@{Begin}!HallHandler@{HallHandler}}
+\doxysubsubsection{\texorpdfstring{Begin()}{Begin()}}
+{\footnotesize\ttfamily \label{class_hall_handler_ad9d215dd0b52770fb808323a61ce0ae4} 
+void Hall\+Handler\+::\+Begin (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Initializes sensor pins and sets analog read resolution. 
+
+\Hypertarget{class_hall_handler_a9a618324aff57c900083698f853d8cae}\index{HallHandler@{HallHandler}!getReadings@{getReadings}}
+\index{getReadings@{getReadings}!HallHandler@{HallHandler}}
+\doxysubsubsection{\texorpdfstring{getReadings()}{getReadings()}}
+{\footnotesize\ttfamily \label{class_hall_handler_a9a618324aff57c900083698f853d8cae} 
+int \texorpdfstring{$\ast$}{*} Hall\+Handler\+::get\+Readings (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Retrieves the current hall sensor readings. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to an array containing sensor values. 
+\end{DoxyReturn}
+\Hypertarget{class_hall_handler_a5b9adb3f7fcc4ead01b855045d41074f}\index{HallHandler@{HallHandler}!PrintInfo@{PrintInfo}}
+\index{PrintInfo@{PrintInfo}!HallHandler@{HallHandler}}
+\doxysubsubsection{\texorpdfstring{PrintInfo()}{PrintInfo()}}
+{\footnotesize\ttfamily \label{class_hall_handler_a5b9adb3f7fcc4ead01b855045d41074f} 
+void Hall\+Handler\+::\+Print\+Info (\begin{DoxyParamCaption}\item[{Print \&}]{output}{, }\item[{bool}]{print\+Config}{}\end{DoxyParamCaption}) const}
+
+
+
+Prints hall sensor configuration or current readings. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em output} & Output stream for logging. \\
+\hline
+{\em print\+Config} & If true, prints sensor configuration; otherwise, prints current readings. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_hall_handler_a700dd3d54f3f258a4f4a8750ad64c60c}\index{HallHandler@{HallHandler}!Update@{Update}}
+\index{Update@{Update}!HallHandler@{HallHandler}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{class_hall_handler_a700dd3d54f3f258a4f4a8750ad64c60c} 
+void Hall\+Handler\+::\+Update (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Reads hall sensor values and updates stored data. 
+
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{class_hall_handler_a22db976ca1e3b328ae413615ce5f253f}\index{HallHandler@{HallHandler}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!HallHandler@{HallHandler}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily \label{class_hall_handler_a22db976ca1e3b328ae413615ce5f253f} 
+Print \& operator$<$$<$ (\begin{DoxyParamCaption}\item[{Print \&}]{output}{, }\item[{const \mbox{\hyperlink{class_hall_handler}{Hall\+Handler}} \&}]{handler}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Overloaded stream operator for printing hall sensor details. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em output} & Output stream. \\
+\hline
+{\em handler} & \doxylink{class_hall_handler}{Hall\+Handler} instance. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Modified output stream. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/handler/\mbox{\hyperlink{_hall_handler_8h}{Hall\+Handler.\+h}}\item 
+src/handler/\mbox{\hyperlink{_hall_handler_8cpp}{Hall\+Handler.\+cpp}}\end{DoxyCompactItemize}

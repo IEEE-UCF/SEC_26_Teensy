@@ -1,0 +1,50 @@
+\doxysection{MOTORCONFIG.\+h}
+\hypertarget{_m_o_t_o_r_c_o_n_f_i_g_8h_source}{}\label{_m_o_t_o_r_c_o_n_f_i_g_8h_source}\index{src/drive/MOTORCONFIG.h@{src/drive/MOTORCONFIG.h}}
+\mbox{\hyperlink{_m_o_t_o_r_c_o_n_f_i_g_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#ifndef\ MOTORCONFIG\_H}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ MOTORCONFIG\_H}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_motor_constants}{MotorConstants}}\ \{}
+\DoxyCodeLine{00021\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespace_motor_constants_a10f8313ea95e7783bc6793bd1ec873f6}{TRACK\_WIDTH}}\ =\ 10.0f;\ \ }
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ No\ need\ to\ redefine\ PI,\ Teensy\ provides\ it\ automatically}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespace_motor_constants_a2e8c0e0dd63cb7b7efa10196f52dd22b}{WHEEL\_DIAMETER}}\ =\ 3.25f;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespace_motor_constants_a1dcca3c5ddffe3f0ed620da113e5cdc5}{WHEEL\_RADIUS}}\ =\ \mbox{\hyperlink{namespace_motor_constants_a2e8c0e0dd63cb7b7efa10196f52dd22b}{WHEEL\_DIAMETER}}\ *\ 0.5f;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespace_motor_constants_a18b6eace971d491a8f8bb58b70dde6c2}{WHEEL\_CIRCUMFERENCE}}\ =\ PI\ *\ \mbox{\hyperlink{namespace_motor_constants_a2e8c0e0dd63cb7b7efa10196f52dd22b}{WHEEL\_DIAMETER}};\ \ }
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespace_motor_constants_a1c0c3bb4e1feb281344bb32dc892f230}{WHEEL\_OFFSET\_Y}}\ =\ 2.0f;\ \ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespace_motor_constants_af821e128f6b4cb74e834bd3ab40892dd}{BACK\_OFFSET\_F}}\ =\ 4.0f;\ \ \ }
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespace_motor_constants_a07b5e47517780b66086962e66848cce1}{RAW\_TICKS\_PER\_REVOLUTION}}\ =\ 3;\ \ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespace_motor_constants_ac90e9de749924c8c50d20e2d6ac878a8}{GEAR\_RATIO}}\ =\ 34;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{namespace_motor_constants_a82a109a170dac905a3d54eaf96fb517c}{TICKS\_PER\_REVOLUTION}}\ =}
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{namespace_motor_constants_a07b5e47517780b66086962e66848cce1}{RAW\_TICKS\_PER\_REVOLUTION}}\ *\ \mbox{\hyperlink{namespace_motor_constants_ac90e9de749924c8c50d20e2d6ac878a8}{GEAR\_RATIO}};\ \ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespace_motor_constants_ad78999691bb74723c9ec8e4f87b383cd}{IN\_PER\_TICK}}\ =}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{namespace_motor_constants_a18b6eace971d491a8f8bb58b70dde6c2}{WHEEL\_CIRCUMFERENCE}}\ /\ \mbox{\hyperlink{namespace_motor_constants_a82a109a170dac905a3d54eaf96fb517c}{TICKS\_PER\_REVOLUTION}};\ \ }
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespace_motor_constants_ae1840ef1080183ee7cfbfab9e1c4fd7b}{MAX\_VELOCITY}}\ =\ 30.0f;\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespace_motor_constants_afd77c776ec67379aaa17ea5744960c97}{MAX\_ACCELERATION}}\ =\ 30.0f;\ \ \ \ \ }
+\DoxyCodeLine{00041\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespace_motor_constants_a312fb3fbb5adea398f35c43391cb091b}{MAX\_ANGULAR\_VELOCITY}}\ =\ 4.0f;\ \ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespace_motor_constants_ab3a8f1563a9295e3f45a9a55898fe135}{MAX\_ANGULAR\_ACCELERATION}}\ =}
+\DoxyCodeLine{00043\ \ \ \ \ 10.0f;\ \ }
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespace_motor_constants_ae759d86f7c3ba0301c663fe01f6f53af}{RAW\_MOTOR\_RPM\_NOLOAD}}\ =\ 11880.0f;\ \ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespace_motor_constants_a7b7f6437bd9d40f5df25f3eb6b14149d}{MOTOR\_RPM\_NOLOAD}}\ =}
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{namespace_motor_constants_ae759d86f7c3ba0301c663fe01f6f53af}{RAW\_MOTOR\_RPM\_NOLOAD}}\ /\ \mbox{\hyperlink{namespace_motor_constants_ac90e9de749924c8c50d20e2d6ac878a8}{GEAR\_RATIO}};\ \ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespace_motor_constants_abe5db37b90875b89564dfca1d08defa9}{MOTOR\_RPS\_NOLOAD}}\ =}
+\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{namespace_motor_constants_a7b7f6437bd9d40f5df25f3eb6b14149d}{MOTOR\_RPM\_NOLOAD}}\ /\ 60.0f;\ \ }
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespace_motor_constants_a5ff215284a0a81f1cd6c7e34b9b5350c}{DRIVER\_START\_OFFSET\_DEGREES}}\ =\ 90.0f;\ \ }
+\DoxyCodeLine{00052\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespace_motor_constants_a7f8c1148797ad32515e3b1b5496d3d23}{DRIVER\_START\_OFFSET}}\ =}
+\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{namespace_motor_constants_a5ff215284a0a81f1cd6c7e34b9b5350c}{DRIVER\_START\_OFFSET\_DEGREES}}\ *\ PI\ /\ 180;\ \ }
+\DoxyCodeLine{00054\ \}\ \ \textcolor{comment}{//\ namespace\ MotorConstants}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

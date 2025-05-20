@@ -1,0 +1,148 @@
+\doxysection{PID Class Reference}
+\hypertarget{class_p_i_d}{}\label{class_p_i_d}\index{PID@{PID}}
+
+
+Implements a \doxylink{class_p_i_d}{PID} controller for motion control.  
+
+
+
+
+{\ttfamily \#include $<$PID.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_p_i_d_a2aae465a26bfea9d72b29058620f69c6}{PID}} (double kp, double ki, double kd, double kaw, double time\+Const, double max, double min, double max\+Rate, bool theta\+Fix)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_p_i_d}{PID} object with specific gain values. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_p_i_d_a0b49bbd7980abd977ccb6eef9bfcbad2}{PID}} (const \mbox{\hyperlink{struct_p_i_d_config}{PIDConfig}} \&config)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_p_i_d}{PID} object using configuration parameters. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_p_i_d_aba78806708631709777861edbe331886}{Step}} (double measurement, double setpoint)
+\begin{DoxyCompactList}\small\item\em Performs a \doxylink{class_p_i_d}{PID} step and calculates an output correction. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_p_i_d_a3417a6c61ef795fef649c840393c55ca}{Print\+Info}} (Print \&output, bool print\+Config) const
+\begin{DoxyCompactList}\small\item\em Prints information about the \doxylink{class_p_i_d}{PID} controller. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+Print \& \mbox{\hyperlink{class_p_i_d_ad022d5fc247358761d4ef0a967feb496}{operator$<$$<$}} (Print \&output, const \mbox{\hyperlink{class_p_i_d}{PID}} \&pid)
+\begin{DoxyCompactList}\small\item\em Overloaded stream operator for printing \doxylink{class_p_i_d}{PID} state. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implements a \doxylink{class_p_i_d}{PID} controller for motion control. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_p_i_d_a2aae465a26bfea9d72b29058620f69c6}\index{PID@{PID}!PID@{PID}}
+\index{PID@{PID}!PID@{PID}}
+\doxysubsubsection{\texorpdfstring{PID()}{PID()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_p_i_d_a2aae465a26bfea9d72b29058620f69c6} 
+PID\+::\+PID (\begin{DoxyParamCaption}\item[{double}]{kp}{, }\item[{double}]{ki}{, }\item[{double}]{kd}{, }\item[{double}]{kaw}{, }\item[{double}]{time\+Const}{, }\item[{double}]{max}{, }\item[{double}]{min}{, }\item[{double}]{max\+Rate}{, }\item[{bool}]{theta\+Fix}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructs a \doxylink{class_p_i_d}{PID} object with specific gain values. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em kp} & Proportional gain. \\
+\hline
+{\em ki} & Integral gain. \\
+\hline
+{\em kd} & Derivative gain. \\
+\hline
+{\em kaw} & Integral anti-\/windup gain. \\
+\hline
+{\em time\+Const} & Time constant for derivative filtering. \\
+\hline
+{\em max} & Maximum output value. \\
+\hline
+{\em min} & Minimum output value. \\
+\hline
+{\em max\+Rate} & Maximum rate of change for output. \\
+\hline
+{\em theta\+Fix} & Enable angle correction for circular values. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_p_i_d_a0b49bbd7980abd977ccb6eef9bfcbad2}\index{PID@{PID}!PID@{PID}}
+\index{PID@{PID}!PID@{PID}}
+\doxysubsubsection{\texorpdfstring{PID()}{PID()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_p_i_d_a0b49bbd7980abd977ccb6eef9bfcbad2} 
+PID\+::\+PID (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_p_i_d_config}{PIDConfig}} \&}]{config}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Constructs a \doxylink{class_p_i_d}{PID} object using configuration parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em config} & \doxylink{struct_p_i_d_config}{PIDConfig} struct containing all gain values. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_p_i_d_a3417a6c61ef795fef649c840393c55ca}\index{PID@{PID}!PrintInfo@{PrintInfo}}
+\index{PrintInfo@{PrintInfo}!PID@{PID}}
+\doxysubsubsection{\texorpdfstring{PrintInfo()}{PrintInfo()}}
+{\footnotesize\ttfamily \label{class_p_i_d_a3417a6c61ef795fef649c840393c55ca} 
+void PID\+::\+Print\+Info (\begin{DoxyParamCaption}\item[{Print \&}]{output}{, }\item[{bool}]{print\+Config}{}\end{DoxyParamCaption}) const}
+
+
+
+Prints information about the \doxylink{class_p_i_d}{PID} controller. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em output} & Output stream for logging. \\
+\hline
+{\em print\+Config} & If true, prints configuration values; otherwise, prints runtime state. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_p_i_d_aba78806708631709777861edbe331886}\index{PID@{PID}!Step@{Step}}
+\index{Step@{Step}!PID@{PID}}
+\doxysubsubsection{\texorpdfstring{Step()}{Step()}}
+{\footnotesize\ttfamily \label{class_p_i_d_aba78806708631709777861edbe331886} 
+double PID\+::\+Step (\begin{DoxyParamCaption}\item[{double}]{measurement}{, }\item[{double}]{setpoint}{}\end{DoxyParamCaption})}
+
+
+
+Performs a \doxylink{class_p_i_d}{PID} step and calculates an output correction. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em measurement} & The current measured value. \\
+\hline
+{\em setpoint} & The desired target value. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The computed correction value. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{class_p_i_d_ad022d5fc247358761d4ef0a967feb496}\index{PID@{PID}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!PID@{PID}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily \label{class_p_i_d_ad022d5fc247358761d4ef0a967feb496} 
+Print \& operator$<$$<$ (\begin{DoxyParamCaption}\item[{Print \&}]{output}{, }\item[{const \mbox{\hyperlink{class_p_i_d}{PID}} \&}]{pid}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Overloaded stream operator for printing \doxylink{class_p_i_d}{PID} state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em output} & Output stream. \\
+\hline
+{\em pid} & \doxylink{class_p_i_d}{PID} instance. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Modified output stream. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/drive/\mbox{\hyperlink{_p_i_d_8h}{PID.\+h}}\item 
+src/drive/\mbox{\hyperlink{_p_i_d_8cpp}{PID.\+cpp}}\end{DoxyCompactItemize}

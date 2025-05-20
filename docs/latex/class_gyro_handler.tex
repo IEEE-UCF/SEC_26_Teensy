@@ -1,0 +1,110 @@
+\doxysection{Gyro\+Handler Class Reference}
+\hypertarget{class_gyro_handler}{}\label{class_gyro_handler}\index{GyroHandler@{GyroHandler}}
+
+
+Reads gyro sensor data using the BNO08x sensor.  
+
+
+
+
+{\ttfamily \#include $<$Gyro\+Handler.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_gyro_handler_ab852c60dbe652539cbd7ad677f8aa35f}{Gyro\+Handler}} ()
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_gyro_handler}{Gyro\+Handler} object. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_gyro_handler_aa6f8a70df6fae43bccb1c799b4a231d6}{Begin}} ()
+\begin{DoxyCompactList}\small\item\em Initializes the BNO08x gyro sensor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gyro_handler_a18abf98ff2d427f3247fe0b7cd6a8a0c}{Update}} ()
+\begin{DoxyCompactList}\small\item\em Reads and updates gyro sensor data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gyro_handler_a4f579f0127d2fca8aa4a7858b4aff244}{Print\+Info}} (Print \&output, bool print\+Config=false) const
+\begin{DoxyCompactList}\small\item\em Prints gyro configuration or current sensor readings. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gyro_handler_a5ae416f154498a34c038d262ff907f60}{Set\+\_\+\+Gametime\+\_\+\+Offset}} (float angle\+Rad)
+\item 
+float \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_gyro_handler_a9ba313c5a92df2135c42dac77ddab4e0}{Get\+Gyro\+Data}} ()
+\begin{DoxyCompactList}\small\item\em Retrieves the current gyro data. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Reads gyro sensor data using the BNO08x sensor. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_gyro_handler_ab852c60dbe652539cbd7ad677f8aa35f}\index{GyroHandler@{GyroHandler}!GyroHandler@{GyroHandler}}
+\index{GyroHandler@{GyroHandler}!GyroHandler@{GyroHandler}}
+\doxysubsubsection{\texorpdfstring{GyroHandler()}{GyroHandler()}}
+{\footnotesize\ttfamily \label{class_gyro_handler_ab852c60dbe652539cbd7ad677f8aa35f} 
+Gyro\+Handler\+::\+Gyro\+Handler (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{class_gyro_handler}{Gyro\+Handler} object. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_gyro_handler_aa6f8a70df6fae43bccb1c799b4a231d6}\index{GyroHandler@{GyroHandler}!Begin@{Begin}}
+\index{Begin@{Begin}!GyroHandler@{GyroHandler}}
+\doxysubsubsection{\texorpdfstring{Begin()}{Begin()}}
+{\footnotesize\ttfamily \label{class_gyro_handler_aa6f8a70df6fae43bccb1c799b4a231d6} 
+bool Gyro\+Handler\+::\+Begin (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Initializes the BNO08x gyro sensor. 
+
+\begin{DoxyReturn}{Returns}
+True if initialization succeeds, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{class_gyro_handler_a9ba313c5a92df2135c42dac77ddab4e0}\index{GyroHandler@{GyroHandler}!GetGyroData@{GetGyroData}}
+\index{GetGyroData@{GetGyroData}!GyroHandler@{GyroHandler}}
+\doxysubsubsection{\texorpdfstring{GetGyroData()}{GetGyroData()}}
+{\footnotesize\ttfamily \label{class_gyro_handler_a9ba313c5a92df2135c42dac77ddab4e0} 
+float \texorpdfstring{$\ast$}{*} Gyro\+Handler\+::\+Get\+Gyro\+Data (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Retrieves the current gyro data. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to an array containing \{yaw, pitch, roll\}. 
+\end{DoxyReturn}
+\Hypertarget{class_gyro_handler_a4f579f0127d2fca8aa4a7858b4aff244}\index{GyroHandler@{GyroHandler}!PrintInfo@{PrintInfo}}
+\index{PrintInfo@{PrintInfo}!GyroHandler@{GyroHandler}}
+\doxysubsubsection{\texorpdfstring{PrintInfo()}{PrintInfo()}}
+{\footnotesize\ttfamily \label{class_gyro_handler_a4f579f0127d2fca8aa4a7858b4aff244} 
+void Gyro\+Handler\+::\+Print\+Info (\begin{DoxyParamCaption}\item[{Print \&}]{output}{, }\item[{bool}]{print\+Config}{ = {\ttfamily false}}\end{DoxyParamCaption}) const}
+
+
+
+Prints gyro configuration or current sensor readings. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em output} & Output stream for logging. \\
+\hline
+{\em print\+Config} & If true, prints sensor configuration; otherwise, prints current data. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_gyro_handler_a5ae416f154498a34c038d262ff907f60}\index{GyroHandler@{GyroHandler}!Set\_Gametime\_Offset@{Set\_Gametime\_Offset}}
+\index{Set\_Gametime\_Offset@{Set\_Gametime\_Offset}!GyroHandler@{GyroHandler}}
+\doxysubsubsection{\texorpdfstring{Set\_Gametime\_Offset()}{Set\_Gametime\_Offset()}}
+{\footnotesize\ttfamily \label{class_gyro_handler_a5ae416f154498a34c038d262ff907f60} 
+void Gyro\+Handler\+::\+Set\+\_\+\+Gametime\+\_\+\+Offset (\begin{DoxyParamCaption}\item[{float}]{angle\+Rad}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_gyro_handler_a18abf98ff2d427f3247fe0b7cd6a8a0c}\index{GyroHandler@{GyroHandler}!Update@{Update}}
+\index{Update@{Update}!GyroHandler@{GyroHandler}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{class_gyro_handler_a18abf98ff2d427f3247fe0b7cd6a8a0c} 
+void Gyro\+Handler\+::\+Update (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Reads and updates gyro sensor data. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/handler/\mbox{\hyperlink{_gyro_handler_8h}{Gyro\+Handler.\+h}}\item 
+src/handler/\mbox{\hyperlink{_gyro_handler_8cpp}{Gyro\+Handler.\+cpp}}\end{DoxyCompactItemize}

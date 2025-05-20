@@ -1,0 +1,32 @@
+\doxysection{Line\+Handler.\+h}
+\hypertarget{_line_handler_8h_source}{}\label{_line_handler_8h_source}\index{src/handler/LineHandler.h@{src/handler/LineHandler.h}}
+\mbox{\hyperlink{_line_handler_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#ifndef\ LINEHANDLER\_H}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ LINEHANDLER\_H}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_line_handler_afcc34476a4d90d81ea9f175a58db6f73}{LineHandler}}\ \{}
+\DoxyCodeLine{00022\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ \ \ \mbox{\hyperlink{class_line_handler_afcc34476a4d90d81ea9f175a58db6f73}{LineHandler}}(\textcolor{keywordtype}{int}\ *kPins,\ \textcolor{keywordtype}{int}\ numPins);}
+\DoxyCodeLine{00024\ \ \ \mbox{\hyperlink{class_line_handler_ac2d2f285ea60778644e98a16eef7bfa8}{\string~LineHandler}}();}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_line_handler_aafba4e07663b8c1d4c7a5b41bdf9d630}{Setup}}();}
+\DoxyCodeLine{00027\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_line_handler_a1105fe3ac4706782040949d6805aaa75}{Update}}();}
+\DoxyCodeLine{00028\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_line_handler_ac3995cade0715528a36a9433c10d30ee}{PrintInfo}}(Print\ \&output,\ \textcolor{keywordtype}{bool}\ printConfig\ =\ \textcolor{keyword}{false})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00031\ \ \ \textcolor{keywordtype}{int}\ *kPins;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00032\ \ \ \textcolor{keywordtype}{int}\ numPins;\ \ \ \ \ \ }
+\DoxyCodeLine{00033\ \ \ \textcolor{keywordtype}{int}\ *lineValues;\ \ }
+\DoxyCodeLine{00034\ \};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ Overloaded\ stream\ operator\ for\ printing\ sensor\ details.}}
+\DoxyCodeLine{00037\ Print\ \&\mbox{\hyperlink{_line_handler_8h_a352354916e64c63b1272f4b1ecca415c}{operator<<}}(Print\ \&output,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_line_handler}{LineHandler}}\ \&handler);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ LINEHANDLER\_H}}
+
+\end{DoxyCode}

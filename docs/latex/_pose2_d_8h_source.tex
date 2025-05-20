@@ -1,0 +1,60 @@
+\doxysection{Pose2\+D.\+h}
+\hypertarget{_pose2_d_8h_source}{}\label{_pose2_d_8h_source}\index{src/drive/math/Pose2D.h@{src/drive/math/Pose2D.h}}
+\mbox{\hyperlink{_pose2_d_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifndef\ Pose2D\_H}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ Pose2D\_H}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_pose2_d_ae60fac40bc37d262b923265387535c22}{Pose2D}}\ \{}
+\DoxyCodeLine{00020\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00021\ \ \ \mbox{\hyperlink{class_pose2_d_ae60fac40bc37d262b923265387535c22}{Pose2D}}(\textcolor{keywordtype}{float}\ x\ =\ 0,\ \textcolor{keywordtype}{float}\ y\ =\ 0,\ \textcolor{keywordtype}{float}\ theta\ =\ 0,\ \textcolor{keywordtype}{float}\ xymag\ =\ 1);}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_pose2_d_ae8e7d88214fd18b3caf44862993414bf}{getX}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ x;\ \}\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00024\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_pose2_d_a09eba33da07962e2b5d6dc978da98b1c}{getY}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ y;\ \}\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00025\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_pose2_d_a914618ce4d7929a5354850452ce6153c}{getTheta}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ theta;\ \}\ \ }
+\DoxyCodeLine{00026\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_pose2_d_a5d185f00fe70600418142aa88e1eb9ef}{getXyMag}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordflow}{return}\ xymag;}
+\DoxyCodeLine{00028\ \ \ \}\ \ }
+\DoxyCodeLine{00029\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_pose2_d_a5069d532deca1cf3c4b1ccf039a0d796}{setXyMag}}(\textcolor{keywordtype}{float}\ val)\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ xymag\ =\ val;}
+\DoxyCodeLine{00031\ \ \ \}\ \ }
+\DoxyCodeLine{00032\ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ \ Removed\ as\ using\ these\ functions\ results\ in\ bad\ overall\ workflow.\ Create\ a\ new\ Pose2D}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ \ instead\ of\ setting\ these.\ Use\ reset\ and\ add\ if\ necessary}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ \ void\ setX(float\ val)\ \{\ x\ =\ val;\ \}}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ \ void\ setY(float\ val)\ \{\ y\ =\ val;\ \}}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ \ void\ setThetaRadians(float\ val)\ \{\ theta\ =\ val;\ \}}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ void\ setThetaDegrees(float\ deg)\ \{\ theta\ =\ radians(deg);\ \}*/}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \textcolor{comment}{//\ Normalization,\ constrains}}
+\DoxyCodeLine{00041\ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ \&\mbox{\hyperlink{class_pose2_d_aa77584756b8499b001f2175da64c8335}{normalize}}(\textcolor{keywordtype}{bool}\ scaleTheta\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00042\ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ \&\mbox{\hyperlink{class_pose2_d_adfe3129f0935221930dbab133a2e3eae}{unnormalize}}(\textcolor{keywordtype}{bool}\ scaleTheta\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00043\ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ \&\mbox{\hyperlink{class_pose2_d_a67a7ec63d39f70d7a5d65a60ce0ab13f}{fixTheta}}();}
+\DoxyCodeLine{00044\ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ \&\mbox{\hyperlink{class_pose2_d_a2bcf5c1913863c1e0d5c1d0014ddd06d}{constrainXyMag}}(\textcolor{keywordtype}{float}\ magnitude);}
+\DoxyCodeLine{00045\ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ \&\mbox{\hyperlink{class_pose2_d_a41300e6f09dd260d43f928db029635eb}{constrainTheta}}(\textcolor{keywordtype}{float}\ magnitude);}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \textcolor{comment}{//\ Operations}}
+\DoxyCodeLine{00048\ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ \&\mbox{\hyperlink{class_pose2_d_a5e9a668d707813ac9b7d7ea49c0f12c7}{rotateVector}}(\textcolor{keywordtype}{float}\ angle);}
+\DoxyCodeLine{00049\ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ \&\mbox{\hyperlink{class_pose2_d_a50a0e3468171fde29d5b24882516a980}{rotateVectorCached}}(\textcolor{keywordtype}{float}\ cosAngle,\ \textcolor{keywordtype}{float}\ sinAngle);}
+\DoxyCodeLine{00050\ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ \&\mbox{\hyperlink{class_pose2_d_ad6fb42ed4b5d3e2156bf9bf9f720c437}{rotate}}(\textcolor{keywordtype}{float}\ dtheta);}
+\DoxyCodeLine{00051\ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ \&\mbox{\hyperlink{class_pose2_d_ae3049db0e04c609a752653b055cdb29d}{add}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ \&pose);}
+\DoxyCodeLine{00052\ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ \&\mbox{\hyperlink{class_pose2_d_aac34f37442c120db0aa9769264a68b85}{subtract}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ \&pose);}
+\DoxyCodeLine{00053\ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ \&\mbox{\hyperlink{class_pose2_d_a85929bda0862cfa4643a13b78edde931}{multElement}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ \&pose);}
+\DoxyCodeLine{00054\ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ \&\mbox{\hyperlink{class_pose2_d_a925d35fcc25b400238c9164ff0406aa3}{multConstant}}(\textcolor{keywordtype}{float}\ scalar);}
+\DoxyCodeLine{00055\ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ \&\mbox{\hyperlink{class_pose2_d_a973bb6629736a4ae37dcbeffa7740efe}{reset}}();}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \textcolor{keyword}{friend}\ Print\ \&\mbox{\hyperlink{class_pose2_d_a8fe044f194ca4d046929ec5fd3a8959d}{operator<<}}(Print\ \&output,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ \&pose);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00060\ \ \ \textcolor{keywordtype}{float}\ x,\ y,\ theta;}
+\DoxyCodeLine{00061\ \ \ \textcolor{keywordtype}{float}\ xymag;}
+\DoxyCodeLine{00062\ \ \ \textcolor{keywordtype}{bool}\ normalized;}
+\DoxyCodeLine{00063\ \};}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

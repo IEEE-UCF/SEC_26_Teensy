@@ -1,0 +1,30 @@
+\doxysection{Class List}
+Here are the classes, structs, unions and interfaces with brief descriptions\+:\begin{DoxyCompactList}
+\item\contentsline{section}{\mbox{\hyperlink{class_beacon_subsystem}{Beacon\+Subsystem}} \\*Controls a servo-\/actuated beacon mechanism. Manages the movement of a beacon, typically to deploy (up) or retract (down) it, using predefined servo positions }{\pageref{class_beacon_subsystem}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_button_handler}{Button\+Handler}} \\*Manages button input states }{\pageref{class_button_handler}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_drive_motor}{Drive\+Motor}} \\*Controls a motor using PWM and encoder feedback }{\pageref{class_drive_motor}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_gyro_handler}{Gyro\+Handler}} \\*Reads gyro sensor data using the BNO08x sensor }{\pageref{class_gyro_handler}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_hall_handler}{Hall\+Handler}} }{\pageref{class_hall_handler}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_light_handler}{Light\+Handler}} \\*Manages BH1750 light sensor readings }{\pageref{class_light_handler}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_line_handler}{Line\+Handler}} \\*Manages line-\/following sensor readings }{\pageref{class_line_handler}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_localization_encoder}{Localization\+Encoder}} }{\pageref{class_localization_encoder}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_mandible_subsystem}{Mandible\+Subsystem}} \\*Controls a pair of servo-\/actuated mandibles (left and right). Manages the opening and closing of left and right mandibles using predefined servo positions }{\pageref{class_mandible_subsystem}}{}
+\item\contentsline{section}{\mbox{\hyperlink{struct_motor_setup}{Motor\+Setup}} \\*Motor configuration settings }{\pageref{struct_motor_setup}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_path_handler}{Path\+Handler}} \\*Manages a sequence of waypoints for robot navigation. This class allows for adding waypoints, executing a path defined by these waypoints, handling timeouts, and checking if waypoints have been reached. It interacts with a \doxylink{class_vector_robot_drive_p_i_d}{Vector\+Robot\+Drive\+PID} object to control the robot\textquotesingle{}s movement and to get its current pose }{\pageref{class_path_handler}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_p_i_d}{PID}} \\*Implements a \doxylink{class_p_i_d}{PID} controller for motion control }{\pageref{class_p_i_d}}{}
+\item\contentsline{section}{\mbox{\hyperlink{struct_p_i_d_config}{PIDConfig}} \\*Stores configuration parameters for the \doxylink{class_p_i_d}{PID} controller }{\pageref{struct_p_i_d_config}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_p_i_d_drive_controller}{PIDDrive\+Controller}} \\*Implements a fused \doxylink{class_p_i_d}{PID} controller for robot motion }{\pageref{class_p_i_d_drive_controller}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_pose2_d}{Pose2D}} \\*Class for handling 2D objects }{\pageref{class_pose2_d}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_r_c_handler}{RCHandler}} \\*Handles Fly\+Sky IBUS remote control input. This class initializes and manages communication with a Fly\+Sky receiver via the IBUS protocol. It reads channel data, scales it, and provides access to these values. It also includes functionality for failsafe behavior if a specific channel indicates a signal loss or specific state }{\pageref{class_r_c_handler}}{}
+\item\contentsline{section}{\mbox{\hyperlink{struct_r_g_b_color}{RGBColor}} \\*Represents an RGB color.
+
+Stores red, green, and blue components of a color, each as an 8-\/bit unsigned integer }{\pageref{struct_r_g_b_color}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_r_g_b_handler}{RGBHandler}} \\*Manages RGB LED strip effects across multiple sections. This class handles initialization, updates, and control of WS2812-\/based LED strips. It allows dividing the strip into logical sections, each capable of displaying independent effects like solid color, pulsing, or streaking. It also supports global brightness control }{\pageref{class_r_g_b_handler}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_r_o_s_handler}{ROSHandler}} }{\pageref{class_r_o_s_handler}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_servo_handler}{Servo\+Handler}} \\*Manages a collection of servo motors. Provides functionality to attach, detach, set target angles (immediately or smoothly), and update servo positions. Supports individual and group control of servos. Smooth movement is handled by an {\ttfamily Update()} method that should be called regularly }{\pageref{class_servo_handler}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_simple_robot_drive}{Simple\+Robot\+Drive}} \\*Base class for a robot drive system }{\pageref{class_simple_robot_drive}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_sorter_subsystem}{Sorter\+Subsystem}} \\*Manages an object sorting mechanism using TOF, Hall sensors, a servo, and a motor. This subsystem integrates multiple sensors and actuators to detect objects, identify their properties (e.\+g., magnetic), and sort them using a servo-\/driven mechanism and a transfer motor }{\pageref{class_sorter_subsystem}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_t_o_f_handler}{TOFHandler}} \\*Manages multiple VL53\+L0X Time-\/of-\/\+Flight distance sensors using an I2C multiplexer. This class handles the initialization, update, and data retrieval for an array of VL53\+L0X sensors, each connected to a different channel of an I2C multiplexer }{\pageref{class_t_o_f_handler}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_vector_robot_drive}{Vector\+Robot\+Drive}} \\*Drive system utilizing vector velocity control }{\pageref{class_vector_robot_drive}}{}
+\item\contentsline{section}{\mbox{\hyperlink{class_vector_robot_drive_p_i_d}{Vector\+Robot\+Drive\+PID}} \\*Drive system utilizing \doxylink{class_p_i_d}{PID} control }{\pageref{class_vector_robot_drive_p_i_d}}{}
+\end{DoxyCompactList}

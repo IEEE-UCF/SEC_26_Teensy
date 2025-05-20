@@ -1,0 +1,72 @@
+\doxysection{src/subsystem/\+Sorter\+Subsystem.h File Reference}
+\hypertarget{_sorter_subsystem_8h}{}\label{_sorter_subsystem_8h}\index{src/subsystem/SorterSubsystem.h@{src/subsystem/SorterSubsystem.h}}
+
+
+Defines the \doxylink{class_sorter_subsystem}{Sorter\+Subsystem} class for an object sorting mechanism.  
+
+
+{\ttfamily \#include $<$Arduino.\+h$>$}\newline
+{\ttfamily \#include $<$Print.\+h$>$}\newline
+{\ttfamily \#include "{}../drive/\+Drive\+Motor.\+h"{}}\newline
+{\ttfamily \#include "{}../handler/\+Hall\+Handler.\+h"{}}\newline
+{\ttfamily \#include "{}../handler/\+RGBHandler.\+h"{}}\newline
+{\ttfamily \#include "{}../handler/\+Servo\+Handler.\+h"{}}\newline
+{\ttfamily \#include "{}../handler/\+TOFHandler.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_sorter_subsystem}{Sorter\+Subsystem}}
+\begin{DoxyCompactList}\small\item\em Manages an object sorting mechanism using TOF, Hall sensors, a servo, and a motor. This subsystem integrates multiple sensors and actuators to detect objects, identify their properties (e.\+g., magnetic), and sort them using a servo-\/driven mechanism and a transfer motor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_sorter_subsystem_8h_a780a7fff8cd705e14a22acaeb359b83d}{OBJECT\+\_\+\+RANGE}}~75
+\begin{DoxyCompactList}\small\item\em TOF sensor range (mm) threshold for detecting an object. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_sorter_subsystem_8h_a54896cc2ed059ba66667dbed26282d26}{BOUNDS\+\_\+\+MAG}}~  2
+\begin{DoxyCompactList}\small\item\em Threshold for Hall sensor magnetic detection (specific meaning depends on \doxylink{class_hall_handler}{Hall\+Handler}). \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_sorter_subsystem_8h_ac632ce97745ff6dc4ff951cb0257347e}{SORTER\+\_\+\+HALL\+\_\+\+COUNT}}~3
+\begin{DoxyCompactList}\small\item\em Number of Hall effect sensors used by the sorter. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Defines the \doxylink{class_sorter_subsystem}{Sorter\+Subsystem} class for an object sorting mechanism. 
+
+\begin{DoxyAuthor}{Author}
+Aldem Pido 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+April 1, 2025 (original), Last Modified\+: May 19, 2025 
+\end{DoxyDate}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{_sorter_subsystem_8h_a54896cc2ed059ba66667dbed26282d26}\index{SorterSubsystem.h@{SorterSubsystem.h}!BOUNDS\_MAG@{BOUNDS\_MAG}}
+\index{BOUNDS\_MAG@{BOUNDS\_MAG}!SorterSubsystem.h@{SorterSubsystem.h}}
+\doxysubsubsection{\texorpdfstring{BOUNDS\_MAG}{BOUNDS\_MAG}}
+{\footnotesize\ttfamily \label{_sorter_subsystem_8h_a54896cc2ed059ba66667dbed26282d26} 
+\#define BOUNDS\+\_\+\+MAG~  2}
+
+
+
+Threshold for Hall sensor magnetic detection (specific meaning depends on \doxylink{class_hall_handler}{Hall\+Handler}). 
+
+\Hypertarget{_sorter_subsystem_8h_a780a7fff8cd705e14a22acaeb359b83d}\index{SorterSubsystem.h@{SorterSubsystem.h}!OBJECT\_RANGE@{OBJECT\_RANGE}}
+\index{OBJECT\_RANGE@{OBJECT\_RANGE}!SorterSubsystem.h@{SorterSubsystem.h}}
+\doxysubsubsection{\texorpdfstring{OBJECT\_RANGE}{OBJECT\_RANGE}}
+{\footnotesize\ttfamily \label{_sorter_subsystem_8h_a780a7fff8cd705e14a22acaeb359b83d} 
+\#define OBJECT\+\_\+\+RANGE~75}
+
+
+
+TOF sensor range (mm) threshold for detecting an object. 
+
+\Hypertarget{_sorter_subsystem_8h_ac632ce97745ff6dc4ff951cb0257347e}\index{SorterSubsystem.h@{SorterSubsystem.h}!SORTER\_HALL\_COUNT@{SORTER\_HALL\_COUNT}}
+\index{SORTER\_HALL\_COUNT@{SORTER\_HALL\_COUNT}!SorterSubsystem.h@{SorterSubsystem.h}}
+\doxysubsubsection{\texorpdfstring{SORTER\_HALL\_COUNT}{SORTER\_HALL\_COUNT}}
+{\footnotesize\ttfamily \label{_sorter_subsystem_8h_ac632ce97745ff6dc4ff951cb0257347e} 
+\#define SORTER\+\_\+\+HALL\+\_\+\+COUNT~3}
+
+
+
+Number of Hall effect sensors used by the sorter. 
+

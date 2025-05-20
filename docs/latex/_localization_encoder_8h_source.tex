@@ -1,0 +1,39 @@
+\doxysection{Localization\+Encoder.\+h}
+\hypertarget{_localization_encoder_8h_source}{}\label{_localization_encoder_8h_source}\index{src/drive/LocalizationEncoder.h@{src/drive/LocalizationEncoder.h}}
+\mbox{\hyperlink{_localization_encoder_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#ifndef\ LOCALIZATIONENCODER\_H}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ LOCALIZATIONENCODER\_H}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_m_o_t_o_r_c_o_n_f_i_g_8h}{MOTORCONFIG.h}}"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_pose2_d_8h}{math/Pose2D.h}}"{}}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ STARTX\ 30.5\ \ }}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ STARTY\ 6\ \ \ \ \ }}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{using\ namespace\ }\mbox{\hyperlink{namespace_motor_constants}{MotorConstants}};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_localization_encoder_aa7a578b08049260838ab137dfdfa8fc5}{LocalizationEncoder}}\ \{}
+\DoxyCodeLine{00025\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00026\ \ \ \mbox{\hyperlink{class_localization_encoder_aa7a578b08049260838ab137dfdfa8fc5}{LocalizationEncoder}}();}
+\DoxyCodeLine{00027\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_localization_encoder_ac423e0bfcd69f6638c377a170c587aa3}{updatePosition}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{long}\ encoderCounts[3],\ \textcolor{keywordtype}{float}\ yaw);}
+\DoxyCodeLine{00028\ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ \mbox{\hyperlink{class_localization_encoder_aa69c77b86fbbe1b0974e453c0af43af3}{getPosition}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00029\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_localization_encoder_a8062f8fe8702df56585c4ba5ef03a6ec}{setPosition}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ \&transform);}
+\DoxyCodeLine{00030\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_localization_encoder_a0cd8d028f3d9794719ba68c85d5dd63e}{PrintInfo}}(Print\ \&output)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00031\ \ \ \textcolor{keyword}{friend}\ Print\ \&\mbox{\hyperlink{class_localization_encoder_abd3d299b25fb14d8ddbfccc6e54885c0}{operator<<}}(Print\ \&output,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_localization_encoder_aa7a578b08049260838ab137dfdfa8fc5}{LocalizationEncoder}}\ \&transform);}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00034\ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ transform;}
+\DoxyCodeLine{00035\ \ \ \textcolor{keywordtype}{long}\ previousLeftTicks\ =\ 0;}
+\DoxyCodeLine{00036\ \ \ \textcolor{keywordtype}{long}\ previousBackTicks\ =\ 0;}
+\DoxyCodeLine{00037\ \ \ \textcolor{keywordtype}{long}\ previousRightTicks\ =\ 0;}
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordtype}{float}\ previousYaw\ =\ 0;}
+\DoxyCodeLine{00039\ \};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

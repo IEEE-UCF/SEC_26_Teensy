@@ -1,0 +1,305 @@
+\doxysection{Simple\+Robot\+Drive Class Reference}
+\hypertarget{class_simple_robot_drive}{}\label{class_simple_robot_drive}\index{SimpleRobotDrive@{SimpleRobotDrive}}
+
+
+Base class for a robot drive system.  
+
+
+
+
+{\ttfamily \#include $<$Simple\+Robot\+Drive.\+h$>$}
+
+Inheritance diagram for Simple\+Robot\+Drive\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_simple_robot_drive}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_simple_robot_drive_a0b0b29f41b4afba48858a9a68424e578}{Simple\+Robot\+Drive}} (const \mbox{\hyperlink{struct_motor_setup}{Motor\+Setup}} motor\+Setups\mbox{[}$\,$\mbox{]}, int \mbox{\hyperlink{class_simple_robot_drive_a7363d480902fa312441ec5fb65ac9b4f}{num\+Motors}}, Print \&\mbox{\hyperlink{class_simple_robot_drive_ad47799a442b544b9634b70bb6dfd71d7}{output}})
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_simple_robot_drive}{Simple\+Robot\+Drive} object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simple_robot_drive_a40a2d9254b83096237b5dab89b7bf0e4}{Begin}} ()
+\begin{DoxyCompactList}\small\item\em Initializes all motors. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simple_robot_drive_a8a79407d47d89e1a90617824783a37de}{Set}} (const int motor\+Direct\+Speed\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Sets speed for all motors. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simple_robot_drive_aae5aba6a029b562ace38f5e638c85cd3}{Set\+Index}} (int motor\+Direct\+Speed, int index)
+\begin{DoxyCompactList}\small\item\em Sets speed for a specific motor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simple_robot_drive_a2a4bb8a6207c4f36c8347f77373b1c3a}{Read\+All}} (float yaw)
+\begin{DoxyCompactList}\small\item\em Reads encoder values and updates localization. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simple_robot_drive_a73883f04d512961acfae4960e28d144d}{Write}} ()
+\begin{DoxyCompactList}\small\item\em Sends updated speed values to all motors. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_simple_robot_drive_a4c82ccfabb1a1d8c227ed9e13bdc1783}{Print\+Info}} (Print \&\mbox{\hyperlink{class_simple_robot_drive_ad47799a442b544b9634b70bb6dfd71d7}{output}}, bool print\+Config=false) const
+\begin{DoxyCompactList}\small\item\em Prints drive configuration and motor details. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_simple_robot_drive_a1739bedcb5d78a0a9f39df071deac6d1}{Print\+Local}} (Print \&\mbox{\hyperlink{class_simple_robot_drive_ad47799a442b544b9634b70bb6dfd71d7}{output}}) const
+\begin{DoxyCompactList}\small\item\em Prints localization information. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simple_robot_drive_ac4f9e13bfe7d8b7ad519d400298dc564}{Set\+Position}} (const \mbox{\hyperlink{class_pose2_d}{Pose2D}} \&set\+Position)
+\item 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \mbox{\hyperlink{class_simple_robot_drive_a68d6e5b83e3ed3ed065465049d22ba2c}{Get\+Position}} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_simple_robot_drive_a475d274b636094cd5856a84beea548bc}{Read\+Enc}} ()
+\begin{DoxyCompactList}\small\item\em Reads encoder values for all motors. \end{DoxyCompactList}\item 
+const long \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_simple_robot_drive_a2f340f255a5e87c9f5af6d004f16026a}{Get\+Enc}} () const
+\begin{DoxyCompactList}\small\item\em Retrieves raw encoder values. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const int \mbox{\hyperlink{class_simple_robot_drive_a7363d480902fa312441ec5fb65ac9b4f}{num\+Motors}}
+\item 
+Print \& \mbox{\hyperlink{class_simple_robot_drive_ad47799a442b544b9634b70bb6dfd71d7}{output}}
+\item 
+elapsed\+Micros \mbox{\hyperlink{class_simple_robot_drive_a675eebc9ab7804d1784b9e3a4d334152}{accel\+Call}}
+\item 
+std\+::unique\+\_\+ptr$<$ long\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{class_simple_robot_drive_a56aeff4f47517bd892f77bf542ecb883}{enc}}
+\item 
+std\+::vector$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_drive_motor}{Drive\+Motor}} $>$ $>$ \mbox{\hyperlink{class_simple_robot_drive_a83d11857695c2a76872226dffa8233f0}{motors}}
+\item 
+\mbox{\hyperlink{class_localization_encoder}{Localization\+Encoder}} \mbox{\hyperlink{class_simple_robot_drive_a9a3e6e5de26f8882708d93cf672f95de}{localization}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+Print \& \mbox{\hyperlink{class_simple_robot_drive_a3865cfbfc97bfb0944e02a96d71d057c}{operator$<$$<$}} (Print \&\mbox{\hyperlink{class_simple_robot_drive_ad47799a442b544b9634b70bb6dfd71d7}{output}}, const \mbox{\hyperlink{class_simple_robot_drive}{Simple\+Robot\+Drive}} \&drive)
+\begin{DoxyCompactList}\small\item\em Overloaded stream operator for printing drive details. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Base class for a robot drive system. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_simple_robot_drive_a0b0b29f41b4afba48858a9a68424e578}\index{SimpleRobotDrive@{SimpleRobotDrive}!SimpleRobotDrive@{SimpleRobotDrive}}
+\index{SimpleRobotDrive@{SimpleRobotDrive}!SimpleRobotDrive@{SimpleRobotDrive}}
+\doxysubsubsection{\texorpdfstring{SimpleRobotDrive()}{SimpleRobotDrive()}}
+{\footnotesize\ttfamily \label{class_simple_robot_drive_a0b0b29f41b4afba48858a9a68424e578} 
+Simple\+Robot\+Drive\+::\+Simple\+Robot\+Drive (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_motor_setup}{Motor\+Setup}}}]{motor\+Setups}{\mbox{[}$\,$\mbox{]}, }\item[{int}]{num\+Motors}{, }\item[{Print \&}]{output}{}\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{class_simple_robot_drive}{Simple\+Robot\+Drive} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em motor\+Setups} & Array of motor configurations. \\
+\hline
+{\em num\+Motors} & Number of motors to initialize. \\
+\hline
+{\em output} & Output stream for logging. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_simple_robot_drive_a40a2d9254b83096237b5dab89b7bf0e4}\index{SimpleRobotDrive@{SimpleRobotDrive}!Begin@{Begin}}
+\index{Begin@{Begin}!SimpleRobotDrive@{SimpleRobotDrive}}
+\doxysubsubsection{\texorpdfstring{Begin()}{Begin()}}
+{\footnotesize\ttfamily \label{class_simple_robot_drive_a40a2d9254b83096237b5dab89b7bf0e4} 
+void Simple\+Robot\+Drive\+::\+Begin (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Initializes all motors. 
+
+\Hypertarget{class_simple_robot_drive_a2f340f255a5e87c9f5af6d004f16026a}\index{SimpleRobotDrive@{SimpleRobotDrive}!GetEnc@{GetEnc}}
+\index{GetEnc@{GetEnc}!SimpleRobotDrive@{SimpleRobotDrive}}
+\doxysubsubsection{\texorpdfstring{GetEnc()}{GetEnc()}}
+{\footnotesize\ttfamily \label{class_simple_robot_drive_a2f340f255a5e87c9f5af6d004f16026a} 
+const long \texorpdfstring{$\ast$}{*} Simple\+Robot\+Drive\+::\+Get\+Enc (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Retrieves raw encoder values. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to an array of encoder values. 
+\end{DoxyReturn}
+\Hypertarget{class_simple_robot_drive_a68d6e5b83e3ed3ed065465049d22ba2c}\index{SimpleRobotDrive@{SimpleRobotDrive}!GetPosition@{GetPosition}}
+\index{GetPosition@{GetPosition}!SimpleRobotDrive@{SimpleRobotDrive}}
+\doxysubsubsection{\texorpdfstring{GetPosition()}{GetPosition()}}
+{\footnotesize\ttfamily \label{class_simple_robot_drive_a68d6e5b83e3ed3ed065465049d22ba2c} 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} Simple\+Robot\+Drive\+::\+Get\+Position (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_simple_robot_drive_a4c82ccfabb1a1d8c227ed9e13bdc1783}\index{SimpleRobotDrive@{SimpleRobotDrive}!PrintInfo@{PrintInfo}}
+\index{PrintInfo@{PrintInfo}!SimpleRobotDrive@{SimpleRobotDrive}}
+\doxysubsubsection{\texorpdfstring{PrintInfo()}{PrintInfo()}}
+{\footnotesize\ttfamily \label{class_simple_robot_drive_a4c82ccfabb1a1d8c227ed9e13bdc1783} 
+void Simple\+Robot\+Drive\+::\+Print\+Info (\begin{DoxyParamCaption}\item[{Print \&}]{output}{, }\item[{bool}]{print\+Config}{ = {\ttfamily false}}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Prints drive configuration and motor details. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em output} & Output stream for logging. \\
+\hline
+{\em print\+Config} & If true, prints motor configuration; otherwise, prints runtime values. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \mbox{\hyperlink{class_vector_robot_drive_p_i_d_a4ef306145bc4de97159941f615dcef30}{Vector\+Robot\+Drive\+PID}}.
+
+\Hypertarget{class_simple_robot_drive_a1739bedcb5d78a0a9f39df071deac6d1}\index{SimpleRobotDrive@{SimpleRobotDrive}!PrintLocal@{PrintLocal}}
+\index{PrintLocal@{PrintLocal}!SimpleRobotDrive@{SimpleRobotDrive}}
+\doxysubsubsection{\texorpdfstring{PrintLocal()}{PrintLocal()}}
+{\footnotesize\ttfamily \label{class_simple_robot_drive_a1739bedcb5d78a0a9f39df071deac6d1} 
+void Simple\+Robot\+Drive\+::\+Print\+Local (\begin{DoxyParamCaption}\item[{Print \&}]{output}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Prints localization information. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em output} & Output stream for logging. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \mbox{\hyperlink{class_vector_robot_drive_p_i_d_aa4deea05cb547246502a89b9217b63c0}{Vector\+Robot\+Drive\+PID}}.
+
+\Hypertarget{class_simple_robot_drive_a2a4bb8a6207c4f36c8347f77373b1c3a}\index{SimpleRobotDrive@{SimpleRobotDrive}!ReadAll@{ReadAll}}
+\index{ReadAll@{ReadAll}!SimpleRobotDrive@{SimpleRobotDrive}}
+\doxysubsubsection{\texorpdfstring{ReadAll()}{ReadAll()}}
+{\footnotesize\ttfamily \label{class_simple_robot_drive_a2a4bb8a6207c4f36c8347f77373b1c3a} 
+void Simple\+Robot\+Drive\+::\+Read\+All (\begin{DoxyParamCaption}\item[{float}]{yaw}{}\end{DoxyParamCaption})}
+
+
+
+Reads encoder values and updates localization. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em yaw} & Current gyro yaw reading. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_simple_robot_drive_a475d274b636094cd5856a84beea548bc}\index{SimpleRobotDrive@{SimpleRobotDrive}!ReadEnc@{ReadEnc}}
+\index{ReadEnc@{ReadEnc}!SimpleRobotDrive@{SimpleRobotDrive}}
+\doxysubsubsection{\texorpdfstring{ReadEnc()}{ReadEnc()}}
+{\footnotesize\ttfamily \label{class_simple_robot_drive_a475d274b636094cd5856a84beea548bc} 
+void Simple\+Robot\+Drive\+::\+Read\+Enc (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Reads encoder values for all motors. 
+
+\Hypertarget{class_simple_robot_drive_a8a79407d47d89e1a90617824783a37de}\index{SimpleRobotDrive@{SimpleRobotDrive}!Set@{Set}}
+\index{Set@{Set}!SimpleRobotDrive@{SimpleRobotDrive}}
+\doxysubsubsection{\texorpdfstring{Set()}{Set()}}
+{\footnotesize\ttfamily \label{class_simple_robot_drive_a8a79407d47d89e1a90617824783a37de} 
+void Simple\+Robot\+Drive\+::\+Set (\begin{DoxyParamCaption}\item[{const int}]{motor\+Direct\+Speed}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
+
+
+
+Sets speed for all motors. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em motor\+Direct\+Speed} & Array containing speed values for each motor. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_simple_robot_drive_aae5aba6a029b562ace38f5e638c85cd3}\index{SimpleRobotDrive@{SimpleRobotDrive}!SetIndex@{SetIndex}}
+\index{SetIndex@{SetIndex}!SimpleRobotDrive@{SimpleRobotDrive}}
+\doxysubsubsection{\texorpdfstring{SetIndex()}{SetIndex()}}
+{\footnotesize\ttfamily \label{class_simple_robot_drive_aae5aba6a029b562ace38f5e638c85cd3} 
+void Simple\+Robot\+Drive\+::\+Set\+Index (\begin{DoxyParamCaption}\item[{int}]{motor\+Direct\+Speed}{, }\item[{int}]{index}{}\end{DoxyParamCaption})}
+
+
+
+Sets speed for a specific motor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em motor\+Direct\+Speed} & Speed value to set. \\
+\hline
+{\em index} & Index of the motor to update. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_simple_robot_drive_ac4f9e13bfe7d8b7ad519d400298dc564}\index{SimpleRobotDrive@{SimpleRobotDrive}!SetPosition@{SetPosition}}
+\index{SetPosition@{SetPosition}!SimpleRobotDrive@{SimpleRobotDrive}}
+\doxysubsubsection{\texorpdfstring{SetPosition()}{SetPosition()}}
+{\footnotesize\ttfamily \label{class_simple_robot_drive_ac4f9e13bfe7d8b7ad519d400298dc564} 
+void Simple\+Robot\+Drive\+::\+Set\+Position (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_pose2_d}{Pose2D}} \&}]{set\+Position}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_simple_robot_drive_a73883f04d512961acfae4960e28d144d}\index{SimpleRobotDrive@{SimpleRobotDrive}!Write@{Write}}
+\index{Write@{Write}!SimpleRobotDrive@{SimpleRobotDrive}}
+\doxysubsubsection{\texorpdfstring{Write()}{Write()}}
+{\footnotesize\ttfamily \label{class_simple_robot_drive_a73883f04d512961acfae4960e28d144d} 
+void Simple\+Robot\+Drive\+::\+Write (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Sends updated speed values to all motors. 
+
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{class_simple_robot_drive_a3865cfbfc97bfb0944e02a96d71d057c}\index{SimpleRobotDrive@{SimpleRobotDrive}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!SimpleRobotDrive@{SimpleRobotDrive}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily \label{class_simple_robot_drive_a3865cfbfc97bfb0944e02a96d71d057c} 
+Print \& operator$<$$<$ (\begin{DoxyParamCaption}\item[{Print \&}]{output}{, }\item[{const \mbox{\hyperlink{class_simple_robot_drive}{Simple\+Robot\+Drive}} \&}]{drive}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Overloaded stream operator for printing drive details. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em output} & Output stream. \\
+\hline
+{\em drive} & \doxylink{class_simple_robot_drive}{Simple\+Robot\+Drive} instance. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Modified output stream. 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_simple_robot_drive_a675eebc9ab7804d1784b9e3a4d334152}\index{SimpleRobotDrive@{SimpleRobotDrive}!accelCall@{accelCall}}
+\index{accelCall@{accelCall}!SimpleRobotDrive@{SimpleRobotDrive}}
+\doxysubsubsection{\texorpdfstring{accelCall}{accelCall}}
+{\footnotesize\ttfamily \label{class_simple_robot_drive_a675eebc9ab7804d1784b9e3a4d334152} 
+elapsed\+Micros Simple\+Robot\+Drive\+::accel\+Call\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{class_simple_robot_drive_a56aeff4f47517bd892f77bf542ecb883}\index{SimpleRobotDrive@{SimpleRobotDrive}!enc@{enc}}
+\index{enc@{enc}!SimpleRobotDrive@{SimpleRobotDrive}}
+\doxysubsubsection{\texorpdfstring{enc}{enc}}
+{\footnotesize\ttfamily \label{class_simple_robot_drive_a56aeff4f47517bd892f77bf542ecb883} 
+std\+::unique\+\_\+ptr$<$long\mbox{[}$\,$\mbox{]}$>$ Simple\+Robot\+Drive\+::enc\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{class_simple_robot_drive_a9a3e6e5de26f8882708d93cf672f95de}\index{SimpleRobotDrive@{SimpleRobotDrive}!localization@{localization}}
+\index{localization@{localization}!SimpleRobotDrive@{SimpleRobotDrive}}
+\doxysubsubsection{\texorpdfstring{localization}{localization}}
+{\footnotesize\ttfamily \label{class_simple_robot_drive_a9a3e6e5de26f8882708d93cf672f95de} 
+\mbox{\hyperlink{class_localization_encoder}{Localization\+Encoder}} Simple\+Robot\+Drive\+::localization\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{class_simple_robot_drive_a83d11857695c2a76872226dffa8233f0}\index{SimpleRobotDrive@{SimpleRobotDrive}!motors@{motors}}
+\index{motors@{motors}!SimpleRobotDrive@{SimpleRobotDrive}}
+\doxysubsubsection{\texorpdfstring{motors}{motors}}
+{\footnotesize\ttfamily \label{class_simple_robot_drive_a83d11857695c2a76872226dffa8233f0} 
+std\+::vector$<$std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{class_drive_motor}{Drive\+Motor}}$>$ $>$ Simple\+Robot\+Drive\+::motors\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{class_simple_robot_drive_a7363d480902fa312441ec5fb65ac9b4f}\index{SimpleRobotDrive@{SimpleRobotDrive}!numMotors@{numMotors}}
+\index{numMotors@{numMotors}!SimpleRobotDrive@{SimpleRobotDrive}}
+\doxysubsubsection{\texorpdfstring{numMotors}{numMotors}}
+{\footnotesize\ttfamily \label{class_simple_robot_drive_a7363d480902fa312441ec5fb65ac9b4f} 
+const int Simple\+Robot\+Drive\+::num\+Motors\hspace{0.3cm}{\ttfamily [protected]}}
+
+\Hypertarget{class_simple_robot_drive_ad47799a442b544b9634b70bb6dfd71d7}\index{SimpleRobotDrive@{SimpleRobotDrive}!output@{output}}
+\index{output@{output}!SimpleRobotDrive@{SimpleRobotDrive}}
+\doxysubsubsection{\texorpdfstring{output}{output}}
+{\footnotesize\ttfamily \label{class_simple_robot_drive_ad47799a442b544b9634b70bb6dfd71d7} 
+Print\& Simple\+Robot\+Drive\+::output\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/drive/\mbox{\hyperlink{_simple_robot_drive_8h}{Simple\+Robot\+Drive.\+h}}\item 
+src/drive/\mbox{\hyperlink{_simple_robot_drive_8cpp}{Simple\+Robot\+Drive.\+cpp}}\end{DoxyCompactItemize}

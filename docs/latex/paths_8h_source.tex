@@ -1,0 +1,213 @@
+\doxysection{paths.\+h}
+\hypertarget{paths_8h_source}{}\label{paths_8h_source}\index{src/drive/paths.h@{src/drive/paths.h}}
+\mbox{\hyperlink{paths_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ PATHS\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ PATHS\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_localization_encoder_8h}{LocalizationEncoder.h}}"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_pose2_d_8h}{math/Pose2D.h}}"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ BEACONX\ 9\ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ BEACONY\ 28.5\ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ NORTH\ (0.5\ *\ PI)\ \ \ \ \ \ }}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ EAST\ 0.0\ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ SOUTH\ (-\/0.5\ *\ PI)\ \ \ \ \ }}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ WEST\ PI\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ GEODX\ 50.0\ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ MAXY\ 47.0\ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ NEBX\ 23.0\ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ CENTERY\ (MAXY\ /\ 2.0)\ \ }}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ MAXX\ 95.0\ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ LEFTCAVEWALLX\ 55.0}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ MAINSWEEPLEFTX\ 0.0}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_hard_box}{HardBox}}\ \{}
+\DoxyCodeLine{00021\ std::vector<Pose2D>\ \mbox{\hyperlink{namespace_hard_box_a0dae61d11331090f2a57087c27282109}{startToSlamSW90}}\ =\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(31.5,\ 6,\ \mbox{\hyperlink{paths_8h_a1711232abf72723b5216c206e6bbb175}{NORTH}}),\ \ \textcolor{comment}{//\ Beginning\ orientation}}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(31.5,\ \mbox{\hyperlink{paths_8h_a052155ff42433177d83f8b173d99b99f}{BEACONY}},\ \mbox{\hyperlink{paths_8h_a1711232abf72723b5216c206e6bbb175}{NORTH}}),\ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(31.5,\ \mbox{\hyperlink{paths_8h_a052155ff42433177d83f8b173d99b99f}{BEACONY}},\ \mbox{\hyperlink{paths_8h_a755da365a2f771fdb9e15af22fee7d74}{WEST}}),\ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(8,\ \mbox{\hyperlink{paths_8h_a052155ff42433177d83f8b173d99b99f}{BEACONY}},\ \mbox{\hyperlink{paths_8h_a755da365a2f771fdb9e15af22fee7d74}{WEST}}),}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(8,\ \mbox{\hyperlink{paths_8h_a052155ff42433177d83f8b173d99b99f}{BEACONY}},\ \mbox{\hyperlink{paths_8h_a1711232abf72723b5216c206e6bbb175}{NORTH}}),\ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(10,\ 2,\ \mbox{\hyperlink{paths_8h_a1711232abf72723b5216c206e6bbb175}{NORTH}}),\ \ \ \ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(2,\ 2,\ \mbox{\hyperlink{paths_8h_a1711232abf72723b5216c206e6bbb175}{NORTH}}),}
+\DoxyCodeLine{00025\ \};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ Set\ to\ (6,\ 6,\ NORTH)}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ std::vector<Pose2D>\ \mbox{\hyperlink{namespace_hard_box_a8927274569a41c5d54a1dfdb532dd460}{supposedBeacon}}\ =\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a4afc6c4f1913a7b432b2769f6856a4a2}{BEACONX}},\ \mbox{\hyperlink{paths_8h_a052155ff42433177d83f8b173d99b99f}{BEACONY}}\ -\/\ 2,\ \mbox{\hyperlink{paths_8h_a1711232abf72723b5216c206e6bbb175}{NORTH}}),}
+\DoxyCodeLine{00031\ \};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ Move\ beacon\ arm\ down}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ std::vector<Pose2D>\ \mbox{\hyperlink{namespace_hard_box_a36bb89e582c81089784c48d1d1bccb41}{jostleBeacon}}\ =\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a4afc6c4f1913a7b432b2769f6856a4a2}{BEACONX}},\ \mbox{\hyperlink{paths_8h_a052155ff42433177d83f8b173d99b99f}{BEACONY}}\ -\/\ 1,\ \mbox{\hyperlink{paths_8h_a1711232abf72723b5216c206e6bbb175}{NORTH}}),\ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a4afc6c4f1913a7b432b2769f6856a4a2}{BEACONX}},\ \mbox{\hyperlink{paths_8h_a052155ff42433177d83f8b173d99b99f}{BEACONY}},\ \mbox{\hyperlink{paths_8h_a1711232abf72723b5216c206e6bbb175}{NORTH}}),}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a4afc6c4f1913a7b432b2769f6856a4a2}{BEACONX}},\ \mbox{\hyperlink{paths_8h_a052155ff42433177d83f8b173d99b99f}{BEACONY}}\ +\ 2,\ \mbox{\hyperlink{paths_8h_a1711232abf72723b5216c206e6bbb175}{NORTH}}),\ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a4afc6c4f1913a7b432b2769f6856a4a2}{BEACONX}}\ -\/\ 1.5,\ \mbox{\hyperlink{paths_8h_a052155ff42433177d83f8b173d99b99f}{BEACONY}}\ -\/\ 1,\ \mbox{\hyperlink{paths_8h_a1711232abf72723b5216c206e6bbb175}{NORTH}}),}
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a4afc6c4f1913a7b432b2769f6856a4a2}{BEACONX}}\ -\/\ 1.5,\ \mbox{\hyperlink{paths_8h_a052155ff42433177d83f8b173d99b99f}{BEACONY}},\ \mbox{\hyperlink{paths_8h_a1711232abf72723b5216c206e6bbb175}{NORTH}}),\ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a4afc6c4f1913a7b432b2769f6856a4a2}{BEACONX}}\ -\/\ 1.5,\ \mbox{\hyperlink{paths_8h_a052155ff42433177d83f8b173d99b99f}{BEACONY}}\ +\ 2,\ \mbox{\hyperlink{paths_8h_a1711232abf72723b5216c206e6bbb175}{NORTH}}),}
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a4afc6c4f1913a7b432b2769f6856a4a2}{BEACONX}},\ \mbox{\hyperlink{paths_8h_a052155ff42433177d83f8b173d99b99f}{BEACONY}},\ \mbox{\hyperlink{paths_8h_a1711232abf72723b5216c206e6bbb175}{NORTH}}),}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{comment}{//\ Open\ geod\ servo}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ std::vector<Pose2D>\ \mbox{\hyperlink{namespace_hard_box_a566e66bad9555c467444c316bf8a2967}{positionGeoCSC}}\ =\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a4afc6c4f1913a7b432b2769f6856a4a2}{BEACONX}}\ +\ 10,\ 3,\ \mbox{\hyperlink{paths_8h_a755da365a2f771fdb9e15af22fee7d74}{WEST}}),\ \ \textcolor{comment}{//\ slam\ into\ wall}}
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a3ef90f4888ac5e70cd5874af993aab71}{GEODX}}\ -\/\ 3,\ 3,\ \mbox{\hyperlink{paths_8h_a755da365a2f771fdb9e15af22fee7d74}{WEST}}),\ \ \ \ \ \textcolor{comment}{//\ align\ for\ clamping\ geodinium\ container}}
+\DoxyCodeLine{00048\ \};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{comment}{//\ Set\ to\ (43,\ 6,\ WEST)}}
+\DoxyCodeLine{00051\ \textcolor{comment}{//\ Close\ geod\ servo}}
+\DoxyCodeLine{00052\ std::vector<Pose2D>\ \mbox{\hyperlink{namespace_hard_box_a85648601978bd8e688f65763a55505bc}{positionNebCSC\_1}}\ =\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(3,\ \mbox{\hyperlink{paths_8h_a25602e1c79852e5be195490eceff513f}{MAXY}}\ -\/\ 3,\ \mbox{\hyperlink{paths_8h_a755da365a2f771fdb9e15af22fee7d74}{WEST}}),\ \ \textcolor{comment}{//\ slam\ into\ top\ left\ corner}}
+\DoxyCodeLine{00054\ \};}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{comment}{//\ Alt:}}
+\DoxyCodeLine{00057\ std::vector<Pose2D>\ \mbox{\hyperlink{namespace_hard_box_a61e3a6282f18532b02477d96102d977a}{depositCSC}}\ =\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(31.5,\ 20,\ \mbox{\hyperlink{paths_8h_a755da365a2f771fdb9e15af22fee7d74}{WEST}}),}
+\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(31.5,\ 20,\ \mbox{\hyperlink{paths_8h_a1711232abf72723b5216c206e6bbb175}{NORTH}}),}
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(10,\ 20,\ \mbox{\hyperlink{paths_8h_a1711232abf72723b5216c206e6bbb175}{NORTH}}),}
+\DoxyCodeLine{00061\ \};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{comment}{//\ Set\ to\ (6,\ MAXY-\/6,\ WEST)}}
+\DoxyCodeLine{00064\ std::vector<Pose2D>\ \mbox{\hyperlink{namespace_hard_box_ae9e3c3ec6b734bdccbd18e25f1556ef6}{positionNebCSC\_2}}\ =\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a0444f80f6eb16015350d30842b9bc216}{NEBX}}\ -\/\ 3,\ \mbox{\hyperlink{paths_8h_a25602e1c79852e5be195490eceff513f}{MAXY}}\ -\/\ 6,\ \mbox{\hyperlink{paths_8h_a755da365a2f771fdb9e15af22fee7d74}{WEST}}),\ \ \textcolor{comment}{//\ align\ for\ clamping\ neodinium\ container}}
+\DoxyCodeLine{00066\ \};}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{comment}{//\ Close\ neod\ servo}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ std::vector<Pose2D>\ \mbox{\hyperlink{namespace_hard_box_a03c0955e7322048f38ec429bcd876ed9}{enterCave}}\ =\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a0444f80f6eb16015350d30842b9bc216}{NEBX}}\ -\/\ 3,\ \mbox{\hyperlink{paths_8h_a2e0f444d088b7109d7761f15d6cbdb2e}{CENTERY}},\ \mbox{\hyperlink{paths_8h_a755da365a2f771fdb9e15af22fee7d74}{WEST}}),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ prep\ for\ entering\ cave}}
+\DoxyCodeLine{00072\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a0444f80f6eb16015350d30842b9bc216}{NEBX}}\ -\/\ 3,\ \mbox{\hyperlink{paths_8h_a2e0f444d088b7109d7761f15d6cbdb2e}{CENTERY}},\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),\ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a7bb5845dcf8072f09f0a8d246b47e032}{MAXX}}\ -\/\ 3,\ \mbox{\hyperlink{paths_8h_a2e0f444d088b7109d7761f15d6cbdb2e}{CENTERY}},\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),\ \ \textcolor{comment}{//\ slam\ into\ east\ wall}}
+\DoxyCodeLine{00073\ \};}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{comment}{//\ Set\ to\ (MAXX\ -\/\ 6,\ CENTERY,\ EASY)}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ std::vector<Pose2D>\ \mbox{\hyperlink{namespace_hard_box_ac661d4d7bcd8963ad22880f2202c2663}{setupCaveSweepNorth}}\ =\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a7bb5845dcf8072f09f0a8d246b47e032}{MAXX}}\ -\/\ 20,\ \mbox{\hyperlink{paths_8h_a2e0f444d088b7109d7761f15d6cbdb2e}{CENTERY}},\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),}
+\DoxyCodeLine{00079\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a7bb5845dcf8072f09f0a8d246b47e032}{MAXX}}\ -\/\ 20,\ \mbox{\hyperlink{paths_8h_a2e0f444d088b7109d7761f15d6cbdb2e}{CENTERY}},\ \mbox{\hyperlink{paths_8h_a1711232abf72723b5216c206e6bbb175}{NORTH}}),}
+\DoxyCodeLine{00080\ \};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ std::vector<Pose2D>\ \mbox{\hyperlink{namespace_hard_box_a749f042ac2064aad7785f804f55680b1}{caveSweepNorth}}\ =\ \{}
+\DoxyCodeLine{00083\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a7bb5845dcf8072f09f0a8d246b47e032}{MAXX}}\ -\/\ 6\ *\ 1,\ \mbox{\hyperlink{paths_8h_a2e0f444d088b7109d7761f15d6cbdb2e}{CENTERY}},\ \mbox{\hyperlink{paths_8h_a1711232abf72723b5216c206e6bbb175}{NORTH}}),}
+\DoxyCodeLine{00084\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a7bb5845dcf8072f09f0a8d246b47e032}{MAXX}}\ -\/\ 6\ *\ 1,\ \mbox{\hyperlink{paths_8h_a25602e1c79852e5be195490eceff513f}{MAXY}}\ -\/\ 6,\ \mbox{\hyperlink{paths_8h_a1711232abf72723b5216c206e6bbb175}{NORTH}}),}
+\DoxyCodeLine{00085\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a7bb5845dcf8072f09f0a8d246b47e032}{MAXX}}\ -\/\ 6\ *\ 1,\ \mbox{\hyperlink{paths_8h_a2e0f444d088b7109d7761f15d6cbdb2e}{CENTERY}},\ \mbox{\hyperlink{paths_8h_a1711232abf72723b5216c206e6bbb175}{NORTH}}),}
+\DoxyCodeLine{00086\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a7bb5845dcf8072f09f0a8d246b47e032}{MAXX}}\ -\/\ 6\ *\ 2,\ \mbox{\hyperlink{paths_8h_a2e0f444d088b7109d7761f15d6cbdb2e}{CENTERY}},\ \mbox{\hyperlink{paths_8h_a1711232abf72723b5216c206e6bbb175}{NORTH}}),}
+\DoxyCodeLine{00087\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a7bb5845dcf8072f09f0a8d246b47e032}{MAXX}}\ -\/\ 6\ *\ 2,\ \mbox{\hyperlink{paths_8h_a25602e1c79852e5be195490eceff513f}{MAXY}}\ -\/\ 6,\ \mbox{\hyperlink{paths_8h_a1711232abf72723b5216c206e6bbb175}{NORTH}}),}
+\DoxyCodeLine{00088\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a7bb5845dcf8072f09f0a8d246b47e032}{MAXX}}\ -\/\ 6\ *\ 2,\ \mbox{\hyperlink{paths_8h_a2e0f444d088b7109d7761f15d6cbdb2e}{CENTERY}},\ \mbox{\hyperlink{paths_8h_a1711232abf72723b5216c206e6bbb175}{NORTH}}),}
+\DoxyCodeLine{00089\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a7bb5845dcf8072f09f0a8d246b47e032}{MAXX}}\ -\/\ 6\ *\ 3,\ \mbox{\hyperlink{paths_8h_a2e0f444d088b7109d7761f15d6cbdb2e}{CENTERY}},\ \mbox{\hyperlink{paths_8h_a1711232abf72723b5216c206e6bbb175}{NORTH}}),}
+\DoxyCodeLine{00090\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a7bb5845dcf8072f09f0a8d246b47e032}{MAXX}}\ -\/\ 6\ *\ 3,\ \mbox{\hyperlink{paths_8h_a25602e1c79852e5be195490eceff513f}{MAXY}}\ -\/\ 6,\ \mbox{\hyperlink{paths_8h_a1711232abf72723b5216c206e6bbb175}{NORTH}}),}
+\DoxyCodeLine{00091\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a7bb5845dcf8072f09f0a8d246b47e032}{MAXX}}\ -\/\ 6\ *\ 3,\ \mbox{\hyperlink{paths_8h_a2e0f444d088b7109d7761f15d6cbdb2e}{CENTERY}},\ \mbox{\hyperlink{paths_8h_a1711232abf72723b5216c206e6bbb175}{NORTH}}),}
+\DoxyCodeLine{00092\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(45,\ \mbox{\hyperlink{paths_8h_a2e0f444d088b7109d7761f15d6cbdb2e}{CENTERY}},\ \mbox{\hyperlink{paths_8h_a1711232abf72723b5216c206e6bbb175}{NORTH}}),}
+\DoxyCodeLine{00093\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(45,\ \mbox{\hyperlink{paths_8h_a2e0f444d088b7109d7761f15d6cbdb2e}{CENTERY}},\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),}
+\DoxyCodeLine{00094\ \};}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ std::vector<Pose2D>\ \mbox{\hyperlink{namespace_hard_box_a355525d03ab0da99015e06e2642ea8ed}{setupCaveSweepSouth}}\ =\ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a7bb5845dcf8072f09f0a8d246b47e032}{MAXX}}\ -\/\ 20,\ \mbox{\hyperlink{paths_8h_a2e0f444d088b7109d7761f15d6cbdb2e}{CENTERY}},\ \mbox{\hyperlink{paths_8h_a1711232abf72723b5216c206e6bbb175}{NORTH}}),}
+\DoxyCodeLine{00098\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a7bb5845dcf8072f09f0a8d246b47e032}{MAXX}}\ -\/\ 20,\ \mbox{\hyperlink{paths_8h_a2e0f444d088b7109d7761f15d6cbdb2e}{CENTERY}},\ \mbox{\hyperlink{paths_8h_af3830320fe6287f717dca9669f417950}{SOUTH}}),}
+\DoxyCodeLine{00099\ \};}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ std::vector<Pose2D>\ \mbox{\hyperlink{namespace_hard_box_afbd7dadc550add79aac689b92f9c34f7}{caveSweepSouth}}\ =\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a7bb5845dcf8072f09f0a8d246b47e032}{MAXX}}\ -\/\ 6\ *\ 1,\ \mbox{\hyperlink{paths_8h_a2e0f444d088b7109d7761f15d6cbdb2e}{CENTERY}},\ \mbox{\hyperlink{paths_8h_af3830320fe6287f717dca9669f417950}{SOUTH}}),}
+\DoxyCodeLine{00103\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a7bb5845dcf8072f09f0a8d246b47e032}{MAXX}}\ -\/\ 6\ *\ 1,\ 6,\ \mbox{\hyperlink{paths_8h_af3830320fe6287f717dca9669f417950}{SOUTH}}),}
+\DoxyCodeLine{00104\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a7bb5845dcf8072f09f0a8d246b47e032}{MAXX}}\ -\/\ 6\ *\ 1,\ \mbox{\hyperlink{paths_8h_a2e0f444d088b7109d7761f15d6cbdb2e}{CENTERY}},\ \mbox{\hyperlink{paths_8h_af3830320fe6287f717dca9669f417950}{SOUTH}}),}
+\DoxyCodeLine{00105\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a7bb5845dcf8072f09f0a8d246b47e032}{MAXX}}\ -\/\ 6\ *\ 2,\ \mbox{\hyperlink{paths_8h_a2e0f444d088b7109d7761f15d6cbdb2e}{CENTERY}},\ \mbox{\hyperlink{paths_8h_af3830320fe6287f717dca9669f417950}{SOUTH}}),}
+\DoxyCodeLine{00106\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a7bb5845dcf8072f09f0a8d246b47e032}{MAXX}}\ -\/\ 6\ *\ 2,\ 6,\ \mbox{\hyperlink{paths_8h_af3830320fe6287f717dca9669f417950}{SOUTH}}),}
+\DoxyCodeLine{00107\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a7bb5845dcf8072f09f0a8d246b47e032}{MAXX}}\ -\/\ 6\ *\ 2,\ \mbox{\hyperlink{paths_8h_a2e0f444d088b7109d7761f15d6cbdb2e}{CENTERY}},\ \mbox{\hyperlink{paths_8h_af3830320fe6287f717dca9669f417950}{SOUTH}}),}
+\DoxyCodeLine{00108\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a7bb5845dcf8072f09f0a8d246b47e032}{MAXX}}\ -\/\ 6\ *\ 3,\ \mbox{\hyperlink{paths_8h_a2e0f444d088b7109d7761f15d6cbdb2e}{CENTERY}},\ \mbox{\hyperlink{paths_8h_af3830320fe6287f717dca9669f417950}{SOUTH}}),}
+\DoxyCodeLine{00109\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a7bb5845dcf8072f09f0a8d246b47e032}{MAXX}}\ -\/\ 6\ *\ 3,\ 6,\ \mbox{\hyperlink{paths_8h_af3830320fe6287f717dca9669f417950}{SOUTH}}),}
+\DoxyCodeLine{00110\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a7bb5845dcf8072f09f0a8d246b47e032}{MAXX}}\ -\/\ 6\ *\ 3,\ \mbox{\hyperlink{paths_8h_a2e0f444d088b7109d7761f15d6cbdb2e}{CENTERY}},\ \mbox{\hyperlink{paths_8h_af3830320fe6287f717dca9669f417950}{SOUTH}}),}
+\DoxyCodeLine{00111\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(45,\ \mbox{\hyperlink{paths_8h_a2e0f444d088b7109d7761f15d6cbdb2e}{CENTERY}},\ \mbox{\hyperlink{paths_8h_af3830320fe6287f717dca9669f417950}{SOUTH}}),}
+\DoxyCodeLine{00112\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(45,\ \mbox{\hyperlink{paths_8h_a2e0f444d088b7109d7761f15d6cbdb2e}{CENTERY}},\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),}
+\DoxyCodeLine{00113\ \};}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ std::vector<Pose2D>\ \mbox{\hyperlink{namespace_hard_box_a7e823c41a72c63903ca2115b86a05a93}{caveSweepReturn}}\ =\ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(20,\ \mbox{\hyperlink{paths_8h_a2e0f444d088b7109d7761f15d6cbdb2e}{CENTERY}},\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),}
+\DoxyCodeLine{00117\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(20,\ \mbox{\hyperlink{paths_8h_a25602e1c79852e5be195490eceff513f}{MAXY}}\ -\/\ 3,\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),}
+\DoxyCodeLine{00118\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(10,\ \mbox{\hyperlink{paths_8h_a25602e1c79852e5be195490eceff513f}{MAXY}}\ -\/\ 3,\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),}
+\DoxyCodeLine{00119\ \};}
+\DoxyCodeLine{00120\ \textcolor{comment}{//\ set\ normal\ starting\ position}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{comment}{//\ set\ (65,\ CENTERY,\ SOUTH)}}
+\DoxyCodeLine{00123\ std::vector<Pose2D>\ \mbox{\hyperlink{namespace_hard_box_a1c3caa78a53b309a8d590de98bab4596}{caveExit}}\ =\ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a7bb5845dcf8072f09f0a8d246b47e032}{MAXX}}\ -\/\ 20,\ \mbox{\hyperlink{paths_8h_a2e0f444d088b7109d7761f15d6cbdb2e}{CENTERY}},\ \mbox{\hyperlink{paths_8h_af3830320fe6287f717dca9669f417950}{SOUTH}}),}
+\DoxyCodeLine{00125\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a7bb5845dcf8072f09f0a8d246b47e032}{MAXX}}\ -\/\ 20,\ \mbox{\hyperlink{paths_8h_a2e0f444d088b7109d7761f15d6cbdb2e}{CENTERY}},\ \mbox{\hyperlink{paths_8h_a755da365a2f771fdb9e15af22fee7d74}{WEST}}),}
+\DoxyCodeLine{00126\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(25,\ \mbox{\hyperlink{paths_8h_a2e0f444d088b7109d7761f15d6cbdb2e}{CENTERY}},\ \mbox{\hyperlink{paths_8h_a755da365a2f771fdb9e15af22fee7d74}{WEST}}),}
+\DoxyCodeLine{00127\ \};}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ std::vector<Pose2D>\ \mbox{\hyperlink{namespace_hard_box_a045fc6bada916e48cb0df77a0648468a}{slamBottomLeft}}\ =\ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(3,\ 3,\ \mbox{\hyperlink{paths_8h_a755da365a2f771fdb9e15af22fee7d74}{WEST}}),}
+\DoxyCodeLine{00131\ \};}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{comment}{//\ set\ (6,\ 6,\ WEST)}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ std::vector<Pose2D>\ \mbox{\hyperlink{namespace_hard_box_a503a9087ca889e5557269c89f786189e}{setupMainSweep}}\ =\ \{}
+\DoxyCodeLine{00136\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(20,\ 20,\ \mbox{\hyperlink{paths_8h_a755da365a2f771fdb9e15af22fee7d74}{WEST}}),}
+\DoxyCodeLine{00137\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(20,\ 20,\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),}
+\DoxyCodeLine{00138\ \};}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ std::vector<Pose2D>\ \mbox{\hyperlink{namespace_hard_box_a5840c2235c386e6fe853595182d596f3}{mainSweep}}\ =\ \{}
+\DoxyCodeLine{00141\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a4fe9367c5b084f77c2d48eb2992b62fe}{MAINSWEEPLEFTX}}\ +\ 3,\ 6,\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a355f1903b4439cd0a48cf4f293f482f3}{LEFTCAVEWALLX}}\ -\/\ 3,\ 7,\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),}
+\DoxyCodeLine{00142\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a4fe9367c5b084f77c2d48eb2992b62fe}{MAINSWEEPLEFTX}}\ +\ 3,\ 6,\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a4fe9367c5b084f77c2d48eb2992b62fe}{MAINSWEEPLEFTX}}\ +\ 3,\ 6\ *\ 2,\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),\ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a355f1903b4439cd0a48cf4f293f482f3}{LEFTCAVEWALLX}}\ -\/\ 3,\ 6\ *\ 2,\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),}
+\DoxyCodeLine{00145\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a4fe9367c5b084f77c2d48eb2992b62fe}{MAINSWEEPLEFTX}}\ +\ 3,\ 6\ *\ 2,\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a4fe9367c5b084f77c2d48eb2992b62fe}{MAINSWEEPLEFTX}}\ +\ 3,\ 6\ *\ 3,\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),\ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a355f1903b4439cd0a48cf4f293f482f3}{LEFTCAVEWALLX}}\ -\/\ 3,\ 6\ *\ 3,\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),}
+\DoxyCodeLine{00148\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a4fe9367c5b084f77c2d48eb2992b62fe}{MAINSWEEPLEFTX}}\ +\ 3,\ 6\ *\ 3,\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a4fe9367c5b084f77c2d48eb2992b62fe}{MAINSWEEPLEFTX}}\ +\ 3,\ 6\ *\ 4,\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),\ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a355f1903b4439cd0a48cf4f293f482f3}{LEFTCAVEWALLX}}\ -\/\ 3,\ 6\ *\ 4,\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),}
+\DoxyCodeLine{00151\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a4fe9367c5b084f77c2d48eb2992b62fe}{MAINSWEEPLEFTX}}\ +\ 3,\ 6\ *\ 4,\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a4fe9367c5b084f77c2d48eb2992b62fe}{MAINSWEEPLEFTX}}\ +\ 3,\ 6\ *\ 5,\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),\ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a355f1903b4439cd0a48cf4f293f482f3}{LEFTCAVEWALLX}}\ -\/\ 3,\ 6\ *\ 5,\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),}
+\DoxyCodeLine{00154\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a4fe9367c5b084f77c2d48eb2992b62fe}{MAINSWEEPLEFTX}}\ +\ 3,\ 6\ *\ 5,\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a4fe9367c5b084f77c2d48eb2992b62fe}{MAINSWEEPLEFTX}}\ +\ 3,\ 6\ *\ 6,\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),\ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a355f1903b4439cd0a48cf4f293f482f3}{LEFTCAVEWALLX}}\ -\/\ 3,\ 6\ *\ 6,\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),}
+\DoxyCodeLine{00157\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a4fe9367c5b084f77c2d48eb2992b62fe}{MAINSWEEPLEFTX}}\ +\ 3,\ 6\ *\ 6,\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a4fe9367c5b084f77c2d48eb2992b62fe}{MAINSWEEPLEFTX}}\ +\ 3,\ 6\ *\ 7,\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),\ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a355f1903b4439cd0a48cf4f293f482f3}{LEFTCAVEWALLX}}\ -\/\ 3,\ 6\ *\ 7,\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),}
+\DoxyCodeLine{00160\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{paths_8h_a4fe9367c5b084f77c2d48eb2992b62fe}{MAINSWEEPLEFTX}}\ +\ 3,\ 6\ *\ 7,\ \mbox{\hyperlink{paths_8h_a072a1ef1143314441742097b799be322}{EAST}}),}
+\DoxyCodeLine{00161\ \};}
+\DoxyCodeLine{00162\ \};\ \ \textcolor{comment}{//\ namespace\ HardBox}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_paths}{Paths}}\ \{}
+\DoxyCodeLine{00165\ std::vector<Pose2D>\ \mbox{\hyperlink{namespace_paths_af54fdb26631abc8bd957e065919ac65f}{test\_1}}\ =\ \{}
+\DoxyCodeLine{00166\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(0,\ 30,\ 0.5\ *\ PI),\ \ \textcolor{comment}{//\ Wayp\ 1}}
+\DoxyCodeLine{00167\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(30,\ 30,\ 0.5\ *\ PI)\ \ \textcolor{comment}{//\ Wayp\ 2}}
+\DoxyCodeLine{00168\ \};}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ std::vector<Pose2D>\ \mbox{\hyperlink{namespace_paths_a09aadc3166c00757039227d8d0dabf8a}{straight\_back\_40}}\ =\ \{}
+\DoxyCodeLine{00171\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(0,\ 40,\ 0.5\ *\ PI),\ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(0,\ 0,\ 0.5\ *\ PI)\ \ \textcolor{comment}{//\ Final\ Wayp}}
+\DoxyCodeLine{00172\ \};}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ std::vector<Pose2D>\ \mbox{\hyperlink{namespace_paths_afc75ba4a2baba5ec74b7dc5abc1ec980}{side\_left\_40}}\ =\ \{}
+\DoxyCodeLine{00175\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(-\/40,\ 0,\ 0.5\ *\ PI),\ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(0,\ 0,\ 0.5\ *\ PI)\ \ \textcolor{comment}{//\ Final\ Wayp}}
+\DoxyCodeLine{00176\ \};}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ std::vector<Pose2D>\ \mbox{\hyperlink{namespace_paths_afe36822d37795e93ce19808859099218}{side\_left\_rotate\_40}}\ =\ \{}
+\DoxyCodeLine{00179\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(-\/40,\ 0,\ -\/0.5\ *\ PI),\ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(0,\ 0,\ 0.5\ *\ PI)\ \ \textcolor{comment}{//\ Final\ Wayp}}
+\DoxyCodeLine{00180\ \};}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ std::vector<Pose2D>\ \mbox{\hyperlink{namespace_paths_a2698bf400d6cca842c7b44b30c7bccc8}{andrew\_waypoint}}\ =\ \{}
+\DoxyCodeLine{00183\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(\mbox{\hyperlink{_localization_encoder_8h_a6ffc62811b3e92f8acbedcec612c8030}{STARTX}},\ \mbox{\hyperlink{_localization_encoder_8h_afa7f69258876ee4ca4c4f9ee3cafffd4}{STARTY}},\ 0.5\ *\ PI),\ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(8,\ 27.5,\ 0.5\ *\ PI),\ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(27.5,\ 41,\ 0.5\ *\ PI),}
+\DoxyCodeLine{00184\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(51,\ 3,\ 0.5\ *\ PI),\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(40,\ 22.5,\ 0.5\ *\ PI),\ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(70,\ 22.5,\ 0.5\ *\ PI),}
+\DoxyCodeLine{00185\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(40,\ 22.5,\ 0.5\ *\ PI),}
+\DoxyCodeLine{00186\ \};}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ std::vector<Pose2D>\ \mbox{\hyperlink{namespace_paths_a9dab63df85af503b8f91f983b537e815}{slam\_left\_corner}}\ =\ \{}
+\DoxyCodeLine{00189\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(3,\ 10,\ 0.5\ *\ PI),}
+\DoxyCodeLine{00190\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(3,\ 3,\ 0.5\ *\ PI),}
+\DoxyCodeLine{00191\ \};}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ std::vector<Pose2D>\ \mbox{\hyperlink{namespace_paths_a6f080399be4eed1da564576ab9bb4cdc}{beacon\_position}}\ =\ \{}
+\DoxyCodeLine{00194\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(11.5,\ 28.5,\ 0.5\ *\ PI),}
+\DoxyCodeLine{00195\ \};}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ std::vector<Pose2D>\ \mbox{\hyperlink{namespace_paths_af768162799f61b736532329b6e7f8c76}{jostle\_beacon}}\ =\ \{}
+\DoxyCodeLine{00198\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(11.5,\ 30.5,\ 0.5\ *\ PI),}
+\DoxyCodeLine{00199\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(11.5,\ 26.5,\ 0.5\ *\ PI),}
+\DoxyCodeLine{00200\ \};}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ std::vector<Pose2D>\ \mbox{\hyperlink{namespace_paths_afd03b3b1c06ddc1ed98eab3e85530a34}{beacon\_pullout}}\ =\ \{}
+\DoxyCodeLine{00203\ \ \ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}(20,\ 28.5,\ 0.5\ *\ PI),}
+\DoxyCodeLine{00204\ \};}
+\DoxyCodeLine{00205\ \}\ \ \textcolor{comment}{//\ namespace\ Paths}}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,40 @@
+\doxysection{Mandible\+Subsystem.\+h}
+\hypertarget{_mandible_subsystem_8h_source}{}\label{_mandible_subsystem_8h_source}\index{src/subsystem/MandibleSubsystem.h@{src/subsystem/MandibleSubsystem.h}}
+\mbox{\hyperlink{_mandible_subsystem_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifndef\ MANDIBLESUBSYSTEM\_H}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ MANDIBLESUBSYSTEM\_H}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_servo_handler_8h}{../handler/ServoHandler.h}}"{}}\ \ \textcolor{comment}{//\ Ensure\ ServoHandler.h\ path\ is\ correct}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_mandible_subsystem_aa0f31d1f82097250721dca752c3eeca0}{MandibleSubsystem}}\ \{}
+\DoxyCodeLine{00023\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00027\ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{class_mandible_subsystem_a7d24308a7e48fe769fc07bd70308b4bb}{Positions}}\ :\ uint8\_t\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{class_mandible_subsystem_a7d24308a7e48fe769fc07bd70308b4bba73426c1ac92f8a3aa47b28ae67520b1c}{LEFT\_OPEN}}\ =\ 180,\ \ \ }
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{class_mandible_subsystem_a7d24308a7e48fe769fc07bd70308b4bba470c692bd1f1f63ca94113e1841b992e}{LEFT\_CLOSE}}\ =\ 115,\ \ }
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{class_mandible_subsystem_a7d24308a7e48fe769fc07bd70308b4bba39de83978184e7327d3923eb27c8e836}{RIGHT\_OPEN}}\ =\ 0,\ \ \ \ }
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{class_mandible_subsystem_a7d24308a7e48fe769fc07bd70308b4bbab2273e32d7b05f8f59d0ba80c47ba7cb}{RIGHT\_CLOSE}}\ =\ 55\ \ \ }
+\DoxyCodeLine{00032\ \ \ \};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \mbox{\hyperlink{class_mandible_subsystem_aa0f31d1f82097250721dca752c3eeca0}{MandibleSubsystem}}(\textcolor{keywordtype}{int}\ leftServoIndex,\ \textcolor{keywordtype}{int}\ rightServoIndex,\ \mbox{\hyperlink{class_servo_handler}{ServoHandler}}\ \&servos);}
+\DoxyCodeLine{00035\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_mandible_subsystem_adad3011a36b06e89021c3fc834a5e127}{Begin}}();}
+\DoxyCodeLine{00036\ \ \ \textcolor{comment}{//\ void\ Update();\ //\ Commented\ out\ in\ original,\ kept\ here\ for\ consistency\ if\ it\ might\ be\ added}}
+\DoxyCodeLine{00037\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_mandible_subsystem_a770a76f52f52fb1e390eb06a2180169a}{OpenLeft}}();}
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_mandible_subsystem_ac7c27f6440d029bc66bf3657db88c18a}{CloseLeft}}();}
+\DoxyCodeLine{00039\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_mandible_subsystem_aa1d08ed36f0c3cbe8fe5ab168180802d}{OpenRight}}();}
+\DoxyCodeLine{00040\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_mandible_subsystem_aab5669b685cf6e3710cf2104c221d03f}{CloseRight}}();}
+\DoxyCodeLine{00041\ \ \ \textcolor{comment}{//\ void\ SetState();\ //\ Present\ in\ .h\ but\ not\ in\ .cpp,\ potentially\ incomplete\ or\ for\ future\ use.}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordtype}{int}\ indexLeft;\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00045\ \ \ \textcolor{keywordtype}{int}\ indexRight;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00046\ \ \ \mbox{\hyperlink{class_servo_handler}{ServoHandler}}\ \&servos;\ \ }
+\DoxyCodeLine{00047\ \};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ MANDIBLESUBSYSTEM\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,183 @@
+\doxysection{Vector\+Robot\+Drive Class Reference}
+\hypertarget{class_vector_robot_drive}{}\label{class_vector_robot_drive}\index{VectorRobotDrive@{VectorRobotDrive}}
+
+
+Drive system utilizing vector velocity control.  
+
+
+
+
+{\ttfamily \#include $<$Vector\+Robot\+Drive.\+h$>$}
+
+Inheritance diagram for Vector\+Robot\+Drive\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_vector_robot_drive}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_vector_robot_drive_ac12208c756f46a6a623ee55fab184202}{Vector\+Robot\+Drive}} (const \mbox{\hyperlink{struct_motor_setup}{Motor\+Setup}} motor\+Setups\mbox{[}$\,$\mbox{]}, int \mbox{\hyperlink{class_simple_robot_drive_a7363d480902fa312441ec5fb65ac9b4f}{num\+Motors}}, Print \&\mbox{\hyperlink{class_simple_robot_drive_ad47799a442b544b9634b70bb6dfd71d7}{output}})
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_vector_robot_drive}{Vector\+Robot\+Drive} object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \mbox{\hyperlink{class_vector_robot_drive_a458fc0621b7a5c9d95272ba3949f9250}{Calculate\+RCVector}} (float x, float y, float theta, float yaw, bool position\+Control=false)
+\begin{DoxyCompactList}\small\item\em Computes velocity vector from joystick inputs. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_vector_robot_drive_af6a00c75bcfba4c5789f1f30ed53edda}{Set}} (const \mbox{\hyperlink{class_pose2_d}{Pose2D}} \&speed\+Pose)
+\begin{DoxyCompactList}\small\item\em Sets motor speeds based on velocity. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \mbox{\hyperlink{class_vector_robot_drive_a6e9c2c3b9e0d64e7d5e0df7677d0889d}{Get\+Velocity}} () const
+\item 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \mbox{\hyperlink{class_vector_robot_drive_aa904caf9ef159d97cab03f62a4b948ef}{Get\+Ideal\+Velocity}} () const
+\item 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \mbox{\hyperlink{class_vector_robot_drive_a261eb5e3abf39ab6408383de62f99bef}{Constrain\+New\+Speed\+Pose}} (\mbox{\hyperlink{class_pose2_d}{Pose2D}} new\+Speed\+Pose)
+\begin{DoxyCompactList}\small\item\em Constrains speed pose while considering acceleration limits. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_simple_robot_drive}{Simple\+Robot\+Drive}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_simple_robot_drive_a0b0b29f41b4afba48858a9a68424e578}{Simple\+Robot\+Drive}} (const \mbox{\hyperlink{struct_motor_setup}{Motor\+Setup}} motor\+Setups\mbox{[}$\,$\mbox{]}, int \mbox{\hyperlink{class_simple_robot_drive_a7363d480902fa312441ec5fb65ac9b4f}{num\+Motors}}, Print \&\mbox{\hyperlink{class_simple_robot_drive_ad47799a442b544b9634b70bb6dfd71d7}{output}})
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_simple_robot_drive}{Simple\+Robot\+Drive} object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simple_robot_drive_a40a2d9254b83096237b5dab89b7bf0e4}{Begin}} ()
+\begin{DoxyCompactList}\small\item\em Initializes all motors. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simple_robot_drive_a8a79407d47d89e1a90617824783a37de}{Set}} (const int motor\+Direct\+Speed\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Sets speed for all motors. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simple_robot_drive_aae5aba6a029b562ace38f5e638c85cd3}{Set\+Index}} (int motor\+Direct\+Speed, int index)
+\begin{DoxyCompactList}\small\item\em Sets speed for a specific motor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simple_robot_drive_a2a4bb8a6207c4f36c8347f77373b1c3a}{Read\+All}} (float yaw)
+\begin{DoxyCompactList}\small\item\em Reads encoder values and updates localization. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simple_robot_drive_a73883f04d512961acfae4960e28d144d}{Write}} ()
+\begin{DoxyCompactList}\small\item\em Sends updated speed values to all motors. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_simple_robot_drive_a4c82ccfabb1a1d8c227ed9e13bdc1783}{Print\+Info}} (Print \&\mbox{\hyperlink{class_simple_robot_drive_ad47799a442b544b9634b70bb6dfd71d7}{output}}, bool print\+Config=false) const
+\begin{DoxyCompactList}\small\item\em Prints drive configuration and motor details. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_simple_robot_drive_a1739bedcb5d78a0a9f39df071deac6d1}{Print\+Local}} (Print \&\mbox{\hyperlink{class_simple_robot_drive_ad47799a442b544b9634b70bb6dfd71d7}{output}}) const
+\begin{DoxyCompactList}\small\item\em Prints localization information. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_simple_robot_drive_ac4f9e13bfe7d8b7ad519d400298dc564}{Set\+Position}} (const \mbox{\hyperlink{class_pose2_d}{Pose2D}} \&set\+Position)
+\item 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} \mbox{\hyperlink{class_simple_robot_drive_a68d6e5b83e3ed3ed065465049d22ba2c}{Get\+Position}} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_simple_robot_drive}{Simple\+Robot\+Drive}}}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_simple_robot_drive_a475d274b636094cd5856a84beea548bc}{Read\+Enc}} ()
+\begin{DoxyCompactList}\small\item\em Reads encoder values for all motors. \end{DoxyCompactList}\item 
+const long \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_simple_robot_drive_a2f340f255a5e87c9f5af6d004f16026a}{Get\+Enc}} () const
+\begin{DoxyCompactList}\small\item\em Retrieves raw encoder values. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_simple_robot_drive}{Simple\+Robot\+Drive}}}
+\begin{DoxyCompactItemize}
+\item 
+const int \mbox{\hyperlink{class_simple_robot_drive_a7363d480902fa312441ec5fb65ac9b4f}{num\+Motors}}
+\item 
+Print \& \mbox{\hyperlink{class_simple_robot_drive_ad47799a442b544b9634b70bb6dfd71d7}{output}}
+\item 
+elapsed\+Micros \mbox{\hyperlink{class_simple_robot_drive_a675eebc9ab7804d1784b9e3a4d334152}{accel\+Call}}
+\item 
+std\+::unique\+\_\+ptr$<$ long\mbox{[}$\,$\mbox{]}$>$ \mbox{\hyperlink{class_simple_robot_drive_a56aeff4f47517bd892f77bf542ecb883}{enc}}
+\item 
+std\+::vector$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_drive_motor}{Drive\+Motor}} $>$ $>$ \mbox{\hyperlink{class_simple_robot_drive_a83d11857695c2a76872226dffa8233f0}{motors}}
+\item 
+\mbox{\hyperlink{class_localization_encoder}{Localization\+Encoder}} \mbox{\hyperlink{class_simple_robot_drive_a9a3e6e5de26f8882708d93cf672f95de}{localization}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Drive system utilizing vector velocity control. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_vector_robot_drive_ac12208c756f46a6a623ee55fab184202}\index{VectorRobotDrive@{VectorRobotDrive}!VectorRobotDrive@{VectorRobotDrive}}
+\index{VectorRobotDrive@{VectorRobotDrive}!VectorRobotDrive@{VectorRobotDrive}}
+\doxysubsubsection{\texorpdfstring{VectorRobotDrive()}{VectorRobotDrive()}}
+{\footnotesize\ttfamily \label{class_vector_robot_drive_ac12208c756f46a6a623ee55fab184202} 
+Vector\+Robot\+Drive\+::\+Vector\+Robot\+Drive (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_motor_setup}{Motor\+Setup}}}]{motor\+Setups}{\mbox{[}$\,$\mbox{]}, }\item[{int}]{num\+Motors}{, }\item[{Print \&}]{output}{}\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{class_vector_robot_drive}{Vector\+Robot\+Drive} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em motor\+Setups} & Array of motor configurations. \\
+\hline
+{\em num\+Motors} & Number of motors. \\
+\hline
+{\em output} & Output stream for logging. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_vector_robot_drive_a458fc0621b7a5c9d95272ba3949f9250}\index{VectorRobotDrive@{VectorRobotDrive}!CalculateRCVector@{CalculateRCVector}}
+\index{CalculateRCVector@{CalculateRCVector}!VectorRobotDrive@{VectorRobotDrive}}
+\doxysubsubsection{\texorpdfstring{CalculateRCVector()}{CalculateRCVector()}}
+{\footnotesize\ttfamily \label{class_vector_robot_drive_a458fc0621b7a5c9d95272ba3949f9250} 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} Vector\+Robot\+Drive\+::\+Calculate\+RCVector (\begin{DoxyParamCaption}\item[{float}]{x}{, }\item[{float}]{y}{, }\item[{float}]{theta}{, }\item[{float}]{yaw}{, }\item[{bool}]{position\+Control}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+
+
+Computes velocity vector from joystick inputs. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X input (-\/1 to 1). \\
+\hline
+{\em y} & Y input (-\/1 to 1). \\
+\hline
+{\em theta} & Rotational input (-\/1 to 1). \\
+\hline
+{\em yaw} & Current robot yaw. \\
+\hline
+{\em position\+Control} & If true, ignores yaw in computations. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Computed velocity vector. 
+\end{DoxyReturn}
+\Hypertarget{class_vector_robot_drive_a261eb5e3abf39ab6408383de62f99bef}\index{VectorRobotDrive@{VectorRobotDrive}!ConstrainNewSpeedPose@{ConstrainNewSpeedPose}}
+\index{ConstrainNewSpeedPose@{ConstrainNewSpeedPose}!VectorRobotDrive@{VectorRobotDrive}}
+\doxysubsubsection{\texorpdfstring{ConstrainNewSpeedPose()}{ConstrainNewSpeedPose()}}
+{\footnotesize\ttfamily \label{class_vector_robot_drive_a261eb5e3abf39ab6408383de62f99bef} 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} Vector\+Robot\+Drive\+::\+Constrain\+New\+Speed\+Pose (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_pose2_d}{Pose2D}}}]{new\+Speed\+Pose}{}\end{DoxyParamCaption})}
+
+
+
+Constrains speed pose while considering acceleration limits. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Speed\+Pose} & New velocity pose. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Constrained speed pose. 
+\end{DoxyReturn}
+\Hypertarget{class_vector_robot_drive_aa904caf9ef159d97cab03f62a4b948ef}\index{VectorRobotDrive@{VectorRobotDrive}!GetIdealVelocity@{GetIdealVelocity}}
+\index{GetIdealVelocity@{GetIdealVelocity}!VectorRobotDrive@{VectorRobotDrive}}
+\doxysubsubsection{\texorpdfstring{GetIdealVelocity()}{GetIdealVelocity()}}
+{\footnotesize\ttfamily \label{class_vector_robot_drive_aa904caf9ef159d97cab03f62a4b948ef} 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} Vector\+Robot\+Drive\+::\+Get\+Ideal\+Velocity (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_vector_robot_drive_a6e9c2c3b9e0d64e7d5e0df7677d0889d}\index{VectorRobotDrive@{VectorRobotDrive}!GetVelocity@{GetVelocity}}
+\index{GetVelocity@{GetVelocity}!VectorRobotDrive@{VectorRobotDrive}}
+\doxysubsubsection{\texorpdfstring{GetVelocity()}{GetVelocity()}}
+{\footnotesize\ttfamily \label{class_vector_robot_drive_a6e9c2c3b9e0d64e7d5e0df7677d0889d} 
+\mbox{\hyperlink{class_pose2_d}{Pose2D}} Vector\+Robot\+Drive\+::\+Get\+Velocity (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_vector_robot_drive_af6a00c75bcfba4c5789f1f30ed53edda}\index{VectorRobotDrive@{VectorRobotDrive}!Set@{Set}}
+\index{Set@{Set}!VectorRobotDrive@{VectorRobotDrive}}
+\doxysubsubsection{\texorpdfstring{Set()}{Set()}}
+{\footnotesize\ttfamily \label{class_vector_robot_drive_af6a00c75bcfba4c5789f1f30ed53edda} 
+void Vector\+Robot\+Drive\+::\+Set (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_pose2_d}{Pose2D}} \&}]{speed\+Pose}{}\end{DoxyParamCaption})}
+
+
+
+Sets motor speeds based on velocity. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em speed\+Pose} & Velocity pose (X/Y in inches/sec, Theta in radians/sec). \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/drive/\mbox{\hyperlink{_vector_robot_drive_8h}{Vector\+Robot\+Drive.\+h}}\item 
+src/drive/\mbox{\hyperlink{_vector_robot_drive_8cpp}{Vector\+Robot\+Drive.\+cpp}}\end{DoxyCompactItemize}

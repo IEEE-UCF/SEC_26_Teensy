@@ -1,0 +1,34 @@
+\doxysection{Light\+Handler.\+h}
+\hypertarget{_light_handler_8h_source}{}\label{_light_handler_8h_source}\index{src/handler/LightHandler.h@{src/handler/LightHandler.h}}
+\mbox{\hyperlink{_light_handler_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#ifndef\ LIGHTHANDLER\_H}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ LIGHTHANDLER\_H}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <BH1750.h>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <Wire.h>}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{i2cmux_8h}{i2cmux.h}}"{}}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_light_handler_aabfc87c4e2a9260af9ee646fcfc6ac42}{LightHandler}}\ \{}
+\DoxyCodeLine{00025\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00026\ \ \ \mbox{\hyperlink{class_light_handler_aabfc87c4e2a9260af9ee646fcfc6ac42}{LightHandler}}(\textcolor{keywordtype}{int}\ cLight);}
+\DoxyCodeLine{00027\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_light_handler_a2742d741fcd5bf48f538c5b229a464fe}{Begin}}();}
+\DoxyCodeLine{00028\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_light_handler_a0cc4c4ce19272685c210eb62c565a15d}{Update}}();}
+\DoxyCodeLine{00029\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_light_handler_a1cf2b373e15c4783ed4779a27e3cc563}{PrintInfo}}(Print\ \&output,\ \textcolor{keywordtype}{bool}\ printConfig\ =\ \textcolor{keyword}{false})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00030\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_light_handler_acce75e6ff2832729f2b7130adc26aad0}{GetLightLevel}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00033\ \ \ \textcolor{keywordtype}{int}\ cLight;\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ BH1750\ lightMeter;\ \ }
+\DoxyCodeLine{00035\ \ \ \textcolor{keywordtype}{float}\ lightLevel;\ \ \ }
+\DoxyCodeLine{00036\ \};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ Overloaded\ stream\ operator\ for\ printing\ sensor\ details.}}
+\DoxyCodeLine{00039\ Print\ \&\mbox{\hyperlink{_light_handler_8h_aefc8505e8cecbe253b73a0f0f2d85e10}{operator<<}}(Print\ \&output,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_light_handler}{LightHandler}}\ \&handler);}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ LIGHTHANDLER\_H}}
+
+\end{DoxyCode}

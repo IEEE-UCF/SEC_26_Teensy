@@ -1,0 +1,48 @@
+\doxysection{src/handler/\+TOFHandler.cpp File Reference}
+\hypertarget{_t_o_f_handler_8cpp}{}\label{_t_o_f_handler_8cpp}\index{src/handler/TOFHandler.cpp@{src/handler/TOFHandler.cpp}}
+
+
+Implements the \doxylink{class_t_o_f_handler}{TOFHandler} class for VL53\+L0X sensor array management.  
+
+
+{\ttfamily \#include "{}TOFHandler.\+h"{}}\newline
+{\ttfamily \#include $<$Arduino.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Print \& \mbox{\hyperlink{_t_o_f_handler_8cpp_a45500e967245557515e01dfd4921db58}{operator$<$$<$}} (Print \&output, const \mbox{\hyperlink{class_t_o_f_handler}{TOFHandler}} \&handler)
+\begin{DoxyCompactList}\small\item\em Overloaded stream insertion operator for printing \doxylink{class_t_o_f_handler}{TOFHandler} distances. Allows easy printing of the current sensor distances to a Print stream. Example\+: {\ttfamily Serial \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} my\+TOFHandler;} \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implements the \doxylink{class_t_o_f_handler}{TOFHandler} class for VL53\+L0X sensor array management. 
+
+\begin{DoxyAuthor}{Author}
+Aldem Pido 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+April 1, 2025 (original), Last Modified\+: May 19, 2025 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_t_o_f_handler_8cpp_a45500e967245557515e01dfd4921db58}\index{TOFHandler.cpp@{TOFHandler.cpp}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!TOFHandler.cpp@{TOFHandler.cpp}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}}
+{\footnotesize\ttfamily \label{_t_o_f_handler_8cpp_a45500e967245557515e01dfd4921db58} 
+Print \& operator$<$$<$ (\begin{DoxyParamCaption}\item[{Print \&}]{output}{, }\item[{const \mbox{\hyperlink{class_t_o_f_handler}{TOFHandler}} \&}]{handler}{}\end{DoxyParamCaption})}
+
+
+
+Overloaded stream insertion operator for printing \doxylink{class_t_o_f_handler}{TOFHandler} distances. Allows easy printing of the current sensor distances to a Print stream. Example\+: {\ttfamily Serial \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} my\+TOFHandler;} 
+
+
+\begin{DoxyParams}{Parameters}
+{\em output} & Reference to the Print stream. \\
+\hline
+{\em handler} & Const reference to the \doxylink{class_t_o_f_handler}{TOFHandler} object. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Reference to the Print stream. 
+\end{DoxyReturn}

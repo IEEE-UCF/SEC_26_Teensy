@@ -1,0 +1,36 @@
+\doxysection{Beacon\+Subsystem.\+h}
+\hypertarget{_beacon_subsystem_8h_source}{}\label{_beacon_subsystem_8h_source}\index{src/subsystem/BeaconSubsystem.h@{src/subsystem/BeaconSubsystem.h}}
+\mbox{\hyperlink{_beacon_subsystem_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifndef\ BEACONSUBSYSTEM\_H}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ BEACONSUBSYSTEM\_H}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_servo_handler_8h}{../handler/ServoHandler.h}}"{}}\ \ \textcolor{comment}{//\ Ensure\ ServoHandler.h\ path\ is\ correct}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_beacon_subsystem_a5c3aaf0372028881c6981086b1571318}{BeaconSubsystem}}\ \{}
+\DoxyCodeLine{00025\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ \ \ \textcolor{keyword}{enum}\ \mbox{\hyperlink{class_beacon_subsystem_a311d78248bf878f1ae699a4e70b55993}{Positions}}\ :\ uint8\_t\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{class_beacon_subsystem_a311d78248bf878f1ae699a4e70b55993af121a944988abe13178ae2387b94f32c}{UP}}\ =\ 0,\ \ \ \ \ \ }
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{class_beacon_subsystem_a311d78248bf878f1ae699a4e70b55993a273edda3b472a127526b009ea4444700}{DOWN1}}\ =\ 20,\ \ }
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{class_beacon_subsystem_a311d78248bf878f1ae699a4e70b55993a500f4be016a64c7db2da9f266b6f80c9}{DOWN2}}\ =\ 40,\ \ }
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{class_beacon_subsystem_a311d78248bf878f1ae699a4e70b55993a5265fb616bc97bda838985103335e5a2}{DOWN}}\ =\ 53\ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \mbox{\hyperlink{class_beacon_subsystem_a5c3aaf0372028881c6981086b1571318}{BeaconSubsystem}}(\textcolor{keywordtype}{int}\ servoIndex,\ \mbox{\hyperlink{class_servo_handler}{ServoHandler}}\ \&servos);}
+\DoxyCodeLine{00037\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_beacon_subsystem_a41c40c44221f54dd38a417e7862b62be}{Begin}}();}
+\DoxyCodeLine{00038\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_beacon_subsystem_ab6a66441d149fa5d3d41b62b95bced26}{MoveUp}}();}
+\DoxyCodeLine{00039\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_beacon_subsystem_a5329c0f74be83f94df5a6f6cb74eb79b}{MoveDown}}(\textcolor{keywordtype}{int}\ offset\ =\ 0);}
+\DoxyCodeLine{00040\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_beacon_subsystem_a7d796a599618097a5d637df98494a417}{WriteAngle}}(\textcolor{keywordtype}{int}\ angle);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00043\ \ \ \textcolor{keywordtype}{int}\ indexBeacon;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00044\ \ \ \mbox{\hyperlink{class_servo_handler}{ServoHandler}}\ \&servos;\ \ }
+\DoxyCodeLine{00045\ \};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ BEACONSUBSYSTEM\_H}}
+
+\end{DoxyCode}

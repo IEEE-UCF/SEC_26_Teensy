@@ -1,0 +1,103 @@
+\doxysection{Line\+Handler Class Reference}
+\hypertarget{class_line_handler}{}\label{class_line_handler}\index{LineHandler@{LineHandler}}
+
+
+Manages line-\/following sensor readings.  
+
+
+
+
+{\ttfamily \#include $<$Line\+Handler.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_line_handler_afcc34476a4d90d81ea9f175a58db6f73}{Line\+Handler}} (int \texorpdfstring{$\ast$}{*}k\+Pins, int num\+Pins)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{class_line_handler}{Line\+Handler} object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_line_handler_ac2d2f285ea60778644e98a16eef7bfa8}{\texorpdfstring{$\sim$}{\string~}\+Line\+Handler}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for \doxylink{class_line_handler}{Line\+Handler}, releasing allocated memory. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_line_handler_aafba4e07663b8c1d4c7a5b41bdf9d630}{Setup}} ()
+\begin{DoxyCompactList}\small\item\em Initializes sensor pins. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_line_handler_a1105fe3ac4706782040949d6805aaa75}{Update}} ()
+\begin{DoxyCompactList}\small\item\em Reads sensor values and updates stored data. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_line_handler_ac3995cade0715528a36a9433c10d30ee}{Print\+Info}} (Print \&output, bool print\+Config=false) const
+\begin{DoxyCompactList}\small\item\em Prints line sensor configuration or current readings. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages line-\/following sensor readings. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_line_handler_afcc34476a4d90d81ea9f175a58db6f73}\index{LineHandler@{LineHandler}!LineHandler@{LineHandler}}
+\index{LineHandler@{LineHandler}!LineHandler@{LineHandler}}
+\doxysubsubsection{\texorpdfstring{LineHandler()}{LineHandler()}}
+{\footnotesize\ttfamily \label{class_line_handler_afcc34476a4d90d81ea9f175a58db6f73} 
+Line\+Handler\+::\+Line\+Handler (\begin{DoxyParamCaption}\item[{int \texorpdfstring{$\ast$}{*}}]{k\+Pins}{, }\item[{int}]{num\+Pins}{}\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{class_line_handler}{Line\+Handler} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em k\+Pins} & Array of sensor pins. \\
+\hline
+{\em num\+Pins} & Number of sensors. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_line_handler_ac2d2f285ea60778644e98a16eef7bfa8}\index{LineHandler@{LineHandler}!````~LineHandler@{\texorpdfstring{$\sim$}{\string~}LineHandler}}
+\index{````~LineHandler@{\texorpdfstring{$\sim$}{\string~}LineHandler}!LineHandler@{LineHandler}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}LineHandler()}{\string~LineHandler()}}
+{\footnotesize\ttfamily \label{class_line_handler_ac2d2f285ea60778644e98a16eef7bfa8} 
+Line\+Handler\+::\texorpdfstring{$\sim$}{\string~}\+Line\+Handler (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Destructor for \doxylink{class_line_handler}{Line\+Handler}, releasing allocated memory. 
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_line_handler_ac3995cade0715528a36a9433c10d30ee}\index{LineHandler@{LineHandler}!PrintInfo@{PrintInfo}}
+\index{PrintInfo@{PrintInfo}!LineHandler@{LineHandler}}
+\doxysubsubsection{\texorpdfstring{PrintInfo()}{PrintInfo()}}
+{\footnotesize\ttfamily \label{class_line_handler_ac3995cade0715528a36a9433c10d30ee} 
+void Line\+Handler\+::\+Print\+Info (\begin{DoxyParamCaption}\item[{Print \&}]{output}{, }\item[{bool}]{print\+Config}{ = {\ttfamily false}}\end{DoxyParamCaption}) const}
+
+
+
+Prints line sensor configuration or current readings. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em output} & Output stream for logging. \\
+\hline
+{\em print\+Config} & If true, prints sensor configuration; otherwise, prints current readings. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_line_handler_aafba4e07663b8c1d4c7a5b41bdf9d630}\index{LineHandler@{LineHandler}!Setup@{Setup}}
+\index{Setup@{Setup}!LineHandler@{LineHandler}}
+\doxysubsubsection{\texorpdfstring{Setup()}{Setup()}}
+{\footnotesize\ttfamily \label{class_line_handler_aafba4e07663b8c1d4c7a5b41bdf9d630} 
+void Line\+Handler\+::\+Setup (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Initializes sensor pins. 
+
+\Hypertarget{class_line_handler_a1105fe3ac4706782040949d6805aaa75}\index{LineHandler@{LineHandler}!Update@{Update}}
+\index{Update@{Update}!LineHandler@{LineHandler}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{class_line_handler_a1105fe3ac4706782040949d6805aaa75} 
+void Line\+Handler\+::\+Update (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Reads sensor values and updates stored data. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/handler/\mbox{\hyperlink{_line_handler_8h}{Line\+Handler.\+h}}\item 
+src/handler/\mbox{\hyperlink{_line_handler_8cpp}{Line\+Handler.\+cpp}}\end{DoxyCompactItemize}

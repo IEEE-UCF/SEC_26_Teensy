@@ -1,0 +1,32 @@
+\doxysection{Vector\+Robot\+Drive.\+h}
+\hypertarget{_vector_robot_drive_8h_source}{}\label{_vector_robot_drive_8h_source}\index{src/drive/VectorRobotDrive.h@{src/drive/VectorRobotDrive.h}}
+\mbox{\hyperlink{_vector_robot_drive_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#ifndef\ VectorRobotDrive\_h}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ VectorRobotDrive\_h}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_m_o_t_o_r_c_o_n_f_i_g_8h}{MOTORCONFIG.h}}"{}}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_simple_robot_drive_8h}{SimpleRobotDrive.h}}"{}}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{using\ namespace\ }\mbox{\hyperlink{namespace_motor_constants}{MotorConstants}};}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_vector_robot_drive_ac12208c756f46a6a623ee55fab184202}{VectorRobotDrive}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_simple_robot_drive_a0b0b29f41b4afba48858a9a68424e578}{SimpleRobotDrive}}\ \{}
+\DoxyCodeLine{00025\ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00026\ \ \ \mbox{\hyperlink{class_vector_robot_drive_ac12208c756f46a6a623ee55fab184202}{VectorRobotDrive}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_motor_setup}{MotorSetup}}\ motorSetups[],\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_simple_robot_drive_a7363d480902fa312441ec5fb65ac9b4f}{numMotors}},\ Print\ \&\mbox{\hyperlink{class_simple_robot_drive_ad47799a442b544b9634b70bb6dfd71d7}{output}});}
+\DoxyCodeLine{00027\ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ \mbox{\hyperlink{class_vector_robot_drive_a458fc0621b7a5c9d95272ba3949f9250}{CalculateRCVector}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ theta,\ \textcolor{keywordtype}{float}\ yaw,\ \textcolor{keywordtype}{bool}\ positionControl\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00028\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_vector_robot_drive_af6a00c75bcfba4c5789f1f30ed53edda}{Set}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ \&speedPose);}
+\DoxyCodeLine{00029\ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ \mbox{\hyperlink{class_vector_robot_drive_a6e9c2c3b9e0d64e7d5e0df7677d0889d}{GetVelocity}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ currentSpeedPose;\ \}}
+\DoxyCodeLine{00030\ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ \mbox{\hyperlink{class_vector_robot_drive_aa904caf9ef159d97cab03f62a4b948ef}{GetIdealVelocity}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ idealSpeedPose;\ \}}
+\DoxyCodeLine{00031\ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ \mbox{\hyperlink{class_vector_robot_drive_a261eb5e3abf39ab6408383de62f99bef}{ConstrainNewSpeedPose}}(\mbox{\hyperlink{class_pose2_d}{Pose2D}}\ newSpeedPose);}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00034\ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ currentSpeedPose;\ \ }
+\DoxyCodeLine{00035\ \ \ \mbox{\hyperlink{class_pose2_d}{Pose2D}}\ idealSpeedPose;\ \ \ \ }
+\DoxyCodeLine{00036\ \ \ \textcolor{keywordtype}{bool}\ isDeaccelerating(\textcolor{keywordtype}{float}\ newValue,\ \textcolor{keywordtype}{float}\ oldValue);}
+\DoxyCodeLine{00037\ \};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}
