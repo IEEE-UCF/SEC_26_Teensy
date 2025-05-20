@@ -48,3 +48,12 @@ jobs:
           mkdir -p ./docs
           doxygen Doxyfile
           echo "Doxygen HTML output generated in ./docs"
+
+      - name: Clean APT caches
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/partial/*
+          sudo rm -f /var/lib/apt/lists/*lock
+          sudo rm -f /var/cache/apt/archives/*lock
+        # Make sure this runs even if previous steps fail, to ensure cache save doesn't fail
+        if: always()
