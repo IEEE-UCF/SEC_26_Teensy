@@ -39,6 +39,7 @@ AlignConsecutiveShortCaseStatements:
   Enabled: false
   AcrossEmptyLines: false
   AcrossComments: false
+  AlignCaseArrows: false
   AlignCaseColons: false
 
 # Removed TableGen related options as they are highly specific and not typically
