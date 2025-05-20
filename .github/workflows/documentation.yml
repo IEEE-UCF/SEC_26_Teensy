@@ -6,10 +6,11 @@ on:
 
 env:
   WORKFLOW_FILE_PATH: ".github/workflows/documentation.yml"
+  DOXYGEN_OUTPUT_DIR: "docs"
 
 jobs:
   doxygen-generation:
-    name: Doxygen HTML Generation, Commit, Publish
+    name: Doxygen HTML Generation and Commit
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -59,15 +60,42 @@ jobs:
           doxygen Doxyfile
           echo "Doxygen HTML output generated in ./docs"
 
-      - name: Clean APT caches
+      - name: Commit generated documentation to 'doc' branch
+        run: |
+          # Configure Git for the commit
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Add generated files to staging
+          git add -f ${{ env.DOXYGEN_OUTPUT_DIR }}
+
+          # Check if there are changes to commit
+          git diff-index --quiet HEAD || git commit -m "chore: Update Doxygen documentation"
+
+          # Push changes to the 'doc' branch
+          # Use --force-with-lease to avoid overwriting other commits if branch changed
+          git push origin HEAD:${{ github.ref_name }} --force-with-lease
+        # Only run if the Doxygen step succeeded and if we are on a push to the 'doc' branch
+        if: success() && github.event_name == 'push' && github.ref_name == 'doc'
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v5 # Recommended action for Pages setup
+
+      - name: Upload Doxygen artifact for Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ env.DOXYGEN_OUTPUT_DIR }} # Upload the generated HTML directory
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Final APT cache cleanup and permissions for saving
         run: |
           sudo apt-get clean
-          sudo rm -rf /var/lib/apt/lists/partial/*
-          sudo rm -f /var/lib/apt/lists/*lock
-          sudo rm -f /var/cache/apt/archives/*lock
-          # Make sure this runs even if previous steps fail, to ensure cache save doesn't fail
-          # CRITICAL: Change permissions of the 'partial' directory itself
-          # This ensures the 'runner' user can traverse into it, even if empty
-          sudo chmod 777 /var/lib/apt/lists/partial || true
-          sudo chmod 777 /var/cache/apt/archives/partial || true
+          sudo rm -rf /var/lib/apt/lists/partial/* || true
+          sudo rm -f /var/lib/apt/lists/*lock || true
+          sudo rm -f /var/cache/apt/archives/*lock || true
+          sudo chmod -R 777 /var/lib/apt/lists || true
+          sudo chmod -R 777 /var/cache/apt/archives || true
         if: always()
