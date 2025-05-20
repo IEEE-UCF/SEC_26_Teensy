@@ -1,69 +1,82 @@
-# This file is compatible with clang-format version 10.x.x
-# Ensure your CI/CD runner uses clang-format 10 or newer.
-
-Language: Cpp
+---
+Language:        Cpp
 AccessModifierOffset: -1
 AlignAfterOpenBracket: Align
 AlignArrayOfStructures: None
-
-# AlignConsecutive* options:
-# These do not have 'AlignFunctionDeclarations' or 'AlignFunctionPointers' as sub-options
-# in Clang 10. Removed them from here.
 AlignConsecutiveAssignments:
-  Enabled: false
+  Enabled:         false
   AcrossEmptyLines: false
-  AcrossComments: false
-  AlignCompound: false
-  PadOperators: true
+  AcrossComments:  false
+  AlignCompound:   false
+  AlignFunctionDeclarations: false
+  AlignFunctionPointers: false
+  PadOperators:    true
 AlignConsecutiveBitFields:
-  Enabled: false
+  Enabled:         false
   AcrossEmptyLines: false
-  AcrossComments: false
-  AlignCompound: false
-  PadOperators: false
+  AcrossComments:  false
+  AlignCompound:   false
+  AlignFunctionDeclarations: false
+  AlignFunctionPointers: false
+  PadOperators:    false
 AlignConsecutiveDeclarations:
-  Enabled: false
+  Enabled:         false
   AcrossEmptyLines: false
-  AcrossComments: false
-  AlignCompound: false
-  # 'AlignFunctionDeclarations' is a top-level option, not for AlignConsecutiveDeclarations.
-  # Removed from here.
-  PadOperators: false
+  AcrossComments:  false
+  AlignCompound:   false
+  AlignFunctionDeclarations: true
+  AlignFunctionPointers: false
+  PadOperators:    false
 AlignConsecutiveMacros:
-  Enabled: false
+  Enabled:         false
   AcrossEmptyLines: false
-  AcrossComments: false
-  AlignCompound: false
-  PadOperators: false
+  AcrossComments:  false
+  AlignCompound:   false
+  AlignFunctionDeclarations: false
+  AlignFunctionPointers: false
+  PadOperators:    false
 AlignConsecutiveShortCaseStatements:
-  Enabled: false
+  Enabled:         false
   AcrossEmptyLines: false
-  AcrossComments: false
+  AcrossComments:  false
   AlignCaseArrows: false
   AlignCaseColons: false
-
-# Removed TableGen related options as they are highly specific and not typically
-# part of general C++ formatting and might be from much newer clang-format versions.
-# AlignConsecutiveTableGenBreakingDAGArgColons
-# AlignConsecutiveTableGenCondOperatorColons
-# AlignConsecutiveTableGenDefinitionColons
-
-# This is the top-level 'AlignFunctionDeclarations' option, supported in Clang 10.
-AlignFunctionDeclarations: DontAlign # Common options are 'Left', 'Right', 'None', 'DontAlign'.
-                                     # 'false' is not a valid enum value here.
-                                     # Assuming 'DontAlign' is what you meant by 'false'.
+AlignConsecutiveTableGenBreakingDAGArgColons:
+  Enabled:         false
+  AcrossEmptyLines: false
+  AcrossComments:  false
+  AlignCompound:   false
+  AlignFunctionDeclarations: false
+  AlignFunctionPointers: false
+  PadOperators:    false
+AlignConsecutiveTableGenCondOperatorColons:
+  Enabled:         false
+  AcrossEmptyLines: false
+  AcrossComments:  false
+  AlignCompound:   false
+  AlignFunctionDeclarations: false
+  AlignFunctionPointers: false
+  PadOperators:    false
+AlignConsecutiveTableGenDefinitionColons:
+  Enabled:         false
+  AcrossEmptyLines: false
+  AcrossComments:  false
+  AlignCompound:   false
+  AlignFunctionDeclarations: false
+  AlignFunctionPointers: false
+  PadOperators:    false
 AlignEscapedNewlines: Left
-AlignOperands: Align
+AlignOperands:   Align
 AlignTrailingComments:
-  Kind: Always
-  OverEmptyLines: 0
+  Kind:            Always
+  OverEmptyLines:  0
 AllowAllArgumentsOnNextLine: true
 AllowAllParametersOfDeclarationOnNextLine: true
 AllowBreakBeforeNoexceptSpecifier: Never
 AllowShortBlocksOnASingleLine: Never
 AllowShortCaseExpressionOnASingleLine: true
 AllowShortCaseLabelsOnASingleLine: false
-AllowShortCompoundRequirementOnASingleLine: true # Introduced in Clang 12, removing
+AllowShortCompoundRequirementOnASingleLine: true
 AllowShortEnumsOnASingleLine: true
 AllowShortFunctionsOnASingleLine: All
 AllowShortIfStatementsOnASingleLine: WithoutElse
@@ -78,33 +91,33 @@ BinPackArguments: true
 BinPackParameters: BinPack
 BitFieldColonSpacing: Both
 BraceWrapping:
-  AfterCaseLabel: false
-  AfterClass: false
+  AfterCaseLabel:  false
+  AfterClass:      false
   AfterControlStatement: Never
-  AfterEnum: false
+  AfterEnum:       false
   AfterExternBlock: false
-  AfterFunction: false
-  AfterNamespace: false
+  AfterFunction:   false
+  AfterNamespace:  false
   AfterObjCDeclaration: false
-  AfterStruct: false
-  AfterUnion: false
-  BeforeCatch: false
-  BeforeElse: false
+  AfterStruct:     false
+  AfterUnion:      false
+  BeforeCatch:     false
+  BeforeElse:      false
   BeforeLambdaBody: false
-  BeforeWhile: false
-  IndentBraces: false
+  BeforeWhile:     false
+  IndentBraces:    false
   SplitEmptyFunction: true
   SplitEmptyRecord: true
-  SplitEmptyNamespace: true # Introduced in Clang 12, removing
+  SplitEmptyNamespace: true
 BreakAdjacentStringLiterals: true
 BreakAfterAttributes: Leave
 BreakAfterJavaFieldAnnotations: false
 BreakAfterReturnType: None
-BreakArrays: true
+BreakArrays:     true
 BreakBeforeBinaryOperators: None
-BreakBeforeConceptDeclarations: Always # Introduced in Clang 12, removing
+BreakBeforeConceptDeclarations: Always
 BreakBeforeBraces: Attach
-BreakBeforeInlineASMColon: OnlyMultiline # Introduced in Clang 12, removing
+BreakBeforeInlineASMColon: OnlyMultiline
 BreakBeforeTernaryOperators: true
 BreakBinaryOperations: Never
 BreakConstructorInitializers: BeforeColon
@@ -112,17 +125,17 @@ BreakFunctionDefinitionParameters: false
 BreakInheritanceList: BeforeColon
 BreakStringLiterals: true
 BreakTemplateDeclarations: Yes
-ColumnLimit: 100
-CommentPragmas: '^ IWYU pragma:'
+ColumnLimit:     100
+CommentPragmas:  '^ IWYU pragma:'
 CompactNamespaces: false
 ConstructorInitializerIndentWidth: 4
 ContinuationIndentWidth: 4
 Cpp11BracedListStyle: true
 DerivePointerAlignment: true
-DisableFormat: false
+DisableFormat:   false
 EmptyLineAfterAccessModifier: Never
 EmptyLineBeforeAccessModifier: LogicalBlock
-ExperimentalAutoDetectBinPacking: false # Introduced in Clang 12, removing
+ExperimentalAutoDetectBinPacking: false
 FixNamespaceComments: true
 ForEachMacros:
   - foreach
@@ -130,57 +143,57 @@ ForEachMacros:
   - BOOST_FOREACH
 IfMacros:
   - KJ_IF_MAYBE
-IncludeBlocks: Regroup
+IncludeBlocks:   Regroup
 IncludeCategories:
-  - Regex: '^<ext/.*\.h>'
-    Priority: 2
-    SortPriority: 0
-    CaseSensitive: false
-  - Regex: '^<.*\.h>'
-    Priority: 1
-    SortPriority: 0
-    CaseSensitive: false
-  - Regex: '^<.*'
-    Priority: 2
-    SortPriority: 0
-    CaseSensitive: false
-  - Regex: '.*'
-    Priority: 3
-    SortPriority: 0
-    CaseSensitive: false
+  - Regex:           '^<ext/.*\.h>'
+    Priority:        2
+    SortPriority:    0
+    CaseSensitive:   false
+  - Regex:           '^<.*\.h>'
+    Priority:        1
+    SortPriority:    0
+    CaseSensitive:   false
+  - Regex:           '^<.*'
+    Priority:        2
+    SortPriority:    0
+    CaseSensitive:   false
+  - Regex:           '.*'
+    Priority:        3
+    SortPriority:    0
+    CaseSensitive:   false
 IncludeIsMainRegex: '([-_](test|unittest))?$'
 IncludeIsMainSourceRegex: ''
 IndentAccessModifiers: false
 IndentCaseBlocks: false
 IndentCaseLabels: true
-IndentExportBlock: true # Introduced in Clang 13, removing
+IndentExportBlock: true
 IndentExternBlock: AfterExternBlock
 IndentGotoLabels: true
 IndentPPDirectives: None
-IndentRequiresClause: true # Introduced in Clang 12, removing
-IndentWidth: 2
+IndentRequiresClause: true
+IndentWidth:     2
 IndentWrappedFunctionNames: false
-InsertBraces: false
+InsertBraces:    false
 InsertNewlineAtEOF: false
 InsertTrailingCommas: None
-IntegerLiteralSeparator: # Introduced in Clang 11, removing
-  Binary: 0
+IntegerLiteralSeparator:
+  Binary:          0
   BinaryMinDigits: 0
-  Decimal: 0
+  Decimal:         0
   DecimalMinDigits: 0
-  Hex: 0
-  HexMinDigits: 0
+  Hex:             0
+  HexMinDigits:    0
 JavaScriptQuotes: Leave
 JavaScriptWrapImports: true
 KeepEmptyLines:
-  AtEndOfFile: false
-  AtStartOfBlock: false
-  AtStartOfFile: true
-KeepFormFeed: false
+  AtEndOfFile:     false
+  AtStartOfBlock:  false
+  AtStartOfFile:   true
+KeepFormFeed:    false
 LambdaBodyIndentation: Signature
-LineEnding: DeriveLF
+LineEnding:      DeriveLF
 MacroBlockBegin: ''
-MacroBlockEnd: ''
+MacroBlockEnd:   ''
 MainIncludeChar: Quote
 MaxEmptyLinesToKeep: 1
 NamespaceIndentation: None
@@ -203,25 +216,50 @@ PenaltyExcessCharacter: 1000000
 PenaltyIndentedWhitespace: 0
 PenaltyReturnTypeOnItsOwnLine: 200
 PointerAlignment: Left
-PPIndentWidth: -1
+PPIndentWidth:   -1
 QualifierAlignment: Leave
-RawStringFormats: # This structure is likely too new for Clang 10, or has different sub-options.
-                  # It was significantly revised in Clang 13. Removing this complex block.
-                  # You'll need to define raw string formats in a simpler way or remove them.
-                  # If this is critical, you'll have to use a newer clang-format.
-
+RawStringFormats:
+  - Language:        Cpp
+    Delimiters:
+      - cc
+      - CC
+      - cpp
+      - Cpp
+      - CPP
+      - 'c++'
+      - 'C++'
+    CanonicalDelimiter: ''
+    BasedOnStyle:    google
+  - Language:        TextProto
+    Delimiters:
+      - pb
+      - PB
+      - proto
+      - PROTO
+    EnclosingFunctions:
+      - EqualsProto
+      - EquivToProto
+      - PARSE_PARTIAL_TEXT_PROTO
+      - PARSE_TEST_PROTO
+      - PARSE_TEXT_PROTO
+      - ParseTextOrDie
+      - ParseTextProtoOrDie
+      - ParseTestProto
+      - ParsePartialTestProto
+    CanonicalDelimiter: pb
+    BasedOnStyle:    google
 ReferenceAlignment: Pointer
-ReflowComments: Always
+ReflowComments:  Always
 RemoveBracesLLVM: false
 RemoveEmptyLinesInUnwrappedLines: false
 RemoveParentheses: Leave
 RemoveSemicolon: false
-RequiresClausePosition: OwnLine # Introduced in Clang 12, removing
-RequiresExpressionIndentation: OuterScope # Introduced in Clang 12, removing
+RequiresClausePosition: OwnLine
+RequiresExpressionIndentation: OuterScope
 SeparateDefinitionBlocks: Leave
-ShortNamespaceLines: 1 # Introduced in Clang 12, removing
+ShortNamespaceLines: 1
 SkipMacroDefinitionBody: false
-SortIncludes: CaseSensitive
+SortIncludes:    CaseSensitive
 SortJavaStaticImport: Before
 SortUsingDeclarations: LexicographicNumeric
 SpaceAfterCStyleCast: false
@@ -233,64 +271,52 @@ SpaceBeforeCaseColon: false
 SpaceBeforeCpp11BracedList: false
 SpaceBeforeCtorInitializerColon: true
 SpaceBeforeInheritanceColon: true
-SpaceBeforeJsonColon: false # Introduced in Clang 13, removing
+SpaceBeforeJsonColon: false
 SpaceBeforeParens: ControlStatements
 SpaceBeforeParensOptions:
   AfterControlStatements: true
   AfterForeachMacros: true
   AfterFunctionDefinitionName: false
   AfterFunctionDeclarationName: false
-  AfterIfMacros: true
+  AfterIfMacros:   true
   AfterOverloadedOperator: false
   AfterPlacementOperator: true
-  AfterRequiresInClause: false # Introduced in Clang 12, removing
-  AfterRequiresInExpression: false # Introduced in Clang 12, removing
+  AfterRequiresInClause: false
+  AfterRequiresInExpression: false
   BeforeNonEmptyParentheses: false
 SpaceBeforeRangeBasedForLoopColon: true
 SpaceBeforeSquareBrackets: false
 SpaceInEmptyBlock: false
 SpacesBeforeTrailingComments: 2
-SpacesInAngles: Never
-SpacesInContainerLiterals: true # Introduced in Clang 11, removing
+SpacesInAngles:  Never
+SpacesInContainerLiterals: true
 SpacesInLineCommentPrefix:
-  Minimum: 1
-  Maximum: -1
-SpacesInParens: Never
+  Minimum:         1
+  Maximum:         -1
+SpacesInParens:  Never
 SpacesInParensOptions:
   ExceptDoubleParentheses: false
-  InCStyleCasts: false
+  InCStyleCasts:   false
   InConditionalStatements: false
   InEmptyParentheses: false
-  Other: false
+  Other:           false
 SpacesInSquareBrackets: false
-Standard: Auto
+Standard:        Auto
 StatementAttributeLikeMacros:
   - Q_EMIT
 StatementMacros:
   - Q_UNUSED
   - QT_REQUIRE_VERSION
-TableGenBreakInsideDAGArg: DontBreak # Introduced in Clang 13, removing
-TabWidth: 8
-UseTab: Never
-VerilogBreakBetweenInstancePorts: true # Not a standard C++ clang-format option. Removing.
+TableGenBreakInsideDAGArg: DontBreak
+TabWidth:        8
+UseTab:          Never
+VerilogBreakBetweenInstancePorts: true
 WhitespaceSensitiveMacros:
   - BOOST_PP_STRINGIZE
-  - CF_SWIFT_NAME # Swift related, removing if not C++ specific
-  - NS_SWIFT_NAME # Swift related, removing if not C++ specific
+  - CF_SWIFT_NAME
+  - NS_SWIFT_NAME
   - PP_STRINGIZE
   - STRINGIZE
 WrapNamespaceBodyWithEmptyLines: Leave
-# RawStringFormats (re-added simplified) - this is a complex one.
-# For Clang 10, the `RawStringFormats` structure is much simpler.
-# If your project uses raw strings and you need specific formatting for them,
-# you will likely need to test how Clang 10 handles them by default or
-# use a much simpler configuration.
-# The `Delimiters` and `BasedOnStyle` were the primary options in Clang 10,
-# but the nested structure you had is likely too complex.
-# The structure you provided for RawStringFormats (especially the nested `Language`)
-# appears to be from a much newer clang-format (Clang 13+).
-# It's safer to remove this complex block entirely for Clang 10 compatibility
-# or simplify it significantly if raw string formatting is critical.
-# For now, I'm removing the entire complex block as it's the safest bet for Clang 10.
-# If you absolutely need RawStringFormats, you'd be better off
-# upgrading clang-format on your runner to at least 13.
+...
+
