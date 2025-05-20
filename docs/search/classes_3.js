@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['hallhandler_0',['HallHandler',['../class_hall_handler.html',1,'']]]
+  ['hallhandler_0',['HallHandler',['../classHallHandler.html',1,'']]]
 ];

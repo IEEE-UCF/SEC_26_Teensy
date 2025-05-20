@@ -9,7 +9,7 @@
 #include <Arduino.h>  // For delay(), constrain()
 
 /**
- * @brief Constructs a BeaconSubsystem object.
+ * @brief Constructs a BeaconSubsystem object. (test flag2 dont worry)
  *  Initializes the beacon subsystem with the specific servo index it controls
  * and a reference to the shared ServoHandler.
  * @param servoIndex The index of the beacon servo managed by the ServoHandler.

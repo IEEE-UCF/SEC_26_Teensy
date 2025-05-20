@@ -179,40 +179,13 @@ void ServoHandler::SetServoAngleSmooth(int index, int angle, int speed) {
   if (index >= 0 && index < numServosControlled) {
     targetSmoothAngles[index] = constrain(angle, ANGLE_LOW, ANGLE_HIGH);
     anglesWrite[index] = targetSmoothAngles[index];  // Commanded angle reflects the ultimate target
-
-    // Custom speed for this specific movement could be stored per servo if needed.
-    // The current implementation uses globalMovementSpeed or an override 'speed' for the next
-    // update cycle. If 'speed' parameter should apply *only* to this call, this function or Update
-    // needs adjustment. For now, if speed is provided, it temporarily overrides globalMovementSpeed
-    // *during the Update call that processes this move*. A more robust way would be to store speed
-    // per servo or use SetGlobalSpeed. The original code's `movementSpeed = speed` inside Update
-    // suggests the parameter 'speed' to WriteServoAngleSmooth was intended to set the global speed.
-    // We'll stick to SetGlobalSpeed for that. This function just sets the target. The speed of
-    // approach is dictated by globalMovementSpeed. If the `speed` parameter here is truly meant to
-    // be a one-time override for THIS servo's move, then lastMoveTime might need to be reset or a
-    // per-servo speed array used. The original code had `movementSpeed = speed;` in
-    // `WriteServoAngleSmooth`, which would change global speed. Here, we assume 'speed' in the
-    // signature means the desired speed *for this specific transition if it differs from global*.
-    // However, the class structure only has one `globalMovementSpeed`.
-    // The most straightforward interpretation is that `speed` here is ignored if not setting a
-    // per-servo speed, or it's used to update `globalMovementSpeed` IF that was the intent. Given
-    // `SetGlobalSpeed` exists, this `speed` param is ambiguous. Let's assume it's an optional
-    // override for the global speed for this *servo's next movement calculation if Update() could
-    // use it*. Since Update() uses globalMovementSpeed, this param as-is doesn't do much unless we
-    // modify Update or store per-servo speeds. For now, it will be like the default: global speed
-    // applies. If a temporary override was intended: if (speed > 0) { /* Store temp_speed[index] =
-    // speed; or similar */ } And UpdateSmoothMovements would check temp_speed[index] first. For
-    // now, this function only sets the target. The speed of movement is set by SetGlobalSpeed.
   }
 }
 
 /**
  * @brief Updates the positions of servos performing smooth movements.
  *  This function must be called repeatedly (e.g., in the main Arduino loop)
- * to achieve smooth servo motion. For each servo, if its `currentPhysicalAngle` is
- * not yet at `targetSmoothAngle`, it calculates the small increment to move based on
- * `globalMovementSpeed` and the time elapsed since the last update.
- * The servo's physical position is then updated by this increment.
+ * to achieve smooth servo motion.
  */
 void ServoHandler::UpdateSmoothMovements() {
   unsigned long currentTime = millis();

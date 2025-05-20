@@ -14,7 +14,7 @@ ButtonHandler::ButtonHandler(int *kPins, int numPins) {
 }
 
 /**
- * @brief Initializes button pins as input with pull-up resistors.
+ * @brief Initializes button pins as input with pull-up resistors. (testflag 999)
  */
 void ButtonHandler::Begin() {
   for (int i = 0; i < numPins; i++) {

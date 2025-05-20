@@ -25,7 +25,7 @@
 var NAVTREE =
 [
   [ "IEEE UCF SEC Hardware Teensy", "index.html", [
-    [ "SoutheastCon 2026 Teensy", "md__r_e_a_d_m_e.html", null ],
+    [ "SoutheastCon 2026 Teensy", "md_README.html", null ],
     [ "Topics", "topics.html", "topics" ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
@@ -64,9 +64,10 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_beacon_subsystem_8cpp.html",
-"class_r_g_b_handler.html#a7a8e67d543a8e9d31f1dcfad3134ab59"
+"BeaconSubsystem_8cpp.html",
+"classPose2D.html#a925d35fcc25b400238c9164ff0406aa3",
+"paths_8h.html#a36bb89e582c81089784c48d1d1bccb41"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronization';
-var SYNCOFFMSG = 'click to enable panel synchronization';
+var SYNCONMSG = 'click to disable panel synchronisation';
+var SYNCOFFMSG = 'click to enable panel synchronisation';
