@@ -25,7 +25,6 @@ jobs:
       - name: Run clang-format
         id: clang_format
         run: |
-          clang-format --version
           # Find all C/C++/Objective-C source and header files
           # Adjust the file extensions to match your project
           find . -type f \( -name "*.ino" -name "*.c" -o -name "*.cpp" -o -name "*.cxx" -o -name "*.h" -o -name "*.hpp" -o -name "*.hxx" \) -exec clang-format -i {} \;
